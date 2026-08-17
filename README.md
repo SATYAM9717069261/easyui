@@ -14,46 +14,46 @@
   </p>
 
   <p>
-    <a href="#-features">Features</a> •
-    <a href="#-components">Components</a> •
-    <a href="#-quick-start">Quick Start</a> •
-    <a href="#-design-philosophy">Philosophy</a> •
-    <a href="#-tech-stack">Tech Stack</a> •
-    <a href="#-contributing">Contributing</a>
+    <a href="#features">Features</a> •
+    <a href="#components">Components</a> •
+    <a href="#quick-start">Quick Start</a> •
+    <a href="#design-philosophy">Philosophy</a> •
+    <a href="#tech-stack">Tech Stack</a> •
+    <a href="#contributing">Contributing</a>
   </p>
 </div>
 
 ---
 
-## ✦ Features
+## Features
 
-- 👾 **Full Source Ownership** — Not an opaque npm package dependency. Copy and paste components directly into your codebase and adapt freely.
-- ⚡ **Spring-Driven Physics** — Smooth, organic animations powered by Framer Motion rather than stiff linear bezier curves.
-- 🎨 **Sleek Dark Aesthetic** — Curated dark theme palette with subtle ambient glows, glassmorphic surfaces, and crisp typography (Geist / Inter).
-- 🧩 **TypeScript First** — Strongly typed prop definitions, exhaustive autocomplete, and clean interfaces.
-- ♿ **Accessible Foundations** — Built with WAI-ARIA best practices, keyboard navigation, and `prefers-reduced-motion` compliance.
-- 🪶 **Zero Bloat** — Minimal runtime overhead with maximum composability.
+- **Full Source Ownership** — Not an opaque npm package dependency. Copy and paste components directly into your codebase and adapt freely.
+- **Spring-Driven Physics** — Smooth, organic animations powered by Framer Motion rather than stiff linear bezier curves.
+- **Sleek Dark Aesthetic** — Curated dark theme palette with subtle ambient glows, glassmorphic surfaces, and crisp typography (Geist / Inter).
+- **TypeScript First** — Strongly typed prop definitions, exhaustive autocomplete, and clean interfaces.
+- **Accessible Foundations** — Built with WAI-ARIA best practices, keyboard navigation, and `prefers-reduced-motion` compliance.
+- **Zero Bloat** — Minimal runtime overhead with maximum composability.
 
 ---
 
-## 📦 Components
+## Components
 
 | Component | Category | Description | Highlights |
 |:---|:---|:---|:---|
-| **[DotField](#)** | Motion / Canvas | 60 FPS HTML5 particle matrix | Cursor proximity bulge, momentum speed, SVG radial glow aura |
-| **[SpotlightCard](#)** | Surface | Dynamic radial illumination | Hardware-accelerated pointer tracking & subtle ice-blue glow |
-| **[MagneticButton](#)** | Buttons | Spring coordinate tracking | Cursor pull proximity physics, 4 variants (Primary, Secondary, Outline, Ghost) |
-| **[AnimatedTabs](#)** | Navigation | Sliding background pills | Shared layout motion, customizable pill indicators |
-| **[FloatingActionDock](#)** | Navigation | Continuous magnification bar | macOS-inspired magnification curve with tooltips |
-| **[NotificationStack](#)** | Feedback | Stacked card feed | Drag-to-dismiss gesture physics, auto-dismiss, priority badges |
-| **[MorphingDialog](#)** | Overlay | Shared layout modal expansion | Smooth bounding-box interpolation without jarring popups |
-| **[RevealCard](#)** | Motion | 3D perspective tilt | Cursor-aware tilt angle with hidden telemetry drawer reveal |
-| **[SmoothAccordion](#)** | Feedback | Zero-jank collapsible panel | Natural height spring calculation with zero content clipping |
-| **[CommandMenu](#)** | Overlay | Global `⌘K` command palette | Quick keyboard actions, fuzzy filtering, grouped search results |
+| **DotField** | Motion / Canvas | 60 FPS HTML5 particle matrix | Cursor proximity bulge, momentum speed, SVG radial glow aura |
+| **SpotlightCard** | Surface | Dynamic radial illumination | Hardware-accelerated pointer tracking & subtle ice-blue glow |
+| **MagneticButton** | Buttons | Spring coordinate tracking | Cursor pull proximity physics, 4 variants (Primary, Secondary, Outline, Ghost) |
+| **AnimatedTabs** | Navigation | Sliding background pills | Shared layout motion, customizable pill indicators |
+| **FloatingActionDock** | Navigation | Continuous magnification bar | macOS-inspired magnification curve with tooltips |
+| **NotificationStack** | Feedback | Stacked card feed | Drag-to-dismiss gesture physics, auto-dismiss, priority badges |
+| **MorphingDialog** | Overlay | Shared layout modal expansion | Smooth bounding-box interpolation without jarring popups |
+| **RevealCard** | Motion | 3D perspective tilt | Cursor-aware tilt angle with hidden telemetry drawer reveal |
+| **SmoothAccordion** | Feedback | Zero-jank collapsible panel | Natural height spring calculation with zero content clipping |
+| **CommandMenu** | Overlay | Global `⌘K` command palette | Quick keyboard actions, fuzzy filtering, grouped search results |
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone the repository
 
@@ -88,7 +88,7 @@ Visit `http://localhost:5173` to explore the interactive showcase and live compo
 
 ---
 
-## 💻 Usage Example
+## Usage Example
 
 Copy any component from `src/components/ui/` into your project:
 
@@ -119,7 +119,7 @@ export function FeatureCard() {
 
 ---
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 ### 1. Copy-Paste Freedom
 You shouldn't fight an npm library's opinionated styles or version mismatches. Copy the component source into your project, customize the classes, and own your design system.
@@ -132,7 +132,7 @@ We prioritize content and clean interaction over noisy visual clutter. Quiet ice
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Framework:** [React 19](https://react.dev/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
@@ -143,7 +143,7 @@ We prioritize content and clean interaction over noisy visual clutter. Quiet ice
 
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```text
 easyui/
@@ -178,7 +178,7 @@ easyui/
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Surajmaurya1/easyui/issues).
 
@@ -190,10 +190,10 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 ---
 
-## 📄 License
+## License
 
 Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for more information.
 
 <div align="center">
-  <sub>Built with ❤️ for developers who care about interaction and craft.</sub>
+  <sub>Built for developers who care about interaction and craft.</sub>
 </div>
