@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Menu, X } from 'lucide-react';
 import { Container } from './Container';
 import { GithubIcon } from '../icons/GithubIcon';
@@ -100,46 +101,65 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-1.5 rounded-lg text-[#808080] hover:text-[#F5F5F5] hover:bg-[#101010] focus-ring"
+              className="md:hidden p-1.5 rounded-lg text-[#808080] hover:text-[#F5F5F5] hover:bg-[#101010] focus-ring transition-colors"
               aria-label="Toggle menu"
             >
-              {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              <motion.div
+                initial={false}
+                animate={{ rotate: mobileOpen ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              </motion.div>
             </button>
           </div>
         </div>
-
-        {/* Mobile Dropdown */}
-        {mobileOpen && (
-          <div className="md:hidden border-t border-[#161616] py-3 space-y-1">
-            <button
-              onClick={() => {
-                onNavigateComponents();
-                setMobileOpen(false);
-              }}
-              className="block w-full text-left px-3 py-2 text-xs text-[#808080] hover:text-[#F5F5F5] hover:bg-[#0E0E0E] rounded-md"
-            >
-              Components
-            </button>
-            <button
-              onClick={() => {
-                onNavigateDocs();
-                setMobileOpen(false);
-              }}
-              className="block w-full text-left px-3 py-2 text-xs text-[#808080] hover:text-[#F5F5F5] hover:bg-[#0E0E0E] rounded-md"
-            >
-              Docs & Installation
-            </button>
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full text-left px-3 py-2 text-xs text-[#808080] hover:text-[#F5F5F5] hover:bg-[#0E0E0E] rounded-md"
-            >
-              GitHub Repository
-            </a>
-          </div>
-        )}
       </Container>
+
+      {/* Mobile Floating Overlay Dropdown */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: -8, height: 0 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden absolute top-full left-0 right-0 border-b border-[#1A1A1A] bg-[#070707]/95 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.85)] overflow-hidden"
+          >
+            <Container size="xl">
+              <div className="py-3 space-y-1">
+                <button
+                  onClick={() => {
+                    onNavigateComponents();
+                    setMobileOpen(false);
+                  }}
+                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] rounded-lg transition-colors"
+                >
+                  Components
+                </button>
+                <button
+                  onClick={() => {
+                    onNavigateDocs();
+                    setMobileOpen(false);
+                  }}
+                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] rounded-lg transition-colors"
+                >
+                  Docs & Installation
+                </button>
+                <a
+                  href={GITHUB_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] rounded-lg transition-colors"
+                >
+                  GitHub Repository
+                </a>
+              </div>
+            </Container>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
+
