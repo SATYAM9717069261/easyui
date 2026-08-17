@@ -2,7 +2,12 @@ import React from 'react';
 import { Container } from './Container';
 import { GITHUB_URL, LINKEDIN_URL, EMAIL } from '../../lib/constants';
 
-export const Footer: React.FC = () => {
+export interface FooterProps {
+  onNavigateComponents?: () => void;
+  onNavigateDocs?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigateDocs }) => {
   return (
     <footer className="border-t border-[#181818] bg-[#050505] py-12 text-xs text-[#6F6F6F]">
       <Container size="xl">
@@ -22,12 +27,18 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-6 text-xs text-[#A1A1A1]">
-            <a href="#components-directory" className="hover:text-[#F5F5F5] transition-colors">
+            <button
+              onClick={onNavigateComponents}
+              className="hover:text-[#F5F5F5] transition-colors"
+            >
               Components
-            </a>
-            <a href="#dev-experience" className="hover:text-[#F5F5F5] transition-colors">
+            </button>
+            <button
+              onClick={onNavigateDocs}
+              className="hover:text-[#F5F5F5] transition-colors"
+            >
               Docs
-            </a>
+            </button>
             <a
               href={GITHUB_URL}
               target="_blank"
@@ -40,13 +51,13 @@ export const Footer: React.FC = () => {
               href={LINKEDIN_URL}
               target="_blank"
               rel="noreferrer"
-              className="hover:text-[#38BDF8] transition-colors"
+              className="hover:text-[#F5F5F5] transition-colors"
             >
               LinkedIn
             </a>
             <a
               href={`mailto:${EMAIL}`}
-              className="hover:text-[#38BDF8] transition-colors"
+              className="hover:text-[#F5F5F5] transition-colors"
             >
               Contact
             </a>
@@ -57,7 +68,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="mt-8 pt-6 border-t border-[#121212] flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-[#555555]">
-          <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-[#A1A1A1] hover:text-[#38BDF8] transition-colors font-medium">Suraj Maurya</a>. Open source & copy-paste friendly.</span>
+          <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-[#A1A1A1] hover:text-white transition-colors font-medium">Suraj Maurya</a>. Open source & copy-paste friendly.</span>
           <span>Built with React, TypeScript & Motion.</span>
         </div>
       </Container>

@@ -8,12 +8,16 @@ export interface NavbarProps {
   onOpenSearch: () => void;
   onNavigateComponents: () => void;
   onNavigateDocs: () => void;
+  onNavigateHome?: () => void;
+  activeView?: 'showcase' | 'docs';
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenSearch,
   onNavigateComponents,
   onNavigateDocs,
+  onNavigateHome,
+  activeView = 'showcase',
 }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -22,8 +26,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <Container size="xl">
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
-          <a
-            href="#"
+          <button
+            onClick={onNavigateHome || onNavigateComponents}
             className="flex items-center gap-2.5 group cursor-pointer focus-ring rounded-md py-1"
           >
             <img
@@ -31,27 +35,30 @@ export const Navbar: React.FC<NavbarProps> = ({
               alt="EasyUI Logo"
               className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-200"
             />
-           <span className="text-sm font-medium tracking-[0.02em] text-[#F5F5F5] font-mono group-hover:text-white transition-colors">
-  easyui
-</span>
-
-
-            {/* <span className="text-[10px] font-mono text-[#6F6F6F] px-1.5 py-0.5 rounded bg-[#101010] border border-[#1E1E1E]">
-              v1.0
-            </span> */}
-          </a>
+            <span className="text-sm font-medium tracking-[0.02em] text-[#F5F5F5] font-mono group-hover:text-white transition-colors">
+              easyui
+            </span>
+          </button>
 
           {/* Desktop Center Navigation */}
           <nav className="hidden md:flex items-center gap-6">
             <button
               onClick={onNavigateComponents}
-              className="text-xs font-medium text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors"
+              className={`text-xs font-medium transition-colors ${
+                activeView === 'showcase'
+                  ? 'text-white font-semibold'
+                  : 'text-[#A1A1A1] hover:text-[#F5F5F5]'
+              }`}
             >
               Components
             </button>
             <button
               onClick={onNavigateDocs}
-              className="text-xs font-medium text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors"
+              className={`text-xs font-medium transition-colors ${
+                activeView === 'docs'
+                  ? 'text-white font-semibold'
+                  : 'text-[#A1A1A1] hover:text-[#F5F5F5]'
+              }`}
             >
               Docs
             </button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Sparkles, Layout, BookOpen, Terminal, CornerDownLeft } from 'lucide-react';
+import { Search, Sparkles, Layout, BookOpen, Terminal, CornerDownLeft, Cpu, GitPullRequest, Sliders } from 'lucide-react';
 import { GithubIcon } from '../icons/GithubIcon';
 import { cn } from '../../lib/utils';
 import { motionTransitions } from '../../lib/motion-tokens';
@@ -20,12 +20,14 @@ export interface CommandMenuProps {
   isOpen: boolean;
   onClose: () => void;
   onSelectComponent?: (id: string) => void;
+  onNavigateDocs?: (topicId?: string) => void;
 }
 
 export const CommandMenu: React.FC<CommandMenuProps> = ({
   isOpen,
   onClose,
   onSelectComponent,
+  onNavigateDocs,
 }) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -36,7 +38,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
       id: comp.id,
       title: comp.name,
       category: 'Components',
-      icon: comp.category === 'Motion' ? <Sparkles className="w-4 h-4 text-[#38BDF8]" /> : <Layout className="w-4 h-4 text-[#38BDF8]" />,
+      icon: comp.category === 'Motion' ? <Sparkles className="w-4 h-4 text-[#D4D4D4]" /> : <Layout className="w-4 h-4 text-[#D4D4D4]" />,
       shortcut: 'C',
       onSelect: () => {
         onSelectComponent?.(comp.id);
@@ -44,34 +46,70 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
       },
     }));
 
-    const staticEntries: CommandItem[] = [
+    const docEntries: CommandItem[] = [
       {
-        id: 'installation-docs',
-        title: 'Quickstart & Installation',
+        id: 'doc-intro',
+        title: 'Docs: Introduction & Vision',
         category: 'Documentation',
-        icon: <BookOpen className="w-4 h-4 text-emerald-400" />,
+        icon: <BookOpen className="w-4 h-4 text-[#ECECEC]" />,
         shortcut: 'D',
         onSelect: () => {
-          document.getElementById('dev-experience')?.scrollIntoView({ behavior: 'smooth' });
+          onNavigateDocs?.('introduction');
           onClose();
         },
       },
       {
-        id: 'motion-tokens',
-        title: 'Motion Design Tokens',
+        id: 'doc-quickstart',
+        title: 'Docs: Quick Start & shadcn CLI',
         category: 'Documentation',
-        icon: <BookOpen className="w-4 h-4 text-emerald-400" />,
+        icon: <Terminal className="w-4 h-4 text-[#ECECEC]" />,
         shortcut: 'D',
         onSelect: () => {
-          document.getElementById('motion-showcase')?.scrollIntoView({ behavior: 'smooth' });
+          onNavigateDocs?.('quick-start');
           onClose();
         },
       },
+      {
+        id: 'doc-architecture',
+        title: 'Docs: Automatic Structure & Registry Engine',
+        category: 'Documentation',
+        icon: <Cpu className="w-4 h-4 text-[#ECECEC]" />,
+        shortcut: 'D',
+        onSelect: () => {
+          onNavigateDocs?.('architecture');
+          onClose();
+        },
+      },
+      {
+        id: 'doc-collaboration',
+        title: 'Docs: How to Collaborate & Add Components',
+        category: 'Documentation',
+        icon: <GitPullRequest className="w-4 h-4 text-[#ECECEC]" />,
+        shortcut: 'D',
+        onSelect: () => {
+          onNavigateDocs?.('collaboration');
+          onClose();
+        },
+      },
+      {
+        id: 'doc-motion',
+        title: 'Docs: Motion Tokens & Physics Curves',
+        category: 'Documentation',
+        icon: <Sliders className="w-4 h-4 text-[#ECECEC]" />,
+        shortcut: 'D',
+        onSelect: () => {
+          onNavigateDocs?.('motion');
+          onClose();
+        },
+      },
+    ];
+
+    const actionEntries: CommandItem[] = [
       {
         id: 'cli-add',
         title: 'Copy CLI Add Command',
         category: 'Actions',
-        icon: <Terminal className="w-4 h-4 text-amber-400" />,
+        icon: <Terminal className="w-4 h-4 text-[#A1A1A1]" />,
         shortcut: '⌘C',
         onSelect: () => {
           navigator.clipboard.writeText('npx shadcn@latest add Surajmaurya1/easyui/magnetic-button');
@@ -91,8 +129,8 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
       },
     ];
 
-    return [...componentEntries, ...staticEntries];
-  }, [onSelectComponent, onClose]);
+    return [...componentEntries, ...docEntries, ...actionEntries];
+  }, [onSelectComponent, onNavigateDocs, onClose]);
 
   const filteredItems = useMemo(() => {
     return commandItems.filter(
@@ -162,7 +200,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                   setQuery(e.target.value);
                   setSelectedIndex(0);
                 }}
-                placeholder="Type a command or search components..."
+                placeholder="Type a command or search components, docs..."
                 className="w-full bg-transparent text-sm text-[#F5F5F5] placeholder-[#6F6F6F] focus:outline-none"
               />
               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#181818] border border-[#242424] text-[#6F6F6F]">
@@ -174,7 +212,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             <div className="max-h-80 overflow-y-auto p-2 divide-y divide-[#161616]/50">
               {filteredItems.length === 0 ? (
                 <div className="py-10 text-center text-xs text-[#6F6F6F]">
-                  No commands or components matching "{query}"
+                  No commands or documentation matching "{query}"
                 </div>
               ) : (
                 <div className="space-y-1">
@@ -201,7 +239,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                         </div>
                         <div className="flex items-center gap-2">
                           {isSelected && (
-                            <CornerDownLeft className="w-3 h-3 text-[#38BDF8]" />
+                            <CornerDownLeft className="w-3 h-3 text-white" />
                           )}
                           {item.shortcut && (
                             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#202020] text-[#6F6F6F]">
