@@ -30,7 +30,7 @@ export const NotificationStack: React.FC<NotificationStackProps> = ({
     {
       id: '2',
       title: 'Component Synced',
-      description: '@easyui/magnetic-button updated to latest tokens.',
+      description: 'magnetic-button synced from EasyUI GitHub registry.',
       type: 'info',
       time: '2m ago',
     },

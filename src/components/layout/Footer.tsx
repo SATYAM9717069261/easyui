@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from './Container';
+import { GITHUB_URL } from '../../lib/constants';
 
 export const Footer: React.FC = () => {
   return (
@@ -28,7 +29,7 @@ export const Footer: React.FC = () => {
               Docs
             </a>
             <a
-              href="https://github.com"
+              href={GITHUB_URL}
               target="_blank"
               rel="noreferrer"
               className="hover:text-[#F5F5F5] transition-colors"

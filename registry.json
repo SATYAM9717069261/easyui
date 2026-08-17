@@ -1,0 +1,290 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "easyui",
+  "homepage": "https://github.com/Surajmaurya1/easyui",
+  "items": [
+    {
+      "name": "animated-tabs",
+      "type": "registry:ui",
+      "title": "Animated Tabs",
+      "description": "A tabbed switcher with physical pill indicator sliding smoothly between active items with content cross-fades.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/AnimatedTabs.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/animated-tabs.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "command-menu",
+      "type": "registry:ui",
+      "title": "Command Menu",
+      "description": "A global keyboard-first command palette with fuzzy filtering, category badges, and keyboard arrow controls.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/CommandMenu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/command-menu.tsx"
+        },
+        {
+          "path": "src/components/icons/GithubIcon.tsx",
+          "type": "registry:ui",
+          "target": "components/icons/github-icon.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        },
+        {
+          "path": "src/lib/constants.ts",
+          "type": "registry:lib",
+          "target": "lib/constants.ts"
+        }
+      ]
+    },
+    {
+      "name": "dot-field",
+      "type": "registry:ui",
+      "title": "Dot Field",
+      "description": "High-performance interactive Canvas dot matrix from React Bits with cursor proximity physics, radial glow aura, and customizable dispersion.",
+      "files": [
+        {
+          "path": "src/components/ui/DotField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dot-field.tsx"
+        },
+        {
+          "path": "src/components/ui/DotField.css",
+          "type": "registry:ui",
+          "target": "components/ui/dot-field.css"
+        }
+      ]
+    },
+    {
+      "name": "expandable-search",
+      "type": "registry:ui",
+      "title": "Expandable Search",
+      "description": "A compact search pill that smoothly widens on focus with shortcut hint pills and clear button.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/ExpandableSearch.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/expandable-search.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "floating-action-dock",
+      "type": "registry:ui",
+      "title": "Floating Action Dock",
+      "description": "A floating quick-action toolbar inspired by macOS dock physics with smooth magnification and subtle tooltips.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/FloatingActionDock.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/floating-action-dock.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "magnetic-button",
+      "type": "registry:ui",
+      "title": "Magnetic Button",
+      "description": "A responsive button with subtle proximity-based physics that pulls towards the cursor on hover and snaps back on departure.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/MagneticButton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/magnetic-button.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "morphing-dialog",
+      "type": "registry:ui",
+      "title": "Morphing Dialog",
+      "description": "An expandable card trigger that fluidly morphs into a centered dialog without jarring popup animations.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/MorphingDialog.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/morphing-dialog.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "notification-stack",
+      "type": "registry:ui",
+      "title": "Notification Stack",
+      "description": "A stacked notification card system with physical spring stacking elevation, swipe-to-dismiss drag, and simulation triggers.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NotificationStack.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/notification-stack.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "reveal-card",
+      "type": "registry:ui",
+      "title": "Reveal Card",
+      "description": "A high-definition product card with smooth cursor-driven 3D perspective rotation, dynamic glare, and revealed content.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/RevealCard.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/reveal-card.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "smooth-accordion",
+      "type": "registry:ui",
+      "title": "Smooth Accordion",
+      "description": "An accordion component with physics height transition, rotating chevron indicators, and accessible keyboard toggles.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/SmoothAccordion.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/smooth-accordion.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "spotlight-card",
+      "type": "registry:ui",
+      "title": "Spotlight Card",
+      "description": "A dark elevated surface that illuminates border and inner surfaces dynamically based on mouse pointer coordinates.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/SpotlightCard.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/spotlight-card.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    }
+  ]
+}

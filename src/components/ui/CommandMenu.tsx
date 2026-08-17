@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Sparkles, Layout, BookOpen, Terminal, CornerDownLeft } from 'lucide-react';
 import { GithubIcon } from '../icons/GithubIcon';
 import { cn } from '../../lib/utils';
 import { motionTransitions } from '../../lib/motion-tokens';
+import { GITHUB_URL } from '../../lib/constants';
+import { EASY_COMPONENTS } from '../registry/components-data';
 
 export interface CommandItem {
   id: string;
@@ -28,112 +30,77 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const commandItems: CommandItem[] = [
-    {
-      id: 'magnetic-button',
-      title: 'Magnetic Button',
+  const commandItems: CommandItem[] = useMemo(() => {
+    // Dynamic component entries derived from generated catalog
+    const componentEntries: CommandItem[] = EASY_COMPONENTS.map((comp) => ({
+      id: comp.id,
+      title: comp.name,
       category: 'Components',
-      icon: <Sparkles className="w-4 h-4 text-[#38BDF8]" />,
+      icon: comp.category === 'Motion' ? <Sparkles className="w-4 h-4 text-[#38BDF8]" /> : <Layout className="w-4 h-4 text-[#38BDF8]" />,
       shortcut: 'C',
       onSelect: () => {
-        onSelectComponent?.('magnetic-button');
+        onSelectComponent?.(comp.id);
         onClose();
       },
-    },
-    {
-      id: 'morphing-dialog',
-      title: 'Morphing Dialog',
-      category: 'Components',
-      icon: <Layout className="w-4 h-4 text-[#38BDF8]" />,
-      shortcut: 'C',
-      onSelect: () => {
-        onSelectComponent?.('morphing-dialog');
-        onClose();
-      },
-    },
-    {
-      id: 'spotlight-card',
-      title: 'Spotlight Card',
-      category: 'Components',
-      icon: <Sparkles className="w-4 h-4 text-[#38BDF8]" />,
-      shortcut: 'C',
-      onSelect: () => {
-        onSelectComponent?.('spotlight-card');
-        onClose();
-      },
-    },
-    {
-      id: 'floating-dock',
-      title: 'Floating Action Dock',
-      category: 'Components',
-      icon: <Layout className="w-4 h-4 text-[#38BDF8]" />,
-      shortcut: 'C',
-      onSelect: () => {
-        onSelectComponent?.('floating-dock');
-        onClose();
-      },
-    },
-    {
-      id: 'notification-stack',
-      title: 'Notification Stack',
-      category: 'Components',
-      icon: <Layout className="w-4 h-4 text-[#38BDF8]" />,
-      shortcut: 'C',
-      onSelect: () => {
-        onSelectComponent?.('notification-stack');
-        onClose();
-      },
-    },
-    {
-      id: 'installation-docs',
-      title: 'Quickstart & Installation',
-      category: 'Documentation',
-      icon: <BookOpen className="w-4 h-4 text-emerald-400" />,
-      shortcut: 'D',
-      onSelect: () => {
-        document.getElementById('dev-experience')?.scrollIntoView({ behavior: 'smooth' });
-        onClose();
-      },
-    },
-    {
-      id: 'motion-tokens',
-      title: 'Motion Design Tokens',
-      category: 'Documentation',
-      icon: <BookOpen className="w-4 h-4 text-emerald-400" />,
-      shortcut: 'D',
-      onSelect: () => {
-        document.getElementById('motion-showcase')?.scrollIntoView({ behavior: 'smooth' });
-        onClose();
-      },
-    },
-    {
-      id: 'cli-add',
-      title: 'Copy CLI Add Command',
-      category: 'Actions',
-      icon: <Terminal className="w-4 h-4 text-amber-400" />,
-      shortcut: '⌘C',
-      onSelect: () => {
-        navigator.clipboard.writeText('npx shadcn@latest add @easyui/magnetic-button');
-        onClose();
-      },
-    },
-    {
-      id: 'github-repo',
-      title: 'View GitHub Repository',
-      category: 'Navigation',
-      icon: <GithubIcon className="w-4 h-4 text-[#A1A1A1]" />,
-      shortcut: 'G',
-      onSelect: () => {
-        window.open('https://github.com', '_blank');
-        onClose();
-      },
-    },
-  ];
+    }));
 
-  const filteredItems = commandItems.filter((item) =>
-    item.title.toLowerCase().includes(query.toLowerCase()) ||
-    item.category.toLowerCase().includes(query.toLowerCase())
-  );
+    const staticEntries: CommandItem[] = [
+      {
+        id: 'installation-docs',
+        title: 'Quickstart & Installation',
+        category: 'Documentation',
+        icon: <BookOpen className="w-4 h-4 text-emerald-400" />,
+        shortcut: 'D',
+        onSelect: () => {
+          document.getElementById('dev-experience')?.scrollIntoView({ behavior: 'smooth' });
+          onClose();
+        },
+      },
+      {
+        id: 'motion-tokens',
+        title: 'Motion Design Tokens',
+        category: 'Documentation',
+        icon: <BookOpen className="w-4 h-4 text-emerald-400" />,
+        shortcut: 'D',
+        onSelect: () => {
+          document.getElementById('motion-showcase')?.scrollIntoView({ behavior: 'smooth' });
+          onClose();
+        },
+      },
+      {
+        id: 'cli-add',
+        title: 'Copy CLI Add Command',
+        category: 'Actions',
+        icon: <Terminal className="w-4 h-4 text-amber-400" />,
+        shortcut: '⌘C',
+        onSelect: () => {
+          navigator.clipboard.writeText('npx shadcn@latest add Surajmaurya1/easyui/magnetic-button');
+          onClose();
+        },
+      },
+      {
+        id: 'github-repo',
+        title: 'View GitHub Repository',
+        category: 'Navigation',
+        icon: <GithubIcon className="w-4 h-4 text-[#A1A1A1]" />,
+        shortcut: 'G',
+        onSelect: () => {
+          window.open(GITHUB_URL, '_blank');
+          onClose();
+        },
+      },
+    ];
+
+    return [...componentEntries, ...staticEntries];
+  }, [onSelectComponent, onClose]);
+
+  const filteredItems = useMemo(() => {
+    return commandItems.filter(
+      (item) =>
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.category.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [commandItems, query]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

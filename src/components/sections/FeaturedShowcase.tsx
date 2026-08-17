@@ -4,6 +4,7 @@ import { SpotlightCard } from '../ui/SpotlightCard';
 import { MagneticButton } from '../ui/MagneticButton';
 import { MorphingDialog } from '../ui/MorphingDialog';
 import { FloatingActionDock } from '../ui/FloatingActionDock';
+import { EASY_COMPONENTS } from '../registry/components-data';
 import { ArrowUpRight, Shield, Zap, Terminal, Code2, Globe, Database } from 'lucide-react';
 
 export interface FeaturedShowcaseProps {
@@ -40,7 +41,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
             onClick={() => onSelectComponent('spotlight-card')}
             className="text-xs font-mono text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors flex items-center gap-1.5 self-start md:self-auto"
           >
-            <span>Inspect all 10 components</span>
+            <span>Inspect all {EASY_COMPONENTS.length} components</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>

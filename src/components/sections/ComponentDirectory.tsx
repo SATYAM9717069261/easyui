@@ -97,6 +97,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
             />
           </div>
         );
+      case 'floating-action-dock':
       case 'floating-dock':
         return (
           <div className="h-40 flex items-center justify-center p-4">

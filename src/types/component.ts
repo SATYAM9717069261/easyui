@@ -7,12 +7,33 @@ export interface ComponentProp {
   description: string;
 }
 
+/**
+ * Human-written metadata for an EasyUI component.
+ * Slugs, dependencies, source paths, and CLI commands are auto-derived.
+ */
+export interface EasyUIComponentMeta {
+  title: string;
+  description: string;
+  category?: Exclude<ComponentCategory, 'All'>;
+  tagline?: string;
+  badges?: string[];
+  props?: ComponentProp[];
+  accessibility?: string[];
+  features?: string[];
+  usageCode?: string;
+  featured?: boolean;
+}
+
+/**
+ * Complete component catalog entry used across the EasyUI website.
+ * Contains human-written metadata + auto-derived attributes.
+ */
 export interface EasyComponentMeta {
   id: string;
   name: string;
   tagline: string;
   description: string;
-  category: ComponentCategory;
+  category: Exclude<ComponentCategory, 'All'>;
   badges: string[];
   cliCommand: string;
   usageCode: string;
@@ -20,4 +41,11 @@ export interface EasyComponentMeta {
   props: ComponentProp[];
   accessibility: string[];
   features: string[];
+  dependencies?: string[];
+  registryDependencies?: string[];
+  files?: Array<{
+    path: string;
+    type: 'registry:ui' | 'registry:lib' | 'registry:hook' | 'registry:component' | 'registry:block' | 'registry:page';
+    target?: string;
+  }>;
 }

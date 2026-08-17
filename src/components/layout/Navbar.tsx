@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, Menu, X } from 'lucide-react';
 import { Container } from './Container';
 import { GithubIcon } from '../icons/GithubIcon';
+import { GITHUB_URL } from '../../lib/constants';
 
 export interface NavbarProps {
   onOpenSearch: () => void;
@@ -55,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               Docs
             </button>
             <a
-              href="https://github.com"
+              href={GITHUB_URL}
               target="_blank"
               rel="noreferrer"
               className="text-xs font-medium text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors"
@@ -80,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* GitHub icon link */}
             <a
-              href="https://github.com"
+              href={GITHUB_URL}
               target="_blank"
               rel="noreferrer"
               className="p-2 rounded-lg border border-transparent hover:border-[#1E1E1E] hover:bg-[#101010] text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors focus-ring"
@@ -122,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               Docs & Installation
             </button>
             <a
-              href="https://github.com"
+              href={GITHUB_URL}
               target="_blank"
               rel="noreferrer"
               className="block w-full text-left px-3 py-2 text-sm text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#101010] rounded-lg"

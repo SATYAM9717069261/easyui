@@ -3,6 +3,7 @@ import { Container } from '../layout/Container';
 import { MagneticButton } from '../ui/MagneticButton';
 import { ArrowRight } from 'lucide-react';
 import { GithubIcon } from '../icons/GithubIcon';
+import { GITHUB_URL } from '../../lib/constants';
 
 export interface FinalCtaProps {
   onBrowse: () => void;
@@ -39,7 +40,7 @@ export const FinalCta: React.FC<FinalCtaProps> = ({ onBrowse }) => {
             <MagneticButton
               variant="secondary"
               size="lg"
-              onClick={() => window.open('https://github.com', '_blank')}
+              onClick={() => window.open(GITHUB_URL, '_blank')}
             >
               <GithubIcon className="w-4 h-4" />
               <span>GitHub</span>
