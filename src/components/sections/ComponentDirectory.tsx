@@ -195,7 +195,12 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
           </div>
         );
       default:
-        return null;
+        return (
+          <div className="h-40 flex flex-col items-center justify-center p-4 text-center">
+            <span className="text-xs font-semibold text-[#F5F5F5] mb-1">{comp.name}</span>
+            <span className="text-[11px] text-[#737373] line-clamp-2 max-w-[200px]">{comp.tagline}</span>
+          </div>
+        );
     }
   };
 
@@ -212,7 +217,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
               Components
             </h2>
             <p className="text-sm text-[#808080] mt-1.5">
-              11 polished components crafted for tactile feedback and copy-paste ownership.
+              {EASY_COMPONENTS.length} polished components crafted for tactile feedback and copy-paste ownership.
             </p>
           </div>
 

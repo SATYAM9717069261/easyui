@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { X, Copy, Check, Terminal, Code2, Sparkles, ShieldCheck, Eye, Layers } from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
@@ -26,6 +26,24 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'preview' | 'install' | 'usage' | 'source' | 'api' | 'a11y'>('preview');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!component) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [component, onClose]);
 
   if (!component) return null;
 
@@ -183,12 +201,22 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
           </div>
         );
       default:
-        return null;
+        return (
+          <div className="py-12 text-center text-xs text-[#808080]">
+            <p className="font-mono text-[#D4D4D4] mb-1">{component.name}</p>
+            <p>{component.tagline || 'Interactive preview ready for customization.'}</p>
+          </div>
+        );
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-label={component.name}
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -304,7 +332,18 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 
               <div className="p-4 rounded-xl border border-[#1A1A1A] bg-[#0E0E0E] space-y-2">
                 <h5 className="text-xs font-semibold text-[#F5F5F5]">Dependencies</h5>
-                <p className="text-xs text-[#6F6F6F]">Requires: <code className="text-[#A1A1A1]">framer-motion</code>, <code className="text-[#A1A1A1]">lucide-react</code>, <code className="text-[#A1A1A1]">tailwindcss</code></p>
+                <p className="text-xs text-[#6F6F6F]">
+                  Requires: {component.dependencies && component.dependencies.length > 0 ? (
+                    component.dependencies.map((dep, idx) => (
+                      <span key={dep}>
+                        <code className="text-[#A1A1A1] bg-[#141414] px-1.5 py-0.5 rounded font-mono">{dep}</code>
+                        {idx < component.dependencies!.length - 1 ? ', ' : ''}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-[#A1A1A1]">No external npm dependencies (Tailwind CSS only)</span>
+                  )}
+                </p>
               </div>
             </div>
           )}

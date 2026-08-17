@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Sparkles, Layout, BookOpen, Terminal, CornerDownLeft, Cpu, GitPullRequest, Sliders } from 'lucide-react';
 import { GithubIcon } from '../icons/GithubIcon';
-import { cn } from '../../lib/utils';
+import { cn, copyToClipboard } from '../../lib/utils';
 import { motionTransitions } from '../../lib/motion-tokens';
 import { GITHUB_URL } from '../../lib/constants';
 import { EASY_COMPONENTS } from '../registry/components-data';
@@ -112,7 +112,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
         icon: <Terminal className="w-4 h-4 text-[#A1A1A1]" />,
         shortcut: '⌘C',
         onSelect: () => {
-          navigator.clipboard.writeText('npx shadcn@latest add Surajmaurya1/easyui/magnetic-button');
+          copyToClipboard('npx shadcn@latest add Surajmaurya1/easyui/magnetic-button');
           onClose();
         },
       },
@@ -123,7 +123,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
         icon: <GithubIcon className="w-4 h-4 text-[#A1A1A1]" />,
         shortcut: 'G',
         onSelect: () => {
-          window.open(GITHUB_URL, '_blank');
+          window.open(GITHUB_URL, '_blank', 'noopener,noreferrer');
           onClose();
         },
       },
@@ -171,7 +171,12 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 sm:px-6">
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 sm:px-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Command palette"
+        >
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -209,7 +214,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             </div>
 
             {/* Results List */}
-            <div className="max-h-80 overflow-y-auto p-1.5">
+            <div className="max-h-80 overflow-y-auto p-1.5" role="listbox">
               {filteredItems.length === 0 ? (
                 <div className="py-8 text-center text-xs text-[#606060]">
                   No commands or documentation matching "{query}"
@@ -223,6 +228,8 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                         key={item.id}
                         onClick={item.onSelect}
                         onMouseEnter={() => setSelectedIndex(idx)}
+                        role="option"
+                        aria-selected={isSelected}
                         className={cn(
                           'flex w-full items-center justify-between px-3 py-2 rounded-md text-xs transition-colors text-left',
                           isSelected

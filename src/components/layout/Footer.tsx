@@ -42,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
             <a
               href={GITHUB_URL}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-[#F5F5F5] transition-colors"
             >
               GitHub
@@ -50,7 +50,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
             <a
               href={LINKEDIN_URL}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-[#F5F5F5] transition-colors"
             >
               LinkedIn
@@ -65,7 +65,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
         </div>
 
         <div className="mt-8 pt-5 border-t border-[#101010] flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-[#555555]">
-          <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-[#808080] hover:text-white transition-colors">Suraj Maurya</a>. Open source & copy-paste friendly.</span>
+          <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="text-[#808080] hover:text-white transition-colors">Suraj Maurya</a>. Open source & copy-paste friendly.</span>
           <span>React · TypeScript · Motion</span>
         </div>
       </Container>

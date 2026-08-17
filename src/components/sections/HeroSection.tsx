@@ -3,10 +3,11 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Check, Copy, ChevronRight } from 'lucide-react';
 import { Container } from '../layout/Container';
 import { DotField } from '../ui/DotField';
+import { copyToClipboard } from '../../lib/utils';
 
 export interface HeroSectionProps {
   onExplore: () => void;
-  onSelectComponent: (id: string) => void;
+  onSelectComponent?: (id: string) => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -16,7 +17,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const [activeTab, setActiveTab] = useState<'cli' | 'react'>('cli');
 
   const copyInstallCommand = () => {
-    navigator.clipboard.writeText('npx shadcn@latest add Surajmaurya1/easyui/magnetic-button');
+    copyToClipboard('npx shadcn@latest add Surajmaurya1/easyui/magnetic-button');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -254,68 +255,34 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       <span className="w-6 select-none text-right">5</span>
                       <span className="text-[#ECECEC]">✔ Done. File added: components/ui/magnetic-button.tsx</span>
                     </div>
-                    <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525252]">6</span>
-                      <div>
-                        <span className="text-[#888888]">const </span>
-                        <span className="text-[#D4D4D4]">easyUI </span>
-                        <span className="text-[#A1A1A1]">= </span>
-                        <span className="text-[#888888]">await </span>
-                        <span className="text-white">EasyUI</span>
-                        <span className="text-[#888888]">.initialize({'{'}</span>
-                      </div>
+                    <div className="flex gap-4 text-[#525252]">
+                      <span className="w-6 select-none text-right">6</span>
+                      <span></span>
                     </div>
                     <div className="flex gap-4">
                       <span className="w-6 select-none text-right text-[#525252]">7</span>
-                      <div className="pl-4">
-                        <span className="text-[#A1A1A1]">theme: </span>
-                        <span className="text-white">'dark'</span>
-                        <span className="text-[#888888]">,</span>
+                      <div>
+                        <span className="text-[#A1A1A1]">$ </span>
+                        <span className="text-[#F5F5F5]">npx shadcn@latest add </span>
+                        <span className="text-[#D4D4D4]">Surajmaurya1/easyui/</span>
+                        <span className="text-white">spotlight-card</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
                       <span className="w-6 select-none text-right text-[#525252]">8</span>
-                      <div className="pl-4">
-                        <span className="text-[#A1A1A1]">motion: </span>
-                        <span className="text-white">'spring-snappy'</span>
-                        <span className="text-[#888888]">,</span>
-                      </div>
+                      <span className="text-[#ECECEC]">✔ Resolved Surajmaurya1/easyui registry</span>
                     </div>
-                    <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525252]">9</span>
-                      <div className="pl-4">
-                        <span className="text-[#A1A1A1]">physics: </span>
-                        <span className="text-[#888888]">{'{ '}</span>
-                        <span className="text-[#A1A1A1]">damping: </span>
-                        <span className="text-[#E5E5E5]">26</span>
-                        <span className="text-[#888888]">, </span>
-                        <span className="text-[#A1A1A1]">stiffness: </span>
-                        <span className="text-[#E5E5E5]">280</span>
-                        <span className="text-[#888888]">{' }'}</span>
-                      </div>
+                    <div className="flex gap-4 text-[#525252]">
+                      <span className="w-6 select-none text-right">9</span>
+                      <span className="text-[#ECECEC]">✔ Done. File added: components/ui/spotlight-card.tsx</span>
                     </div>
-                    <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525252]">10</span>
-                      <div>
-                        <span className="text-[#888888]">{'}'});</span>
-                      </div>
+                    <div className="flex gap-4 text-[#525252]">
+                      <span className="w-6 select-none text-right">10</span>
+                      <span></span>
                     </div>
                     <div className="flex gap-4 text-[#525252]">
                       <span className="w-6 select-none text-right">11</span>
-                      <span></span>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525252]">12</span>
-                      <div>
-                        <span className="text-[#888888]">const </span>
-                        <span className="text-[#D4D4D4]">instance </span>
-                        <span className="text-[#A1A1A1]">= </span>
-                        <span className="text-[#888888]">await </span>
-                        <span className="text-[#D4D4D4]">easyUI</span>
-                        <span className="text-[#888888]">.mount(</span>
-                        <span className="text-white">'DotField'</span>
-                        <span className="text-[#888888]">);</span>
-                      </div>
+                      <span className="text-[#A1A1A1]">✨ Ready! Import directly from '@/components/ui'</span>
                     </div>
                   </div>
                 ) : (
@@ -358,10 +325,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       <div className="pl-8">
                         <span className="text-[#6F6F6F]">&lt;</span>
                         <span className="text-white">SpotlightCard </span>
-                        <span className="text-[#D4D4D4]">glowRadius</span>
+                        <span className="text-[#D4D4D4]">spotlightSize</span>
                         <span className="text-[#6F6F6F]">=</span>
                         <span className="text-[#888888]">{'{'}</span>
-                        <span className="text-[#ECECEC]">180</span>
+                        <span className="text-[#ECECEC]">350</span>
                         <span className="text-[#888888]">{'}'}</span>
                         <span className="text-[#6F6F6F]">&gt;</span>
                       </div>

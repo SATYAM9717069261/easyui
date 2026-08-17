@@ -17,6 +17,7 @@ export interface AnimatedTabsProps {
   onChange?: (tabId: string) => void;
   className?: string;
   renderContent?: boolean;
+  layoutId?: string;
 }
 
 export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
@@ -25,8 +26,11 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
   onChange,
   className,
   renderContent = true,
+  layoutId: customLayoutId,
 }) => {
   const [activeTab, setActiveTab] = useState<string>(defaultTab || tabs[0]?.id || '');
+  const uniqueId = React.useId();
+  const indicatorLayoutId = customLayoutId || `active-tab-indicator-${uniqueId}`;
 
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
@@ -51,7 +55,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
             >
               {isActive && (
                 <motion.div
-                  layoutId="active-tab-indicator"
+                  layoutId={indicatorLayoutId}
                   className="absolute inset-0 rounded-md bg-[#181818] border border-[#2A2A2A] shadow-sm"
                   transition={motionTransitions.springMorph}
                 />

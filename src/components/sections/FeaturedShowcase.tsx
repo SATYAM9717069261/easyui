@@ -237,7 +237,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
             <div className="mt-6 pt-4 border-t border-[#141414] flex items-center justify-between text-xs">
               <span className="text-[#606060]">Interactive hover magnification</span>
               <button
-                onClick={() => onSelectComponent('floating-dock')}
+                onClick={() => onSelectComponent('floating-action-dock')}
                 className="text-[#D4D4D4] hover:text-white transition-colors"
               >
                 Inspect Dock →

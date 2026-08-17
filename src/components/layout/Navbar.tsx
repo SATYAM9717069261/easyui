@@ -65,7 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               href={GITHUB_URL}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-xs font-medium text-[#808080] hover:text-[#F5F5F5] transition-colors"
             >
               GitHub
@@ -90,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               href={GITHUB_URL}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="p-1.5 rounded-lg text-[#808080] hover:text-[#F5F5F5] hover:bg-[#101010] transition-colors focus-ring"
               aria-label="GitHub Repository"
             >
@@ -132,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               href={GITHUB_URL}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="block w-full text-left px-3 py-2 text-xs text-[#808080] hover:text-[#F5F5F5] hover:bg-[#0E0E0E] rounded-md"
             >
               GitHub Repository

@@ -27,7 +27,7 @@ export const PhilosophySection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 border-t border-b border-[#141414] bg-[#070707]">
+    <section id="philosophy" className="py-20 border-t border-b border-[#141414] bg-[#070707]">
       <Container size="xl">
         {/* Main Philosophy Header */}
         <div className="max-w-2xl mx-auto text-center mb-12">
