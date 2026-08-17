@@ -2,156 +2,311 @@
   <img src="public/icons8-alien-monster-emoji-94.png" alt="EasyUI Logo" width="80" height="80" />
   <h1>EasyUI</h1>
   <p><strong>Beautiful UI. Made easy.</strong></p>
-  <p>A curated collection of production-ready React components with polished interaction, thoughtful spring physics, and source code you fully own.</p>
+  <p>A modern collection of micro-animated, physics-based React components distributed via the official <strong>shadcn GitHub Registry</strong>.</p>
 
   <p>
+    <a href="https://github.com/Surajmaurya1/easyui/actions/workflows/registry.yml"><img src="https://github.com/Surajmaurya1/easyui/actions/workflows/registry.yml/badge.svg" alt="Registry CI" /></a>
+    <a href="https://ui.shadcn.com"><img src="https://img.shields.io/badge/shadcn%20registry-GitHub-black.svg?style=flat-square&logo=shadcnui" alt="shadcn GitHub Registry" /></a>
     <a href="https://github.com/Surajmaurya1/easyui/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License: MIT" /></a>
     <a href="https://react.dev"><img src="https://img.shields.io/badge/React-19.x-61dafb.svg?style=flat-square&logo=react" alt="React 19" /></a>
     <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.x-3178c6.svg?style=flat-square&logo=typescript" alt="TypeScript" /></a>
     <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/TailwindCSS-v4%20%2F%20v3-38bdf8.svg?style=flat-square&logo=tailwind-css" alt="Tailwind CSS" /></a>
     <a href="https://www.framer.com/motion/"><img src="https://img.shields.io/badge/Motion-Framer%20Motion-black.svg?style=flat-square&logo=framer" alt="Framer Motion" /></a>
-    <a href="https://github.com/Surajmaurya1/easyui/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome" /></a>
   </p>
 
   <p>
-    <a href="#features">Features</a> •
-    <a href="#components">Components</a> •
     <a href="#quick-start">Quick Start</a> •
-    <a href="#design-philosophy">Philosophy</a> •
-    <a href="#tech-stack">Tech Stack</a> •
+    <a href="#components">Components</a> •
+    <a href="#developer-workflow-adding-new-components">Adding Components</a> •
+    <a href="#architecture--automatic-registry-system">Architecture</a> •
+    <a href="#directory-structure">Directory Structure</a> •
     <a href="#contributing">Contributing</a>
   </p>
 </div>
 
 ---
 
-## Features
+## What is EasyUI?
 
-- **Full Source Ownership** — Not an opaque npm package dependency. Copy and paste components directly into your codebase and adapt freely.
-- **Spring-Driven Physics** — Smooth, organic animations powered by Framer Motion rather than stiff linear bezier curves.
-- **Sleek Dark Aesthetic** — Curated dark theme palette with subtle ambient glows, glassmorphic surfaces, and crisp typography (Geist / Inter).
-- **TypeScript First** — Strongly typed prop definitions, exhaustive autocomplete, and clean interfaces.
-- **Accessible Foundations** — Built with WAI-ARIA best practices, keyboard navigation, and `prefers-reduced-motion` compliance.
-- **Zero Bloat** — Minimal runtime overhead with maximum composability.
+EasyUI is an open-source library of micro-animated, tactile React components designed to make modern web applications feel alive.
 
----
-
-## Components
-
-| Component | Category | Description | Highlights |
-|:---|:---|:---|:---|
-| **DotField** | Motion / Canvas | 60 FPS HTML5 particle matrix | Cursor proximity bulge, momentum speed, SVG radial glow aura |
-| **SpotlightCard** | Surface | Dynamic radial illumination | Hardware-accelerated pointer tracking & subtle ice-blue glow |
-| **MagneticButton** | Buttons | Spring coordinate tracking | Cursor pull proximity physics, 4 variants (Primary, Secondary, Outline, Ghost) |
-| **AnimatedTabs** | Navigation | Sliding background pills | Shared layout motion, customizable pill indicators |
-| **FloatingActionDock** | Navigation | Continuous magnification bar | macOS-inspired magnification curve with tooltips |
-| **NotificationStack** | Feedback | Stacked card feed | Drag-to-dismiss gesture physics, auto-dismiss, priority badges |
-| **MorphingDialog** | Overlay | Shared layout modal expansion | Smooth bounding-box interpolation without jarring popups |
-| **RevealCard** | Motion | 3D perspective tilt | Cursor-aware tilt angle with hidden telemetry drawer reveal |
-| **SmoothAccordion** | Feedback | Zero-jank collapsible panel | Natural height spring calculation with zero content clipping |
-| **CommandMenu** | Overlay | Global `⌘K` command palette | Quick keyboard actions, fuzzy filtering, grouped search results |
+- **Source Code Ownership** — Components are added directly into your codebase via the `shadcn` CLI. No opaque node modules, no forced styles, and no runtime version lock-in.
+- **Spring-Physics Motion** — Built with Framer Motion and HTML5 Canvas to deliver organic velocity, elastic snap-back, and fluid continuous surfaces.
+- **Automated Component Architecture** — Every component is automatically discovered, classified for npm dependencies, and synced to both `registry.json` and the website catalog with a single command (`npm run component:sync`).
 
 ---
 
 ## Quick Start
 
-EasyUI components are distributed as source code through the **shadcn GitHub Registry**. You own the code — no runtime dependency, no version locks.
+### 1. Install with shadcn CLI (Recommended)
 
-### Option A — Install with shadcn CLI (Recommended)
-
-Requires a project already initialized with shadcn. Pick any component:
+EasyUI uses the official **shadcn GitHub Registry** format. You can install any component directly into any project initialized with shadcn:
 
 ```bash
+npx shadcn@latest add Surajmaurya1/easyui/<component-name>
+```
+
+#### Available Component Install Commands:
+
+```bash
+# Buttons
 npx shadcn@latest add Surajmaurya1/easyui/magnetic-button
+
+# Surfaces & Motion
 npx shadcn@latest add Surajmaurya1/easyui/spotlight-card
+npx shadcn@latest add Surajmaurya1/easyui/reveal-card
+npx shadcn@latest add Surajmaurya1/easyui/dot-field
+
+# Navigation
 npx shadcn@latest add Surajmaurya1/easyui/animated-tabs
 npx shadcn@latest add Surajmaurya1/easyui/floating-action-dock
+npx shadcn@latest add Surajmaurya1/easyui/expandable-search
+
+# Feedback & Overlays
 npx shadcn@latest add Surajmaurya1/easyui/notification-stack
 npx shadcn@latest add Surajmaurya1/easyui/morphing-dialog
-npx shadcn@latest add Surajmaurya1/easyui/reveal-card
 npx shadcn@latest add Surajmaurya1/easyui/smooth-accordion
 npx shadcn@latest add Surajmaurya1/easyui/command-menu
-npx shadcn@latest add Surajmaurya1/easyui/dot-field
-npx shadcn@latest add Surajmaurya1/easyui/expandable-search
 ```
 
-The CLI will:
-1. Download the component source into your `components/ui/` folder
-2. Automatically install required npm dependencies (e.g. `framer-motion`, `lucide-react`)
-3. Place shared utilities (`lib/motion-tokens.ts`, `lib/utils.ts`) alongside the component
-
-### Option B — Clone and explore locally
-
-```bash
-git clone https://github.com/Surajmaurya1/easyui.git
-cd easyui
-```
-
-Install dependencies and start the dev server:
-
-```bash
-npm install
-npm run dev
-```
-
-Visit `http://localhost:5173` to explore the interactive showcase.
+#### What the CLI does automatically:
+1. Downloads the component file into your `components/ui/` directory.
+2. Automatically installs required dependencies (`framer-motion`, `lucide-react`, etc.) into your `package.json`.
+3. Downloads any shared tokens or utilities (`lib/motion-tokens.ts`, `lib/utils.ts`) into your `lib/` directory.
 
 ---
 
-## Usage Example
+### 2. Usage in your Project
 
-After installing a component with the shadcn CLI, import it directly from your own `components/ui/` folder:
+Import the installed component directly from your own `components/ui/` folder:
 
 ```tsx
 import React from 'react';
-import { SpotlightCard } from '@/components/ui/spotlight-card';
 import { MagneticButton } from '@/components/ui/magnetic-button';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
 import { ArrowUpRight } from 'lucide-react';
 
-export function FeatureCard() {
+export function Demo() {
   return (
-    <SpotlightCard className="p-6 bg-[#0A0A0A] rounded-2xl border border-[#222222]">
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-[#F5F5F5]">Hardware Accelerated</h3>
-        <p className="text-sm text-[#A1A1A1]">
-          Smooth pointer-aware lighting with zero layout penalty.
-        </p>
-        
-        <MagneticButton variant="primary" size="md">
-          <span>Get Started</span>
-          <ArrowUpRight className="w-4 h-4" />
-        </MagneticButton>
-      </div>
+    <SpotlightCard className="max-w-md p-6 bg-[#0A0A0A] rounded-2xl border border-[#222222]">
+      <h3 className="text-base font-semibold text-white">Edge Telemetry</h3>
+      <p className="text-xs text-neutral-400 mt-1 mb-4">
+        Dynamic pointer tracking with zero layout penalty.
+      </p>
+
+      <MagneticButton strength={0.4} variant="primary">
+        <span>Launch Console</span>
+        <ArrowUpRight className="w-4 h-4" />
+      </MagneticButton>
     </SpotlightCard>
   );
 }
 ```
 
-You own the source — edit colors, tweak spring physics, or restructure freely.
+---
+
+### 3. Run the Showcase Locally
+
+```bash
+git clone https://github.com/Surajmaurya1/easyui.git
+cd easyui
+npm install
+npm run dev
+```
+
+Visit `http://localhost:5173` to test the interactive preview showroom and copy source code.
 
 ---
 
-## Design Philosophy
+## Components
 
-### 1. Copy-Paste Freedom
-You shouldn't fight an npm library's opinionated styles or version mismatches. Copy the component source into your project, customize the classes, and own your design system.
-
-### 2. Micro-Interactions that Delight
-Every button pull, tab slide, and spotlight glow uses physics-based spring dampening to ensure interfaces feel alive, responsive, and tactile.
-
-### 3. Restrained Aesthetics
-We prioritize content and clean interaction over noisy visual clutter. Quiet ice-blue accents, dark graphite surfaces, and balanced typography keep the focus on what matters.
+| Component | Slug | Category | Description | Auto-Detected Dependencies |
+|:---|:---|:---|:---|:---|
+| **MagneticButton** | `magnetic-button` | Buttons | Proximity-aware spring pull and snap-back with 4 visual variants | `framer-motion` |
+| **SpotlightCard** | `spotlight-card` | Motion | Dark surface card with real-time radial illumination tracking cursor | `framer-motion` |
+| **AnimatedTabs** | `animated-tabs` | Navigation | Tab switcher with spring sliding pill indicator & cross-fading panels | `framer-motion` |
+| **FloatingActionDock** | `floating-action-dock` | Navigation | macOS-inspired quick dock with continuous magnification curve | `framer-motion` |
+| **NotificationStack** | `notification-stack` | Feedback | Stacked toast feed with elevation physics & drag-to-dismiss | `framer-motion`, `lucide-react` |
+| **MorphingDialog** | `morphing-dialog` | Overlays | Shared `layoutId` modal expansion with continuous surface interpolation | `framer-motion`, `lucide-react` |
+| **RevealCard** | `reveal-card` | Motion | 3D perspective-tilt card with dynamic glare & hidden hover reveal layer | `framer-motion` |
+| **SmoothAccordion** | `smooth-accordion` | Feedback | Zero-jank collapsible panels with spring height calculation | `framer-motion`, `lucide-react` |
+| **CommandMenu** | `command-menu` | Overlays | Global `⌘K` command palette with fuzzy search & category filters | `framer-motion`, `lucide-react` |
+| **DotField** | `dot-field` | Motion | 60 FPS HTML5 Canvas particle matrix with cursor bulge & SVG radial glow | *(none — zero runtime deps)* |
+| **ExpandableSearch** | `expandable-search` | Navigation | Compact search pill with spring width expansion & keyboard hints | `framer-motion`, `lucide-react` |
 
 ---
 
-## Tech Stack
+## Architecture & Automatic Registry System
 
-- **Framework:** [React 19](https://react.dev/)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Motion:** [Framer Motion](https://www.framer.com/motion/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **Bundler:** [Vite](https://vitejs.dev/)
+EasyUI is built on a **Single Source of Truth** architecture. Developers never manually maintain JSON registry files, copy-paste code into catalog arrays, or maintain hardcoded install commands in multiple files.
+
+```
+Component Source (.tsx) + Component Metadata (.meta.ts)
+                          ↓
+              scripts/generate-registry.ts
+                          ↓
+  ┌─────────────────────────────────────────────────────────┐
+  │ • Root registry.json (official shadcn schema)           │
+  │ • src/components/registry/components-data.ts (catalog)  │
+  │ • CLI command generation (Surajmaurya1/easyui/<slug>)   │
+  │ • Dependency & local utility auto-detection             │
+  │ • Raw source extraction directly from source files      │
+  └─────────────────────────────────────────────────────────┘
+                          ↓
+              scripts/validate-registry.ts
+                          ↓
+           Website UI + shadcn GitHub Registry
+```
+
+### Core Automation Capabilities:
+1. **Automatic Discovery** — Scans `src/components/ui/` for components (supports flat `.tsx` files as well as folder-based multi-file components).
+2. **AST Dependency Inspection** — Inspects TypeScript import statements, cross-references with `package.json`, and registers only necessary external packages (e.g. `framer-motion`, `lucide-react`).
+3. **Local Utility Linking** — Automatically identifies imports of internal shared utilities (`motion-tokens.ts`, `utils.ts`, `GithubIcon.tsx`, companion CSS files) and adds them to the registry item's `files` manifest with the proper `registry:lib` or `registry:ui` target.
+4. **Source Code Extraction** — Automatically reads the raw source code from disk during build/sync to feed website code viewers. No manual code duplication in data files.
+5. **Dynamic UI Integration** — The `⌘K` Command Palette, category filters, and component directory dynamically consume the generated catalog. Newly added components are instantly searchable.
+
+---
+
+## Developer Workflow: Adding New Components
+
+Adding a new component to EasyUI is a 3-step, zero-friction process:
+
+### Step 1: Scaffold or Create the Component
+
+You can scaffold a new component instantly using the CLI helper:
+```bash
+npm run component:new AuroraCard
+```
+
+This creates:
+- `src/components/ui/AuroraCard.tsx` (Component code)
+- `src/components/ui/AuroraCard.meta.ts` (Human-written metadata)
+
+#### Example Component (`AuroraCard.tsx`):
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Sparkles } from 'lucide-react';
+import { cn } from '../../lib/utils';
+import { motionTransitions } from '../../lib/motion-tokens';
+
+export interface AuroraCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+export const AuroraCard: React.FC<AuroraCardProps> = ({ children, className, ...props }) => {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={motionTransitions.springSnappy}
+      className={cn('p-6 rounded-2xl border border-[#222222] bg-[#0E0E0E] text-[#F5F5F5]', className)}
+      {...props}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <Sparkles className="w-4 h-4 text-[#38BDF8]" />
+        <h3 className="text-sm font-semibold">Aurora Card</h3>
+      </div>
+      {children}
+    </motion.div>
+  );
+};
+```
+
+#### Example Metadata (`AuroraCard.meta.ts`):
+```typescript
+import type { EasyUIComponentMeta } from '../../types/component';
+
+const meta: EasyUIComponentMeta = {
+  title: 'Aurora Card',
+  description: 'An elevated dark surface with subtle ambient aurora glow interaction.',
+  category: 'Motion',
+  tagline: 'Ambient aurora gradient pointer glow',
+  badges: ['Spring Physics', 'Tailwind', 'Interactive'],
+  features: [
+    'Pointer proximity ambient aurora illumination',
+    'Configurable blur and gradient stops',
+    'Accessible contrast and keyboard focus states',
+  ],
+  props: [
+    { name: 'children', type: 'ReactNode', default: 'undefined', description: 'Content rendered inside card' },
+    { name: 'className', type: 'string', default: 'undefined', description: 'Custom CSS classes' },
+  ],
+  accessibility: [
+    'Contrast compliant with WCAG AA standards',
+    'Respects prefers-reduced-motion media query',
+  ],
+  usageCode: `import { AuroraCard } from "@/components/ui/aurora-card";
+
+export function Demo() {
+  return <AuroraCard>Hello World</AuroraCard>;
+}`,
+};
+
+export default meta;
+```
+
+---
+
+### Step 2: Sync Registry & Website Catalog
+
+Run the single sync command:
+```bash
+npm run component:sync
+```
+
+**What happens behind the scenes:**
+- `aurora-card` slug is automatically computed.
+- Dependencies (`framer-motion`, `lucide-react`) and shared utilities (`utils.ts`, `motion-tokens.ts`) are detected.
+- Root `registry.json` is updated.
+- `src/components/registry/components-data.ts` is updated with raw source code and CLI command:
+  `npx shadcn@latest add Surajmaurya1/easyui/aurora-card`.
+- Full registry validation suite executes to guarantee zero broken paths or missing dependencies.
+
+---
+
+### Step 3: Commit and Push
+
+```bash
+git add .
+git commit -m "feat: add AuroraCard component"
+git push
+```
+
+The GitHub Actions CI workflow automatically regenerates, validates, and checks that committed registry and catalog files are in sync.
+
+---
+
+## Multi-File Component Support
+
+EasyUI supports complex components split across multiple files. You can create a dedicated folder inside `src/components/ui/`:
+
+```text
+src/components/ui/my-complex-widget/
+├── MyComplexWidget.tsx         # Primary component
+├── widget-utils.ts             # Auxiliary logic
+├── widget.css                  # Custom styling
+└── meta.ts                     # Component metadata
+```
+
+The generator will automatically:
+1. Discover the directory and identify the primary component.
+2. Read `meta.ts`.
+3. Include all source files in the registry manifest so that `npx shadcn@latest add Surajmaurya1/easyui/my-complex-widget` downloads all companion files.
+
+---
+
+## Developer Scripts
+
+| Command | Purpose |
+|:---|:---|
+| `npm run component:sync` | **Primary developer command.** Regenerates `registry.json` and website catalog, then runs full validation. |
+| `npm run component:new <Name>` | Scaffolds a new component boilerplate (`.tsx` + `.meta.ts`). |
+| `npm run registry:generate` | Runs discovery and regenerates `registry.json` and `components-data.ts`. |
+| `npm run registry:validate` | Validates schemas, unique slugs, file paths, and package dependencies. |
+| `npm run dev` | Starts Vite local development server (`http://localhost:5173`). |
+| `npm run build` | Syncs registry, runs TypeScript typecheck (`tsc -b`), and builds Vite bundle. |
+| `npm run lint` | Runs `oxlint` for lightning-fast linting. |
 
 ---
 
@@ -159,32 +314,58 @@ We prioritize content and clean interaction over noisy visual clutter. Quiet ice
 
 ```text
 easyui/
+├── .github/
+│   └── workflows/
+│       └── registry.yml                   # CI validation & build workflow
 ├── public/
 │   └── icons8-alien-monster-emoji-94.png  # Brand identity logo
+├── scripts/
+│   ├── generate-registry.ts               # Auto-discovery & registry generator
+│   ├── validate-registry.ts               # Registry & catalog validator
+│   └── component-new.ts                   # Component scaffolding CLI
 ├── src/
 │   ├── components/
-│   │   ├── docs/                          # Interactive documentation modals
+│   │   ├── docs/                          # Interactive documentation modal
+│   │   ├── icons/                         # Brand icons (GithubIcon, etc.)
 │   │   ├── layout/                        # Navbar, Footer, Container
-│   │   ├── registry/                      # Component metadata & CLI schema
+│   │   ├── registry/
+│   │   │   └── components-data.ts         # [AUTO-GENERATED] Website component catalog
 │   │   ├── sections/                      # Hero, Showcases, Directory, Philosophy
-│   │   └── ui/                            # Copy-paste UI components
+│   │   └── ui/                            # Component source files + metadata
 │   │       ├── AnimatedTabs.tsx
+│   │       ├── AnimatedTabs.meta.ts
 │   │       ├── CommandMenu.tsx
+│   │       ├── CommandMenu.meta.ts
 │   │       ├── DotField.tsx
+│   │       ├── DotField.meta.ts
+│   │       ├── DotField.css
 │   │       ├── ExpandableSearch.tsx
+│   │       ├── ExpandableSearch.meta.ts
 │   │       ├── FloatingActionDock.tsx
+│   │       ├── FloatingActionDock.meta.ts
 │   │       ├── MagneticButton.tsx
+│   │       ├── MagneticButton.meta.ts
 │   │       ├── MorphingDialog.tsx
+│   │       ├── MorphingDialog.meta.ts
 │   │       ├── NotificationStack.tsx
+│   │       ├── NotificationStack.meta.ts
 │   │       ├── RevealCard.tsx
+│   │       ├── RevealCard.meta.ts
 │   │       ├── SmoothAccordion.tsx
-│   │       └── SpotlightCard.tsx
-│   ├── styles/
-│   │   ├── index.css                      # Base typography & design layer
-│   │   └── tokens.css                     # Colors, radius, and font tokens
+│   │       ├── SmoothAccordion.meta.ts
+│   │       ├── SpotlightCard.tsx
+│   │       └── SpotlightCard.meta.ts
+│   ├── lib/
+│   │   ├── constants.ts                   # URLs & global constants
+│   │   ├── motion-tokens.ts               # Reusable Framer Motion transitions
+│   │   └── utils.ts                       # Class merging (cn) & clipboard helpers
+│   ├── types/
+│   │   └── component.ts                   # Component metadata type definitions
 │   ├── App.tsx
 │   └── main.tsx
+├── registry.json                          # [AUTO-GENERATED] Root shadcn GitHub Registry
 ├── tailwind.config.js
+├── tsconfig.json
 └── package.json
 ```
 
@@ -192,13 +373,27 @@ easyui/
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Surajmaurya1/easyui/issues).
+Contributions, component additions, and improvements are welcome!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingComponent`)
-3. Commit your Changes (`git commit -m 'Add some AmazingComponent'`)
-4. Push to the Branch (`git push origin feature/AmazingComponent`)
-5. Open a Pull Request
+1. Fork the Project.
+2. Create your Feature Branch:
+   ```bash
+   git checkout -b feature/NewComponent
+   ```
+3. Scaffold your component:
+   ```bash
+   npm run component:new NewComponent
+   ```
+4. Build the component and fill in `NewComponent.meta.ts`.
+5. Sync and validate:
+   ```bash
+   npm run component:sync
+   ```
+6. Commit your changes:
+   ```bash
+   git commit -m "feat: add NewComponent"
+   ```
+7. Push to the branch and open a Pull Request.
 
 ---
 

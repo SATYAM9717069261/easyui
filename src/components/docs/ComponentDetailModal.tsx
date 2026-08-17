@@ -84,6 +84,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
             />
           </div>
         );
+      case 'floating-action-dock':
       case 'floating-dock':
         return (
           <div className="py-10 flex flex-col items-center justify-center gap-4">

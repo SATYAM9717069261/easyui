@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run component:sync && tsc -b && vite build",
+    "registry:generate": "tsx scripts/generate-registry.ts",
+    "registry:validate": "tsx scripts/validate-registry.ts",
+    "component:sync": "tsx scripts/generate-registry.ts && tsx scripts/validate-registry.ts",
+    "component:new": "tsx scripts/component-new.ts",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -27,6 +31,7 @@
     "oxlint": "^1.75.0",
     "postcss": "^8.5.26",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.12",
     "typescript": "~6.0.2",
     "vite": "^8.2.0"
   }
