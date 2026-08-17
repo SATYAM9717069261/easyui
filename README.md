@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/icons8-alien-monster-emoji-94.png" alt="EasyUI Logo" width="80" height="80" />
+  <img src="public/logo.png" alt="EasyUI Logo" width="80" height="80" />
   <h1>EasyUI</h1>
   <p><strong>Beautiful UI. Made easy.</strong></p>
   <p>A modern collection of micro-animated, physics-based React components distributed via the official <strong>shadcn GitHub Registry</strong>.</p>
@@ -318,7 +318,7 @@ easyui/
 │   └── workflows/
 │       └── registry.yml                   # CI validation & build workflow
 ├── public/
-│   └── icons8-alien-monster-emoji-94.png  # Brand identity logo
+│   └── logo.png                           # Brand identity logo
 ├── scripts/
 │   ├── generate-registry.ts               # Auto-discovery & registry generator
 │   ├── validate-registry.ts               # Registry & catalog validator
@@ -394,6 +394,16 @@ Contributions, component additions, and improvements are welcome!
    git commit -m "feat: add NewComponent"
    ```
 7. Push to the branch and open a Pull Request.
+
+---
+
+## Connect & Contact
+
+Created with care by **Suraj Maurya**. If you'd like to connect, collaborate, or share feedback:
+
+- **LinkedIn:** [linkedin.com/in/suraj-maurya-33a91325a](https://www.linkedin.com/in/suraj-maurya-33a91325a/)
+- **Email:** [surajmaurya.pvt@gmail.com](mailto:surajmaurya.pvt@gmail.com)
+- **GitHub:** [@Surajmaurya1](https://github.com/Surajmaurya1)
 
 ---
 

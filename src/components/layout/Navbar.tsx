@@ -27,8 +27,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-2.5 group cursor-pointer focus-ring rounded-md py-1"
           >
             <img
-              src="/icons8-alien-monster-emoji-94.png"
-              alt="EasyUI Monster Logo"
+              src="/logo.png"
+              alt="EasyUI Logo"
               className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-200"
             />
            <span className="text-sm font-medium tracking-[0.02em] text-[#F5F5F5] font-mono group-hover:text-white transition-colors">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from './Container';
-import { GITHUB_URL } from '../../lib/constants';
+import { GITHUB_URL, LINKEDIN_URL, EMAIL } from '../../lib/constants';
 
 export const Footer: React.FC = () => {
   return (
@@ -10,8 +10,8 @@ export const Footer: React.FC = () => {
           <div>
             <div className="flex items-center gap-2.5">
               <img
-                src="/icons8-alien-monster-emoji-94.png"
-                alt="EasyUI Monster Logo"
+                src="/logo.png"
+                alt="EasyUI Logo"
                 className="w-5 h-5 object-contain"
               />
               <span className="font-semibold text-sm text-[#F5F5F5]">easyui</span>
@@ -36,6 +36,20 @@ export const Footer: React.FC = () => {
             >
               GitHub
             </a>
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-[#38BDF8] transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="hover:text-[#38BDF8] transition-colors"
+            >
+              Contact
+            </a>
             <span className="hover:text-[#F5F5F5] transition-colors cursor-pointer">
               MIT License
             </span>
@@ -43,7 +57,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="mt-8 pt-6 border-t border-[#121212] flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-[#555555]">
-          <span>© {new Date().getFullYear()} EasyUI. Open source and copy-paste friendly.</span>
+          <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-[#A1A1A1] hover:text-[#38BDF8] transition-colors font-medium">Suraj Maurya</a>. Open source & copy-paste friendly.</span>
           <span>Built with React, TypeScript & Motion.</span>
         </div>
       </Container>
