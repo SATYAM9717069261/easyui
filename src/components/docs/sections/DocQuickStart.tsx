@@ -12,7 +12,7 @@ export const DocQuickStart: React.FC<DocQuickStartProps> = ({ onNavigateSection 
       {/* Header */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-widest bg-[#38BDF8]/10 px-2.5 py-0.5 rounded-full border border-[#38BDF8]/20">
+          <span className="text-[11px] font-mono text-[#A1A1A1] uppercase tracking-widest bg-[#181818] px-2.5 py-0.5 rounded-full border border-[#282828]">
             Installation
           </span>
         </div>
@@ -27,7 +27,7 @@ export const DocQuickStart: React.FC<DocQuickStartProps> = ({ onNavigateSection 
       {/* Step 1: Project Setup */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-full bg-[#181818] border border-[#2A2A2A] flex items-center justify-center text-xs font-mono font-bold text-[#38BDF8]">
+          <div className="w-7 h-7 rounded-full bg-[#181818] border border-[#2A2A2A] flex items-center justify-center text-xs font-mono font-bold text-white">
             01
           </div>
           <h2 className="text-xl font-semibold text-white">Initialize shadcn in your project</h2>
@@ -45,7 +45,7 @@ export const DocQuickStart: React.FC<DocQuickStartProps> = ({ onNavigateSection 
       {/* Step 2: Add Any Component */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-full bg-[#181818] border border-[#2A2A2A] flex items-center justify-center text-xs font-mono font-bold text-[#38BDF8]">
+          <div className="w-7 h-7 rounded-full bg-[#181818] border border-[#2A2A2A] flex items-center justify-center text-xs font-mono font-bold text-white">
             02
           </div>
           <h2 className="text-xl font-semibold text-white">Add EasyUI Components via GitHub Registry</h2>
@@ -72,7 +72,7 @@ npx shadcn@latest add Surajmaurya1/easyui/notification-stack`}
 
         <div className="p-4 rounded-xl border border-[#202020] bg-[#0C0C0C] text-xs text-[#A1A1A1] space-y-2">
           <div className="flex items-center gap-2 text-white font-medium">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <CheckCircle2 className="w-4 h-4 text-white" />
             <span>What happens during installation:</span>
           </div>
           <ul className="list-disc list-inside space-y-1 text-[#808080] ml-1">
@@ -86,7 +86,7 @@ npx shadcn@latest add Surajmaurya1/easyui/notification-stack`}
       {/* Step 3: Usage in Code */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-full bg-[#181818] border border-[#2A2A2A] flex items-center justify-center text-xs font-mono font-bold text-[#38BDF8]">
+          <div className="w-7 h-7 rounded-full bg-[#181818] border border-[#2A2A2A] flex items-center justify-center text-xs font-mono font-bold text-white">
             03
           </div>
           <h2 className="text-xl font-semibold text-white">Import & Use in your Code</h2>
@@ -105,7 +105,7 @@ export function FeaturePreview() {
   return (
     <SpotlightCard className="max-w-md p-6 bg-[#0B0B0B] border border-[#202020] rounded-2xl">
       <div className="flex items-center gap-2 mb-3">
-        <Sparkles className="w-4 h-4 text-[#38BDF8]" />
+        <Sparkles className="w-4 h-4 text-[#ECECEC]" />
         <h3 className="text-sm font-semibold text-white">Edge Telemetry</h3>
       </div>
       
@@ -162,24 +162,24 @@ export const motionTransitions = {
       <div className="pt-6 border-t border-[#181818] grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button
           onClick={() => onNavigateSection('architecture')}
-          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#38BDF8]/30 transition-all text-left group"
+          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#383838] transition-all text-left group"
         >
           <div>
             <span className="text-[11px] font-mono text-[#6F6F6F] block">Next Guide</span>
-            <span className="text-sm font-semibold text-white group-hover:text-[#38BDF8] transition-colors">Automatic Structure & Registry</span>
+            <span className="text-sm font-semibold text-white group-hover:text-white transition-colors">Automatic Structure & Registry</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
         </button>
 
         <button
           onClick={() => onNavigateSection('collaboration')}
-          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#38BDF8]/30 transition-all text-left group"
+          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#383838] transition-all text-left group"
         >
           <div>
             <span className="text-[11px] font-mono text-[#6F6F6F] block">Contribute</span>
-            <span className="text-sm font-semibold text-white group-hover:text-[#38BDF8] transition-colors">How to Collaborate & Add Components</span>
+            <span className="text-sm font-semibold text-white group-hover:text-white transition-colors">How to Collaborate & Add Components</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
         </button>
       </div>
     </div>

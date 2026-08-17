@@ -28,11 +28,11 @@ export const DocCodeBlock: React.FC<DocCodeBlockProps> = ({
   return (
     <div className={`rounded-xl border border-[#1E1E1E] bg-[#0A0A0A] overflow-hidden my-4 shadow-sm ${className}`}>
       {/* Header bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#0F0F0F] border-b border-[#1A1A1A] text-xs">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-[#0E0E0E] border-b border-[#181818] text-xs">
         <div className="flex items-center gap-2">
           {isTerminal ? (
             <>
-              <Terminal className="w-3.5 h-3.5 text-[#38BDF8]" />
+              <Terminal className="w-3.5 h-3.5 text-[#A1A1A1]" />
               <span className="font-mono text-[#8A8A8A]">{title || 'Terminal'}</span>
             </>
           ) : (
@@ -55,8 +55,8 @@ export const DocCodeBlock: React.FC<DocCodeBlockProps> = ({
         >
           {copied ? (
             <>
-              <Check className="w-3 h-3 text-emerald-400" />
-              <span className="text-emerald-400">Copied</span>
+              <Check className="w-3 h-3 text-white" />
+              <span className="text-white">Copied</span>
             </>
           ) : (
             <>
@@ -68,7 +68,7 @@ export const DocCodeBlock: React.FC<DocCodeBlockProps> = ({
       </div>
 
       {/* Code Area */}
-      <pre className="p-4 text-xs font-mono text-[#ECECEC] overflow-x-auto leading-relaxed scrollbar-thin">
+      <pre className="p-4 text-xs font-mono text-[#D4D4D4] overflow-x-auto leading-relaxed scrollbar-thin">
         <code>{code.trim()}</code>
       </pre>
     </div>

@@ -68,11 +68,11 @@ export const NotificationStack: React.FC<NotificationStackProps> = ({
   const getIcon = (type?: 'success' | 'info' | 'warning') => {
     switch (type) {
       case 'success':
-        return <CheckCircle2 className="w-4 h-4 text-emerald-400" />;
+        return <CheckCircle2 className="w-4 h-4 text-white" />;
       case 'warning':
-        return <AlertCircle className="w-4 h-4 text-amber-400" />;
+        return <AlertCircle className="w-4 h-4 text-[#D4D4D4]" />;
       default:
-        return <Info className="w-4 h-4 text-[#38BDF8]" />;
+        return <Info className="w-4 h-4 text-[#ECECEC]" />;
     }
   };
 
@@ -86,7 +86,7 @@ export const NotificationStack: React.FC<NotificationStackProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={addSampleNotification}
-            className="text-[11px] text-[#38BDF8] hover:text-[#38BDF8]/80 font-medium transition-colors"
+            className="text-[11px] text-white hover:text-white/80 font-medium transition-colors"
           >
             + Simulate
           </button>

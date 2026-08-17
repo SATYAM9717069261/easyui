@@ -12,7 +12,7 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Header */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-widest bg-[#38BDF8]/10 px-2.5 py-0.5 rounded-full border border-[#38BDF8]/20">
+          <span className="text-[11px] font-mono text-[#A1A1A1] uppercase tracking-widest bg-[#181818] px-2.5 py-0.5 rounded-full border border-[#282828]">
             Engine & Pipeline
           </span>
         </div>
@@ -27,7 +27,7 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Architecture Flow Diagram */}
       <div className="p-6 rounded-2xl border border-[#222222] bg-[#0A0A0A] space-y-6">
         <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-          <Workflow className="w-4 h-4 text-[#38BDF8]" />
+          <Workflow className="w-4 h-4 text-white" />
           Single Source of Truth Architecture
         </h3>
 
@@ -35,7 +35,7 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
           <div className="p-4 rounded-xl border border-[#242424] bg-[#0F0F0F] flex flex-col justify-between space-y-3">
             <div>
-              <span className="text-[10px] text-[#38BDF8] font-bold uppercase tracking-wider block mb-1">01. Inputs</span>
+              <span className="text-[10px] text-[#A1A1A1] font-bold uppercase tracking-wider block mb-1">01. Inputs</span>
               <h4 className="text-white font-semibold mb-2">Component & Metadata</h4>
               <ul className="space-y-1 text-[#808080]">
                 <li>• <code className="text-[#ECECEC]">ComponentName.tsx</code></li>
@@ -46,9 +46,9 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
             <span className="text-[11px] text-[#6F6F6F]">Human author writes code & props API</span>
           </div>
 
-          <div className="p-4 rounded-xl border border-[#38BDF8]/30 bg-[#38BDF8]/5 flex flex-col justify-between space-y-3">
+          <div className="p-4 rounded-xl border border-[#333333] bg-[#141414] flex flex-col justify-between space-y-3">
             <div>
-              <span className="text-[10px] text-[#38BDF8] font-bold uppercase tracking-wider block mb-1">02. Generator Engine</span>
+              <span className="text-[10px] text-white font-bold uppercase tracking-wider block mb-1">02. Generator Engine</span>
               <h4 className="text-white font-semibold mb-2">scripts/generate-registry.ts</h4>
               <ul className="space-y-1 text-[#808080]">
                 <li>• AST import parser</li>
@@ -57,12 +57,12 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
                 <li>• Raw source code disk reader</li>
               </ul>
             </div>
-            <span className="text-[11px] text-[#38BDF8]">Zero manual JSON manipulation</span>
+            <span className="text-[11px] text-white">Zero manual JSON manipulation</span>
           </div>
 
           <div className="p-4 rounded-xl border border-[#242424] bg-[#0F0F0F] flex flex-col justify-between space-y-3">
             <div>
-              <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block mb-1">03. Outputs</span>
+              <span className="text-[10px] text-[#A1A1A1] font-bold uppercase tracking-wider block mb-1">03. Outputs</span>
               <h4 className="text-white font-semibold mb-2">Synced Artifacts</h4>
               <ul className="space-y-1 text-[#808080]">
                 <li>• <code className="text-[#ECECEC]">registry.json</code> (shadcn)</li>
@@ -71,7 +71,7 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
                 <li>• Dynamic ⌘K search index</li>
               </ul>
             </div>
-            <span className="text-[11px] text-emerald-400">Validated via CI pipeline</span>
+            <span className="text-[11px] text-[#ECECEC]">Validated via CI pipeline</span>
           </div>
         </div>
       </div>
@@ -79,8 +79,8 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Deep Dive 1: AST Dependency Detection */}
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#38BDF8]/10 border border-[#38BDF8]/20 flex items-center justify-center">
-            <Cpu className="w-4 h-4 text-[#38BDF8]" />
+          <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#242424] flex items-center justify-center">
+            <Cpu className="w-4 h-4 text-white" />
           </div>
           <div>
             <h2 className="text-xl font-semibold text-white">1. AST Import & Dependency Discovery</h2>
@@ -108,8 +108,8 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Deep Dive 2: Multi-file Component Structure */}
       <div className="space-y-4 pt-6 border-t border-[#181818]">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-            <Layers className="w-4 h-4 text-purple-400" />
+          <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#242424] flex items-center justify-center">
+            <Layers className="w-4 h-4 text-white" />
           </div>
           <div>
             <h2 className="text-xl font-semibold text-white">2. Multi-File Component Support</h2>
@@ -140,8 +140,8 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Deep Dive 3: Automated Validation Suite */}
       <div className="space-y-4 pt-6 border-t border-[#181818]">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#242424] flex items-center justify-center">
+            <ShieldCheck className="w-4 h-4 text-white" />
           </div>
           <div>
             <h2 className="text-xl font-semibold text-white">3. 10-Point Registry Validation Suite</h2>
@@ -158,7 +158,7 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
             'Validates root registry.json matches official shadcn schema',
             'Checks that all declared files physically exist on disk',
             'Ensures every component has a corresponding .meta.ts',
-            'Verifies unique slugs and kebap-case CLI naming',
+            'Verifies unique slugs and kebab-case CLI naming',
             'Asserts zero missing external npm dependencies',
             'Validates props API tables and type definitions',
             'Tests that components-data.ts is in 100% sync with registry.json',
@@ -167,7 +167,7 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
             'Checks CI consistency to prevent unsynced git commits',
           ].map((check, idx) => (
             <div key={idx} className="flex items-start gap-2.5 p-3 rounded-lg border border-[#1E1E1E] bg-[#0A0A0A]">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-white shrink-0 mt-0.5" />
               <span className="text-[#A1A1A1]">{check}</span>
             </div>
           ))}
@@ -177,7 +177,7 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Single Sync Command */}
       <div className="p-6 rounded-2xl border border-[#222222] bg-[#0E0E0E] space-y-4">
         <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-          <RefreshCw className="w-4 h-4 text-[#38BDF8]" />
+          <RefreshCw className="w-4 h-4 text-white" />
           The One-Click Sync Command
         </h3>
         <p className="text-xs text-[#808080] leading-relaxed">
@@ -194,24 +194,24 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       <div className="pt-6 border-t border-[#181818] grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button
           onClick={() => onNavigateSection('collaboration')}
-          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#38BDF8]/30 transition-all text-left group"
+          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#383838] transition-all text-left group"
         >
           <div>
             <span className="text-[11px] font-mono text-[#6F6F6F] block">Next Guide</span>
-            <span className="text-sm font-semibold text-white group-hover:text-[#38BDF8] transition-colors">How to Collaborate & Contribute</span>
+            <span className="text-sm font-semibold text-white group-hover:text-white transition-colors">How to Collaborate & Contribute</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
         </button>
 
         <button
           onClick={() => onNavigateSection('motion')}
-          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#38BDF8]/30 transition-all text-left group"
+          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#383838] transition-all text-left group"
         >
           <div>
             <span className="text-[11px] font-mono text-[#6F6F6F] block">Deep Dive</span>
-            <span className="text-sm font-semibold text-white group-hover:text-[#38BDF8] transition-colors">Motion Tokens & Spring Physics</span>
+            <span className="text-sm font-semibold text-white group-hover:text-white transition-colors">Motion Tokens & Spring Physics</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
         </button>
       </div>
     </div>

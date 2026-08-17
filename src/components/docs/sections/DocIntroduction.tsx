@@ -12,7 +12,7 @@ export const DocIntroduction: React.FC<DocIntroductionProps> = ({ onNavigateSect
       {/* Header */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-widest bg-[#38BDF8]/10 px-2.5 py-0.5 rounded-full border border-[#38BDF8]/20">
+          <span className="text-[11px] font-mono text-[#A1A1A1] uppercase tracking-widest bg-[#181818] px-2.5 py-0.5 rounded-full border border-[#282828]">
             Overview
           </span>
           <span className="text-[11px] font-mono text-[#6F6F6F]">v1.0 • shadcn Registry</span>
@@ -26,10 +26,9 @@ export const DocIntroduction: React.FC<DocIntroductionProps> = ({ onNavigateSect
       </div>
 
       {/* Hero Quick Copy */}
-      <div className="p-6 rounded-2xl border border-[#222222] bg-gradient-to-b from-[#0E0E0E] to-[#070707] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-32 bg-[#38BDF8]/5 blur-3xl pointer-events-none" />
+      <div className="p-6 rounded-2xl border border-[#222222] bg-[#0A0A0A] relative overflow-hidden">
         <h3 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#38BDF8]" />
+          <Sparkles className="w-4 h-4 text-[#ECECEC]" />
           Instant Installation via shadcn CLI
         </h3>
         <p className="text-xs text-[#888888] mb-4">
@@ -47,8 +46,8 @@ export const DocIntroduction: React.FC<DocIntroductionProps> = ({ onNavigateSect
         <h2 className="text-xl font-semibold text-white mb-4">Core Principles</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-5 rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] hover:border-[#282828] transition-colors">
-            <div className="w-8 h-8 rounded-lg bg-[#38BDF8]/10 border border-[#38BDF8]/20 flex items-center justify-center mb-3">
-              <Code2 className="w-4 h-4 text-[#38BDF8]" />
+            <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#242424] flex items-center justify-center mb-3">
+              <Code2 className="w-4 h-4 text-[#ECECEC]" />
             </div>
             <h3 className="text-sm font-semibold text-white mb-1">Source Code Ownership</h3>
             <p className="text-xs text-[#808080] leading-relaxed">
@@ -57,8 +56,8 @@ export const DocIntroduction: React.FC<DocIntroductionProps> = ({ onNavigateSect
           </div>
 
           <div className="p-5 rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] hover:border-[#282828] transition-colors">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-3">
-              <Zap className="w-4 h-4 text-emerald-400" />
+            <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#242424] flex items-center justify-center mb-3">
+              <Zap className="w-4 h-4 text-[#ECECEC]" />
             </div>
             <h3 className="text-sm font-semibold text-white mb-1">Spring Physics & Micro-Motion</h3>
             <p className="text-xs text-[#808080] leading-relaxed">
@@ -67,8 +66,8 @@ export const DocIntroduction: React.FC<DocIntroductionProps> = ({ onNavigateSect
           </div>
 
           <div className="p-5 rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] hover:border-[#282828] transition-colors">
-            <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-3">
-              <Layers className="w-4 h-4 text-purple-400" />
+            <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#242424] flex items-center justify-center mb-3">
+              <Layers className="w-4 h-4 text-[#ECECEC]" />
             </div>
             <h3 className="text-sm font-semibold text-white mb-1">Automated Single Source of Truth</h3>
             <p className="text-xs text-[#808080] leading-relaxed">
@@ -77,8 +76,8 @@ export const DocIntroduction: React.FC<DocIntroductionProps> = ({ onNavigateSect
           </div>
 
           <div className="p-5 rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] hover:border-[#282828] transition-colors">
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-3">
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
+            <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#242424] flex items-center justify-center mb-3">
+              <ShieldCheck className="w-4 h-4 text-[#ECECEC]" />
             </div>
             <h3 className="text-sm font-semibold text-white mb-1">Accessible & Type-Safe</h3>
             <p className="text-xs text-[#808080] leading-relaxed">
@@ -92,24 +91,24 @@ export const DocIntroduction: React.FC<DocIntroductionProps> = ({ onNavigateSect
       <div className="pt-6 border-t border-[#181818] grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button
           onClick={() => onNavigateSection('quick-start')}
-          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#38BDF8]/30 transition-all text-left group"
+          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#383838] transition-all text-left group"
         >
           <div>
             <span className="text-[11px] font-mono text-[#6F6F6F] block">Next Guide</span>
-            <span className="text-sm font-semibold text-white group-hover:text-[#38BDF8] transition-colors">Quick Start & Setup</span>
+            <span className="text-sm font-semibold text-white group-hover:text-white transition-colors">Quick Start & Setup</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
         </button>
 
         <button
           onClick={() => onNavigateSection('architecture')}
-          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#38BDF8]/30 transition-all text-left group"
+          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#383838] transition-all text-left group"
         >
           <div>
             <span className="text-[11px] font-mono text-[#6F6F6F] block">Deep Dive</span>
-            <span className="text-sm font-semibold text-white group-hover:text-[#38BDF8] transition-colors">Automatic Registry Architecture</span>
+            <span className="text-sm font-semibold text-white group-hover:text-white transition-colors">Automatic Registry Architecture</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
         </button>
       </div>
     </div>

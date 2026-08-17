@@ -74,7 +74,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
               Docs
             </button>
             <ChevronRight className="w-3.5 h-3.5 text-[#444444]" />
-            <span className="text-[#38BDF8] font-medium">{getBreadcrumbLabel()}</span>
+            <span className="text-white font-medium">{getBreadcrumbLabel()}</span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
               onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
               className="lg:hidden flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#141414] border border-[#242424] text-xs text-[#ECECEC]"
             >
-              <Menu className="w-4 h-4 text-[#38BDF8]" />
+              <Menu className="w-4 h-4 text-white" />
               <span>Menu</span>
             </button>
           </div>

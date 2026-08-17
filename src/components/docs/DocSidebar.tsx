@@ -61,7 +61,7 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
           value={filterQuery}
           onChange={(e) => setFilterQuery(e.target.value)}
           placeholder="Filter documentation..."
-          className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-[#0E0E0E] border border-[#1E1E1E] focus:border-[#38BDF8]/50 focus:outline-none text-xs text-[#ECECEC] placeholder-[#555555] transition-all font-mono"
+          className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-[#0E0E0E] border border-[#1E1E1E] focus:border-[#383838] focus:outline-none text-xs text-[#ECECEC] placeholder-[#555555] transition-all font-mono"
         />
       </div>
 
@@ -88,12 +88,12 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
                       onClick={() => onSelectTopic(item.id)}
                       className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-left ${
                         isActive
-                          ? 'bg-[#38BDF8]/10 text-[#38BDF8] font-semibold border border-[#38BDF8]/20'
+                          ? 'bg-[#1C1C1C] text-white font-semibold border border-[#2E2E2E]'
                           : 'text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212]'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <Icon className={`w-4 h-4 ${isActive ? 'text-[#38BDF8]' : 'text-[#6F6F6F]'}`} />
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#6F6F6F]'}`} />
                         <span>{item.label}</span>
                       </div>
                       {item.badge && (

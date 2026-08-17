@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Activity, Sparkles, Sliders, Shield, ArrowRight } from 'lucide-react';
+import { Sliders, Activity, ArrowRight, RefreshCw } from 'lucide-react';
 import { DocCodeBlock } from '../DocCodeBlock';
 import { motionTransitions } from '../../../lib/motion-tokens';
 
@@ -9,159 +9,192 @@ export interface DocMotionSystemProps {
 }
 
 export const DocMotionSystem: React.FC<DocMotionSystemProps> = ({ onNavigateSection }) => {
-  const [activeTest, setActiveTest] = React.useState<string>('springSmooth');
+  const [activeCurve, setActiveCurve] = useState<keyof typeof motionTransitions>('springSnappy');
+  const [testTrigger, setTestTrigger] = useState(0);
 
   return (
     <div className="space-y-10 animate-fade-in">
       {/* Header */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-widest bg-[#38BDF8]/10 px-2.5 py-0.5 rounded-full border border-[#38BDF8]/20">
-            Design Tokens
+          <span className="text-[11px] font-mono text-[#A1A1A1] uppercase tracking-widest bg-[#181818] px-2.5 py-0.5 rounded-full border border-[#282828]">
+            Motion Engine
           </span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F5F5F5] font-sans">
-          Motion Tokens & Spring Physics
+          Motion Tokens & Physics Curves
         </h1>
         <p className="text-base text-[#A1A1A1] mt-3 leading-relaxed max-w-3xl">
-          EasyUI eliminates mechanical, linear easing curves in favor of organic spring physics. Damping, stiffness, and mass are calibrated to create tactile, physical interactions.
+          EasyUI standardizes animation through calibrated spring physics curves and cubic bezier easing tokens. Consistent physical mass, stiffness, and damping ensure every interaction feels organic.
         </p>
       </div>
 
-      {/* Interactive Physics Sandbox */}
+      {/* Interactive Physics Curve Sandbox */}
       <div className="p-6 rounded-2xl border border-[#222222] bg-[#0A0A0A] space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#38BDF8]" />
-              Interactive Spring Curves Sandbox
+              <Activity className="w-4 h-4 text-white" />
+              Interactive Physics Token Sandbox
             </h3>
-            <p className="text-xs text-[#808080] mt-0.5">
-              Click a preset below to see the live spring rebound response.
+            <p className="text-xs text-[#808080] mt-1">
+              Select a spring curve and click the element to observe the physical oscillation response.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-1.5 p-1 bg-[#121212] border border-[#202020] rounded-xl text-xs font-mono">
-            {Object.keys(motionTransitions).map((preset) => (
+          <div className="flex flex-wrap gap-1.5 bg-[#121212] p-1 rounded-xl border border-[#202020]">
+            {(Object.keys(motionTransitions) as (keyof typeof motionTransitions)[]).map((curveKey) => (
               <button
-                key={preset}
-                onClick={() => setActiveTest(preset)}
-                className={`px-2.5 py-1 rounded-lg transition-all ${
-                  activeTest === preset
-                    ? 'bg-[#38BDF8] text-black font-semibold shadow-sm'
-                    : 'text-[#888888] hover:text-white'
+                key={curveKey}
+                onClick={() => {
+                  setActiveCurve(curveKey);
+                  setTestTrigger((t) => t + 1);
+                }}
+                className={`px-2.5 py-1 text-xs font-mono rounded-lg transition-all ${
+                  activeCurve === curveKey
+                    ? 'bg-white text-black font-semibold shadow-sm'
+                    : 'text-[#A1A1A1] hover:text-white'
                 }`}
               >
-                {preset}
+                {curveKey}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Live Animation Box */}
-        <div className="h-36 rounded-xl border border-[#1C1C1C] bg-[#060606] flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(#202020_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
+        {/* Live Motion Test Area */}
+        <div className="h-44 rounded-xl border border-[#1C1C1C] bg-[#080808] flex items-center justify-center relative overflow-hidden bg-dot-subtle">
           <motion.div
-            key={activeTest}
-            initial={{ scale: 0.7, rotate: -15, opacity: 0 }}
-            animate={{ scale: 1, rotate: 0, opacity: 1 }}
-            transition={motionTransitions[activeTest as keyof typeof motionTransitions]}
-            className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#0284C7] shadow-lg shadow-[#38BDF8]/20 flex flex-col items-center justify-center text-black font-mono text-xs font-bold select-none cursor-pointer"
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
+            key={`${activeCurve}-${testTrigger}`}
+            initial={{ scale: 0.8, rotate: -6 }}
+            animate={{ scale: 1, rotate: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.92 }}
+            transition={motionTransitions[activeCurve] as any}
+            onClick={() => setTestTrigger((t) => t + 1)}
+            className="w-20 h-20 rounded-2xl bg-white shadow-lg shadow-white/10 flex flex-col items-center justify-center text-black font-mono text-xs font-bold select-none cursor-pointer"
           >
-            <Sparkles className="w-6 h-6 text-black mb-1" />
-            <span>Spring</span>
+            <span>Click</span>
+            <span className="text-[9px] font-normal opacity-80">to animate</span>
           </motion.div>
+
+          <div className="absolute bottom-3 right-4 text-[11px] font-mono text-[#6F6F6F] flex items-center gap-1.5">
+            <RefreshCw className="w-3 h-3" />
+            <span>Click block to re-trigger physics</span>
+          </div>
         </div>
       </div>
 
-      {/* Motion Tokens Code */}
+      {/* Physics Token Table */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-          <Sliders className="w-5 h-5 text-[#38BDF8]" />
-          Motion Token Definitions
-        </h2>
-        <p className="text-xs text-[#808080] leading-relaxed">
-          The central token configuration file <code className="text-[#ECECEC] font-mono">lib/motion-tokens.ts</code> is shared across all components:
-        </p>
+        <div className="flex items-center gap-2">
+          <Sliders className="w-5 h-5 text-white" />
+          <h2 className="text-xl font-semibold text-white">Motion Tokens Reference</h2>
+        </div>
 
-        <DocCodeBlock
-          code={`export const motionTransitions = {
-  // Smooth, refined feedback for surfaces and tabs
-  springSmooth: { type: 'spring', stiffness: 300, damping: 30 },
-
-  // Instant, tactile snap for buttons and dropdowns
-  springSnappy: { type: 'spring', stiffness: 400, damping: 25 },
-
-  // Expressive rebound for notifications and modal pops
-  springBouncy: { type: 'spring', stiffness: 500, damping: 15 },
-
-  // Organic, gradual deceleration for large content reveals
-  springGentle: { type: 'spring', stiffness: 180, damping: 24 },
-
-  // Ultra-fast cubic bezier for subtle opacity fades
-  easeOutCubic: { ease: [0.33, 1, 0.68, 1], duration: 0.25 },
-} as const;`}
-          language="typescript"
-          title="src/lib/motion-tokens.ts"
-        />
+        <div className="rounded-xl border border-[#1E1E1E] bg-[#0A0A0A] overflow-hidden">
+          <table className="w-full text-left text-xs font-mono">
+            <thead className="bg-[#121212] text-[#A1A1A1] border-b border-[#1E1E1E]">
+              <tr>
+                <th className="p-3.5 font-semibold">Token</th>
+                <th className="p-3.5 font-semibold">Type / Values</th>
+                <th className="p-3.5 font-semibold">Recommended Use Case</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#181818] text-[#A1A1A1]">
+              <tr>
+                <td className="p-3.5 text-white font-semibold">springSnappy</td>
+                <td className="p-3.5 text-[#D4D4D4]">stiffness: 400, damping: 25</td>
+                <td className="p-3.5 text-[#888888]">Tactile button clicks, pills, micro-toggles</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 text-white font-semibold">springResponsive</td>
+                <td className="p-3.5 text-[#D4D4D4]">stiffness: 350, damping: 28</td>
+                <td className="p-3.5 text-[#888888]">Notification stacks, dropdown open/close</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 text-white font-semibold">springGentle</td>
+                <td className="p-3.5 text-[#D4D4D4]">stiffness: 180, damping: 24</td>
+                <td className="p-3.5 text-[#888888]">Accordion expansion, card disclosure bounds</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 text-white font-semibold">springMorph</td>
+                <td className="p-3.5 text-[#D4D4D4]">stiffness: 280, damping: 26</td>
+                <td className="p-3.5 text-[#888888]">Morphing modal dialogs, shared layout transitions</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 text-white font-semibold">springSmooth</td>
+                <td className="p-3.5 text-[#D4D4D4]">stiffness: 300, damping: 30</td>
+                <td className="p-3.5 text-[#888888]">Tab indicator bar glide, general UI movement</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 text-white font-semibold">easeOutCubic</td>
+                <td className="p-3.5 text-[#D4D4D4]">cubic-bezier(0.33, 1, 0.68, 1)</td>
+                <td className="p-3.5 text-[#888888]">Fade in overlays, tooltips, CSS opacity shifts</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* Reduced Motion & Accessibility */}
+      {/* Code Export Reference */}
       <div className="space-y-4 pt-6 border-t border-[#181818]">
-        <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-          <Shield className="w-5 h-5 text-amber-400" />
-          Accessibility & Reduced Motion
-        </h2>
+        <h2 className="text-xl font-semibold text-white">Using Motion Tokens in Custom Components</h2>
         <p className="text-xs text-[#808080] leading-relaxed">
-          EasyUI is built to respect users who prefer reduced motion. In your own components or app wrappers, you can check Framer Motion's built-in <code className="text-[#ECECEC] font-mono">useReducedMotion</code> hook:
+          Import <code className="text-[#ECECEC] font-mono">motionTransitions</code> from your local <code className="text-[#ECECEC] font-mono">lib/motion-tokens</code> helper:
         </p>
 
         <DocCodeBlock
-          code={`import { useReducedMotion } from 'framer-motion';
+          code={`import { motion } from 'framer-motion';
 import { motionTransitions } from '@/lib/motion-tokens';
 
-export function AccessibleCard() {
-  const shouldReduceMotion = useReducedMotion();
-  const transition = shouldReduceMotion ? { duration: 0 } : motionTransitions.springSnappy;
-
+export function InteractiveBadge() {
   return (
     <motion.div
-      animate={{ scale: 1 }}
-      transition={transition}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={motionTransitions.springSnappy}
+      className="px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-white"
     >
-      Content
+      Hover Me
     </motion.div>
   );
 }`}
           language="tsx"
-          title="Reduced Motion Pattern"
+          title="Example Component with Motion Token"
         />
+      </div>
+
+      {/* Accessibility / Reduced Motion */}
+      <div className="p-5 rounded-xl border border-[#202020] bg-[#0A0A0A] space-y-2">
+        <h3 className="text-sm font-semibold text-white">Reduced Motion Accessibility Support</h3>
+        <p className="text-xs text-[#808080] leading-relaxed">
+          EasyUI components respect <code className="text-[#ECECEC] font-mono">prefers-reduced-motion: reduce</code>. Framer Motion automatically replaces spring physical coordinate transitions with instantaneous instant states when requested by system settings.
+        </p>
       </div>
 
       {/* Navigation Footer */}
       <div className="pt-6 border-t border-[#181818] grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button
           onClick={() => onNavigateSection('architecture')}
-          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#38BDF8]/30 transition-all text-left group"
+          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#383838] transition-all text-left group"
         >
           <div>
-            <span className="text-[11px] font-mono text-[#6F6F6F] block">Previous</span>
-            <span className="text-sm font-semibold text-white group-hover:text-[#38BDF8] transition-colors">Automatic Registry Architecture</span>
+            <span className="text-[11px] font-mono text-[#6F6F6F] block">Architecture</span>
+            <span className="text-sm font-semibold text-white group-hover:text-white transition-colors">Automatic Registry Architecture</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
         </button>
 
         <button
           onClick={() => onNavigateSection('collaboration')}
-          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#38BDF8]/30 transition-all text-left group"
+          className="flex items-center justify-between p-4 rounded-xl border border-[#1E1E1E] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#383838] transition-all text-left group"
         >
           <div>
-            <span className="text-[11px] font-mono text-[#6F6F6F] block">Guide</span>
-            <span className="text-sm font-semibold text-white group-hover:text-[#38BDF8] transition-colors">How to Collaborate & Add Components</span>
+            <span className="text-[11px] font-mono text-[#6F6F6F] block">Contribute</span>
+            <span className="text-sm font-semibold text-white group-hover:text-white transition-colors">How to Collaborate & Add Components</span>
           </div>
-          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-[#38BDF8] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="w-4 h-4 text-[#6F6F6F] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
         </button>
       </div>
     </div>
