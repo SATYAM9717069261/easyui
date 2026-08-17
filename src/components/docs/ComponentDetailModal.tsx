@@ -212,7 +212,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
               <span className="text-[10px] font-mono text-[#38BDF8] px-2 py-0.5 rounded bg-[#38BDF8]/10">
                 {component.category}
               </span>
-              <span className="text-xs text-[#6F6F6F]">@easyui/{component.id}</span>
+              <span className="text-xs text-[#6F6F6F]">easyui/{component.id}</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-[#F5F5F5] tracking-tight">
               {component.name}
@@ -288,7 +288,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
           {activeTab === 'install' && (
             <div className="space-y-4">
               <p className="text-xs text-[#8E8E8E]">
-                Add this component directly to your project using the shadcn CLI or copy-paste:
+                Add this component to your shadcn project via the EasyUI GitHub registry:
               </p>
               <div className="rounded-xl border border-[#1E1E1E] bg-[#090909] p-4 flex items-center justify-between font-mono text-xs">
                 <span className="text-[#38BDF8]">{component.cliCommand}</span>

@@ -16,7 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const [activeTab, setActiveTab] = useState<'cli' | 'react'>('cli');
 
   const copyInstallCommand = () => {
-    navigator.clipboard.writeText('npm install @easyui/core framer-motion');
+    navigator.clipboard.writeText('npx shadcn@latest add Surajmaurya1/easyui/magnetic-button');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -236,23 +236,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     <div className="flex gap-4">
                       <span className="w-6 select-none text-right text-[#525266]">2</span>
                       <div>
-                        <span className="text-[#38BDF8]">* </span>
-                        <span className="text-[#F8FAFC]">npm install </span>
-                        <span className="text-[#C084FC]">@easyui/core </span>
-                        <span className="text-[#60A5FA]">framer-motion</span>
+                        <span className="text-[#38BDF8]">$ </span>
+                        <span className="text-[#F8FAFC]">npx shadcn@latest add </span>
+                        <span className="text-[#C084FC]">Surajmaurya1/easyui/</span>
+                        <span className="text-[#60A5FA]">magnetic-button</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
                       <span className="w-6 select-none text-right text-[#525266]">3</span>
-                      <span className="text-emerald-400">+ @easyui/core@2.1.0</span>
+                      <span className="text-emerald-400">✔ Resolved Surajmaurya1/easyui registry</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="w-6 select-none text-right text-[#525266]">4</span>
-                      <span className="text-[#E2E8F0]/70">added 24 components, and audited 28 packages</span>
+                      <span className="text-[#E2E8F0]/70">Installing framer-motion...</span>
                     </div>
                     <div className="flex gap-4 text-[#525266]">
                       <span className="w-6 select-none text-right">5</span>
-                      <span></span>
+                      <span className="text-emerald-400">✔ Done. File added: components/ui/magnetic-button.tsx</span>
                     </div>
                     <div className="flex gap-4">
                       <span className="w-6 select-none text-right text-[#525266]">6</span>

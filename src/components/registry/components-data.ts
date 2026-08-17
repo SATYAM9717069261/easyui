@@ -8,7 +8,7 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     description: 'A responsive button with subtle proximity-based physics that pulls towards the cursor on hover and snaps back on departure.',
     category: 'Buttons',
     badges: ['Spring Physics', 'Micro-interaction', 'Tailwind'],
-    cliCommand: 'npx shadcn@latest add @easyui/magnetic-button',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/magnetic-button',
     features: [
       'Spring physics coordinate tracking via Framer Motion',
       'Configurable pull strength and threshold',
@@ -105,7 +105,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     description: 'A dark elevated surface that illuminates border and inner surfaces dynamically based on mouse pointer coordinates.',
     category: 'Motion',
     badges: ['Shader Feel', 'Pointer Physics', 'Dark Elevation'],
-    cliCommand: 'npx shadcn@latest add @easyui/spotlight-card',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/spotlight-card',
     features: [
       'Hardware-accelerated dynamic radial mask',
       'Dual illumination (border beam + ambient inner glow)',
@@ -169,7 +169,7 @@ export const SpotlightCard = ({ children, spotlightColor = 'rgba(56, 189, 248, 0
     description: 'An expandable card trigger that fluidly morphs into a centered dialog without jarring popup animations.',
     category: 'Overlays',
     badges: ['Shared Layout', 'Spring Physics', 'Zero Layout Shift'],
-    cliCommand: 'npx shadcn@latest add @easyui/morphing-dialog',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/morphing-dialog',
     features: [
       'Framer Motion layoutId continuous surface expansion',
       'Esc key dismissal and backdrop click support',
@@ -210,7 +210,7 @@ export function Demo() {
     description: 'A tabbed switcher with physical pill indicator sliding smoothly between active items with content cross-fades.',
     category: 'Navigation',
     badges: ['Layout Springs', 'Accessible', 'Keyboard Friendly'],
-    cliCommand: 'npx shadcn@latest add @easyui/animated-tabs',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/animated-tabs',
     features: [
       'Shared layout active pill with spring easing',
       'Independent content animation cross-fade',
@@ -241,7 +241,7 @@ export function Demo() {
     description: 'A floating quick-action toolbar inspired by macOS dock physics with smooth magnification and subtle tooltips.',
     category: 'Navigation',
     badges: ['Pointer Physics', 'Magnification Curve', 'Tooltips'],
-    cliCommand: 'npx shadcn@latest add @easyui/floating-action-dock',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/floating-action-dock',
     features: [
       'Continuous distance interpolation curve',
       'Tooltips with instant spring opacity',
@@ -272,7 +272,7 @@ export function Demo() {
     description: 'A stacked notification card system with physical spring stacking elevation, swipe-to-dismiss drag, and simulation triggers.',
     category: 'Feedback',
     badges: ['Drag Physics', 'Elevation Stacking', 'Interactive'],
-    cliCommand: 'npx shadcn@latest add @easyui/notification-stack',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/notification-stack',
     features: [
       'Interactive drag-to-dismiss with spring rebound',
       'Dynamic stacking elevation offset and scale',
@@ -297,7 +297,7 @@ export function Demo() {
     description: 'A global keyboard-first command palette with fuzzy filtering, category badges, and keyboard arrow controls.',
     category: 'Overlays',
     badges: ['Keyboard First', '⌘K / Ctrl+K', 'Fuzzy Filtering'],
-    cliCommand: 'npx shadcn@latest add @easyui/command-menu',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/command-menu',
     features: [
       'Global hotkey listener (⌘K / Ctrl+K)',
       'Arrow key navigation with wrapping',
@@ -324,7 +324,7 @@ export function Demo() {
     description: 'A compact search pill that smoothly widens on focus with shortcut hint pills and clear button.',
     category: 'Navigation',
     badges: ['Spring Expansion', 'Shortcuts', 'Compact'],
-    cliCommand: 'npx shadcn@latest add @easyui/expandable-search',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/expandable-search',
     features: [
       'Spring physics width expansion',
       'Shortcut badge hint',
@@ -349,7 +349,7 @@ export function Demo() {
     description: 'A high-definition product card with smooth cursor-driven 3D perspective rotation, dynamic glare, and revealed content.',
     category: 'Motion',
     badges: ['3D Tilt', 'Dynamic Glare', 'Micro-interaction'],
-    cliCommand: 'npx shadcn@latest add @easyui/reveal-card',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/reveal-card',
     features: [
       'Cursor-aware 3D perspective rotation springs',
       'Dynamic radial glare reflection overlay',
@@ -378,7 +378,7 @@ export function Demo() {
     description: 'An accordion component with physics height transition, rotating chevron indicators, and accessible keyboard toggles.',
     category: 'Feedback',
     badges: ['Spring Height', 'Zero Layout Shift', 'Multi or Single'],
-    cliCommand: 'npx shadcn@latest add @easyui/smooth-accordion',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/smooth-accordion',
     features: [
       'Spring physics height interpolation',
       'Zero content clipping or layout jumps',
@@ -407,7 +407,7 @@ export function Demo() {
     description: 'High-performance interactive Canvas dot matrix from React Bits with cursor proximity physics, radial glow aura, and customizable dispersion.',
     category: 'Motion',
     badges: ['HTML5 Canvas', 'React Bits', 'Interactive Physics'],
-    cliCommand: 'npx shadcn@latest add @easyui/dot-field',
+    cliCommand: 'npx shadcn@latest add Surajmaurya1/easyui/dot-field',
     features: [
       '60 FPS Canvas hardware-accelerated rendering',
       'Cursor repulsion and proximity bulge physics',

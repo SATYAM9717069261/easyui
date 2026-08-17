@@ -55,47 +55,57 @@
 
 ## Quick Start
 
-### 1. Clone the repository
+EasyUI components are distributed as source code through the **shadcn GitHub Registry**. You own the code — no runtime dependency, no version locks.
+
+### Option A — Install with shadcn CLI (Recommended)
+
+Requires a project already initialized with shadcn. Pick any component:
+
+```bash
+npx shadcn@latest add Surajmaurya1/easyui/magnetic-button
+npx shadcn@latest add Surajmaurya1/easyui/spotlight-card
+npx shadcn@latest add Surajmaurya1/easyui/animated-tabs
+npx shadcn@latest add Surajmaurya1/easyui/floating-action-dock
+npx shadcn@latest add Surajmaurya1/easyui/notification-stack
+npx shadcn@latest add Surajmaurya1/easyui/morphing-dialog
+npx shadcn@latest add Surajmaurya1/easyui/reveal-card
+npx shadcn@latest add Surajmaurya1/easyui/smooth-accordion
+npx shadcn@latest add Surajmaurya1/easyui/command-menu
+npx shadcn@latest add Surajmaurya1/easyui/dot-field
+npx shadcn@latest add Surajmaurya1/easyui/expandable-search
+```
+
+The CLI will:
+1. Download the component source into your `components/ui/` folder
+2. Automatically install required npm dependencies (e.g. `framer-motion`, `lucide-react`)
+3. Place shared utilities (`lib/motion-tokens.ts`, `lib/utils.ts`) alongside the component
+
+### Option B — Clone and explore locally
 
 ```bash
 git clone https://github.com/Surajmaurya1/easyui.git
 cd easyui
 ```
 
-### 2. Install dependencies
+Install dependencies and start the dev server:
 
 ```bash
-# Using npm
 npm install
-
-# Using pnpm
-pnpm install
-
-# Using yarn
-yarn install
-
-# Using bun
-bun install
-```
-
-### 3. Start development server
-
-```bash
 npm run dev
 ```
 
-Visit `http://localhost:5173` to explore the interactive showcase and live component playground.
+Visit `http://localhost:5173` to explore the interactive showcase.
 
 ---
 
 ## Usage Example
 
-Copy any component from `src/components/ui/` into your project:
+After installing a component with the shadcn CLI, import it directly from your own `components/ui/` folder:
 
 ```tsx
 import React from 'react';
-import { SpotlightCard } from '@/components/ui/SpotlightCard';
-import { MagneticButton } from '@/components/ui/MagneticButton';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { MagneticButton } from '@/components/ui/magnetic-button';
 import { ArrowUpRight } from 'lucide-react';
 
 export function FeatureCard() {
@@ -116,6 +126,8 @@ export function FeatureCard() {
   );
 }
 ```
+
+You own the source — edit colors, tweak spring physics, or restructure freely.
 
 ---
 

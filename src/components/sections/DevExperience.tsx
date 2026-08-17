@@ -9,9 +9,9 @@ export const DevExperience: React.FC = () => {
   const steps = [
     {
       step: '01',
-      title: 'Choose a component',
-      description: 'Pick from 10 accessible, spring-driven components engineered for modern Next.js and React stacks.',
-      code: 'npx shadcn@latest add @easyui/magnetic-button',
+      title: 'Add with shadcn CLI',
+      description: 'Install any component directly from the EasyUI GitHub registry. No npm package — the source lands straight into your project.',
+      code: 'npx shadcn@latest add Surajmaurya1/easyui/magnetic-button',
     },
     {
       step: '02',

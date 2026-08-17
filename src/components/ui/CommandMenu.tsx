@@ -4,6 +4,7 @@ import { Search, Sparkles, Layout, BookOpen, Terminal, CornerDownLeft } from 'lu
 import { GithubIcon } from '../icons/GithubIcon';
 import { cn } from '../../lib/utils';
 import { motionTransitions } from '../../lib/motion-tokens';
+import { GITHUB_URL } from '../../lib/constants';
 
 export interface CommandItem {
   id: string;
@@ -113,7 +114,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
       icon: <Terminal className="w-4 h-4 text-amber-400" />,
       shortcut: '⌘C',
       onSelect: () => {
-        navigator.clipboard.writeText('npx shadcn@latest add @easyui/magnetic-button');
+        navigator.clipboard.writeText('npx shadcn@latest add Surajmaurya1/easyui/magnetic-button');
         onClose();
       },
     },
@@ -124,7 +125,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
       icon: <GithubIcon className="w-4 h-4 text-[#A1A1A1]" />,
       shortcut: 'G',
       onSelect: () => {
-        window.open('https://github.com', '_blank');
+        window.open(GITHUB_URL, '_blank');
         onClose();
       },
     },
