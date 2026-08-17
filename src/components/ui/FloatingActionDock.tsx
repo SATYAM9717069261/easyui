@@ -44,8 +44,8 @@ function DockIcon({
       whileTap={{ scale: 0.88 }}
       transition={motionTransitions.springSnappy}
       className={cn(
-        'group relative flex items-center justify-center rounded-xl bg-[#141414] border border-[#222222] hover:border-[#38BDF8]/40 hover:bg-[#1A1A1A] transition-colors focus-ring',
-        isActive && 'border-[#38BDF8]/60 bg-[#1A1A1A]'
+        'group relative flex items-center justify-center rounded-xl bg-[#141414] border border-[#222222] hover:border-[#383838] hover:bg-[#1A1A1A] transition-colors focus-ring',
+        isActive && 'border-[#444444] bg-[#1A1A1A]'
       )}
       aria-label={item.label}
     >
@@ -61,7 +61,7 @@ function DockIcon({
 
       {/* Active Dot */}
       {isActive && (
-        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#38BDF8]" />
+        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white" />
       )}
     </motion.button>
   );

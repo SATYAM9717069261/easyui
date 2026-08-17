@@ -25,11 +25,11 @@
   --text-secondary: #A1A1A1;
   --text-muted: #6F6F6F;
 
-  /* Accent (Quiet, ice-blue) */
-  --accent: #38BDF8;
-  --accent-subtle: rgba(56, 189, 248, 0.12);
-  --accent-glow: rgba(56, 189, 248, 0.22);
-  --accent-ring: rgba(56, 189, 248, 0.4);
+  /* Accent (Pure Monochrome Grayscale / Neutral Dark) */
+  --accent: #E5E5E5;
+  --accent-subtle: rgba(255, 255, 255, 0.08);
+  --accent-glow: rgba(255, 255, 255, 0.12);
+  --accent-ring: rgba(255, 255, 255, 0.25);
 
   /* Radius Tokens */
   --radius-sm: 6px;
@@ -41,7 +41,7 @@
   /* Shadows */
   --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.03);
   --shadow-elevated: 0 12px 30px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  --shadow-glow: 0 0 20px -5px rgba(56, 189, 248, 0.25);
+  --shadow-glow: 0 0 20px -5px rgba(255, 255, 255, 0.15);
 }
 
 /* Custom Scrollbar */

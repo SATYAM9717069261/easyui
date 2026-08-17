@@ -83,7 +83,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     >
       {glow && isHovered && (
         <span 
-          className="absolute inset-0 rounded-[inherit] pointer-events-none opacity-40 blur-sm bg-gradient-to-r from-transparent via-[#38BDF8]/20 to-transparent"
+          className="absolute inset-0 rounded-[inherit] pointer-events-none opacity-40 blur-sm bg-gradient-to-r from-transparent via-white/10 to-transparent"
         />
       )}
       <span className="relative z-10 flex items-center gap-2">

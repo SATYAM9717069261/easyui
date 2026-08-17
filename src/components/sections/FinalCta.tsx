@@ -12,8 +12,8 @@ export interface FinalCtaProps {
 export const FinalCta: React.FC<FinalCtaProps> = ({ onBrowse }) => {
   return (
     <section className="py-28 bg-[#050505] border-t border-[#141414] relative overflow-hidden text-center">
-      {/* Subtle bottom ambient radial */}
-      <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[250px] opacity-20 blur-[100px] bg-gradient-to-t from-[#38BDF8]/15 to-transparent" />
+      {/* Subtle bottom ambient neutral glow */}
+      <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[250px] opacity-10 blur-[100px] bg-gradient-to-t from-white/15 to-transparent" />
 
       <Container size="md">
         <div className="max-w-2xl mx-auto space-y-6">

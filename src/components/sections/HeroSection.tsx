@@ -91,19 +91,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           glowRadius={180}
           sparkle={true}
           waveAmplitude={0}
-          gradientFrom="rgba(56, 189, 248, 0.35)"
-          gradientTo="rgba(168, 85, 247, 0.22)"
-          glowColor="rgba(56, 189, 248, 0.12)"
+          gradientFrom="rgba(255, 255, 255, 0.22)"
+          gradientTo="rgba(255, 255, 255, 0.08)"
+          glowColor="rgba(255, 255, 255, 0.05)"
           className="w-full h-full"
         />
         {/* Soft atmospheric gradients matching deep dark theme */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/40 via-transparent to-[#050505]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/60 via-transparent to-[#050505]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#050505_90%)]" />
       </div>
 
-      {/* Subtle top ambient radial glow */}
+      {/* Subtle top ambient neutral glow */}
       <div 
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[400px] opacity-25 blur-[130px] bg-gradient-to-b from-[#38BDF8]/20 via-[#1E40AF]/10 to-transparent z-0" 
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[400px] opacity-15 blur-[130px] bg-gradient-to-b from-white/15 to-transparent z-0" 
       />
 
       <div className="relative z-10">
@@ -115,16 +115,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0D0D12]/90 border border-[#20202E] text-[12px] font-sans text-[#A1A1B2] shadow-sm mb-6 backdrop-blur-md hover:border-[#38BDF8]/30 transition-all cursor-pointer group"
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0D0D0D] border border-[#222222] text-[12px] font-sans text-[#A1A1A1] shadow-sm mb-6 backdrop-blur-md hover:border-[#383838] transition-all cursor-pointer group"
               onClick={onExplore}
             >
-              <span className="px-2 py-0.5 rounded-full bg-[#1A1A2E] text-[#38BDF8] text-[10px] font-semibold tracking-wide border border-[#38BDF8]/20">
+              <span className="px-2 py-0.5 rounded-full bg-[#181818] text-[#ECECEC] text-[10px] font-semibold tracking-wide border border-[#282828]">
                 Open Source
               </span>
-              <span className="text-[#D4D4E0] group-hover:text-white transition-colors">
+              <span className="text-[#D4D4D4] group-hover:text-white transition-colors">
                 Open Source & Copy-Paste Components
               </span>
-              <ChevronRight className="w-3.5 h-3.5 text-[#6B6B80] group-hover:translate-x-0.5 transition-transform" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#6F6F6F] group-hover:translate-x-0.5 transition-transform" />
             </motion.div>
 
             {/* Main Headline - Single prominent centered statement */}
@@ -147,7 +147,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               Integrate EasyUI effortlessly with our developer-friendly library. Carefully crafted with polished interaction, thoughtful motion, and source you fully own—get started in seconds.
             </motion.p>
 
-            {/* Call to Actions - Pill Capsule Buttons matching reference */}
+            {/* Call to Actions - Pill Capsule Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             >
               <button
                 onClick={onExplore}
-                className="px-6 py-2.5 rounded-full bg-[#F8FAFC] hover:bg-white text-[#0A0A0A] text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-[0_0_25px_rgba(248,250,252,0.2)] hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
+                className="px-6 py-2.5 rounded-full bg-[#F8FAFC] hover:bg-white text-[#0A0A0A] text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-[0_0_25px_rgba(248,250,252,0.12)] hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
               >
                 <span>Try EasyUI</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -167,7 +167,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   const elem = document.getElementById('philosophy');
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-5 py-2.5 rounded-full bg-[#111116]/80 hover:bg-[#181820] text-[#CBD5E1] hover:text-white border border-[#22222E] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#333345]"
+                className="px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#181818] text-[#CBD5E1] hover:text-white border border-[#242424] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#333333]"
               >
                 How it works
               </button>
@@ -181,26 +181,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             transition={{ duration: 0.6, delay: 0.4 }}
             className="relative max-w-3xl mx-auto"
           >
-            {/* Ambient deep blue reflection underneath the card */}
-            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-b from-[#38BDF8]/15 via-[#1E40AF]/10 to-transparent blur-xl opacity-60" />
+            {/* Ambient neutral reflection underneath the card */}
+            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-b from-white/10 to-transparent blur-xl opacity-40" />
 
             {/* Main Terminal Window Card */}
-            <div className="relative rounded-2xl border border-[#22222E] bg-[#0A0A0F]/95 backdrop-blur-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] overflow-hidden">
+            <div className="relative rounded-2xl border border-[#222222] bg-[#0A0A0A]/95 backdrop-blur-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] overflow-hidden">
               {/* Terminal Title Bar */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-[#1A1A24] bg-[#0E0E14]/80">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-[#1A1A1A] bg-[#0E0E0E]">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#262633]" />
-                  <span className="w-3 h-3 rounded-full bg-[#262633]" />
-                  <span className="w-3 h-3 rounded-full bg-[#262633]" />
-                  <span className="ml-3 font-mono text-[11px] text-[#6E6E85]">easyui-terminal ~ zsh</span>
+                  <span className="w-3 h-3 rounded-full bg-[#262626]" />
+                  <span className="w-3 h-3 rounded-full bg-[#262626]" />
+                  <span className="w-3 h-3 rounded-full bg-[#262626]" />
+                  <span className="ml-3 font-mono text-[11px] text-[#6F6F6F]">easyui-terminal ~ zsh</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="flex bg-[#14141E] p-0.5 rounded-lg border border-[#20202E]">
+                  <div className="flex bg-[#141414] p-0.5 rounded-lg border border-[#222222]">
                     <button
                       onClick={() => setActiveTab('cli')}
                       className={`px-2.5 py-0.5 rounded-md text-[11px] font-mono transition-all ${
-                        activeTab === 'cli' ? 'bg-[#222232] text-[#38BDF8]' : 'text-[#71718A] hover:text-[#A1A1B2]'
+                        activeTab === 'cli' ? 'bg-[#242424] text-white font-medium' : 'text-[#717171] hover:text-[#A1A1A1]'
                       }`}
                     >
                       Terminal
@@ -208,7 +208,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     <button
                       onClick={() => setActiveTab('react')}
                       className={`px-2.5 py-0.5 rounded-md text-[11px] font-mono transition-all ${
-                        activeTab === 'react' ? 'bg-[#222232] text-[#38BDF8]' : 'text-[#71718A] hover:text-[#A1A1B2]'
+                        activeTab === 'react' ? 'bg-[#242424] text-white font-medium' : 'text-[#717171] hover:text-[#A1A1A1]'
                       }`}
                     >
                       React JSX
@@ -217,198 +217,198 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                   <button
                     onClick={copyInstallCommand}
-                    className="p-1.5 rounded-lg bg-[#14141E] border border-[#22222E] hover:border-[#38BDF8]/40 text-[#8E8EA0] hover:text-[#38BDF8] transition-all flex items-center gap-1 text-[11px] font-mono"
+                    className="p-1.5 rounded-lg bg-[#141414] border border-[#222222] hover:border-[#383838] text-[#888888] hover:text-white transition-all flex items-center gap-1 text-[11px] font-mono"
                     title="Copy command"
                   >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
               </div>
 
-              {/* Code Content Area with Line Numbers matching screenshot */}
-              <div className="p-4 sm:p-6 font-mono text-xs sm:text-[13px] leading-relaxed text-[#D4D4E0] overflow-x-auto select-text">
+              {/* Code Content Area with Line Numbers */}
+              <div className="p-4 sm:p-6 font-mono text-xs sm:text-[13px] leading-relaxed text-[#D4D4D4] overflow-x-auto select-text">
                 {activeTab === 'cli' ? (
                   <div className="space-y-1">
-                    <div className="flex gap-4 text-[#525266]">
+                    <div className="flex gap-4 text-[#525252]">
                       <span className="w-6 select-none text-right">1</span>
-                      <span className="text-[#71718A]">Last login: Mon Aug 17 2026 10:45:00 on console</span>
+                      <span className="text-[#717171]">Last login: Mon Aug 17 2026 10:45:00 on console</span>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">2</span>
+                      <span className="w-6 select-none text-right text-[#525252]">2</span>
                       <div>
-                        <span className="text-[#38BDF8]">$ </span>
-                        <span className="text-[#F8FAFC]">npx shadcn@latest add </span>
-                        <span className="text-[#C084FC]">Surajmaurya1/easyui/</span>
-                        <span className="text-[#60A5FA]">magnetic-button</span>
+                        <span className="text-[#A1A1A1]">$ </span>
+                        <span className="text-[#F5F5F5]">npx shadcn@latest add </span>
+                        <span className="text-[#D4D4D4]">Surajmaurya1/easyui/</span>
+                        <span className="text-white">magnetic-button</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">3</span>
-                      <span className="text-emerald-400">✔ Resolved Surajmaurya1/easyui registry</span>
+                      <span className="w-6 select-none text-right text-[#525252]">3</span>
+                      <span className="text-[#ECECEC]">✔ Resolved Surajmaurya1/easyui registry</span>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">4</span>
-                      <span className="text-[#E2E8F0]/70">Installing framer-motion...</span>
+                      <span className="w-6 select-none text-right text-[#525252]">4</span>
+                      <span className="text-[#A1A1A1]">Installing framer-motion...</span>
                     </div>
-                    <div className="flex gap-4 text-[#525266]">
+                    <div className="flex gap-4 text-[#525252]">
                       <span className="w-6 select-none text-right">5</span>
-                      <span className="text-emerald-400">✔ Done. File added: components/ui/magnetic-button.tsx</span>
+                      <span className="text-[#ECECEC]">✔ Done. File added: components/ui/magnetic-button.tsx</span>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">6</span>
+                      <span className="w-6 select-none text-right text-[#525252]">6</span>
                       <div>
-                        <span className="text-[#C084FC]">const </span>
-                        <span className="text-[#93C5FD]">easyUI </span>
-                        <span className="text-[#F43F5E]">= </span>
-                        <span className="text-[#C084FC]">await </span>
-                        <span className="text-[#38BDF8]">EasyUI</span>
-                        <span className="text-[#94A3B8]">.initialize({'{'}</span>
+                        <span className="text-[#888888]">const </span>
+                        <span className="text-[#D4D4D4]">easyUI </span>
+                        <span className="text-[#A1A1A1]">= </span>
+                        <span className="text-[#888888]">await </span>
+                        <span className="text-white">EasyUI</span>
+                        <span className="text-[#888888]">.initialize({'{'}</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">7</span>
+                      <span className="w-6 select-none text-right text-[#525252]">7</span>
                       <div className="pl-4">
-                        <span className="text-[#CBD5E1]">theme: </span>
-                        <span className="text-[#38BDF8]">'dark'</span>
-                        <span className="text-[#94A3B8]">,</span>
+                        <span className="text-[#A1A1A1]">theme: </span>
+                        <span className="text-white">'dark'</span>
+                        <span className="text-[#888888]">,</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">8</span>
+                      <span className="w-6 select-none text-right text-[#525252]">8</span>
                       <div className="pl-4">
-                        <span className="text-[#CBD5E1]">motion: </span>
-                        <span className="text-[#38BDF8]">'spring-snappy'</span>
-                        <span className="text-[#94A3B8]">,</span>
+                        <span className="text-[#A1A1A1]">motion: </span>
+                        <span className="text-white">'spring-snappy'</span>
+                        <span className="text-[#888888]">,</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">9</span>
+                      <span className="w-6 select-none text-right text-[#525252]">9</span>
                       <div className="pl-4">
-                        <span className="text-[#CBD5E1]">physics: </span>
-                        <span className="text-[#94A3B8]">{'{ '}</span>
-                        <span className="text-[#CBD5E1]">damping: </span>
-                        <span className="text-[#F59E0B]">26</span>
-                        <span className="text-[#94A3B8]">, </span>
-                        <span className="text-[#CBD5E1]">stiffness: </span>
-                        <span className="text-[#F59E0B]">280</span>
-                        <span className="text-[#94A3B8]">{' }'}</span>
+                        <span className="text-[#A1A1A1]">physics: </span>
+                        <span className="text-[#888888]">{'{ '}</span>
+                        <span className="text-[#A1A1A1]">damping: </span>
+                        <span className="text-[#E5E5E5]">26</span>
+                        <span className="text-[#888888]">, </span>
+                        <span className="text-[#A1A1A1]">stiffness: </span>
+                        <span className="text-[#E5E5E5]">280</span>
+                        <span className="text-[#888888]">{' }'}</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">10</span>
+                      <span className="w-6 select-none text-right text-[#525252]">10</span>
                       <div>
-                        <span className="text-[#94A3B8]">{'}'});</span>
+                        <span className="text-[#888888]">{'}'});</span>
                       </div>
                     </div>
-                    <div className="flex gap-4 text-[#525266]">
+                    <div className="flex gap-4 text-[#525252]">
                       <span className="w-6 select-none text-right">11</span>
                       <span></span>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">12</span>
+                      <span className="w-6 select-none text-right text-[#525252]">12</span>
                       <div>
-                        <span className="text-[#C084FC]">const </span>
-                        <span className="text-[#93C5FD]">instance </span>
-                        <span className="text-[#F43F5E]">= </span>
-                        <span className="text-[#C084FC]">await </span>
-                        <span className="text-[#93C5FD]">easyUI</span>
-                        <span className="text-[#94A3B8]">.mount(</span>
-                        <span className="text-[#38BDF8]">'DotField'</span>
-                        <span className="text-[#94A3B8]">);</span>
+                        <span className="text-[#888888]">const </span>
+                        <span className="text-[#D4D4D4]">instance </span>
+                        <span className="text-[#A1A1A1]">= </span>
+                        <span className="text-[#888888]">await </span>
+                        <span className="text-[#D4D4D4]">easyUI</span>
+                        <span className="text-[#888888]">.mount(</span>
+                        <span className="text-white">'DotField'</span>
+                        <span className="text-[#888888]">);</span>
                       </div>
                     </div>
                   </div>
                 ) : (
                   <div className="space-y-1">
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">1</span>
+                      <span className="w-6 select-none text-right text-[#525252]">1</span>
                       <div>
-                        <span className="text-[#C084FC]">import </span>
-                        <span className="text-[#94A3B8]">{'{ '}</span>
-                        <span className="text-[#38BDF8]">SpotlightCard</span>
-                        <span className="text-[#94A3B8]">, </span>
-                        <span className="text-[#38BDF8]">MagneticButton</span>
-                        <span className="text-[#94A3B8]">{' } '}</span>
-                        <span className="text-[#C084FC]">from </span>
-                        <span className="text-[#38BDF8]">'@/components/ui'</span>
-                        <span className="text-[#94A3B8]">;</span>
+                        <span className="text-[#888888]">import </span>
+                        <span className="text-[#888888]">{'{ '}</span>
+                        <span className="text-white">SpotlightCard</span>
+                        <span className="text-[#888888]">, </span>
+                        <span className="text-white">MagneticButton</span>
+                        <span className="text-[#888888]">{' } '}</span>
+                        <span className="text-[#888888]">from </span>
+                        <span className="text-[#D4D4D4]">'@/components/ui'</span>
+                        <span className="text-[#888888]">;</span>
                       </div>
                     </div>
-                    <div className="flex gap-4 text-[#525266]">
+                    <div className="flex gap-4 text-[#525252]">
                       <span className="w-6 select-none text-right">2</span>
                       <span></span>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">3</span>
+                      <span className="w-6 select-none text-right text-[#525252]">3</span>
                       <div>
-                        <span className="text-[#C084FC]">export default function </span>
-                        <span className="text-[#60A5FA]">Dashboard</span>
-                        <span className="text-[#94A3B8]">() {'{'}</span>
+                        <span className="text-[#888888]">export default function </span>
+                        <span className="text-white">Dashboard</span>
+                        <span className="text-[#888888]">() {'{'}</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">4</span>
+                      <span className="w-6 select-none text-right text-[#525252]">4</span>
                       <div className="pl-4">
-                        <span className="text-[#C084FC]">return </span>
-                        <span className="text-[#94A3B8]">(</span>
+                        <span className="text-[#888888]">return </span>
+                        <span className="text-[#888888]">(</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">5</span>
+                      <span className="w-6 select-none text-right text-[#525252]">5</span>
                       <div className="pl-8">
-                        <span className="text-[#F43F5E]">&lt;</span>
-                        <span className="text-[#38BDF8]">SpotlightCard </span>
-                        <span className="text-[#93C5FD]">glowRadius</span>
-                        <span className="text-[#F43F5E]">=</span>
-                        <span className="text-[#94A3B8]">{'{'}</span>
-                        <span className="text-[#F59E0B]">180</span>
-                        <span className="text-[#94A3B8]">{'}'}</span>
-                        <span className="text-[#F43F5E]">&gt;</span>
+                        <span className="text-[#6F6F6F]">&lt;</span>
+                        <span className="text-white">SpotlightCard </span>
+                        <span className="text-[#D4D4D4]">glowRadius</span>
+                        <span className="text-[#6F6F6F]">=</span>
+                        <span className="text-[#888888]">{'{'}</span>
+                        <span className="text-[#ECECEC]">180</span>
+                        <span className="text-[#888888]">{'}'}</span>
+                        <span className="text-[#6F6F6F]">&gt;</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">6</span>
+                      <span className="w-6 select-none text-right text-[#525252]">6</span>
                       <div className="pl-12">
-                        <span className="text-[#F43F5E]">&lt;</span>
-                        <span className="text-[#38BDF8]">MagneticButton </span>
-                        <span className="text-[#93C5FD]">variant</span>
-                        <span className="text-[#F43F5E]">=</span>
-                        <span className="text-[#38BDF8]">"primary"</span>
-                        <span className="text-[#F43F5E]">&gt;</span>
+                        <span className="text-[#6F6F6F]">&lt;</span>
+                        <span className="text-white">MagneticButton </span>
+                        <span className="text-[#D4D4D4]">variant</span>
+                        <span className="text-[#6F6F6F]">=</span>
+                        <span className="text-[#ECECEC]">"primary"</span>
+                        <span className="text-[#6F6F6F]">&gt;</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">7</span>
+                      <span className="w-6 select-none text-right text-[#525252]">7</span>
                       <div className="pl-16">
                         <span className="text-[#F8FAFC]">Interact</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">8</span>
+                      <span className="w-6 select-none text-right text-[#525252]">8</span>
                       <div className="pl-12">
-                        <span className="text-[#F43F5E]">&lt;/</span>
-                        <span className="text-[#38BDF8]">MagneticButton</span>
-                        <span className="text-[#F43F5E]">&gt;</span>
+                        <span className="text-[#6F6F6F]">&lt;/</span>
+                        <span className="text-white">MagneticButton</span>
+                        <span className="text-[#6F6F6F]">&gt;</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">9</span>
+                      <span className="w-6 select-none text-right text-[#525252]">9</span>
                       <div className="pl-8">
-                        <span className="text-[#F43F5E]">&lt;/</span>
-                        <span className="text-[#38BDF8]">SpotlightCard</span>
-                        <span className="text-[#F43F5E]">&gt;</span>
+                        <span className="text-[#6F6F6F]">&lt;/</span>
+                        <span className="text-white">SpotlightCard</span>
+                        <span className="text-[#6F6F6F]">&gt;</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">10</span>
+                      <span className="w-6 select-none text-right text-[#525252]">10</span>
                       <div className="pl-4">
-                        <span className="text-[#94A3B8]">);</span>
+                        <span className="text-[#888888]">);</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525266]">11</span>
+                      <span className="w-6 select-none text-right text-[#525252]">11</span>
                       <div>
-                        <span className="text-[#94A3B8]">{'}'}</span>
+                        <span className="text-[#888888]">{'}'}</span>
                       </div>
                     </div>
                   </div>
@@ -416,10 +416,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Bottom Card Footer Glow & Status Bar */}
-              <div className="px-4 py-2.5 bg-[#0C0C12] border-t border-[#181822] flex items-center justify-between text-[11px] font-mono text-[#6E6E85]">
+              <div className="px-4 py-2.5 bg-[#0C0C0C] border-t border-[#181818] flex items-center justify-between text-[11px] font-mono text-[#6E6E85]">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[#A1A1B2]">Ready to copy & paste</span>
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  <span className="text-[#A1A1A1]">Ready to copy & paste</span>
                 </div>
                 <div className="text-[#64748B]">
                   UTF-8 • TypeScript 5.0
@@ -427,7 +427,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
             </div>
 
-            {/* Bottom Tech Ecosystem / Partner Brand Bar - Exactly like the reference image */}
+            {/* Bottom Tech Ecosystem */}
             <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 px-4 text-[#64748B]">
               {logos.map((logo) => (
                 <div
@@ -445,4 +445,3 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     </section>
   );
 };
-

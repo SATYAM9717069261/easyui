@@ -42,7 +42,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
           <div className="py-12 flex flex-col items-center justify-center gap-4">
             <MagneticButton variant="primary" size="lg" strength={0.4}>
               <span>Magnetic Button</span>
-              <Sparkles className="w-4 h-4 text-[#38BDF8]" />
+              <Sparkles className="w-4 h-4 text-[#ECECEC]" />
             </MagneticButton>
             <p className="text-xs text-[#6F6F6F]">Hover cursor around the button to test proximity pull</p>
           </div>
@@ -52,7 +52,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
           <div className="py-8 flex justify-center">
             <SpotlightCard className="max-w-md w-full p-6 bg-[#0E0E0E]">
               <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
+                <span className="w-2 h-2 rounded-full bg-white" />
                 <h4 className="text-sm font-semibold text-[#F5F5F5]">Spotlight Shader</h4>
               </div>
               <p className="text-xs text-[#808080] leading-relaxed mb-4">
@@ -105,7 +105,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
           <div className="py-8 flex justify-center">
             <RevealCard
               revealContent={
-                <div className="text-xs text-[#38BDF8] space-y-1">
+                <div className="text-xs text-white space-y-1">
                   <div>✓ Latency: 0.12ms</div>
                   <div>✓ Region: us-east-1</div>
                 </div>
@@ -145,7 +145,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
               trigger={(open) => (
                 <button
                   onClick={open}
-                  className="px-5 py-2.5 rounded-xl bg-[#161616] border border-[#2A2A2A] hover:border-[#38BDF8]/50 text-xs font-medium text-[#F5F5F5] transition-all"
+                  className="px-5 py-2.5 rounded-xl bg-[#161616] border border-[#2A2A2A] hover:border-[#383838] text-xs font-medium text-[#F5F5F5] transition-all"
                 >
                   Open Morphing Dialog
                 </button>
@@ -161,7 +161,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
       case 'command-menu':
         return (
           <div className="py-10 text-center">
-            <p className="text-xs text-[#A1A1A1] mb-3">Press <kbd className="px-1.5 py-0.5 rounded bg-[#181818] border border-[#262626] font-mono text-[#38BDF8]">⌘K</kbd> anywhere on the page to open.</p>
+            <p className="text-xs text-[#A1A1A1] mb-3">Press <kbd className="px-1.5 py-0.5 rounded bg-[#181818] border border-[#262626] font-mono text-white">⌘K</kbd> anywhere on the page to open.</p>
           </div>
         );
       case 'dot-field':
@@ -173,9 +173,9 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
               bulgeStrength={67}
               glowRadius={160}
               sparkle={true}
-              gradientFrom="rgba(56, 189, 248, 0.35)"
-              gradientTo="rgba(168, 85, 247, 0.25)"
-              glowColor="rgba(56, 189, 248, 0.15)"
+              gradientFrom="rgba(255, 255, 255, 0.25)"
+              gradientTo="rgba(255, 255, 255, 0.08)"
+              glowColor="rgba(255, 255, 255, 0.05)"
             />
             <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-[#050505]/70 border border-[#222222] text-[11px] font-mono text-[#A1A1A1] backdrop-blur-sm pointer-events-none">
               Move cursor across canvas to test repulsion & glow
@@ -210,7 +210,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
         <div className="flex items-start justify-between p-6 border-b border-[#1A1A1A]">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[10px] font-mono text-[#38BDF8] px-2 py-0.5 rounded bg-[#38BDF8]/10">
+              <span className="text-[10px] font-mono text-white px-2 py-0.5 rounded bg-[#181818] border border-[#242424]">
                 {component.category}
               </span>
               <span className="text-xs text-[#6F6F6F]">easyui/{component.id}</span>
@@ -247,7 +247,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
               onClick={() => setActiveTab(tab.id as any)}
               className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'border-[#38BDF8] text-[#F5F5F5]'
+                  ? 'border-white text-white font-semibold'
                   : 'border-transparent text-[#6F6F6F] hover:text-[#A1A1A1]'
               }`}
             >
@@ -276,7 +276,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
                       key={i}
                       className="p-3 rounded-lg border border-[#1B1B1B] bg-[#0E0E0E] text-xs text-[#A1A1A1] flex items-start gap-2"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] mt-1 shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-white mt-1 shrink-0" />
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -292,12 +292,12 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
                 Add this component to your shadcn project via the EasyUI GitHub registry:
               </p>
               <div className="rounded-xl border border-[#1E1E1E] bg-[#090909] p-4 flex items-center justify-between font-mono text-xs">
-                <span className="text-[#38BDF8]">{component.cliCommand}</span>
+                <span className="text-white">{component.cliCommand}</span>
                 <button
                   onClick={() => handleCopy(component.cliCommand, 'cli')}
                   className="flex items-center gap-1 text-[11px] text-[#A1A1A1] hover:text-[#F5F5F5]"
                 >
-                  {copiedCode === 'cli' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedCode === 'cli' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedCode === 'cli' ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
@@ -316,9 +316,9 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
                 <span className="text-xs text-[#8E8E8E]">Example Usage in React / Next.js:</span>
                 <button
                   onClick={() => handleCopy(component.usageCode, 'usage')}
-                  className="flex items-center gap-1 text-[11px] text-[#38BDF8] hover:underline"
+                  className="flex items-center gap-1 text-[11px] text-white hover:underline"
                 >
-                  {copiedCode === 'usage' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedCode === 'usage' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedCode === 'usage' ? 'Copied' : 'Copy Example'}</span>
                 </button>
               </div>
@@ -335,9 +335,9 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
                 <span className="text-xs text-[#8E8E8E]">Full Component Source Code (TypeScript):</span>
                 <button
                   onClick={() => handleCopy(component.sourceCode, 'source')}
-                  className="flex items-center gap-1 text-[11px] text-[#38BDF8] hover:underline"
+                  className="flex items-center gap-1 text-[11px] text-white hover:underline"
                 >
-                  {copiedCode === 'source' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedCode === 'source' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedCode === 'source' ? 'Copied' : 'Copy Source'}</span>
                 </button>
               </div>
@@ -366,7 +366,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
                   <tbody className="divide-y divide-[#181818] bg-[#0A0A0A]">
                     {component.props.map((p, i) => (
                       <tr key={i} className="hover:bg-[#101010]">
-                        <td className="p-3 font-mono text-[#38BDF8] font-semibold">{p.name}</td>
+                        <td className="p-3 font-mono text-white font-semibold">{p.name}</td>
                         <td className="p-3 font-mono text-[#A1A1A1]">{p.type}</td>
                         <td className="p-3 font-mono text-[#6F6F6F]">{p.default || '-'}</td>
                         <td className="p-3 text-[#CCCCCC]">{p.description}</td>
@@ -390,7 +390,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
                     key={i}
                     className="p-3.5 rounded-xl border border-[#1C1C1C] bg-[#0E0E0E] text-xs text-[#CCCCCC] flex items-center gap-3"
                   >
-                    <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-white shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}

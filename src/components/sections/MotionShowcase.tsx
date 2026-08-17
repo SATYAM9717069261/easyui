@@ -14,7 +14,7 @@ export const MotionShowcase: React.FC = () => {
     <section id="motion-showcase" className="py-24 bg-[#070707] border-t border-[#141414]">
       <Container size="xl">
         <div className="max-w-2xl mb-14">
-          <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-widest">
+          <span className="text-[11px] font-mono text-[#A1A1A1] uppercase tracking-widest">
             Physics
           </span>
           <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
@@ -44,7 +44,7 @@ export const MotionShowcase: React.FC = () => {
                 whileHover={{ scale: 1.08, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 transition={motionTransitions.springSnappy}
-                className="px-5 py-2.5 rounded-xl bg-[#141414] border border-[#282828] text-xs font-medium text-[#F5F5F5] hover:border-[#38BDF8]/60 cursor-pointer shadow-sm hover:shadow-[0_0_20px_-3px_rgba(56,189,248,0.25)]"
+                className="px-5 py-2.5 rounded-xl bg-[#141414] border border-[#282828] text-xs font-medium text-[#F5F5F5] hover:border-[#444444] cursor-pointer shadow-sm hover:shadow-[0_0_20px_-3px_rgba(255,255,255,0.1)]"
               >
                 Hover over me
               </motion.div>
@@ -98,7 +98,7 @@ export const MotionShowcase: React.FC = () => {
                 className="cursor-pointer rounded-xl bg-[#141414] border border-[#262626] p-3 text-xs text-[#F5F5F5]"
               >
                 <div className="flex items-center gap-2">
-                  <Maximize2 className="w-3.5 h-3.5 text-[#38BDF8]" />
+                  <Maximize2 className="w-3.5 h-3.5 text-[#ECECEC]" />
                   <span>{isExpandedDemo ? 'Expanded details' : 'Click to expand'}</span>
                 </div>
                 {isExpandedDemo && (
@@ -137,7 +137,7 @@ export const MotionShowcase: React.FC = () => {
                   setMorphShape(next);
                 }}
                 transition={motionTransitions.springMorph}
-                className={`cursor-pointer bg-[#141414] border border-[#38BDF8]/40 flex items-center justify-center text-[11px] text-[#F5F5F5] font-mono ${
+                className={`cursor-pointer bg-[#141414] border border-[#333333] hover:border-[#555555] flex items-center justify-center text-[11px] text-[#F5F5F5] font-mono ${
                   morphShape === 'pill'
                     ? 'h-9 px-6 rounded-full'
                     : morphShape === 'circle'
@@ -172,7 +172,7 @@ export const MotionShowcase: React.FC = () => {
                 whileDrag={{ scale: 1.05 }}
                 className="px-4 py-2 rounded-xl bg-[#181818] border border-[#2C2C2C] text-xs text-[#F5F5F5] cursor-grab active:cursor-grabbing flex items-center gap-2 select-none shadow-md"
               >
-                <Move className="w-3.5 h-3.5 text-[#38BDF8]" />
+                <Move className="w-3.5 h-3.5 text-[#ECECEC]" />
                 <span>Drag anywhere</span>
               </motion.div>
             </div>
@@ -215,7 +215,7 @@ export const MotionShowcase: React.FC = () => {
                 ) : (
                   <button
                     onClick={() => setIsDismissed(false)}
-                    className="text-xs text-[#38BDF8] flex items-center gap-1.5 hover:underline"
+                    className="text-xs text-white flex items-center gap-1.5 hover:underline font-medium"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     <span>Restore Item</span>

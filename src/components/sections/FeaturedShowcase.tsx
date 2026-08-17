@@ -27,7 +27,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
           <div>
-            <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-widest">
+            <span className="text-[11px] font-mono text-[#A1A1A1] uppercase tracking-widest">
               Showroom
             </span>
             <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
@@ -54,7 +54,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
+                    <span className="w-2 h-2 rounded-full bg-white" />
                     <span className="text-xs font-mono uppercase tracking-wider text-[#A1A1A1]">
                       Spotlight Card
                     </span>
@@ -79,7 +79,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
                   </div>
                   <div className="space-y-1">
                     <span className="text-[11px] text-[#6F6F6F]">Mask Radius</span>
-                    <p className="text-base font-semibold font-mono text-[#38BDF8]">350px</p>
+                    <p className="text-base font-semibold font-mono text-white">350px</p>
                   </div>
                   <div className="space-y-1">
                     <span className="text-[11px] text-[#6F6F6F]">Surface Alpha</span>
@@ -126,7 +126,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
                   className="w-full"
                 >
                   <span>Primary Magnetic</span>
-                  <Zap className="w-3.5 h-3.5 text-amber-500" />
+                  <Zap className="w-3.5 h-3.5 text-neutral-400" />
                 </MagneticButton>
 
                 <MagneticButton
@@ -144,7 +144,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
               <span className="text-[#6F6F6F]">Framer Spring</span>
               <button
                 onClick={() => onSelectComponent('magnetic-button')}
-                className="text-[#38BDF8] hover:underline text-xs"
+                className="text-[#ECECEC] hover:underline text-xs"
               >
                 Docs →
               </button>
@@ -158,7 +158,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
                 <span className="text-xs font-mono uppercase tracking-wider text-[#A1A1A1]">
                   Morphing Dialog
                 </span>
-                <span className="text-[11px] font-mono text-[#38BDF8] bg-[#38BDF8]/10 px-1.5 py-0.5 rounded">
+                <span className="text-[11px] font-mono text-[#ECECEC] bg-[#181818] border border-[#262626] px-1.5 py-0.5 rounded">
                   layoutId
                 </span>
               </div>
@@ -176,10 +176,10 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
                 trigger={(open) => (
                   <button
                     onClick={open}
-                    className="w-full py-3 px-4 rounded-lg bg-[#141414] border border-[#262626] hover:border-[#38BDF8]/50 text-xs font-medium text-[#F5F5F5] flex items-center justify-between transition-all group"
+                    className="w-full py-3 px-4 rounded-lg bg-[#141414] border border-[#262626] hover:border-[#383838] text-xs font-medium text-[#F5F5F5] flex items-center justify-between transition-all group"
                   >
                     <span className="flex items-center gap-2">
-                      <Shield className="w-4 h-4 text-[#38BDF8]" />
+                      <Shield className="w-4 h-4 text-[#ECECEC]" />
                       <span>Open Security Dialog</span>
                     </span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-[#6F6F6F] group-hover:text-[#F5F5F5]" />
@@ -195,7 +195,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
                     <button className="px-3 py-1.5 rounded-lg bg-[#1A1A1A] text-[#A1A1A1] text-xs">
                       Cancel
                     </button>
-                    <button className="px-3 py-1.5 rounded-lg bg-[#38BDF8] text-[#050505] font-medium text-xs">
+                    <button className="px-3 py-1.5 rounded-lg bg-white text-black font-medium text-xs">
                       Save Policies
                     </button>
                   </div>
@@ -207,7 +207,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
               <span className="text-[#6F6F6F]">Zero layout shift</span>
               <button
                 onClick={() => onSelectComponent('morphing-dialog')}
-                className="text-[#38BDF8] hover:underline"
+                className="text-[#ECECEC] hover:underline"
               >
                 Docs →
               </button>
@@ -238,7 +238,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
               <span className="text-[#6F6F6F]">Interactive hover magnification & tooltips</span>
               <button
                 onClick={() => onSelectComponent('floating-dock')}
-                className="text-[#38BDF8] hover:underline"
+                className="text-[#ECECEC] hover:underline"
               >
                 Inspect Dock →
               </button>
