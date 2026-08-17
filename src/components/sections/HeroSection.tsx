@@ -133,7 +133,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-6xl md:text-[68px] font-bold tracking-tight text-[#F8FAFC] leading-[1.08]"
+              className="text-4xl sm:text-6xl md:text-[68px] font-bold tracking-tight text-[#F5F5F5] leading-[1.08]"
             >
               Beyond Ordinary UI
             </motion.h1>
@@ -143,7 +143,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-sm sm:text-base text-[#94A3B8] max-w-2xl mt-5 font-normal leading-relaxed"
+              className="text-sm sm:text-base text-[#8E8E8E] max-w-2xl mt-5 font-normal leading-relaxed"
             >
               Integrate EasyUI effortlessly with our developer-friendly library. Carefully crafted with polished interaction, thoughtful motion, and source you fully own—get started in seconds.
             </motion.p>
@@ -157,7 +157,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             >
               <button
                 onClick={onExplore}
-                className="px-6 py-2.5 rounded-full bg-[#F8FAFC] hover:bg-white text-[#0A0A0A] text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-[0_0_25px_rgba(248,250,252,0.12)] hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
+                className="px-6 py-2.5 rounded-full bg-[#F5F5F5] hover:bg-white text-[#0A0A0A] text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-[0_0_25px_rgba(255,255,255,0.1)] hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
               >
                 <span>Try EasyUI</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -168,7 +168,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   const elem = document.getElementById('philosophy');
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#181818] text-[#CBD5E1] hover:text-white border border-[#242424] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#333333]"
+                className="px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#181818] text-[#A1A1A1] hover:text-white border border-[#242424] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#333333]"
               >
                 How it works
               </button>
@@ -347,7 +347,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     <div className="flex gap-4">
                       <span className="w-6 select-none text-right text-[#525252]">7</span>
                       <div className="pl-16">
-                        <span className="text-[#F8FAFC]">Interact</span>
+                        <span className="text-[#F5F5F5]">Interact</span>
                       </div>
                     </div>
                     <div className="flex gap-4">
@@ -372,8 +372,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         <span className="text-[#888888]">);</span>
                       </div>
                     </div>
-                    <div className="flex gap-4">
-                      <span className="w-6 select-none text-right text-[#525252]">11</span>
+                    <div className="flex gap-4 text-[#525252]">
+                      <span className="w-6 select-none text-right">11</span>
                       <div>
                         <span className="text-[#888888]">{'}'}</span>
                       </div>
@@ -383,25 +383,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Bottom Card Footer Glow & Status Bar */}
-              <div className="px-4 py-2.5 bg-[#0C0C0C] border-t border-[#181818] flex items-center justify-between text-[11px] font-mono text-[#6E6E85]">
+              <div className="px-4 py-2.5 bg-[#0C0C0C] border-t border-[#181818] flex items-center justify-between text-[11px] font-mono text-[#737373]">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                   <span className="text-[#A1A1A1]">Ready to copy & paste</span>
                 </div>
-                <div className="text-[#64748B]">
+                <div className="text-[#606060]">
                   UTF-8 • TypeScript 5.0
                 </div>
               </div>
             </div>
 
             {/* Bottom Tech Ecosystem */}
-            <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 px-4 text-[#64748B]">
+            <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 px-4 text-[#6F6F6F]">
               {logos.map((logo) => (
                 <div
                   key={logo.name}
-                  className="flex items-center gap-2 text-xs sm:text-sm font-medium hover:text-[#CBD5E1] transition-colors opacity-70 hover:opacity-100 cursor-default"
+                  className="flex items-center gap-2 text-xs sm:text-sm font-medium hover:text-[#F5F5F5] transition-colors opacity-70 hover:opacity-100 cursor-default"
                 >
-                  <span className="text-[#94A3B8]">{logo.icon}</span>
+                  <span className="text-[#808080]">{logo.icon}</span>
                   <span className="font-mono tracking-tight">{logo.name}</span>
                 </div>
               ))}
