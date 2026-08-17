@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { X, Copy, Check, Terminal, Code2, Sparkles, ShieldCheck, Eye, Layers } from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
@@ -26,6 +26,24 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'preview' | 'install' | 'usage' | 'source' | 'api' | 'a11y'>('preview');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!component) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [component, onClose]);
 
   if (!component) return null;
 
@@ -183,12 +201,22 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
           </div>
         );
       default:
-        return null;
+        return (
+          <div className="py-12 text-center text-xs text-[#808080]">
+            <p className="font-mono text-[#D4D4D4] mb-1">{component.name}</p>
+            <p>{component.tagline || 'Interactive preview ready for customization.'}</p>
+          </div>
+        );
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-label={component.name}
+    >
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -200,42 +228,42 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 
       {/* Modal Surface */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.96, y: 10 }}
+        initial={{ opacity: 0, scale: 0.97, y: 8 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.96, y: 10 }}
+        exit={{ opacity: 0, scale: 0.97, y: 8 }}
         transition={motionTransitions.springSnappy}
-        className="relative w-full max-w-4xl max-h-[90vh] rounded-2xl border border-[#222222] bg-[#0C0C0C] shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex flex-col z-10 overflow-hidden"
+        className="relative w-full max-w-4xl max-h-[90vh] rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex flex-col z-10 overflow-hidden"
       >
         {/* Modal Top Bar */}
-        <div className="flex items-start justify-between p-6 border-b border-[#1A1A1A]">
+        <div className="flex items-start justify-between p-5 border-b border-[#141414]">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[10px] font-mono text-white px-2 py-0.5 rounded bg-[#181818] border border-[#242424]">
+              <span className="text-[10px] font-mono text-white px-2 py-0.5 rounded bg-[#141414] border border-[#202020]">
                 {component.category}
               </span>
-              <span className="text-xs text-[#6F6F6F]">easyui/{component.id}</span>
+              <span className="text-xs text-[#606060] font-mono">easyui/{component.id}</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#F5F5F5] tracking-tight">
+            <h2 className="text-xl font-semibold text-[#F5F5F5] tracking-tight">
               {component.name}
             </h2>
-            <p className="text-xs sm:text-sm text-[#8E8E8E] mt-1">
+            <p className="text-xs text-[#808080] mt-1">
               {component.description}
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-lg text-[#6F6F6F] hover:text-[#F5F5F5] hover:bg-[#181818] transition-colors focus-ring"
+            className="p-1.5 rounded-lg text-[#737373] hover:text-[#F5F5F5] hover:bg-[#141414] transition-colors focus-ring"
             aria-label="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Modal Tabs Bar */}
-        <div className="flex items-center gap-2 px-6 pt-3 border-b border-[#1A1A1A] overflow-x-auto scrollbar-none bg-[#090909]">
+        <div className="flex items-center gap-1 px-5 pt-2 border-b border-[#141414] overflow-x-auto scrollbar-none bg-[#080808]">
           {[
-            { id: 'preview', label: 'Live Preview', icon: <Eye className="w-3.5 h-3.5" /> },
+            { id: 'preview', label: 'Preview', icon: <Eye className="w-3.5 h-3.5" /> },
             { id: 'install', label: 'Installation', icon: <Terminal className="w-3.5 h-3.5" /> },
             { id: 'usage', label: 'Usage', icon: <Code2 className="w-3.5 h-3.5" /> },
             { id: 'source', label: 'Source', icon: <Layers className="w-3.5 h-3.5" /> },
@@ -245,10 +273,10 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 transition-all whitespace-nowrap ${
+              className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'border-white text-white font-semibold'
-                  : 'border-transparent text-[#6F6F6F] hover:text-[#A1A1A1]'
+                  ? 'border-white text-white font-medium'
+                  : 'border-transparent text-[#606060] hover:text-[#A1A1A1]'
               }`}
             >
               {tab.icon}
@@ -304,7 +332,18 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 
               <div className="p-4 rounded-xl border border-[#1A1A1A] bg-[#0E0E0E] space-y-2">
                 <h5 className="text-xs font-semibold text-[#F5F5F5]">Dependencies</h5>
-                <p className="text-xs text-[#6F6F6F]">Requires: <code className="text-[#A1A1A1]">framer-motion</code>, <code className="text-[#A1A1A1]">lucide-react</code>, <code className="text-[#A1A1A1]">tailwindcss</code></p>
+                <p className="text-xs text-[#6F6F6F]">
+                  Requires: {component.dependencies && component.dependencies.length > 0 ? (
+                    component.dependencies.map((dep, idx) => (
+                      <span key={dep}>
+                        <code className="text-[#A1A1A1] bg-[#141414] px-1.5 py-0.5 rounded font-mono">{dep}</code>
+                        {idx < component.dependencies!.length - 1 ? ', ' : ''}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-[#A1A1A1]">No external npm dependencies (Tailwind CSS only)</span>
+                  )}
+                </p>
               </div>
             </div>
           )}

@@ -76,7 +76,7 @@ export const FloatingActionDock: React.FC<FloatingActionDockProps> = ({
 
   return (
     <motion.div
-      onMouseMove={(e) => mouseX.set(e.pageX)}
+      onMouseMove={(e) => mouseX.set(e.clientX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
         'inline-flex items-end gap-2.5 px-3 py-2.5 rounded-2xl bg-[#090909]/90 backdrop-blur-md border border-[#1D1D1D] shadow-[0_12px_32px_rgba(0,0,0,0.6)]',

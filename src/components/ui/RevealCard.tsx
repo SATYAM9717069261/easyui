@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { cn } from '../../lib/utils';
 
 export interface RevealCardProps {
@@ -22,6 +22,8 @@ export const RevealCard: React.FC<RevealCardProps> = ({
   const rotateY = useSpring(0, { stiffness: 260, damping: 20 });
   const glareX = useMotionValue(50);
   const glareY = useMotionValue(50);
+
+  const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.4), transparent 60%)`;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -70,7 +72,7 @@ export const RevealCard: React.FC<RevealCardProps> = ({
           <motion.div
             className="pointer-events-none absolute -inset-px rounded-xl opacity-20"
             style={{
-              background: `radial-gradient(circle at ${glareX.get()}% ${glareY.get()}%, rgba(255,255,255,0.4), transparent 60%)`,
+              background: glareBackground,
             }}
           />
         )}

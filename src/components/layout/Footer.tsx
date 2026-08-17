@@ -9,24 +9,24 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigateDocs }) => {
   return (
-    <footer className="border-t border-[#181818] bg-[#050505] py-12 text-xs text-[#6F6F6F]">
+    <footer className="border-t border-[#141414] bg-[#050505] py-10 text-xs text-[#606060]">
       <Container size="xl">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
               <img
                 src="/logo.png"
                 alt="EasyUI Logo"
-                className="w-5 h-5 object-contain"
+                className="w-4 h-4 object-contain"
               />
-              <span className="font-semibold text-sm text-[#F5F5F5]">easyui</span>
+              <span className="font-semibold text-xs text-[#F5F5F5] font-mono">easyui</span>
             </div>
-            <p className="text-xs text-[#6F6F6F] mt-1.5">
+            <p className="text-xs text-[#737373] mt-1">
               Beautiful React components, made easy.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6 text-xs text-[#A1A1A1]">
+          <div className="flex flex-wrap items-center gap-5 text-xs text-[#808080]">
             <button
               onClick={onNavigateComponents}
               className="hover:text-[#F5F5F5] transition-colors"
@@ -42,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
             <a
               href={GITHUB_URL}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-[#F5F5F5] transition-colors"
             >
               GitHub
@@ -50,7 +50,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
             <a
               href={LINKEDIN_URL}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-[#F5F5F5] transition-colors"
             >
               LinkedIn
@@ -61,15 +61,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
             >
               Contact
             </a>
-            <span className="hover:text-[#F5F5F5] transition-colors cursor-pointer">
-              MIT License
-            </span>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-[#121212] flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-[#555555]">
-          <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-[#A1A1A1] hover:text-white transition-colors font-medium">Suraj Maurya</a>. Open source & copy-paste friendly.</span>
-          <span>Built with React, TypeScript & Motion.</span>
+        <div className="mt-8 pt-5 border-t border-[#101010] flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-[#555555]">
+          <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="text-[#808080] hover:text-white transition-colors">Suraj Maurya</a>. Open source & copy-paste friendly.</span>
+          <span>React · TypeScript · Motion</span>
         </div>
       </Container>
     </footer>
