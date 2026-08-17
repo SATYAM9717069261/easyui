@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Container } from '../layout/Container';
 import { EASY_COMPONENTS } from '../registry/components-data';
 import type { ComponentCategory, EasyComponentMeta } from '../../types/component';
-import { Search, ArrowUpRight, Copy, Check } from 'lucide-react';
+import { Search, Copy, Check } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 import { SpotlightCard } from '../ui/SpotlightCard';
 import { ExpandableSearch } from '../ui/ExpandableSearch';
@@ -63,19 +63,19 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
           <div className="h-40 flex items-center justify-center p-4">
             <MagneticButton variant="primary" size="md">
               <span>Magnetic</span>
-              <Sparkles className="w-3.5 h-3.5 text-[#ECECEC]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#D4D4D4]" />
             </MagneticButton>
           </div>
         );
       case 'spotlight-card':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <SpotlightCard className="w-full p-3.5 bg-[#0C0C0C]">
-              <div className="flex items-center gap-2 mb-1.5">
+          <div className="h-40 flex items-center justify-center p-4">
+            <SpotlightCard className="w-full p-4 bg-[#0A0A0A]">
+              <div className="flex items-center gap-2 mb-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                <span className="text-[11px] font-semibold text-[#F5F5F5]">Spotlight Sensor</span>
+                <span className="text-xs font-semibold text-[#F5F5F5]">Spotlight Sensor</span>
               </div>
-              <p className="text-[10px] text-[#6F6F6F]">Hover pointer to track dynamic radial beam.</p>
+              <p className="text-[11px] text-[#737373]">Hover pointer to track dynamic beam.</p>
             </SpotlightCard>
           </div>
         );
@@ -90,8 +90,8 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
           <div className="h-40 flex items-center justify-center p-4">
             <AnimatedTabs
               tabs={[
-                { id: 'tab1', label: 'Code', content: <div className="text-[11px] text-[#6F6F6F]">React 18 JSX</div> },
-                { id: 'tab2', label: 'Styles', content: <div className="text-[11px] text-[#6F6F6F]">Tailwind v3</div> },
+                { id: 'tab1', label: 'Code', content: <div className="text-xs text-[#737373]">React 18 JSX</div> },
+                { id: 'tab2', label: 'Styles', content: <div className="text-xs text-[#737373]">Tailwind v3</div> },
               ]}
               defaultTab="tab1"
             />
@@ -113,19 +113,19 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
         );
       case 'reveal-card':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-40 flex items-center justify-center p-4">
             <RevealCard
-              revealContent={<span className="text-[10px] text-white font-medium">Revealed on hover tilt</span>}
-              className="p-3 bg-[#0C0C0C]"
+              revealContent={<span className="text-xs text-white font-medium">Revealed on hover tilt</span>}
+              className="p-4 bg-[#0A0A0A]"
             >
-              <span className="text-[11px] font-semibold text-[#F5F5F5] block">3D Tilt & Glare</span>
-              <span className="text-[10px] text-[#6F6F6F]">Hover cursor across surface</span>
+              <span className="text-xs font-semibold text-[#F5F5F5] block">3D Tilt & Glare</span>
+              <span className="text-[11px] text-[#737373]">Hover cursor across surface</span>
             </RevealCard>
           </div>
         );
       case 'smooth-accordion':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-40 flex items-center justify-center p-4">
             <div className="w-full">
               <SmoothAccordion
                 items={[
@@ -142,7 +142,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
         );
       case 'notification-stack':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-40 flex items-center justify-center p-4">
             <NotificationStack maxVisible={2} />
           </div>
         );
@@ -156,7 +156,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
               trigger={(open) => (
                 <button
                   onClick={open}
-                  className="px-4 py-2 rounded-lg bg-[#141414] border border-[#262626] text-xs text-[#F5F5F5] hover:border-[#383838] transition-colors"
+                  className="px-4 py-2 rounded-lg bg-[#111111] border border-[#202020] text-xs text-[#F5F5F5] hover:border-[#303030] transition-colors"
                 >
                   Trigger Modal
                 </button>
@@ -169,7 +169,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
       case 'command-menu':
         return (
           <div className="h-40 flex items-center justify-center p-4">
-            <div className="px-3 py-2 rounded-lg bg-[#141414] border border-[#222222] text-xs font-mono text-[#A1A1A1] flex items-center gap-2">
+            <div className="px-3.5 py-2 rounded-lg bg-[#111111] border border-[#1E1E1E] text-xs font-mono text-[#A1A1A1] flex items-center gap-2">
               <span className="text-white font-semibold">⌘K</span>
               <span>Global Command Palette</span>
             </div>
@@ -177,7 +177,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
         );
       case 'dot-field':
         return (
-          <div className="h-40 relative rounded-lg overflow-hidden border border-[#202020] bg-[#0A0A0A]">
+          <div className="h-40 relative rounded-lg overflow-hidden border border-[#1A1A1A] bg-[#070707]">
             <DotField
               dotRadius={1.2}
               dotSpacing={12}
@@ -188,7 +188,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
               gradientTo="rgba(255, 255, 255, 0.08)"
             />
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="text-[11px] font-mono text-[#8E8E8E] bg-[#0A0A0A]/80 backdrop-blur-sm px-2.5 py-1 rounded-full border border-[#222222]">
+              <span className="text-[10px] font-mono text-[#737373] bg-[#050505]/80 px-2.5 py-1 rounded-md border border-[#1A1A1A]">
                 Hover to Interact
               </span>
             </div>
@@ -200,46 +200,46 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
   };
 
   return (
-    <section id="components-directory" className="py-24 bg-[#050505] border-t border-[#141414]">
+    <section id="components-directory" className="py-20 bg-[#050505] border-t border-[#141414]">
       <Container size="xl">
         {/* Section Title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <span className="text-[11px] font-mono text-[#A1A1A1] uppercase tracking-widest">
+            <span className="text-[11px] font-mono text-[#737373] uppercase tracking-widest">
               Directory
             </span>
             <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
               Components
             </h2>
-            <p className="text-sm text-[#808080] mt-2">
+            <p className="text-sm text-[#808080] mt-1.5">
               11 polished components crafted for tactile feedback and copy-paste ownership.
             </p>
           </div>
 
           {/* Search bar */}
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 text-[#6F6F6F] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-[#606060] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search components, tags..."
-              className="w-full pl-9 pr-3 py-2 text-xs rounded-lg bg-[#0D0D0D] border border-[#1E1E1E] text-[#F5F5F5] placeholder-[#6F6F6F] focus-ring"
+              className="w-full pl-9 pr-3 py-2 text-xs rounded-lg bg-[#0A0A0A] border border-[#181818] text-[#F5F5F5] placeholder-[#606060] focus-ring"
             />
           </div>
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-8 scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               className={cn(
-                'px-3.5 py-1.5 text-xs rounded-full font-medium transition-all whitespace-nowrap focus-ring',
+                'px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap focus-ring',
                 selectedCategory === cat
-                  ? 'bg-[#1D1D1D] text-[#F5F5F5] border border-[#303030] shadow-sm'
-                  : 'bg-[#0A0A0A] text-[#6F6F6F] border border-[#161616] hover:text-[#A1A1A1] hover:bg-[#111111]'
+                  ? 'bg-[#181818] text-[#F5F5F5] border border-[#282828]'
+                  : 'bg-[#0A0A0A] text-[#737373] border border-[#141414] hover:text-[#A1A1A1] hover:bg-[#101010]'
               )}
             >
               {cat}
@@ -249,8 +249,8 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
 
         {/* Components Grid */}
         {filteredComponents.length === 0 ? (
-          <div className="py-20 text-center rounded-2xl border border-[#181818] bg-[#0A0A0A]">
-            <p className="text-sm text-[#6F6F6F]">No components found matching your search.</p>
+          <div className="py-20 text-center rounded-xl border border-[#141414] bg-[#080808]">
+            <p className="text-sm text-[#737373]">No components found matching your search.</p>
             <button
               onClick={() => {
                 setSelectedCategory('All');
@@ -262,19 +262,19 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredComponents.map((comp) => (
               <div
                 key={comp.id}
                 onClick={() => onSelectComponent(comp.id)}
-                className="group rounded-2xl border border-[#1A1A1A] bg-[#0A0A0A] overflow-hidden hover:border-[#282828] transition-all cursor-pointer flex flex-col justify-between shadow-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
+                className="group rounded-xl border border-[#161616] bg-[#080808] overflow-hidden hover:border-[#262626] transition-colors cursor-pointer flex flex-col justify-between"
               >
-                {/* Live Preview Area with subtle mesh background */}
-                <div className="relative bg-[#070707] border-b border-[#161616] bg-grid-pattern overflow-hidden">
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
+                {/* Live Preview Area with dot background */}
+                <div className="relative bg-[#070707] border-b border-[#141414] bg-grid-pattern overflow-hidden">
+                  <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
                     <button
                       onClick={(e) => handleCopyCLI(e, comp)}
-                      className="p-1.5 rounded-lg bg-[#111111]/90 border border-[#222222] text-[#A1A1A1] hover:text-[#F5F5F5] hover:border-[#333333] transition-colors focus-ring"
+                      className="p-1.5 rounded-md bg-[#0D0D0D] border border-[#1C1C1C] text-[#808080] hover:text-[#F5F5F5] hover:border-[#2C2C2C] transition-colors focus-ring"
                       title="Copy CLI command"
                     >
                       {copiedId === comp.id ? (
@@ -287,37 +287,14 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
                   {renderPreview(comp)}
                 </div>
 
-                {/* Component Info Card */}
-                <div className="p-5 flex flex-col justify-between flex-1">
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <h3 className="text-sm font-semibold text-[#F5F5F5] group-hover:text-white transition-colors">
-                        {comp.name}
-                      </h3>
-                      <span className="text-[10px] font-mono text-[#6F6F6F] px-1.5 py-0.5 rounded bg-[#121212] border border-[#1C1C1C]">
-                        {comp.category}
-                      </span>
-                    </div>
-                    <p className="text-xs text-[#808080] line-clamp-2 leading-relaxed">
-                      {comp.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 pt-3.5 border-t border-[#141414] flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-1.5">
-                      {comp.badges.slice(0, 2).map((badge) => (
-                        <span
-                          key={badge}
-                          className="text-[10px] text-[#606060] font-mono"
-                        >
-                          #{badge}
-                        </span>
-                      ))}
-                    </div>
-                    <span className="text-[11px] text-[#A1A1A1] group-hover:text-white group-hover:translate-x-0.5 transition-all flex items-center gap-1">
-                      Docs & Code <ArrowUpRight className="w-3 h-3" />
-                    </span>
-                  </div>
+                {/* Component Info Card - Minimal: Name and Category only */}
+                <div className="px-4 py-3.5 flex items-center justify-between">
+                  <h3 className="text-xs font-medium text-[#F5F5F5] group-hover:text-white transition-colors">
+                    {comp.name}
+                  </h3>
+                  <span className="text-[10px] font-mono text-[#737373] px-2 py-0.5 rounded bg-[#101010] border border-[#181818]">
+                    {comp.category}
+                  </span>
                 </div>
               </div>
             ))}

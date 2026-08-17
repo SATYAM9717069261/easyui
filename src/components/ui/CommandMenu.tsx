@@ -183,15 +183,15 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
 
           {/* Palette Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: -10 }}
+            initial={{ opacity: 0, scale: 0.97, y: -8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -10 }}
+            exit={{ opacity: 0, scale: 0.97, y: -8 }}
             transition={motionTransitions.springSnappy}
-            className="relative w-full max-w-xl rounded-2xl border border-[#222222] bg-[#0C0C0C] shadow-[0_24px_60px_rgba(0,0,0,0.9)] overflow-hidden z-10"
+            className="relative w-full max-w-xl rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] shadow-[0_24px_60px_rgba(0,0,0,0.9)] overflow-hidden z-10"
           >
             {/* Search Input Bar */}
-            <div className="flex items-center px-4 py-3.5 border-b border-[#1D1D1D]">
-              <Search className="w-4 h-4 text-[#6F6F6F] mr-3 shrink-0" />
+            <div className="flex items-center px-4 py-3 border-b border-[#161616]">
+              <Search className="w-4 h-4 text-[#606060] mr-2.5 shrink-0" />
               <input
                 autoFocus
                 type="text"
@@ -201,21 +201,21 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                   setSelectedIndex(0);
                 }}
                 placeholder="Type a command or search components, docs..."
-                className="w-full bg-transparent text-sm text-[#F5F5F5] placeholder-[#6F6F6F] focus:outline-none"
+                className="w-full bg-transparent text-xs text-[#F5F5F5] placeholder-[#606060] focus:outline-none"
               />
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#181818] border border-[#242424] text-[#6F6F6F]">
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#121212] border border-[#1E1E1E] text-[#606060]">
                 ESC
               </span>
             </div>
 
             {/* Results List */}
-            <div className="max-h-80 overflow-y-auto p-2 divide-y divide-[#161616]/50">
+            <div className="max-h-80 overflow-y-auto p-1.5">
               {filteredItems.length === 0 ? (
-                <div className="py-10 text-center text-xs text-[#6F6F6F]">
+                <div className="py-8 text-center text-xs text-[#606060]">
                   No commands or documentation matching "{query}"
                 </div>
               ) : (
-                <div className="space-y-1">
+                <div className="space-y-0.5">
                   {filteredItems.map((item, idx) => {
                     const isSelected = idx === selectedIndex;
                     return (
@@ -224,16 +224,16 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                         onClick={item.onSelect}
                         onMouseEnter={() => setSelectedIndex(idx)}
                         className={cn(
-                          'flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-xs transition-colors text-left',
+                          'flex w-full items-center justify-between px-3 py-2 rounded-md text-xs transition-colors text-left',
                           isSelected
-                            ? 'bg-[#181818] text-[#F5F5F5]'
-                            : 'text-[#A1A1A1] hover:bg-[#121212]'
+                            ? 'bg-[#161616] text-[#F5F5F5]'
+                            : 'text-[#808080] hover:bg-[#101010]'
                         )}
                       >
                         <div className="flex items-center gap-2.5">
                           {item.icon}
-                          <span className="font-medium">{item.title}</span>
-                          <span className="text-[10px] text-[#6F6F6F] ml-1">
+                          <span className="font-normal">{item.title}</span>
+                          <span className="text-[10px] text-[#555555] ml-1">
                             {item.category}
                           </span>
                         </div>
@@ -242,7 +242,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                             <CornerDownLeft className="w-3 h-3 text-white" />
                           )}
                           {item.shortcut && (
-                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#202020] text-[#6F6F6F]">
+                            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#1A1A1A] text-[#606060]">
                               {item.shortcut}
                             </span>
                           )}
@@ -255,16 +255,16 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             </div>
 
             {/* Footer status */}
-            <div className="flex items-center justify-between px-4 py-2 bg-[#090909] border-t border-[#1D1D1D] text-[11px] text-[#6F6F6F]">
+            <div className="flex items-center justify-between px-4 py-2 bg-[#080808] border-t border-[#141414] text-[11px] text-[#555555]">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
-                  <span className="font-mono bg-[#161616] px-1 rounded text-[10px]">↑↓</span> navigate
+                  <span className="font-mono bg-[#121212] px-1 rounded text-[10px]">↑↓</span> navigate
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="font-mono bg-[#161616] px-1 rounded text-[10px]">↵</span> select
+                  <span className="font-mono bg-[#121212] px-1 rounded text-[10px]">↵</span> select
                 </span>
               </div>
-              <span>EasyUI v1.0</span>
+              <span>EasyUI</span>
             </div>
           </motion.div>
         </div>
