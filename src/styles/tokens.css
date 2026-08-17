@@ -1,0 +1,64 @@
+:root {
+  /* Surfaces & Background */
+  --bg: #050505;
+  --surface: #0A0A0A;
+  --surface-hover: #101010;
+  --surface-raised: #151515;
+  
+  /* Borders */
+  --border: #1D1D1D;
+  --border-hover: #2A2A2A;
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  
+  /* Typography Tokens */
+  --font-sans: 'Geist', 'Geist Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Geist', 'Geist Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Geist', 'Geist Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --tracking-tighter: -0.04em;
+  --tracking-tight-heading: -0.035em;
+  --tracking-snug: -0.02em;
+  --tracking-body: -0.011em;
+
+  --text-primary: #F5F5F5;
+  --text-secondary: #A1A1A1;
+  --text-muted: #6F6F6F;
+
+  /* Accent (Quiet, ice-blue) */
+  --accent: #38BDF8;
+  --accent-subtle: rgba(56, 189, 248, 0.12);
+  --accent-glow: rgba(56, 189, 248, 0.22);
+  --accent-ring: rgba(56, 189, 248, 0.4);
+
+  /* Radius Tokens */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --shadow-elevated: 0 12px 30px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-glow: 0 0 20px -5px rgba(56, 189, 248, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1D1D1D;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2A2A2A;
+}
