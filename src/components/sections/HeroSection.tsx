@@ -282,7 +282,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     </div>
                     <div className="flex gap-4 text-[#525252]">
                       <span className="w-6 select-none text-right">11</span>
-                      <span className="text-[#A1A1A1]">✨ Ready! Import directly from '@/components/ui'</span>
+                      <span className="text-[#A1A1A1]"> Ready! Import directly from '@/components/ui'</span>
                     </div>
                   </div>
                 ) : (
