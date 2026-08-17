@@ -82,7 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   ];
 
   return (
-    <section className="relative pt-16 sm:pt-24 pb-20 overflow-hidden min-h-[780px]">
+    <section className="relative pt-12 sm:pt-24 pb-14 sm:pb-20 overflow-hidden min-h-[auto] sm:min-h-[780px]">
       {/* Background Interactive DotField */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <DotField
@@ -110,22 +110,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="relative z-10">
         <Container size="lg">
           {/* Header Content Area */}
-          <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-8 sm:mb-12">
             {/* Top Eyebrow Pill Badge */}
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0D0D0D] border border-[#222222] text-[12px] font-sans text-[#A1A1A1] shadow-sm mb-6 backdrop-blur-md hover:border-[#383838] transition-all cursor-pointer group"
+              className="inline-flex items-center gap-2 sm:gap-2.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#0D0D0D] border border-[#222222] text-[11px] sm:text-[12px] font-sans text-[#A1A1A1] shadow-sm mb-5 sm:mb-6 backdrop-blur-md hover:border-[#383838] transition-all cursor-pointer group whitespace-nowrap max-w-full"
               onClick={onExplore}
             >
-              <span className="px-2 py-0.5 rounded-full bg-[#181818] text-[#ECECEC] text-[10px] font-semibold tracking-wide border border-[#282828]">
+              <span className="px-2 py-0.5 rounded-full bg-[#181818] text-[#ECECEC] text-[9px] sm:text-[10px] font-semibold tracking-wide border border-[#282828] shrink-0">
                 Open Source
               </span>
-              <span className="text-[#D4D4D4] group-hover:text-white transition-colors">
-                Open Source & Copy-Paste Components
+              <span className="text-[#D4D4D4] group-hover:text-white transition-colors truncate">
+                <span className="inline sm:hidden">Copy-Paste Components</span>
+                <span className="hidden sm:inline">Open Source & Copy-Paste Components</span>
               </span>
-              <ChevronRight className="w-3.5 h-3.5 text-[#6F6F6F] group-hover:translate-x-0.5 transition-transform" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#6F6F6F] group-hover:translate-x-0.5 transition-transform shrink-0" />
             </motion.div>
 
             {/* Main Headline - Single prominent centered statement */}
@@ -133,7 +134,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-6xl md:text-[68px] font-bold tracking-tight text-[#F5F5F5] leading-[1.08]"
+              className="text-3xl sm:text-6xl md:text-[68px] font-bold tracking-tight text-[#F5F5F5] leading-[1.1] sm:leading-[1.08]"
             >
               Beyond Ordinary UI
             </motion.h1>
@@ -143,7 +144,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-sm sm:text-base text-[#8E8E8E] max-w-2xl mt-5 font-normal leading-relaxed"
+              className="text-xs sm:text-base text-[#8E8E8E] max-w-2xl mt-4 sm:mt-5 font-normal leading-relaxed px-1 sm:px-0"
             >
               Integrate EasyUI effortlessly with our developer-friendly library. Carefully crafted with polished interaction, thoughtful motion, and source you fully own—get started in seconds.
             </motion.p>
@@ -153,11 +154,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center justify-center gap-3 mt-7"
+              className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-6 sm:mt-7"
             >
               <button
                 onClick={onExplore}
-                className="px-6 py-2.5 rounded-full bg-[#F5F5F5] hover:bg-white text-[#0A0A0A] text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-[0_0_25px_rgba(255,255,255,0.1)] hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
+                className="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#F5F5F5] hover:bg-white text-[#0A0A0A] text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-[0_0_25px_rgba(255,255,255,0.1)] hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
               >
                 <span>Try EasyUI</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -168,7 +169,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   const elem = document.getElementById('philosophy');
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#181818] text-[#A1A1A1] hover:text-white border border-[#242424] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#333333]"
+                className="px-4.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#111111] hover:bg-[#181818] text-[#A1A1A1] hover:text-white border border-[#242424] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#333333]"
               >
                 How it works
               </button>
@@ -188,19 +189,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Main Terminal Window Card */}
             <div className="relative rounded-2xl border border-[#222222] bg-[#0A0A0A]/95 backdrop-blur-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] overflow-hidden">
               {/* Terminal Title Bar */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-[#1A1A1A] bg-[#0E0E0E]">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#262626]" />
-                  <span className="w-3 h-3 rounded-full bg-[#262626]" />
-                  <span className="w-3 h-3 rounded-full bg-[#262626]" />
-                  <span className="ml-3 font-mono text-[11px] text-[#6F6F6F]">easyui-terminal ~ zsh</span>
+              <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 border-b border-[#1A1A1A] bg-[#0E0E0E]">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#262626]" />
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#262626]" />
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#262626]" />
+                  <span className="hidden sm:inline-block ml-3 font-mono text-[11px] text-[#6F6F6F]">easyui-terminal ~ zsh</span>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2">
                   <div className="flex bg-[#141414] p-0.5 rounded-lg border border-[#222222]">
                     <button
                       onClick={() => setActiveTab('cli')}
-                      className={`px-2.5 py-0.5 rounded-md text-[11px] font-mono transition-all ${
+                      className={`px-2 sm:px-2.5 py-0.5 rounded-md text-[10px] sm:text-[11px] font-mono transition-all ${
                         activeTab === 'cli' ? 'bg-[#242424] text-white font-medium' : 'text-[#717171] hover:text-[#A1A1A1]'
                       }`}
                     >
@@ -208,7 +209,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     </button>
                     <button
                       onClick={() => setActiveTab('react')}
-                      className={`px-2.5 py-0.5 rounded-md text-[11px] font-mono transition-all ${
+                      className={`px-2 sm:px-2.5 py-0.5 rounded-md text-[10px] sm:text-[11px] font-mono transition-all ${
                         activeTab === 'react' ? 'bg-[#242424] text-white font-medium' : 'text-[#717171] hover:text-[#A1A1A1]'
                       }`}
                     >
@@ -218,7 +219,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                   <button
                     onClick={copyInstallCommand}
-                    className="p-1.5 rounded-lg bg-[#141414] border border-[#222222] hover:border-[#383838] text-[#888888] hover:text-white transition-all flex items-center gap-1 text-[11px] font-mono"
+                    className="p-1 sm:p-1.5 rounded-lg bg-[#141414] border border-[#222222] hover:border-[#383838] text-[#888888] hover:text-white transition-all flex items-center gap-1 text-[11px] font-mono"
                     title="Copy command"
                   >
                     {copied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
@@ -227,7 +228,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Code Content Area with Line Numbers */}
-              <div className="p-4 sm:p-6 font-mono text-xs sm:text-[13px] leading-relaxed text-[#D4D4D4] overflow-x-auto select-text">
+              <div className="p-3.5 sm:p-6 font-mono text-[11px] sm:text-[13px] leading-relaxed text-[#D4D4D4] overflow-x-auto select-text">
                 {activeTab === 'cli' ? (
                   <div className="space-y-1">
                     <div className="flex gap-4 text-[#525252]">
@@ -383,25 +384,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Bottom Card Footer Glow & Status Bar */}
-              <div className="px-4 py-2.5 bg-[#0C0C0C] border-t border-[#181818] flex items-center justify-between text-[11px] font-mono text-[#737373]">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              <div className="px-3 sm:px-4 py-2 sm:py-2.5 bg-[#0C0C0C] border-t border-[#181818] flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#737373]">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulse" />
                   <span className="text-[#A1A1A1]">Ready to copy & paste</span>
                 </div>
-                <div className="text-[#606060]">
+                <div className="text-[#606060] hidden xs:block">
                   UTF-8 • TypeScript 5.0
                 </div>
               </div>
             </div>
 
             {/* Bottom Tech Ecosystem */}
-            <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 px-4 text-[#6F6F6F]">
+            <div className="mt-8 sm:mt-12 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4 px-2 sm:px-4 text-[#6F6F6F]">
               {logos.map((logo) => (
                 <div
                   key={logo.name}
-                  className="flex items-center gap-2 text-xs sm:text-sm font-medium hover:text-[#F5F5F5] transition-colors opacity-70 hover:opacity-100 cursor-default"
+                  className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium hover:text-[#F5F5F5] transition-colors opacity-70 hover:opacity-100 cursor-default"
                 >
-                  <span className="text-[#808080]">{logo.icon}</span>
+                  <span className="text-[#808080] scale-90 sm:scale-100">{logo.icon}</span>
                   <span className="font-mono tracking-tight">{logo.name}</span>
                 </div>
               ))}
