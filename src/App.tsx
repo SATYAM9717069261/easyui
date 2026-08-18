@@ -15,6 +15,9 @@ import { ComponentDetailModal } from './components/docs/ComponentDetailModal';
 import { DocsPage } from './components/docs/DocsPage';
 import { EASY_COMPONENTS } from './components/registry/components-data';
 import type { EasyComponentMeta } from './types/component';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
+import { useAnalyticsTracker } from './lib/analytics';
 
 export function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -22,6 +25,9 @@ export function App() {
   const [activeView, setActiveView] = useState<'showcase' | 'components' | 'docs'>('showcase');
   const [activeDocTopic, setActiveDocTopic] = useState<string>('introduction');
   const [componentPage, setComponentPage] = useState<number>(1);
+
+  // Initialize analytics & track page/view changes across the SPA
+  useAnalyticsTracker({ activeView, componentPage, activeDocTopic });
 
   // Sync state from URL hash and search params
   const parseUrlState = useCallback(() => {
@@ -140,6 +146,10 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-white/20 selection:text-white">
+      {/* Vercel Analytics & Speed Insights */}
+      <Analytics />
+      <SpeedInsights />
+
       {/* Navigation */}
       <Navbar
         onOpenSearch={() => setIsSearchOpen(true)}
