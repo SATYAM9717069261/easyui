@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Overlays',
   tagline: 'Global ⌘K fuzzy palette with category grouping',
   badges: ['Keyboard First', '⌘K / Ctrl+K', 'Fuzzy Filtering'],
+  createdAt: '2026-08-01',
   features: [
     'Global hotkey listener (⌘K / Ctrl+K)',
     'Arrow key navigation with wrapping',

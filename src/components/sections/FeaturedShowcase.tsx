@@ -9,10 +9,12 @@ import { ArrowUpRight, Shield, Zap, Terminal, Code2, Globe, Database } from 'luc
 
 export interface FeaturedShowcaseProps {
   onSelectComponent: (id: string) => void;
+  onNavigateAllComponents?: () => void;
 }
 
 export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
   onSelectComponent,
+  onNavigateAllComponents,
 }) => {
   const dockDemoItems = [
     { id: 'code', label: 'Editor', icon: <Code2 /> },
@@ -38,8 +40,8 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
             </p>
           </div>
           <button
-            onClick={() => onSelectComponent('spotlight-card')}
-            className="text-xs font-mono text-[#808080] hover:text-[#F5F5F5] transition-colors flex items-center gap-1.5 self-start md:self-auto py-1"
+            onClick={onNavigateAllComponents || (() => onSelectComponent('spotlight-card'))}
+            className="text-xs font-mono text-[#808080] hover:text-[#F5F5F5] transition-colors flex items-center gap-1.5 self-start md:self-auto py-1 cursor-pointer focus-ring rounded"
           >
             <span>All {EASY_COMPONENTS.length} components</span>
             <ArrowUpRight className="w-3.5 h-3.5" />

@@ -341,6 +341,7 @@ function generateComponentsData(components: DiscoveredComponent[]): void {
     const features = comp.meta.features || [];
     const props = comp.meta.props || [];
     const accessibility = comp.meta.accessibility || [];
+    const createdAt = comp.meta.createdAt || '2026-08-01';
     const usageCode = comp.meta.usageCode || `import { ${comp.componentName} } from "@/components/ui/${comp.slug}";\n\nexport function Demo() {\n  return <${comp.componentName} />;\n}`;
 
     return {
@@ -354,6 +355,7 @@ function generateComponentsData(components: DiscoveredComponent[]): void {
       features,
       props,
       accessibility,
+      createdAt,
       usageCode,
       sourceCode: comp.sourceCode,
       dependencies: comp.dependencies,

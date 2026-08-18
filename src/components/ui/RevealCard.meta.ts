@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Motion',
   tagline: '3D cursor physics tilt with interactive glare reveal',
   badges: ['3D Tilt', 'Dynamic Glare', 'Micro-interaction'],
+  createdAt: '2026-08-06',
   features: [
     'Cursor-aware 3D perspective rotation springs',
     'Dynamic radial glare reflection overlay',

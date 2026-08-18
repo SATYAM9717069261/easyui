@@ -5,6 +5,7 @@ import { HeroSection } from './components/sections/HeroSection';
 import { PhilosophySection } from './components/sections/PhilosophySection';
 import { FeaturedShowcase } from './components/sections/FeaturedShowcase';
 import { ComponentDirectory } from './components/sections/ComponentDirectory';
+import { AllComponentsPage } from './components/sections/AllComponentsPage';
 import { CodePhilosophy } from './components/sections/CodePhilosophy';
 import { MotionShowcase } from './components/sections/MotionShowcase';
 import { DevExperience } from './components/sections/DevExperience';
@@ -18,33 +19,59 @@ import type { EasyComponentMeta } from './types/component';
 export function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedModalComponent, setSelectedModalComponent] = useState<EasyComponentMeta | null>(null);
-  const [activeView, setActiveView] = useState<'showcase' | 'docs'>('showcase');
+  const [activeView, setActiveView] = useState<'showcase' | 'components' | 'docs'>('showcase');
   const [activeDocTopic, setActiveDocTopic] = useState<string>('introduction');
+  const [componentPage, setComponentPage] = useState<number>(1);
 
-  // Sync state from URL hash
-  const parseHash = useCallback(() => {
-    const hash = window.location.hash.replace(/^#\/?/, '');
-    if (!hash || hash === 'components-directory' || hash === 'philosophy' || hash === 'motion-showcase' || hash === 'dev-experience') {
-      setActiveView('showcase');
+  // Sync state from URL hash and search params
+  const parseUrlState = useCallback(() => {
+    const rawHash = window.location.hash.replace(/^#\/?/, '');
+
+    // Check if query params exist in search or in hash (e.g. #components?page=2 or ?page=2)
+    let pageFromUrl = 1;
+    if (rawHash.includes('?')) {
+      const queryString = rawHash.split('?')[1];
+      const params = new URLSearchParams(queryString);
+      const p = parseInt(params.get('page') || '1', 10);
+      if (!isNaN(p) && p > 0) pageFromUrl = p;
+    } else if (window.location.search) {
+      const params = new URLSearchParams(window.location.search);
+      const p = parseInt(params.get('page') || '1', 10);
+      if (!isNaN(p) && p > 0) pageFromUrl = p;
+    }
+
+    const route = rawHash.split('?')[0];
+
+    if (route === 'components' || route === 'all-components') {
+      setActiveView('components');
+      setComponentPage(pageFromUrl);
       return;
     }
 
-    if (hash.startsWith('docs')) {
+    if (route.startsWith('docs')) {
       setActiveView('docs');
-      const parts = hash.split('/');
+      const parts = route.split('/');
       if (parts.length === 1 || !parts[1]) {
         setActiveDocTopic('introduction');
       } else {
         setActiveDocTopic(parts[1]);
       }
+      return;
     }
+
+    // Default: showcase
+    setActiveView('showcase');
   }, []);
 
   useEffect(() => {
-    parseHash();
-    window.addEventListener('hashchange', parseHash);
-    return () => window.removeEventListener('hashchange', parseHash);
-  }, [parseHash]);
+    parseUrlState();
+    window.addEventListener('hashchange', parseUrlState);
+    window.addEventListener('popstate', parseUrlState);
+    return () => {
+      window.removeEventListener('hashchange', parseUrlState);
+      window.removeEventListener('popstate', parseUrlState);
+    };
+  }, [parseUrlState]);
 
   // Global ⌘K / Ctrl+K keyboard shortcut
   useEffect(() => {
@@ -75,6 +102,20 @@ export function App() {
     } else {
       document.getElementById('components-directory')?.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleNavigateAllComponents = (page = 1) => {
+    const hash = page > 1 ? `components?page=${page}` : 'components';
+    window.location.hash = hash;
+    setActiveView('components');
+    setComponentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handlePageChange = (page: number) => {
+    const hash = page > 1 ? `components?page=${page}` : 'components';
+    window.location.hash = hash;
+    setComponentPage(page);
   };
 
   const handleNavigateHome = () => {
@@ -116,6 +157,14 @@ export function App() {
           onNavigateHome={handleNavigateHome}
           onNavigateComponents={handleNavigateComponents}
         />
+      ) : activeView === 'components' ? (
+        <AllComponentsPage
+          currentPage={componentPage}
+          onPageChange={handlePageChange}
+          onSelectComponent={handleSelectComponentById}
+          onNavigateHome={handleNavigateHome}
+          onNavigateDocs={() => handleNavigateDocs('introduction')}
+        />
       ) : (
         <main>
           {/* Section 02: Hero */}
@@ -130,11 +179,13 @@ export function App() {
           {/* Section 04: Featured Components */}
           <FeaturedShowcase
             onSelectComponent={handleSelectComponentById}
+            onNavigateAllComponents={() => handleNavigateAllComponents(1)}
           />
 
-          {/* Section 05: Component Directory */}
+          {/* Section 05: Component Directory (Homepage limited 6 items) */}
           <ComponentDirectory
             onSelectComponent={handleSelectComponentById}
+            onNavigateAllComponents={() => handleNavigateAllComponents(1)}
           />
 
           {/* Section 06: Code Philosophy */}
@@ -147,7 +198,7 @@ export function App() {
           <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
 
           {/* Section 09: Final CTA */}
-          <FinalCta onBrowse={handleNavigateComponents} />
+          <FinalCta onBrowse={() => handleNavigateAllComponents(1)} />
         </main>
       )}
 
@@ -175,3 +226,4 @@ export function App() {
 }
 
 export default App;
+

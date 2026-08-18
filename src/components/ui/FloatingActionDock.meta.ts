@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Navigation',
   tagline: 'Magnification curve with physical spring feedback',
   badges: ['Pointer Physics', 'Magnification Curve', 'Tooltips'],
+  createdAt: '2026-08-12',
   features: [
     'Continuous distance interpolation curve',
     'Tooltips with instant spring opacity',

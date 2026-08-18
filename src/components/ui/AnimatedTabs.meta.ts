@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Navigation',
   tagline: 'Layout-spring sliding active pill indicator',
   badges: ['Layout Springs', 'Accessible', 'Keyboard Friendly'],
+  createdAt: '2026-08-10',
   features: [
     'Shared layout active pill with spring easing',
     'Independent content animation cross-fade',
