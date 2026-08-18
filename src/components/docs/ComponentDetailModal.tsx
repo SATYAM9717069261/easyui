@@ -14,6 +14,11 @@ import { SmoothAccordion } from '../ui/SmoothAccordion';
 import { NotificationStack } from '../ui/NotificationStack';
 import { MorphingDialog } from '../ui/MorphingDialog';
 import { DotField } from '../ui/DotField';
+import { InteractiveTimeline } from '../ui/InteractiveTimeline';
+import { SmartComparison } from '../ui/SmartComparison';
+import { ActivityFeed } from '../ui/ActivityFeed';
+import { MetricHUD } from '../ui/MetricHUD';
+import { CodeSnippetDeck } from '../ui/CodeSnippetDeck';
 
 export interface ComponentDetailModalProps {
   component: EasyComponentMeta | null;
@@ -26,6 +31,12 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'preview' | 'install' | 'usage' | 'source' | 'api' | 'a11y'>('preview');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (component) {
+      setActiveTab('preview');
+    }
+  }, [component]);
 
   useEffect(() => {
     if (!component) return;
@@ -55,6 +66,352 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 
   const renderInteractiveDemo = () => {
     switch (component.id) {
+      case 'interactive-timeline':
+        return (
+          <div className="w-full">
+            <InteractiveTimeline
+              items={[
+                {
+                  id: 'step-1',
+                  title: 'Build & Tree-Shaking Verification',
+                  timestamp: '10:42 AM · 48s',
+                  status: 'completed',
+                  tag: 'CI/CD',
+                  commitHash: '9f8a12bc',
+                  description: 'Production bundle analyzed with zero unreferenced dead code. All chunks under budget.',
+                  metrics: [
+                    { label: 'Bundle Size', value: '142 KB' },
+                    { label: 'Tree Shake', value: '99.4%' },
+                    { label: 'Chunks', value: '8 total' },
+                  ],
+                  author: { name: 'Alex Rivera', role: 'Staff Eng' },
+                },
+                {
+                  id: 'step-2',
+                  title: 'Global Edge Layer Replication',
+                  timestamp: '10:43 AM · In Progress',
+                  status: 'in-progress',
+                  tag: 'Infra',
+                  commitHash: 'a81d4e77',
+                  description: 'Replicating immutable build layers across 32 regional edge locations worldwide.',
+                  metrics: [
+                    { label: 'Active Edge Nodes', value: '28 / 32' },
+                    { label: 'Edge Latency', value: '12 ms' },
+                  ],
+                  author: { name: 'Infra Bot', role: 'Automated' },
+                },
+                {
+                  id: 'step-3',
+                  title: 'Synthetic Canary Smoke Suite',
+                  timestamp: 'Pending · 120s est',
+                  status: 'pending',
+                  tag: 'QA',
+                  description: 'Executes 400 parallel headless browser journeys verifying checkout, auth, and webhooks.',
+                },
+                {
+                  id: 'step-4',
+                  title: 'Atomic DNS Traffic Cutover',
+                  timestamp: 'Pending',
+                  status: 'pending',
+                  tag: 'DNS',
+                  description: 'Zero-downtime blue/green routing switch to the freshly certified edge release.',
+                },
+              ]}
+              defaultSelectedId="step-2"
+            />
+          </div>
+        );
+      case 'smart-comparison':
+        return (
+          <div className="w-full">
+            <SmartComparison
+              plans={[
+                {
+                  id: 'hobby',
+                  name: 'Hobby',
+                  tagline: 'Ideal for prototyping & indie hackers',
+                  price: '$0',
+                  billingPeriod: 'mo',
+                  ctaText: 'Deploy Free',
+                },
+                {
+                  id: 'pro',
+                  name: 'Pro Team',
+                  tagline: 'High concurrency & edge bandwidth',
+                  price: '$29',
+                  billingPeriod: 'mo',
+                  featured: true,
+                  badge: 'Popular',
+                  ctaText: 'Start 14-Day Trial',
+                },
+                {
+                  id: 'enterprise',
+                  name: 'Enterprise',
+                  tagline: 'Dedicated compliance & custom SLAs',
+                  price: '$249',
+                  billingPeriod: 'mo',
+                  ctaText: 'Contact Sales',
+                },
+              ]}
+              categories={[
+                {
+                  id: 'compute',
+                  title: 'Compute & Edge Performance',
+                  features: [
+                    {
+                      id: 'concurrency',
+                      name: 'Serverless Concurrency',
+                      description: 'Simultaneous function invocations across regions',
+                      values: { hobby: '10 nodes', pro: '250 nodes', enterprise: 'Unlimited' },
+                    },
+                    {
+                      id: 'edge_routes',
+                      name: 'Global Edge Routing',
+                      description: 'Low-latency routing from 300+ PoPs worldwide',
+                      values: { hobby: false, pro: true, enterprise: true },
+                    },
+                    {
+                      id: 'warm_standby',
+                      name: '0ms Cold Start Standby',
+                      description: 'Keeps microVMs warm in background',
+                      values: { hobby: false, pro: false, enterprise: true },
+                    },
+                  ],
+                },
+                {
+                  id: 'security',
+                  title: 'Security & Governance',
+                  features: [
+                    {
+                      id: 'sso',
+                      name: 'SAML / Okta SSO',
+                      description: 'Enterprise identity provider federation',
+                      values: { hobby: false, pro: true, enterprise: true },
+                    },
+                    {
+                      id: 'audit_logs',
+                      name: 'Immutable Audit Logs',
+                      description: 'Cryptographically verified audit trail retention',
+                      values: { hobby: '7 days', pro: '90 days', enterprise: '7 years' },
+                    },
+                    {
+                      id: 'custom_domains',
+                      name: 'Custom SSL Domains',
+                      values: { hobby: '3', pro: '50', enterprise: 'Unlimited' },
+                    },
+                  ],
+                },
+              ]}
+            />
+          </div>
+        );
+      case 'activity-feed':
+        return (
+          <div className="w-full">
+            <ActivityFeed
+              events={[
+                {
+                  id: 'evt-1',
+                  type: 'deploy',
+                  status: 'success',
+                  title: 'Production release v2.4.0 verified',
+                  timestamp: '2 mins ago',
+                  duration: '380ms',
+                  traceId: 'trc_98fa20',
+                  description: 'All 32 edge clusters updated. Zero errors encountered.',
+                  actor: { name: 'CI Pipeline', email: 'ci@easyui.dev' },
+                  payload: { version: '2.4.0', sha: '8f3b2a', regions: ['iad1', 'sfo1', 'fra1'] },
+                },
+                {
+                  id: 'evt-2',
+                  type: 'security',
+                  status: 'warning',
+                  title: 'Token rotation required for API key',
+                  timestamp: '14 mins ago',
+                  duration: '12ms',
+                  traceId: 'trc_77b31c',
+                  description: 'Secret key has exceeded 90-day recommended rotation window.',
+                  actor: { name: 'Security Guard' },
+                  payload: { keyId: 'key_prod_8819', ageDays: 92, action: 'notify' },
+                },
+                {
+                  id: 'evt-3',
+                  type: 'api',
+                  status: 'success',
+                  title: 'POST /v1/chat/completions 200 OK',
+                  timestamp: '28 mins ago',
+                  duration: '22ms',
+                  traceId: 'trc_55e10a',
+                  description: 'Streaming token generation handled with 0.12s first-byte latency.',
+                  actor: { name: 'External Client' },
+                  payload: { model: 'easy-4o', promptTokens: 140, completionTokens: 420 },
+                },
+                {
+                  id: 'evt-4',
+                  type: 'system',
+                  status: 'info',
+                  title: 'Automatic DB snapshot created',
+                  timestamp: '1 hour ago',
+                  duration: '4.2s',
+                  traceId: 'trc_12a98f',
+                  description: 'Encrypted backup stored in multi-AZ cold storage.',
+                },
+              ]}
+              enableLiveSimulation={true}
+            />
+          </div>
+        );
+      case 'metric-hud':
+        return (
+          <div className="w-full">
+            <MetricHUD
+              metrics={[
+                {
+                  id: 'latency',
+                  label: 'p99 API Latency',
+                  value: '14.2',
+                  unit: 'ms',
+                  delta: { value: '-18.4%', trend: 'down', isPositiveGood: true },
+                  status: 'normal',
+                  timeSeries: {
+                    '1h': [18, 17, 16.5, 15, 14.8, 14.2],
+                    '24h': [26, 24, 21, 19, 18, 16, 14.2],
+                    '7d': [34, 31, 28, 24, 20, 16, 14.2],
+                    '30d': [45, 38, 32, 28, 22, 18, 14.2],
+                  },
+                },
+                {
+                  id: 'throughput',
+                  label: 'Global Throughput',
+                  value: '84.5k',
+                  unit: 'req/s',
+                  delta: { value: '+12.1%', trend: 'up', isPositiveGood: true },
+                  status: 'normal',
+                  timeSeries: {
+                    '1h': [62, 68, 72, 75, 81, 84.5],
+                    '24h': [40, 52, 65, 74, 80, 84.5],
+                    '7d': [30, 45, 60, 70, 78, 84.5],
+                    '30d': [20, 35, 50, 65, 75, 84.5],
+                  },
+                },
+                {
+                  id: 'errors',
+                  label: 'Error Rate',
+                  value: '0.002',
+                  unit: '%',
+                  delta: { value: '-0.04%', trend: 'down', isPositiveGood: true },
+                  status: 'normal',
+                  timeSeries: {
+                    '1h': [0.008, 0.006, 0.005, 0.003, 0.002],
+                    '24h': [0.012, 0.009, 0.006, 0.004, 0.002],
+                    '7d': [0.02, 0.015, 0.01, 0.005, 0.002],
+                    '30d': [0.05, 0.03, 0.018, 0.008, 0.002],
+                  },
+                },
+              ]}
+              defaultTimeRange="24h"
+            />
+          </div>
+        );
+      case 'code-snippet-deck':
+        return (
+          <div className="w-full">
+            <CodeSnippetDeck
+              snippets={[
+                {
+                  language: 'typescript',
+                  label: 'TypeScript',
+                  filename: 'client.ts',
+                  highlightLines: [4, 5],
+                  code: (p) => `import { EasyClient } from "@easyui/sdk";
+
+// Initialize resilient client
+const client = new EasyClient({
+  apiKey: "${p.apiKey || 'sk_live_9981'}",
+  environment: "${p.env || 'production'}",
+  streaming: ${p.stream ? 'true' : 'false'},
+});
+
+// Stream AI generation with zero layout shift
+const completion = await client.completions.create({
+  model: "easy-4o",
+  prompt: "Synthesize dark UI telemetry dashboard",
+});`,
+                },
+                {
+                  language: 'curl',
+                  label: 'cURL',
+                  filename: 'stream.sh',
+                  highlightLines: [2],
+                  code: (p) => `curl -X POST https://api.easyui.dev/v1/completions \\
+  -H "Authorization: Bearer ${p.apiKey || 'sk_live_9981'}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "easy-4o",
+    "environment": "${p.env || 'production'}",
+    "stream": ${p.stream ? 'true' : 'false'}
+  }'`,
+                },
+                {
+                  language: 'python',
+                  label: 'Python',
+                  filename: 'app.py',
+                  highlightLines: [3, 4],
+                  code: (p) => `from easyui import EasyClient
+
+client = EasyClient(
+    api_key="${p.apiKey || 'sk_live_9981'}",
+    environment="${p.env || 'production'}"
+)
+
+stream = client.completions.create(
+    model="easy-4o",
+    prompt="Synthesize dark UI telemetry dashboard",
+    stream=${p.stream ? 'True' : 'False'}
+)
+for chunk in stream:
+    print(chunk.text, end="")`,
+                },
+                {
+                  language: 'go',
+                  label: 'Go',
+                  filename: 'main.go',
+                  code: (p) => `package main
+
+import (
+    "context"
+    "fmt"
+    "github.com/easyui/sdk-go"
+)
+
+func main() {
+    client := easyui.NewClient("${p.apiKey || 'sk_live_9981'}")
+    resp, err := client.Completions.Create(context.Background(), &easyui.CompletionParams{
+        Model:  "easy-4o",
+        Stream: ${p.stream ? 'true' : 'false'},
+    })
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(resp.Text)
+}`,
+                },
+              ]}
+              parameters={[
+                { id: 'stream', label: 'Stream response', type: 'boolean', defaultValue: true },
+                {
+                  id: 'env',
+                  label: 'Environment',
+                  type: 'select',
+                  defaultValue: 'production',
+                  options: ['production', 'staging', 'development'],
+                },
+                { id: 'apiKey', label: 'API Key', type: 'text', defaultValue: 'sk_live_prod_9981' },
+              ]}
+              defaultLanguage="typescript"
+            />
+          </div>
+        );
       case 'magnetic-button':
         return (
           <div className="py-12 flex flex-col items-center justify-center gap-4">
@@ -232,77 +589,73 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.97, y: 8 }}
         transition={motionTransitions.springSnappy}
-        className="relative w-full max-w-4xl max-h-[90vh] rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex flex-col z-10 overflow-hidden"
+        className="relative w-full max-w-4xl h-[640px] sm:h-[720px] max-h-[90vh] rounded-2xl border border-[#1C1C1C] bg-[#0A0A0A] shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex flex-col z-10 overflow-hidden my-auto"
       >
         {/* Modal Top Bar */}
-        <div className="flex items-start justify-between p-5 border-b border-[#141414]">
+        <div className="flex items-start justify-between p-5 sm:p-6 pb-4 sm:pb-5 border-b border-[#141414]">
           <div>
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-1.5">
               <span className="text-[10px] font-mono text-white px-2 py-0.5 rounded bg-[#141414] border border-[#202020]">
                 {component.category}
               </span>
               <span className="text-xs text-[#606060] font-mono">easyui/{component.id}</span>
             </div>
-            <h2 className="text-xl font-semibold text-[#F5F5F5] tracking-tight">
+            <h2 className="text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight">
               {component.name}
             </h2>
-            <p className="text-xs text-[#808080] mt-1">
+            <p className="text-xs text-[#808080] mt-1.5 line-clamp-2 sm:line-clamp-none max-w-2xl leading-relaxed">
               {component.description}
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#737373] hover:text-[#F5F5F5] hover:bg-[#141414] transition-colors focus-ring"
+            className="p-1.5 rounded-lg text-[#737373] hover:text-[#F5F5F5] hover:bg-[#141414] transition-colors focus-ring cursor-pointer ml-4 shrink-0"
             aria-label="Close"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Modal Tabs Bar */}
-        <div className="flex items-center gap-1 px-5 pt-2 border-b border-[#141414] overflow-x-auto scrollbar-none bg-[#080808]">
-          {[
-            { id: 'preview', label: 'Preview', icon: <Eye className="w-3.5 h-3.5" /> },
-            { id: 'install', label: 'Installation', icon: <Terminal className="w-3.5 h-3.5" /> },
-            { id: 'usage', label: 'Usage', icon: <Code2 className="w-3.5 h-3.5" /> },
-            { id: 'source', label: 'Source', icon: <Layers className="w-3.5 h-3.5" /> },
-            { id: 'api', label: 'Props API', icon: <Sparkles className="w-3.5 h-3.5" /> },
-            { id: 'a11y', label: 'Accessibility', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
-                activeTab === tab.id
-                  ? 'border-white text-white font-medium'
-                  : 'border-transparent text-[#606060] hover:text-[#A1A1A1]'
-              }`}
-            >
-              {tab.icon}
-              <span>{tab.label}</span>
-            </button>
-          ))}
+        {/* Modal Tabs Bar powered by EasyUI AnimatedTabs component */}
+        <div className="px-5 sm:px-6 py-3 bg-[#080808] border-b border-[#161616] flex items-center justify-start overflow-x-auto scrollbar-none">
+          <AnimatedTabs
+            key={`modal-tabs-${component.id}`}
+            tabs={[
+              { id: 'preview', label: 'Preview', icon: <Eye className="w-3.5 h-3.5" /> },
+              { id: 'install', label: 'Installation', icon: <Terminal className="w-3.5 h-3.5" /> },
+              { id: 'usage', label: 'Usage', icon: <Code2 className="w-3.5 h-3.5" /> },
+              { id: 'source', label: 'Source', icon: <Layers className="w-3.5 h-3.5" /> },
+              { id: 'api', label: 'Props API', icon: <Sparkles className="w-3.5 h-3.5" /> },
+              { id: 'a11y', label: 'Accessibility', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
+            ]}
+            activeTab={activeTab}
+            onChange={(tabId) => setActiveTab(tabId as any)}
+            renderContent={false}
+            layoutId={`modal-animated-tabs-indicator-${component.id}`}
+          />
         </div>
 
-        {/* Modal Body Content */}
-        <div className="p-6 overflow-y-auto flex-1 text-xs">
+        {/* Modal Body Content (Consistent stable viewport) */}
+        <div className="p-5 sm:p-6 overflow-y-auto flex-1 text-xs space-y-6">
           {/* TAB 1: LIVE PREVIEW */}
           {activeTab === 'preview' && (
-            <div className="space-y-6">
-              <div className="rounded-xl border border-[#1E1E1E] bg-[#070707] bg-dot-subtle min-h-[220px] flex items-center justify-center p-4">
-                {renderInteractiveDemo()}
+            <div className="space-y-5">
+              <div className="rounded-xl border border-[#1A1A1A] bg-[#070707] bg-dot-subtle min-h-[220px] flex items-center justify-center p-3 sm:p-5 overflow-hidden">
+                <div className="w-full">
+                  {renderInteractiveDemo()}
+                </div>
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-[#F5F5F5] uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-semibold text-[#F5F5F5] uppercase tracking-wider mb-2.5">
                   Key Features
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {component.features.map((feat, i) => (
                     <div
                       key={i}
-                      className="p-3 rounded-lg border border-[#1B1B1B] bg-[#0E0E0E] text-xs text-[#A1A1A1] flex items-start gap-2"
+                      className="p-2.5 sm:p-3 rounded-lg border border-[#1B1B1B] bg-[#0E0E0E] text-xs text-[#A1A1A1] flex items-start gap-2"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-white mt-1 shrink-0" />
                       <span>{feat}</span>
@@ -319,14 +672,14 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
               <p className="text-xs text-[#8E8E8E]">
                 Add this component to your shadcn project via the EasyUI GitHub registry:
               </p>
-              <div className="rounded-xl border border-[#1E1E1E] bg-[#090909] p-4 flex items-center justify-between font-mono text-xs">
-                <span className="text-white">{component.cliCommand}</span>
+              <div className="rounded-xl border border-[#1E1E1E] bg-[#090909] p-3.5 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 font-mono text-xs">
+                <span className="text-white break-all">{component.cliCommand}</span>
                 <button
                   onClick={() => handleCopy(component.cliCommand, 'cli')}
-                  className="flex items-center gap-1 text-[11px] text-[#A1A1A1] hover:text-[#F5F5F5]"
+                  className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] text-[11px] text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors cursor-pointer shrink-0"
                 >
                   {copiedCode === 'cli' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedCode === 'cli' ? 'Copied' : 'Copy'}</span>
+                  <span>{copiedCode === 'cli' ? 'Copied' : 'Copy Command'}</span>
                 </button>
               </div>
 
@@ -355,13 +708,13 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
                 <span className="text-xs text-[#8E8E8E]">Example Usage in React / Next.js:</span>
                 <button
                   onClick={() => handleCopy(component.usageCode, 'usage')}
-                  className="flex items-center gap-1 text-[11px] text-white hover:underline"
+                  className="flex items-center gap-1 text-[11px] text-white hover:underline cursor-pointer"
                 >
                   {copiedCode === 'usage' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedCode === 'usage' ? 'Copied' : 'Copy Example'}</span>
                 </button>
               </div>
-              <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#080808] font-mono text-xs text-[#CCCCCC] overflow-x-auto leading-relaxed">
+              <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#080808] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[380px] leading-relaxed">
                 <code>{component.usageCode}</code>
               </pre>
             </div>
@@ -374,13 +727,13 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
                 <span className="text-xs text-[#8E8E8E]">Full Component Source Code (TypeScript):</span>
                 <button
                   onClick={() => handleCopy(component.sourceCode, 'source')}
-                  className="flex items-center gap-1 text-[11px] text-white hover:underline"
+                  className="flex items-center gap-1 text-[11px] text-white hover:underline cursor-pointer"
                 >
                   {copiedCode === 'source' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedCode === 'source' ? 'Copied' : 'Copy Source'}</span>
                 </button>
               </div>
-              <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#080808] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-96 leading-relaxed">
+              <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#080808] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[380px] leading-relaxed">
                 <code>{component.sourceCode}</code>
               </pre>
             </div>

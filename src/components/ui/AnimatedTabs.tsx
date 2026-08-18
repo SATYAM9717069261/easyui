@@ -14,6 +14,7 @@ export interface TabItem {
 export interface AnimatedTabsProps {
   tabs: TabItem[];
   defaultTab?: string;
+  activeTab?: string;
   onChange?: (tabId: string) => void;
   className?: string;
   renderContent?: boolean;
@@ -23,17 +24,27 @@ export interface AnimatedTabsProps {
 export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
   tabs,
   defaultTab,
+  activeTab: controlledActiveTab,
   onChange,
   className,
   renderContent = true,
   layoutId: customLayoutId,
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(defaultTab || tabs[0]?.id || '');
+  const [internalActiveTab, setInternalActiveTab] = useState<string>(defaultTab || tabs[0]?.id || '');
+  const activeTab = controlledActiveTab !== undefined ? controlledActiveTab : internalActiveTab;
   const uniqueId = React.useId();
   const indicatorLayoutId = customLayoutId || `active-tab-indicator-${uniqueId}`;
 
+  React.useEffect(() => {
+    if (defaultTab && controlledActiveTab === undefined) {
+      setInternalActiveTab(defaultTab);
+    }
+  }, [defaultTab, controlledActiveTab]);
+
   const handleTabClick = (tabId: string) => {
-    setActiveTab(tabId);
+    if (controlledActiveTab === undefined) {
+      setInternalActiveTab(tabId);
+    }
     onChange?.(tabId);
   };
 

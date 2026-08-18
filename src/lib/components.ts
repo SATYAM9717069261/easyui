@@ -42,7 +42,9 @@ export function isComponentNew(
   newestComponent: EasyComponentMeta | null
 ): boolean {
   if (!newestComponent) return false;
-  return component.id === newestComponent.id;
+  const newestTime = new Date(newestComponent.createdAt).getTime();
+  const compTime = new Date(component.createdAt).getTime();
+  return compTime >= newestTime || component.id === newestComponent.id;
 }
 
 export interface PaginatedResult<T> {

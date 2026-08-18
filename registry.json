@@ -4,6 +4,33 @@
   "homepage": "https://github.com/Surajmaurya1/easyui",
   "items": [
     {
+      "name": "activity-feed",
+      "type": "registry:ui",
+      "title": "Activity Feed",
+      "description": "A developer telemetry and audit log stream featuring category filtering, live real-time event simulation with Framer Motion slide insertions, and expandable JSON payloads.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/ActivityFeed.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/activity-feed.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "animated-tabs",
       "type": "registry:ui",
       "title": "Animated Tabs",
@@ -16,6 +43,33 @@
           "path": "src/components/ui/AnimatedTabs.tsx",
           "type": "registry:ui",
           "target": "components/ui/animated-tabs.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "code-snippet-deck",
+      "type": "registry:ui",
+      "title": "Code Snippet Deck",
+      "description": "An interactive multi-runtime developer code snippet deck with runtime switching (cURL, TypeScript, Python, Go, Rust), live dynamic parameter customizations, and line highlighting.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/CodeSnippetDeck.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/code-snippet-deck.tsx"
         },
         {
           "path": "src/lib/utils.ts",
@@ -138,6 +192,33 @@
       ]
     },
     {
+      "name": "interactive-timeline",
+      "type": "registry:ui",
+      "title": "Interactive Timeline",
+      "description": "A developer-focused milestone and deployment timeline featuring dynamic progress lines, pulsating status nodes, expandable telemetry cards, and commit hash copy.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/InteractiveTimeline.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/interactive-timeline.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "magnetic-button",
       "type": "registry:ui",
       "title": "Magnetic Button",
@@ -150,6 +231,33 @@
           "path": "src/components/ui/MagneticButton.tsx",
           "type": "registry:ui",
           "target": "components/ui/magnetic-button.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "metric-hud",
+      "type": "registry:ui",
+      "title": "Metric HUD",
+      "description": "An interactive developer telemetry card featuring hardware-accelerated SVG sparklines, pointer-scrubbing point inspection, spring-animated time range morphing, and delta indicators.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/MetricHUD.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/metric-hud.tsx"
         },
         {
           "path": "src/lib/utils.ts",
@@ -235,6 +343,33 @@
           "path": "src/lib/utils.ts",
           "type": "registry:lib",
           "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "smart-comparison",
+      "type": "registry:ui",
+      "title": "Smart Comparison",
+      "description": "An interactive feature matrix and SaaS tier comparison component featuring live difference filtering, collapsible specification categories, search indexing, and mobile card toggle.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/SmartComparison.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/smart-comparison.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
         }
       ]
     },

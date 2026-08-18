@@ -39,6 +39,90 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
   // Render contextual micro-preview for each specific component
   const renderPreview = (comp: EasyComponentMeta) => {
     switch (comp.id) {
+      case 'interactive-timeline':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] space-y-2 pointer-events-none scale-90 sm:scale-95">
+              <div className="flex items-center gap-2.5 p-2 rounded-lg bg-[#0E0E0E] border border-white/20">
+                <span className="w-4 h-4 rounded-full bg-white text-black flex items-center justify-center text-[9px] font-bold">✓</span>
+                <span className="text-[11px] font-medium text-white">Edge Build Verified</span>
+                <span className="ml-auto text-[9px] font-mono text-emerald-400">48s</span>
+              </div>
+              <div className="flex items-center gap-2.5 p-2 rounded-lg bg-[#0E0E0E] border border-white/10">
+                <span className="w-4 h-4 rounded-full border border-white flex items-center justify-center animate-spin text-[8px] text-white">●</span>
+                <span className="text-[11px] font-medium text-[#A1A1A1]">Global Replication</span>
+                <span className="ml-auto text-[9px] font-mono text-white/70 animate-pulse">Active</span>
+              </div>
+            </div>
+          </div>
+        );
+      case 'smart-comparison':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] p-3 rounded-xl bg-[#0D0D0D] border border-[#202020] pointer-events-none scale-90 sm:scale-95">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-semibold text-white">Pro Tier</span>
+                <span className="text-[10px] font-mono text-white bg-[#1A1A1A] px-1.5 py-0.5 rounded border border-[#2A2A2A]">$29/mo</span>
+              </div>
+              <div className="space-y-1 text-[10px] font-mono text-[#888888]">
+                <div className="flex justify-between"><span>Multi-Region</span><span className="text-white">✓ Included</span></div>
+                <div className="flex justify-between"><span>Concurrency</span><span className="text-white">250 nodes</span></div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'activity-feed':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-[#0E0E0E] border border-[#1C1C1C]">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span className="text-[11px] text-[#D4D4D4] truncate">Edge Lambda deployed</span>
+                <span className="ml-auto text-[9px] font-mono text-[#666666]">2m</span>
+              </div>
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-[#0E0E0E] border border-[#1C1C1C]">
+                <span className="w-2 h-2 rounded-full bg-sky-400" />
+                <span className="text-[11px] text-[#D4D4D4] truncate">POST /v1/auth 200 OK</span>
+                <span className="ml-auto text-[9px] font-mono text-[#666666]">18ms</span>
+              </div>
+            </div>
+          </div>
+        );
+      case 'metric-hud':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] p-3 rounded-xl bg-[#0D0D0D] border border-[#202020] pointer-events-none scale-90 sm:scale-95">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[11px] text-[#888888]">p99 Latency</span>
+                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">-18.4%</span>
+              </div>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className="text-lg font-bold font-mono text-white">14.2</span>
+                <span className="text-[10px] font-mono text-[#666666]">ms</span>
+              </div>
+              <div className="h-6 w-full flex items-end gap-1">
+                {[35, 45, 55, 40, 65, 75, 50, 85, 90, 60, 40, 30].map((h, i) => (
+                  <div key={i} className="flex-1 bg-white/20 rounded-t" style={{ height: `${h}%` }} />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      case 'code-snippet-deck':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] rounded-xl bg-[#090909] border border-[#202020] overflow-hidden pointer-events-none scale-90 sm:scale-95">
+              <div className="px-2.5 py-1.5 bg-[#121212] border-b border-[#1C1C1C] flex items-center justify-between text-[10px] font-mono text-[#888888]">
+                <span>client.ts</span>
+                <span className="text-white">TypeScript</span>
+              </div>
+              <div className="p-2.5 font-mono text-[10px] text-[#A1A1A1] leading-relaxed">
+                <div><span className="text-white">import</span> &#123; EasyUI &#125; <span className="text-white">from</span> <span className="text-white/70">"@easyui/sdk"</span>;</div>
+                <div className="text-[#666666]">// Instant completions API</div>
+              </div>
+            </div>
+          </div>
+        );
       case 'magnetic-button':
         return (
           <div className="h-40 flex items-center justify-center p-4">
