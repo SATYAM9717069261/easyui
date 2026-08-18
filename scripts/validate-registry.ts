@@ -203,6 +203,9 @@ function validateRegistry(): void {
     if (!catalogRaw.includes('export const EASY_COMPONENTS')) {
       errors.push('components-data.ts does not export EASY_COMPONENTS.');
     }
+    if (!catalogRaw.includes('"createdAt":')) {
+      errors.push('components-data.ts entries are missing the "createdAt" timestamp field.');
+    }
   }
 
   finishValidation(errors, warnings, registry.items.length);

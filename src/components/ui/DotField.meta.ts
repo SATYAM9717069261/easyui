@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Motion',
   tagline: 'Interactive Canvas particle matrix with cursor bulge & glow',
   badges: ['HTML5 Canvas', 'React Bits', 'Interactive Physics'],
+  createdAt: '2026-08-08',
   features: [
     '60 FPS Canvas hardware-accelerated rendering',
     'Cursor repulsion and proximity bulge physics',

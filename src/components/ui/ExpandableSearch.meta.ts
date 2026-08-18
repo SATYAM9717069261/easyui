@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Navigation',
   tagline: 'Compact spring width morphing search input',
   badges: ['Spring Expansion', 'Shortcuts', 'Compact'],
+  createdAt: '2026-08-02',
   features: [
     'Spring physics width expansion',
     'Shortcut badge hint',

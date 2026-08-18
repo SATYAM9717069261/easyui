@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Motion',
   tagline: 'Radial pointer tracking over dark layered surface',
   badges: ['Shader Feel', 'Pointer Physics', 'Dark Elevation'],
+  createdAt: '2026-08-15',
   features: [
     'Hardware-accelerated dynamic radial mask',
     'Dual illumination (border beam + ambient inner glow)',

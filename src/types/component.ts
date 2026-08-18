@@ -22,6 +22,7 @@ export interface EasyUIComponentMeta {
   features?: string[];
   usageCode?: string;
   featured?: boolean;
+  createdAt?: string;
 }
 
 /**
@@ -41,6 +42,7 @@ export interface EasyComponentMeta {
   props: ComponentProp[];
   accessibility: string[];
   features: string[];
+  createdAt: string;
   dependencies?: string[];
   registryDependencies?: string[];
   files?: Array<{

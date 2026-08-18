@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Feedback',
   tagline: 'Zero-jank spring collapsible content panels',
   badges: ['Spring Height', 'Zero Layout Shift', 'Multi or Single'],
+  createdAt: '2026-08-05',
   features: [
     'Spring physics height interpolation',
     'Zero content clipping or layout jumps',

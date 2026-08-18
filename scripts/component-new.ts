@@ -83,6 +83,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Motion',
   tagline: 'Spring physics interaction',
   badges: ['Spring Physics', 'Tailwind', 'Interactive'],
+  createdAt: '${new Date().toISOString().split('T')[0]}',
   features: [
     'Hardware accelerated layout animations',
     'Responsive and mobile friendly',

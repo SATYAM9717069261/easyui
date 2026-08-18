@@ -10,7 +10,7 @@ export interface NavbarProps {
   onNavigateComponents: () => void;
   onNavigateDocs: () => void;
   onNavigateHome?: () => void;
-  activeView?: 'showcase' | 'docs';
+  activeView?: 'showcase' | 'components' | 'docs';
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -45,8 +45,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           <nav className="hidden md:flex items-center gap-6">
             <button
               onClick={onNavigateComponents}
-              className={`text-xs font-medium transition-colors ${
-                activeView === 'showcase'
+              className={`text-xs font-medium transition-colors cursor-pointer ${
+                activeView === 'showcase' || activeView === 'components'
                   ? 'text-white'
                   : 'text-[#808080] hover:text-[#F5F5F5]'
               }`}
@@ -55,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
             <button
               onClick={onNavigateDocs}
-              className={`text-xs font-medium transition-colors ${
+              className={`text-xs font-medium transition-colors cursor-pointer ${
                 activeView === 'docs'
                   ? 'text-white'
                   : 'text-[#808080] hover:text-[#F5F5F5]'

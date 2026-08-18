@@ -30,3 +30,20 @@ export type { SmoothAccordionProps, AccordionItem } from './SmoothAccordion';
 
 export { SpotlightCard } from './SpotlightCard';
 export type { SpotlightCardProps } from './SpotlightCard';
+
+export { InteractiveTimeline } from './InteractiveTimeline';
+export type { InteractiveTimelineProps, TimelineItem, TimelineStatus, TimelineMetric } from './InteractiveTimeline';
+
+export { SmartComparison } from './SmartComparison';
+export type { SmartComparisonProps, ComparisonPlan, ComparisonCategory, ComparisonFeature } from './SmartComparison';
+
+export { ActivityFeed } from './ActivityFeed';
+export type { ActivityFeedProps, ActivityEvent, ActivityEventType, ActivityEventStatus, ActivityActor } from './ActivityFeed';
+
+export { MetricHUD } from './MetricHUD';
+export type { MetricHUDProps, MetricItem, MetricDelta, MetricTrend } from './MetricHUD';
+
+export { CodeSnippetDeck } from './CodeSnippetDeck';
+export type { CodeSnippetDeckProps, SnippetItem, SnippetParameter } from './CodeSnippetDeck';
+
+

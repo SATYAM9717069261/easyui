@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Overlays',
   tagline: 'Seamless shared layoutId card to modal transition',
   badges: ['Shared Layout', 'Spring Physics', 'Zero Layout Shift'],
+  createdAt: '2026-08-14',
   features: [
     'Framer Motion layoutId continuous surface expansion',
     'Esc key dismissal and backdrop click support',

@@ -6,6 +6,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Feedback',
   tagline: 'Physics swipe-to-dismiss toast stack',
   badges: ['Drag Physics', 'Elevation Stacking', 'Interactive'],
+  createdAt: '2026-08-04',
   features: [
     'Interactive drag-to-dismiss with spring rebound',
     'Dynamic stacking elevation offset and scale',

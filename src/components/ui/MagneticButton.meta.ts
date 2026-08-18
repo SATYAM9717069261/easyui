@@ -7,6 +7,7 @@ const meta: EasyUIComponentMeta = {
   tagline: 'Cursor-aware spring translation physics',
   badges: ['Spring Physics', 'Micro-interaction', 'Tailwind'],
   featured: true,
+  createdAt: '2026-08-18',
   features: [
     'Spring physics coordinate tracking via Framer Motion',
     'Configurable pull strength and threshold',
