@@ -19,6 +19,22 @@ import { SmartComparison } from '../ui/SmartComparison';
 import { ActivityFeed } from '../ui/ActivityFeed';
 import { MetricHUD } from '../ui/MetricHUD';
 import { CodeSnippetDeck } from '../ui/CodeSnippetDeck';
+import { GlassNavbar } from '../ui/GlassNavbar';
+import { Button } from '../ui/Button';
+import {
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  Input,
+  Select,
+  Checkbox,
+  Switch,
+} from '../ui/Form';
+import { Login } from '../ui/Login';
+import { SignUp } from '../ui/SignUp';
+import { FAQ } from '../ui/FAQ';
 
 export interface ComponentDetailModalProps {
   component: EasyComponentMeta | null;
@@ -537,6 +553,187 @@ func main() {
         return (
           <div className="py-10 text-center">
             <p className="text-xs text-[#A1A1A1] mb-3">Press <kbd className="px-1.5 py-0.5 rounded bg-[#181818] border border-[#262626] font-mono text-white">⌘K</kbd> anywhere on the page to open.</p>
+          </div>
+        );
+      case 'glass-navbar':
+        return (
+          <div className="py-6 w-full space-y-4">
+            <div className="p-4 rounded-xl bg-[#070707] border border-[#1C1C1C] overflow-hidden">
+              <p className="text-[11px] font-mono text-[#737373] mb-3 uppercase tracking-wider">
+                Interactive Glass Navbar Demo (Responsive & Spring Physics)
+              </p>
+              <div className="relative py-2">
+                <GlassNavbar
+                  variant="floating"
+                  sticky={false}
+                  items={[
+                    { label: 'Platform', href: '#platform' },
+                    { label: 'Components', href: '#components', badge: 'New' },
+                    { label: 'Showcase', href: '#showcase' },
+                    { label: 'Documentation', href: '#docs' },
+                  ]}
+                  cta={
+                    <button
+                      type="button"
+                      onClick={() => alert('CTA clicked!')}
+                      className="px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#050505] text-xs font-medium hover:bg-white transition-colors shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+                    >
+                      Deploy Now
+                    </button>
+                  }
+                />
+              </div>
+            </div>
+            <p className="text-xs text-center text-[#6F6F6F]">
+              Hover items to test spotlight cursor pill. Resize screen or click hamburger on mobile to test spring drawer.
+            </p>
+          </div>
+        );
+      case 'button':
+        return (
+          <div className="py-6 w-full space-y-6 max-w-xl mx-auto">
+            <div className="p-5 rounded-xl bg-[#090909] border border-[#1D1D1D] space-y-4">
+              <div className="text-xs font-semibold text-[#F5F5F5]">Visual Variants</div>
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Button variant="primary">Primary</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="outline">Outline</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button variant="destructive">Destructive</Button>
+                <Button variant="success">Success</Button>
+                <Button variant="gradient">Gradient</Button>
+              </div>
+            </div>
+
+            <div className="p-5 rounded-xl bg-[#090909] border border-[#1D1D1D] space-y-4">
+              <div className="text-xs font-semibold text-[#F5F5F5]">Sizes & Interactive Loading</div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button size="sm" variant="primary">Small (sm)</Button>
+                <Button size="md" variant="primary">Medium (md)</Button>
+                <Button size="lg" variant="primary">Large (lg)</Button>
+                <Button
+                  size="md"
+                  variant="secondary"
+                  isLoading={true}
+                  loadingText="Processing..."
+                >
+                  Loading
+                </Button>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  aria-label="Sparkles"
+                >
+                  <Sparkles className="w-4 h-4 text-white" />
+                </Button>
+              </div>
+            </div>
+            <p className="text-xs text-center text-[#6F6F6F]">
+              Click buttons to experience Framer Motion springSnappy tap feedback (0.97 scale).
+            </p>
+          </div>
+        );
+      case 'form':
+        return (
+          <div className="py-4 max-w-md mx-auto w-full">
+            <div className="p-6 rounded-2xl bg-[#0A0A0A] border border-[#1D1D1D] space-y-4">
+              <div className="text-sm font-semibold text-white">Interactive Form System</div>
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert('Form submitted successfully!');
+                }}
+                className="space-y-4"
+              >
+                <FormItem>
+                  <FormLabel required>Project Name</FormLabel>
+                  <FormControl>
+                    <Input defaultValue="EasyUI Studio" placeholder="Enter project name" />
+                  </FormControl>
+                  <FormDescription>Visible across your team members.</FormDescription>
+                </FormItem>
+
+                <FormItem>
+                  <FormLabel>Deployment Region</FormLabel>
+                  <FormControl>
+                    <Select
+                      options={[
+                        { value: 'us-east', label: 'US East (N. Virginia)' },
+                        { value: 'eu-central', label: 'EU Central (Frankfurt)' },
+                        { value: 'ap-southeast', label: 'Asia Pacific (Tokyo)' },
+                      ]}
+                    />
+                  </FormControl>
+                </FormItem>
+
+                <div className="pt-1 space-y-3 border-t border-[#161616]">
+                  <Checkbox label="Enable Edge Caching" defaultChecked />
+                  <Switch label="Automatic TLS Certificates" defaultChecked />
+                </div>
+
+                <Button type="submit" variant="primary" fullWidth className="mt-2">
+                  Save Configuration
+                </Button>
+              </Form>
+            </div>
+          </div>
+        );
+      case 'login':
+        return (
+          <div className="py-4 flex justify-center w-full">
+            <Login
+              onSubmit={(data) => {
+                alert(`Login Attempt: ${JSON.stringify(data)}`);
+              }}
+              onForgotPassword={() => alert('Forgot password action')}
+              onSignUpClick={() => alert('Switch to sign up')}
+              onSocialLogin={(prov) => alert(`SSO provider: ${prov}`)}
+            />
+          </div>
+        );
+      case 'sign-up':
+        return (
+          <div className="py-4 flex justify-center w-full">
+            <SignUp
+              onSubmit={(data) => {
+                alert(`Registration submitted: ${data.name} (${data.email})`);
+              }}
+              onSignInClick={() => alert('Switch to sign in')}
+              onSocialSignUp={(prov) => alert(`Social sign up: ${prov}`)}
+            />
+          </div>
+        );
+      case 'faq':
+        return (
+          <div className="py-4 w-full max-w-2xl mx-auto">
+            <FAQ
+              allowMultiple={true}
+              searchable={true}
+              showCategories={true}
+              defaultOpen={['faq-1']}
+              items={[
+                {
+                  id: 'faq-1',
+                  question: 'How do I add EasyUI components to my existing project?',
+                  answer: 'You can install any component directly using the official shadcn CLI: "npx shadcn@latest add Surajmaurya1/easyui/<component-name>". The source code and required dependencies are added directly to your repository.',
+                  category: 'Installation',
+                  badge: 'CLI',
+                },
+                {
+                  id: 'faq-2',
+                  question: 'What makes EasyUI animations feel natural?',
+                  answer: 'EasyUI uses physical spring simulations rather than standard CSS bezier ease curves. Transitions are configured with calibrated mass, damping, and stiffness tokens defined in "lib/motion-tokens.ts".',
+                  category: 'Animation',
+                  badge: 'Physics',
+                },
+                {
+                  id: 'faq-3',
+                  question: 'Is EasyUI compatible with React 19 and Tailwind CSS?',
+                  answer: 'Yes! EasyUI components are built natively with React 19, TypeScript, and modern Tailwind CSS utility classes.',
+                  category: 'Stack',
+                },
+              ]}
+            />
           </div>
         );
       case 'dot-field':

@@ -38,6 +38,8 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
     'Navigation',
     'Feedback',
     'Overlays',
+    'Forms',
+    'Auth',
   ];
 
   // 1. Sort all components by createdAt DESC

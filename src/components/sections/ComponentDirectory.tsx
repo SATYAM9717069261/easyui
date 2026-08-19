@@ -31,6 +31,8 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
     'Navigation',
     'Feedback',
     'Overlays',
+    'Forms',
+    'Auth',
   ];
 
   // 1. Sort components by createdAt DESC
