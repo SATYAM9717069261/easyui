@@ -43,6 +43,12 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://easyui-v1.vercel.app/#docs/seo</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://easyui-v1.vercel.app/#components?page=2</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>

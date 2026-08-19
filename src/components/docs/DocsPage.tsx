@@ -13,6 +13,7 @@ import { DocQuickStart } from './sections/DocQuickStart';
 import { DocArchitecture } from './sections/DocArchitecture';
 import { DocCollaboration } from './sections/DocCollaboration';
 import { DocMotionSystem } from './sections/DocMotionSystem';
+import { DocSEO } from './sections/DocSEO';
 
 export interface DocsPageProps {
   activeTopic: string;
@@ -38,6 +39,8 @@ export const DocsPage: React.FC<DocsPageProps> = ({
         return 'Quick Start & Setup';
       case 'architecture':
         return 'Automatic Structure & Registry Engine';
+      case 'seo':
+        return 'Automated SEO & Audit System';
       case 'collaboration':
         return 'Collaboration & Contributing Guide';
       case 'motion':
@@ -144,6 +147,10 @@ export const DocsPage: React.FC<DocsPageProps> = ({
 
             {activeTopic === 'architecture' && (
               <DocArchitecture onNavigateSection={handleSelectTopicWithMobileClose} />
+            )}
+
+            {activeTopic === 'seo' && (
+              <DocSEO onNavigateSection={handleSelectTopicWithMobileClose} />
             )}
 
             {activeTopic === 'collaboration' && (

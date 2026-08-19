@@ -88,6 +88,11 @@ export const DOC_TOPICS_SEO: Record<string, { title: string; description: string
     description: 'Learn how to build, test, document, and contribute new components to EasyUI using automated registry generation and design tokens.',
     keywords: ['Contribute to EasyUI', 'Component creation', 'Registry generator', 'UI development workflow'],
   },
+  seo: {
+    title: 'Automated SEO & Audit System — EasyUI',
+    description: 'Explore EasyUI automated SEO engine: single source of truth metadata, dynamic sitemaps, canonicals, schema.org JSON-LD, and 44-point CLI health audit.',
+    keywords: ['EasyUI SEO', 'Automated SEO', 'Schema.org JSON-LD', 'Dynamic Sitemap', 'SEO health audit', 'React SEO'],
+  },
 };
 
 /**

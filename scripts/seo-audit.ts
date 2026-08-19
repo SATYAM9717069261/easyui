@@ -171,14 +171,14 @@ export function runSEOAudit(): AuditReport {
   check('Content', shortDescriptions === 0, 'WARNING', 'All component descriptions provide substantive content (> 25 chars)', `${shortDescriptions} components have thin descriptions (< 25 chars)`, 'registry.json');
 
   // Check doc topics completeness
-  const docFiles = ['DocIntroduction.tsx', 'DocQuickStart.tsx', 'DocArchitecture.tsx', 'DocMotionSystem.tsx', 'DocCollaboration.tsx'];
+  const docFiles = ['DocIntroduction.tsx', 'DocQuickStart.tsx', 'DocArchitecture.tsx', 'DocMotionSystem.tsx', 'DocCollaboration.tsx', 'DocSEO.tsx'];
   let missingDocFiles = 0;
   for (const df of docFiles) {
     if (!fs.existsSync(path.join(ROOT_DIR, 'src', 'components', 'docs', 'sections', df))) {
       missingDocFiles++;
     }
   }
-  check('Content', missingDocFiles === 0, 'CRITICAL', 'All 5 core documentation topic pages exist and are populated', `${missingDocFiles} documentation section files are missing`, 'src/components/docs/sections');
+  check('Content', missingDocFiles === 0, 'CRITICAL', 'All 6 core documentation topic pages exist and are populated', `${missingDocFiles} documentation section files are missing`, 'src/components/docs/sections');
 
   // ==========================================
   // 4. Links & Navigation Checks

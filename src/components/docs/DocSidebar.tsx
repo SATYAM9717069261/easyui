@@ -46,6 +46,7 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
       group: 'Architecture & Engine',
       items: [
         { id: 'architecture', label: 'Automatic Structure & Registry', icon: Cpu, badge: 'Engine' },
+        { id: 'seo', label: 'Automated SEO & Audit System', icon: Search, badge: 'Auto' },
         { id: 'collaboration', label: 'How to Collaborate & Contribute', icon: GitPullRequest, badge: 'Guide' },
       ],
     },

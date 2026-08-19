@@ -66,6 +66,12 @@ export function generateSitemap(): void {
       changefreq: 'weekly',
       priority: '0.75',
     },
+    {
+      loc: `${SITE_URL}/#docs/seo`,
+      lastmod: today,
+      changefreq: 'weekly',
+      priority: '0.80',
+    },
   ];
 
   // 4. Read registry.json for all components
