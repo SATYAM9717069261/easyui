@@ -35,15 +35,19 @@ import {
 import { Login } from '../ui/Login';
 import { SignUp } from '../ui/SignUp';
 import { FAQ } from '../ui/FAQ';
+import { EASY_COMPONENTS } from '../registry/components-data';
+import { getRelatedComponents } from '../../lib/seo';
 
 export interface ComponentDetailModalProps {
   component: EasyComponentMeta | null;
   onClose: () => void;
+  onSelectComponent?: (id: string) => void;
 }
 
 export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
   component,
   onClose,
+  onSelectComponent,
 }) => {
   const [activeTab, setActiveTab] = useState<'preview' | 'install' | 'usage' | 'source' | 'api' | 'a11y'>('preview');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
@@ -982,6 +986,43 @@ func main() {
                     <ShieldCheck className="w-4 h-4 text-white shrink-0" />
                     <span>{item}</span>
                   </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Contextually Related Components for Enhanced Discovery & Internal Linking */}
+          {getRelatedComponents(component, EASY_COMPONENTS, 3).length > 0 && (
+            <div className="pt-5 border-t border-[#161616] space-y-3">
+              <div className="flex items-center justify-between">
+                <h4 className="text-xs font-semibold text-[#8E8E8E] uppercase tracking-wider">
+                  Related Components
+                </h4>
+                <span className="text-[11px] text-[#555555]">Contextual Pairings</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                {getRelatedComponents(component, EASY_COMPONENTS, 3).map((rel) => (
+                  <button
+                    key={rel.id}
+                    onClick={() => {
+                      if (onSelectComponent) {
+                        onSelectComponent(rel.id);
+                      }
+                    }}
+                    className="p-3 rounded-xl border border-[#1C1C1C] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#2C2C2C] text-left transition-all group cursor-pointer"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-medium text-[#E5E5E5] group-hover:text-white transition-colors">
+                        {rel.name}
+                      </span>
+                      <span className="text-[9px] font-mono text-[#8E8E8E] px-1.5 py-0.5 rounded bg-[#161616]">
+                        {rel.category}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#707070] line-clamp-1">
+                      {rel.tagline || rel.description}
+                    </p>
+                  </button>
                 ))}
               </div>
             </div>

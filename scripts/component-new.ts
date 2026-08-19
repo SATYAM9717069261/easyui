@@ -44,11 +44,11 @@ function main() {
   }
 
   const componentTemplate = `import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 import { cn } from '../../lib/utils';
 import { motionTransitions } from '../../lib/motion-tokens';
 
-export interface ${componentName}Props extends React.HTMLAttributes<HTMLDivElement> {
+export interface ${componentName}Props extends HTMLMotionProps<'div'> {
   children?: React.ReactNode;
   className?: string;
 }
@@ -79,15 +79,15 @@ export const ${componentName}: React.FC<${componentName}Props> = ({
 
 const meta: EasyUIComponentMeta = {
   title: '${title}',
-  description: 'A beautifully crafted ${title.toLowerCase()} with smooth spring physics.',
+  description: 'A responsive, accessible ${title.toLowerCase()} component for React applications built with Tailwind CSS and Framer Motion.',
   category: 'Motion',
-  tagline: 'Spring physics interaction',
-  badges: ['Spring Physics', 'Tailwind', 'Interactive'],
+  tagline: 'Responsive interactive ${title.toLowerCase()}',
+  badges: ['Motion', 'Tailwind', 'Interactive'],
   createdAt: '${new Date().toISOString().split('T')[0]}',
   features: [
+    'Responsive design for modern web applications',
     'Hardware accelerated layout animations',
-    'Responsive and mobile friendly',
-    'Customizable appearance and tokens',
+    'Customizable appearance with standard Tailwind utility classes',
   ],
   props: [
     { name: 'children', type: 'ReactNode', default: 'undefined', description: 'Content rendered inside the component' },
@@ -95,7 +95,7 @@ const meta: EasyUIComponentMeta = {
   ],
   accessibility: [
     'Respects prefers-reduced-motion media query',
-    'Accessible semantic structure',
+    'Semantic HTML structure with standard keyboard support',
   ],
   usageCode: \`import { ${componentName} } from "@/components/ui/${slug}";
 
@@ -117,7 +117,7 @@ export default meta;
   console.log(`✨ Created component boilerplate:`);
   console.log(`  - ${path.relative(ROOT_DIR, componentPath)}`);
   console.log(`  - ${path.relative(ROOT_DIR, metaPath)}`);
-  console.log(`\nNext step: Run "npm run component:sync" to generate registry entries and catalog metadata.`);
+  console.log(`\nNext step: Run "npm run build" or "npm run component:sync" to automatically register component & SEO.`);
 }
 
 main();

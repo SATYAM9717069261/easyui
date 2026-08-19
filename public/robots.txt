@@ -1,0 +1,13 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow private and administrative paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /internal/
+
+# Host & Sitemap
+Host: https://easyui-v1.vercel.app
+Sitemap: https://easyui-v1.vercel.app/sitemap.xml

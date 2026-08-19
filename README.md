@@ -18,6 +18,7 @@
     <a href="#quick-start">Quick Start</a> •
     <a href="#components">Components</a> •
     <a href="#developer-workflow-adding-new-components">Adding Components</a> •
+    <a href="#automated-seo--audit-system">Automated SEO</a> •
     <a href="#architecture--automatic-registry-system">Architecture</a> •
     <a href="#directory-structure">Directory Structure</a> •
     <a href="#contributing">Contributing</a>
@@ -291,6 +292,64 @@ The GitHub Actions CI workflow automatically regenerates, validates, and checks 
 
 ---
 
+---
+
+## Automated SEO & Audit System
+
+EasyUI features an automated, zero-config SEO pipeline. When a developer creates a new component, it automatically inherits complete search engine optimization across the entire application without any manual configuration:
+
+```text
+                 COMPONENT
+                     │
+                     ▼
+          npm run component:new <Name>
+                     │
+              ┌──────┴──────┐
+              ▼             ▼
+      <Name>.tsx       <Name>.meta.ts (Single Source of Truth)
+              │             │
+              └──────┬──────┘
+                     ▼
+         npm run build / component:sync
+                     │
+       ┌─────────────┼──────────────┐
+       ▼             ▼              ▼
+  registry.json  components-data  sitemap.xml (All 31+ URLs)
+       │             │              │
+       └─────────────┼──────────────┘
+                     ▼
+             src/lib/seo Engine
+                     │
+       ┌─────────────┼──────────────┐
+       ▼             ▼              ▼
+  Dynamic Titles  Canonicals    JSON-LD & Breadcrumbs
+  & Meta Tags    & OG Cards    (SoftwareApp, WebSite, etc.)
+       │             │              │
+       └─────────────┼──────────────┘
+                     ▼
+             SEO Audit Guard
+                     │
+                     ▼
+             Production Build (Vite)
+```
+
+### What is Automated?
+
+- **Dynamic Metadata** — Dynamic page title, meta description, robots directives, and keywords generated per component.
+- **Canonical URLs** — Normalized, clean canonical URLs (`https://easyui-v1.vercel.app/#components/${slug}`).
+- **Dynamic XML Sitemap** — `public/sitemap.xml` automatically syncs all component routes, documentation topics, and pagination pages.
+- **Open Graph & Twitter Cards** — Rich social sharing cards generated from component metadata and brand visuals.
+- **Structured Data (JSON-LD)** — Rich Google schemas (`SoftwareApplication`, `TechArticle`, `BreadcrumbList`, `WebSite` with `SearchAction`, `Organization`).
+- **Internal Linking & Related Components** — Contextual pairings dynamically suggested on every component modal.
+- **SEO Build Guard & CLI Audit** — `npm run seo:audit` runs 44 automated health checks across 7 categories to prevent broken metadata or sitemaps from reaching production.
+
+```bash
+# Run automated SEO audit
+npm run seo:audit
+```
+
+---
+
 ## Multi-File Component Support
 
 EasyUI supports complex components split across multiple files. You can create a dedicated folder inside `src/components/ui/`:
@@ -314,12 +373,14 @@ The generator will automatically:
 
 | Command | Purpose |
 |:---|:---|
-| `npm run component:sync` | **Primary developer command.** Regenerates `registry.json` and website catalog, then runs full validation. |
-| `npm run component:new <Name>` | Scaffolds a new component boilerplate (`.tsx` + `.meta.ts`). |
+| `npm run component:sync` | **Primary developer sync command.** Regenerates `registry.json`, website catalog, and `sitemap.xml`, then runs full validation. |
+| `npm run component:new <Name>` | Scaffolds a new component boilerplate (`.tsx` + `.meta.ts`) with SEO-ready defaults. |
+| `npm run seo:audit` | Runs the automated 7-category SEO audit and prints a detailed health report. |
+| `npm run seo:sitemap` | Generates `public/sitemap.xml` with all current pages, catalog pagination, doc topics, and component deep links. |
 | `npm run registry:generate` | Runs discovery and regenerates `registry.json` and `components-data.ts`. |
 | `npm run registry:validate` | Validates schemas, unique slugs, file paths, and package dependencies. |
 | `npm run dev` | Starts Vite local development server (`http://localhost:5173`). |
-| `npm run build` | Syncs registry, runs TypeScript typecheck (`tsc -b`), and builds Vite bundle. |
+| `npm run build` | Full automated pipeline: syncs registry/sitemap, runs SEO audit guard, typechecks (`tsc -b`), and builds Vite bundle. |
 | `npm run lint` | Runs `oxlint` for lightning-fast linting. |
 
 ---
@@ -332,10 +393,15 @@ easyui/
 │   └── workflows/
 │       └── registry.yml                   # CI validation & build workflow
 ├── public/
-│   └── logo.png                           # Brand identity logo
+│   ├── logo.png                           # Brand identity logo & favicon
+│   ├── robots.txt                         # Search crawler directives
+│   ├── sitemap.xml                        # [AUTO-GENERATED] Dynamic XML sitemap
+│   └── site.webmanifest                   # Web Application Manifest
 ├── scripts/
 │   ├── generate-registry.ts               # Auto-discovery & registry generator
+│   ├── generate-sitemap.ts                # Dynamic sitemap generator
 │   ├── validate-registry.ts               # Registry & catalog validator
+│   ├── seo-audit.ts                       # Automated SEO health audit
 │   └── component-new.ts                   # Component scaffolding CLI
 ├── src/
 │   ├── components/
@@ -370,6 +436,7 @@ easyui/
 │   │       ├── SpotlightCard.tsx
 │   │       └── SpotlightCard.meta.ts
 │   ├── lib/
+│   │   ├── seo/                           # Automated SEO engine (config, helpers, JSON-LD, metadata, useSEO)
 │   │   ├── constants.ts                   # URLs & global constants
 │   │   ├── motion-tokens.ts               # Reusable Framer Motion transitions
 │   │   └── utils.ts                       # Class merging (cn) & clipboard helpers
