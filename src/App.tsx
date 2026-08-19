@@ -7,7 +7,6 @@ import { FeaturedShowcase } from './components/sections/FeaturedShowcase';
 import { ComponentDirectory } from './components/sections/ComponentDirectory';
 import { AllComponentsPage } from './components/sections/AllComponentsPage';
 import { CodePhilosophy } from './components/sections/CodePhilosophy';
-import { MotionShowcase } from './components/sections/MotionShowcase';
 import { DevExperience } from './components/sections/DevExperience';
 import { FinalCta } from './components/sections/FinalCta';
 import { CommandMenu } from './components/ui/CommandMenu';
@@ -201,10 +200,7 @@ export function App() {
           {/* Section 06: Code Philosophy */}
           <CodePhilosophy />
 
-          {/* Section 07: Motion Showcase */}
-          <MotionShowcase />
-
-          {/* Section 08: Developer Experience */}
+          {/* Section 07: Developer Experience */}
           <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
 
           {/* Section 09: Final CTA */}
