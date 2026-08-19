@@ -166,7 +166,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               <button
                 onClick={() => {
-                  const elem = document.getElementById('philosophy');
+                  const elem = document.getElementById('how-it-works') || document.getElementById('workflow') || document.getElementById('dev-experience');
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className="px-4.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#111111] hover:bg-[#181818] text-[#A1A1A1] hover:text-white border border-[#242424] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#333333]"

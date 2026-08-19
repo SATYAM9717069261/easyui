@@ -182,28 +182,28 @@ export function App() {
             onSelectComponent={handleSelectComponentById}
           />
 
-          {/* Section 03: Philosophy */}
+          {/* Section 03: Philosophy (The Standard) */}
           <PhilosophySection />
 
-          {/* Section 04: Featured Components */}
+          {/* Section 04: How It Works (Dev Experience) */}
+          <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
+
+          {/* Section 05: Featured Components (Showroom) */}
           <FeaturedShowcase
             onSelectComponent={handleSelectComponentById}
             onNavigateAllComponents={() => handleNavigateAllComponents(1)}
           />
 
-          {/* Section 05: Component Directory (Homepage limited 6 items) */}
+          {/* Section 06: Component Directory (Homepage limited 6 items) */}
           <ComponentDirectory
             onSelectComponent={handleSelectComponentById}
             onNavigateAllComponents={() => handleNavigateAllComponents(1)}
           />
 
-          {/* Section 06: Code Philosophy */}
+          {/* Section 07: Code Philosophy */}
           <CodePhilosophy />
 
-          {/* Section 07: Developer Experience */}
-          <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
-
-          {/* Section 09: Final CTA */}
+          {/* Section 08: Final CTA */}
           <FinalCta onBrowse={() => handleNavigateAllComponents(1)} />
         </main>
       )}
