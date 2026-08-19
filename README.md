@@ -50,6 +50,7 @@ npx shadcn@latest add Surajmaurya1/easyui/<component-name>
 
 ```bash
 # Buttons
+npx shadcn@latest add Surajmaurya1/easyui/button
 npx shadcn@latest add Surajmaurya1/easyui/magnetic-button
 
 # Surfaces & Motion
@@ -58,11 +59,18 @@ npx shadcn@latest add Surajmaurya1/easyui/reveal-card
 npx shadcn@latest add Surajmaurya1/easyui/dot-field
 
 # Navigation
+npx shadcn@latest add Surajmaurya1/easyui/glass-navbar
 npx shadcn@latest add Surajmaurya1/easyui/animated-tabs
 npx shadcn@latest add Surajmaurya1/easyui/floating-action-dock
 npx shadcn@latest add Surajmaurya1/easyui/expandable-search
 
+# Forms & Authentication
+npx shadcn@latest add Surajmaurya1/easyui/form
+npx shadcn@latest add Surajmaurya1/easyui/login
+npx shadcn@latest add Surajmaurya1/easyui/sign-up
+
 # Feedback & Overlays
+npx shadcn@latest add Surajmaurya1/easyui/faq
 npx shadcn@latest add Surajmaurya1/easyui/notification-stack
 npx shadcn@latest add Surajmaurya1/easyui/morphing-dialog
 npx shadcn@latest add Surajmaurya1/easyui/smooth-accordion
@@ -122,6 +130,12 @@ Visit `http://localhost:5173` to test the interactive preview showroom and copy 
 
 | Component | Slug | Category | Description | Auto-Detected Dependencies |
 |:---|:---|:---|:---|:---|
+| **Button** | `button` | Buttons | Multi-variant button system with 8 styles, 4 sizes, loading spinner, and spring tap feedback | `framer-motion`, `lucide-react` |
+| **GlassNavbar** | `glass-navbar` | Navigation | Glassmorphic responsive navbar with spring indicator pills and mobile menu drawer | `framer-motion`, `lucide-react` |
+| **Form** | `form` | Forms | Composable form system with inputs, textarea, select, checkbox, radio, switch, and error alerts | `framer-motion`, `lucide-react` |
+| **Login** | `login` | Auth | Authentication card with password show/hide, validation, remember me, and social SSO | `framer-motion`, `lucide-react` |
+| **SignUp** | `sign-up` | Auth | User registration card with live password strength telemetry and terms validation | `framer-motion`, `lucide-react` |
+| **FAQ** | `faq` | Feedback | Expandable spring-physics accordion with search filter and category navigation | `framer-motion`, `lucide-react` |
 | **MagneticButton** | `magnetic-button` | Buttons | Proximity-aware spring pull and snap-back with 4 visual variants | `framer-motion` |
 | **SpotlightCard** | `spotlight-card` | Motion | Dark surface card with real-time radial illumination tracking cursor | `framer-motion` |
 | **AnimatedTabs** | `animated-tabs` | Navigation | Tab switcher with spring sliding pill indicator & cross-fading panels | `framer-motion` |

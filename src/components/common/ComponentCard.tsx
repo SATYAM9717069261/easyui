@@ -241,6 +241,97 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
             </div>
           </div>
         );
+      case 'glass-navbar':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] p-2 rounded-xl bg-[#0E0E0E]/90 border border-[#1D1D1D] shadow-lg flex items-center justify-between pointer-events-none scale-90 sm:scale-95">
+              <div className="flex items-center gap-1.5">
+                <span className="w-4 h-4 rounded bg-white/10 flex items-center justify-center text-[8px] font-bold text-white">E</span>
+                <span className="text-[11px] font-semibold text-white">EasyUI</span>
+              </div>
+              <div className="flex items-center gap-1 text-[10px] text-[#808080]">
+                <span className="text-white font-medium bg-[#1A1A1A] px-1.5 py-0.5 rounded border border-[#282828]">Docs</span>
+                <span>Blog</span>
+              </div>
+              <span className="text-[9px] font-medium bg-[#F5F5F5] text-black px-2 py-0.5 rounded shadow">Launch</span>
+            </div>
+          </div>
+        );
+      case 'button':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <div className="flex items-center gap-2 pointer-events-none scale-90 sm:scale-95">
+              <span className="px-3 py-1.5 rounded-lg bg-[#F5F5F5] text-[#050505] text-xs font-medium shadow-[0_0_15px_rgba(255,255,255,0.15)] flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                Primary
+              </span>
+              <span className="px-3 py-1.5 rounded-lg bg-[#151515] border border-[#1D1D1D] text-[#F5F5F5] text-xs font-medium">
+                Secondary
+              </span>
+            </div>
+          </div>
+        );
+      case 'form':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+              <div className="flex justify-between text-[10px]">
+                <span className="text-[#D4D4D4] font-medium">Workspace Email</span>
+                <span className="text-[#FF7A7A]">*</span>
+              </div>
+              <div className="h-8 px-2.5 rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] text-[11px] text-[#F5F5F5] flex items-center justify-between">
+                <span>alex@easyui.dev</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              </div>
+            </div>
+          </div>
+        );
+      case 'login':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-3 rounded-xl bg-[#0A0A0A] border border-[#1D1D1D] space-y-2 pointer-events-none scale-90 sm:scale-95">
+              <div className="text-[11px] font-semibold text-white">Welcome back</div>
+              <div className="h-6 px-2 rounded-md bg-[#121212] border border-[#222222] text-[10px] text-[#666666] flex items-center">
+                <span>••••••••••••</span>
+              </div>
+              <div className="h-6 rounded-md bg-white text-black text-[10px] font-medium flex items-center justify-center shadow">
+                Sign In →
+              </div>
+            </div>
+          </div>
+        );
+      case 'sign-up':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-3 rounded-xl bg-[#0A0A0A] border border-[#1D1D1D] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+              <div className="text-[11px] font-semibold text-white">Create account</div>
+              <div className="flex gap-1 h-1">
+                <div className="flex-1 rounded-full bg-emerald-400" />
+                <div className="flex-1 rounded-full bg-emerald-400" />
+                <div className="flex-1 rounded-full bg-emerald-400" />
+                <div className="flex-1 rounded-full bg-[#1D1D1D]" />
+              </div>
+              <div className="text-[9px] font-mono text-emerald-400 flex justify-between">
+                <span>Security</span>
+                <span>Strong</span>
+              </div>
+            </div>
+          </div>
+        );
+      case 'faq':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[250px] rounded-lg border border-[#1D1D1D] bg-[#0A0A0A] overflow-hidden pointer-events-none scale-90 sm:scale-95">
+              <div className="p-2.5 flex items-center justify-between text-[11px] font-medium text-white border-b border-[#1A1A1A]">
+                <span>How to use CLI?</span>
+                <span className="text-[#888888] text-[9px]">▲</span>
+              </div>
+              <div className="p-2 text-[10px] text-[#888888] bg-[#0C0C0C]">
+                Run npx shadcn@latest add ...
+              </div>
+            </div>
+          </div>
+        );
       case 'dot-field':
         return (
           <div className="h-40 relative rounded-lg overflow-hidden border border-[#1A1A1A] bg-[#070707]">

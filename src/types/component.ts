@@ -1,4 +1,4 @@
-export type ComponentCategory = 'All' | 'Motion' | 'Buttons' | 'Navigation' | 'Feedback' | 'Overlays';
+export type ComponentCategory = 'All' | 'Motion' | 'Buttons' | 'Navigation' | 'Feedback' | 'Overlays' | 'Forms' | 'Auth';
 
 export interface ComponentProp {
   name: string;
