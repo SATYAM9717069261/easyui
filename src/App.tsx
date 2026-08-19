@@ -17,6 +17,7 @@ import type { EasyComponentMeta } from './types/component';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useAnalyticsTracker } from './lib/analytics';
+import { useSEO } from './lib/seo';
 
 export function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -27,6 +28,14 @@ export function App() {
 
   // Initialize analytics & track page/view changes across the SPA
   useAnalyticsTracker({ activeView, componentPage, activeDocTopic });
+
+  // Dynamic SEO metadata & JSON-LD management
+  useSEO({
+    activeView,
+    componentPage,
+    activeDocTopic,
+    selectedModalComponent,
+  });
 
   // Sync state from URL hash and search params
   const parseUrlState = useCallback(() => {
@@ -47,13 +56,25 @@ export function App() {
 
     const route = rawHash.split('?')[0];
 
+    // Direct deep-link to component: #components/button or #components/magnetic-button
+    if (route.startsWith('components/')) {
+      const compSlug = route.replace(/^components\//, '');
+      const found = EASY_COMPONENTS.find((c) => c.id === compSlug);
+      if (found) {
+        setSelectedModalComponent(found);
+        return;
+      }
+    }
+
     if (route === 'components' || route === 'all-components') {
+      setSelectedModalComponent(null);
       setActiveView('components');
       setComponentPage(pageFromUrl);
       return;
     }
 
     if (route.startsWith('docs')) {
+      setSelectedModalComponent(null);
       setActiveView('docs');
       const parts = route.split('/');
       if (parts.length === 1 || !parts[1]) {
@@ -65,6 +86,7 @@ export function App() {
     }
 
     // Default: showcase
+    setSelectedModalComponent(null);
     setActiveView('showcase');
   }, []);
 
@@ -93,7 +115,19 @@ export function App() {
   const handleSelectComponentById = (id: string) => {
     const found = EASY_COMPONENTS.find((c) => c.id === id);
     if (found) {
+      window.location.hash = `components/${found.id}`;
       setSelectedModalComponent(found);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setSelectedModalComponent(null);
+    if (activeView === 'components') {
+      window.location.hash = componentPage > 1 ? `components?page=${componentPage}` : 'components';
+    } else if (activeView === 'docs') {
+      window.location.hash = `docs/${activeDocTopic}`;
+    } else {
+      window.location.hash = '';
     }
   };
 
@@ -222,10 +256,11 @@ export function App() {
         onNavigateDocs={handleNavigateDocs}
       />
 
-      {/* Component Detail Modal (Preview, Install, Usage, Source, Props API, Accessibility) */}
+      {/* Component Detail Modal (Preview, Install, Usage, Source, Props API, Accessibility, Related) */}
       <ComponentDetailModal
         component={selectedModalComponent}
-        onClose={() => setSelectedModalComponent(null)}
+        onClose={handleCloseModal}
+        onSelectComponent={handleSelectComponentById}
       />
     </div>
   );

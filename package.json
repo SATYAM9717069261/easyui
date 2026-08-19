@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run component:sync && tsc -b && vite build",
+    "build": "npm run component:sync && npm run seo:audit && tsc -b && vite build",
     "registry:generate": "tsx scripts/generate-registry.ts",
     "registry:validate": "tsx scripts/validate-registry.ts",
     "component:sync": "tsx scripts/generate-registry.ts && tsx scripts/validate-registry.ts",
     "component:new": "tsx scripts/component-new.ts",
+    "seo:sitemap": "tsx scripts/generate-sitemap.ts",
+    "seo:audit": "tsx scripts/seo-audit.ts",
     "lint": "oxlint",
     "preview": "vite preview"
   },

@@ -3,17 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="shortcut icon" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
     <title>EasyUI — Beautiful UI. Made easy.</title>
-    <meta name="description" content="Beautiful, animated UI components built with shadcn/ui." />
+    <meta name="title" content="EasyUI — Beautiful UI. Made easy." />
+    <meta name="description" content="Production-ready, beautifully crafted animated UI components built with React, Tailwind CSS, and Framer Motion for modern web applications." />
+    <meta name="keywords" content="React components, UI library, Framer Motion, Tailwind CSS, Accessible UI, Design System, Animation components, shadcn/ui compatible, Modern React UI, EasyUI" />
+    <meta name="author" content="Suraj Maurya" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="theme-color" content="#050505" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href="https://easyui-v1.vercel.app/" />
 
     <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://easyui-v1.vercel.app" />
+    <meta property="og:url" content="https://easyui-v1.vercel.app/" />
     <meta property="og:site_name" content="EasyUI" />
     <meta property="og:title" content="EasyUI — Beautiful UI. Made easy." />
-    <meta property="og:description" content="Beautiful, animated UI components built with shadcn/ui." />
+    <meta property="og:description" content="Production-ready, beautifully crafted animated UI components built with React, Tailwind CSS, and Framer Motion for modern web applications." />
     <meta property="og:image" content="https://easyui-v1.vercel.app/og-image.png" />
     <meta property="og:image:secure_url" content="https://easyui-v1.vercel.app/og-image.png" />
     <meta property="og:image:type" content="image/png" />
@@ -24,15 +35,59 @@
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://easyui-v1.vercel.app" />
+    <meta name="twitter:site" content="@easyui" />
+    <meta name="twitter:url" content="https://easyui-v1.vercel.app/" />
     <meta name="twitter:title" content="EasyUI — Beautiful UI. Made easy." />
-    <meta name="twitter:description" content="Beautiful, animated UI components built with shadcn/ui." />
+    <meta name="twitter:description" content="Production-ready, beautifully crafted animated UI components built with React, Tailwind CSS, and Framer Motion for modern web applications." />
     <meta name="twitter:image" content="https://easyui-v1.vercel.app/og-image.png" />
     <meta name="twitter:image:alt" content="EasyUI — Beautiful UI. Made easy." />
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Base JSON-LD Structured Data for Initial Crawl -->
+    <script id="easyui-seo-jsonld" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "EasyUI",
+          "url": "https://easyui-v1.vercel.app",
+          "description": "Production-ready, beautifully crafted animated UI components built with React, Tailwind CSS, and Framer Motion for modern web applications.",
+          "inLanguage": "en-US",
+          "author": {
+            "@type": "Person",
+            "name": "Suraj Maurya",
+            "url": "https://github.com/Surajmaurya1/easyui"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://easyui-v1.vercel.app/#components?search={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "name": "EasyUI",
+          "url": "https://easyui-v1.vercel.app",
+          "logo": "https://easyui-v1.vercel.app/logo.png",
+          "sameAs": [
+            "https://github.com/Surajmaurya1/easyui"
+          ],
+          "founder": {
+            "@type": "Person",
+            "name": "Suraj Maurya"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="bg-[#050505] text-[#F5F5F5] selection:bg-[#38bdf8]/20 selection:text-[#38bdf8] antialiased overflow-x-hidden">
     <div id="root"></div>
