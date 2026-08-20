@@ -9,8 +9,8 @@ export const SEO_CONFIG = {
   defaultTitle: 'EasyUI — Beautiful UI. Made easy.',
   defaultDescription:
     'Production-ready, beautifully crafted animated UI components built with React, Tailwind CSS, and Framer Motion for modern web applications.',
-  siteUrl: 'https://easyui-v1.vercel.app',
-  ogImage: 'https://easyui-v1.vercel.app/og-image.png',
+  siteUrl: 'https://easyui.site',
+  ogImage: 'https://easyui.site/og-image.png',
   ogImageType: 'image/png',
   ogImageWidth: 1200,
   ogImageHeight: 630,

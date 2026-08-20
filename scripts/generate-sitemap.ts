@@ -8,7 +8,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const SITEMAP_PATH = path.join(ROOT_DIR, 'public', 'sitemap.xml');
 const REGISTRY_PATH = path.join(ROOT_DIR, 'registry.json');
 
-const SITE_URL = 'https://easyui-v1.vercel.app';
+const SITE_URL = 'https://easyui.site';
 
 interface SitemapEntry {
   loc: string;
