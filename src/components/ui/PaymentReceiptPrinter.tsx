@@ -1,8 +1,36 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Check, RotateCcw, Copy, CheckCircle2, Store, CreditCard, Printer } from 'lucide-react';
-import { cn, copyToClipboard } from '../../lib/utils';
+import { cn } from '../../lib/utils';
 import { motionTransitions } from '../../lib/motion-tokens';
+
+// Fallback clipboard utility for standalone copy-paste support
+function copyTextToClipboard(text: string) {
+  if (typeof navigator !== 'undefined' && navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).catch(() => {});
+  } else if (typeof document !== 'undefined') {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+    } catch {}
+    textArea.remove();
+  }
+}
+
+// Resilient spring transition tokens with zero-dependency fallback
+const defaultSpringSnappy = motionTransitions?.springSnappy || {
+  type: 'spring',
+  stiffness: 400,
+  damping: 25,
+  mass: 0.5,
+};
+
 
 export interface ReceiptItem {
   name: string;
@@ -113,7 +141,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
   );
   const [copied, setCopied] = useState(false);
   const [printKey, setPrintKey] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Normalize items list
   const receiptItems: ReceiptItem[] = items && items.length > 0
@@ -184,7 +212,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
   };
 
   const handleCopyOrder = () => {
-    copyToClipboard(orderNumber);
+    copyTextToClipboard(orderNumber);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -212,7 +240,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: -10, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={motionTransitions.springSnappy}
+          transition={defaultSpringSnappy}
           className="w-full mb-3 p-3 rounded-xl bg-[#0A0A0A] border border-[#1E1E1E] flex items-center justify-between shadow-lg"
           aria-live="polite"
         >
@@ -531,7 +559,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={motionTransitions.springSnappy}
+          transition={defaultSpringSnappy}
           className="mt-3 flex items-center justify-center gap-2 w-full"
         >
           <button
