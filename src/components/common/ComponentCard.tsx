@@ -332,6 +332,30 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
             </div>
           </div>
         );
+      case 'payment-receipt-printer':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] flex flex-col items-center pointer-events-none scale-90 sm:scale-95">
+              <div className="w-full p-2 rounded-xl bg-[#0E0E0E] border border-[#222222] flex items-center justify-between shadow-md z-10">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-3.5 h-3.5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[9px] font-bold">✓</span>
+                  <span className="text-[10px] font-semibold text-white">Paid #4821</span>
+                </div>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              </div>
+              <div className="w-[88%] -mt-1 p-2.5 rounded-b-md bg-[#F9F9F8] text-[#111111] font-mono text-[9px] shadow border border-[#E0E0DE] space-y-1">
+                <div className="flex justify-between font-bold border-b border-dashed border-black/20 pb-1">
+                  <span>EASYUI PRO</span>
+                  <span>$200.00</span>
+                </div>
+                <div className="flex justify-between opacity-70">
+                  <span>TOTAL:</span>
+                  <span className="font-bold">$200.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       case 'dot-field':
         return (
           <div className="h-40 relative rounded-lg overflow-hidden border border-[#1A1A1A] bg-[#070707]">

@@ -35,6 +35,7 @@ import {
 import { Login } from '../ui/Login';
 import { SignUp } from '../ui/SignUp';
 import { FAQ } from '../ui/FAQ';
+import { PaymentReceiptPrinter } from '../ui/PaymentReceiptPrinter';
 import { EASY_COMPONENTS } from '../registry/components-data';
 import { getRelatedComponents } from '../../lib/seo';
 
@@ -737,6 +738,26 @@ func main() {
                   category: 'Stack',
                 },
               ]}
+            />
+          </div>
+        );
+      case 'payment-receipt-printer':
+        return (
+          <div className="py-4 w-full flex justify-center">
+            <PaymentReceiptPrinter
+              merchant="EasyUI Store"
+              merchantSubtext="Official Component Registry"
+              orderNumber="#4821"
+              items={[
+                { name: 'EasyUI Pro License', price: '$200.00', quantity: 1, tag: 'Annual' },
+                { name: 'Framer Motion Pack', price: '$20.00', quantity: 1, description: 'Micro-interactions & physics' },
+              ]}
+              subtotal="$220.00"
+              total="$220.00"
+              paymentMethod="Apple Pay •••• 4242"
+              message="Thank you for your order!"
+              autoPrint={true}
+              showActions={true}
             />
           </div>
         );
