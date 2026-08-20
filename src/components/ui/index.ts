@@ -91,3 +91,7 @@ export type { SignUpProps, SignUpFormData } from './SignUp';
 
 export { FAQ } from './FAQ';
 export type { FAQProps, FAQItem } from './FAQ';
+
+export { PaymentReceiptPrinter } from './PaymentReceiptPrinter';
+export type { PaymentReceiptPrinterProps, ReceiptItem } from './PaymentReceiptPrinter';
+

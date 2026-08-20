@@ -71,6 +71,7 @@ npx shadcn@latest add Surajmaurya1/easyui/login
 npx shadcn@latest add Surajmaurya1/easyui/sign-up
 
 # Feedback & Overlays
+npx shadcn@latest add Surajmaurya1/easyui/payment-receipt-printer
 npx shadcn@latest add Surajmaurya1/easyui/faq
 npx shadcn@latest add Surajmaurya1/easyui/notification-stack
 npx shadcn@latest add Surajmaurya1/easyui/morphing-dialog
@@ -148,6 +149,8 @@ Visit `http://localhost:5173` to test the interactive preview showroom and copy 
 | **CommandMenu** | `command-menu` | Overlays | Global `⌘K` command palette with fuzzy search & category filters | `framer-motion`, `lucide-react` |
 | **DotField** | `dot-field` | Motion | 60 FPS HTML5 Canvas particle matrix with cursor bulge & SVG radial glow | *(none — zero runtime deps)* |
 | **ExpandableSearch** | `expandable-search` | Navigation | Compact search pill with spring width expansion & keyboard hints | `framer-motion`, `lucide-react` |
+| **PaymentReceiptPrinter** | `payment-receipt-printer` | Feedback | Animated payment receipt printer with thermal paper extrusion motion & replay | `framer-motion`, `lucide-react` |
+
 
 ---
 

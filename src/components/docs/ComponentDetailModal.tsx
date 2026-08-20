@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { X, Copy, Check, Terminal, Code2, Sparkles, ShieldCheck, Eye, Layers } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Copy, Check, Terminal, Code2, Sparkles, ShieldCheck, Eye, Layers, Maximize2, ArrowLeft } from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
 import { motionTransitions } from '../../lib/motion-tokens';
 import { copyToClipboard } from '../../lib/utils';
@@ -35,6 +35,7 @@ import {
 import { Login } from '../ui/Login';
 import { SignUp } from '../ui/SignUp';
 import { FAQ } from '../ui/FAQ';
+import { PaymentReceiptPrinter } from '../ui/PaymentReceiptPrinter';
 import { EASY_COMPONENTS } from '../registry/components-data';
 import { getRelatedComponents } from '../../lib/seo';
 
@@ -51,10 +52,12 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'preview' | 'install' | 'usage' | 'source' | 'api' | 'a11y'>('preview');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [isFullscreenPreview, setIsFullscreenPreview] = useState(false);
 
   useEffect(() => {
     if (component) {
       setActiveTab('preview');
+      setIsFullscreenPreview(false);
     }
   }, [component]);
 
@@ -63,6 +66,10 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        if (isFullscreenPreview) {
+          setIsFullscreenPreview(false);
+          return;
+        }
         onClose();
       }
     };
@@ -74,7 +81,7 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [component, onClose]);
+  }, [component, onClose, isFullscreenPreview]);
 
   if (!component) return null;
 
@@ -740,6 +747,26 @@ func main() {
             />
           </div>
         );
+      case 'payment-receipt-printer':
+        return (
+          <div className="py-4 w-full flex justify-center">
+            <PaymentReceiptPrinter
+              merchant="EasyUI Store"
+              merchantSubtext="Official Component Registry"
+              orderNumber="#4821"
+              items={[
+                { name: 'EasyUI Pro License', price: '$200.00', quantity: 1, tag: 'Annual' },
+                { name: 'Framer Motion Pack', price: '$20.00', quantity: 1, description: 'Micro-interactions & physics' },
+              ]}
+              subtotal="$220.00"
+              total="$220.00"
+              paymentMethod="Apple Pay •••• 4242"
+              message="Thank you for your order!"
+              autoPrint={true}
+              showActions={true}
+            />
+          </div>
+        );
       case 'dot-field':
         return (
           <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#222222] bg-[#0A0A0A]">
@@ -819,22 +846,24 @@ func main() {
         </div>
 
         {/* Modal Tabs Bar powered by EasyUI AnimatedTabs component */}
-        <div className="px-5 sm:px-6 py-3 bg-[#080808] border-b border-[#161616] flex items-center justify-start overflow-x-auto scrollbar-none">
-          <AnimatedTabs
-            key={`modal-tabs-${component.id}`}
-            tabs={[
-              { id: 'preview', label: 'Preview', icon: <Eye className="w-3.5 h-3.5" /> },
-              { id: 'install', label: 'Installation', icon: <Terminal className="w-3.5 h-3.5" /> },
-              { id: 'usage', label: 'Usage', icon: <Code2 className="w-3.5 h-3.5" /> },
-              { id: 'source', label: 'Source', icon: <Layers className="w-3.5 h-3.5" /> },
-              { id: 'api', label: 'Props API', icon: <Sparkles className="w-3.5 h-3.5" /> },
-              { id: 'a11y', label: 'Accessibility', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
-            ]}
-            activeTab={activeTab}
-            onChange={(tabId) => setActiveTab(tabId as any)}
-            renderContent={false}
-            layoutId={`modal-animated-tabs-indicator-${component.id}`}
-          />
+        <div className="px-3 sm:px-6 py-2.5 bg-[#080808] border-b border-[#161616] overflow-x-auto scrollbar-none">
+          <div className="min-w-max">
+            <AnimatedTabs
+              key={`modal-tabs-${component.id}`}
+              tabs={[
+                { id: 'preview', label: 'Preview', icon: <Eye className="w-3.5 h-3.5" /> },
+                { id: 'install', label: 'Installation', icon: <Terminal className="w-3.5 h-3.5" /> },
+                { id: 'usage', label: 'Usage', icon: <Code2 className="w-3.5 h-3.5" /> },
+                { id: 'source', label: 'Source', icon: <Layers className="w-3.5 h-3.5" /> },
+                { id: 'api', label: 'Props API', icon: <Sparkles className="w-3.5 h-3.5" /> },
+                { id: 'a11y', label: 'Accessibility', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
+              ]}
+              activeTab={activeTab}
+              onChange={(tabId) => setActiveTab(tabId as any)}
+              renderContent={false}
+              layoutId={`modal-animated-tabs-indicator-${component.id}`}
+            />
+          </div>
         </div>
 
         {/* Modal Body Content (Consistent stable viewport) */}
@@ -842,7 +871,20 @@ func main() {
           {/* TAB 1: LIVE PREVIEW */}
           {activeTab === 'preview' && (
             <div className="space-y-5">
-              <div className="rounded-xl border border-[#1A1A1A] bg-[#070707] bg-dot-subtle min-h-[220px] flex items-center justify-center p-3 sm:p-5 overflow-hidden">
+              <div className="relative rounded-xl border border-[#1A1A1A] bg-[#070707] bg-dot-subtle min-h-[220px] flex items-center justify-center p-3 sm:p-5 overflow-hidden">
+                {/* Fullscreen Expand Action */}
+                <div className="absolute top-2.5 right-2.5 z-20">
+                  <button
+                    type="button"
+                    onClick={() => setIsFullscreenPreview(true)}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#121212]/90 hover:bg-[#1C1C1C] border border-[#222222] hover:border-[#333333] text-[11px] text-[#A1A1A1] hover:text-white backdrop-blur-sm transition-all shadow-md focus-ring cursor-pointer"
+                    title="Open Fullscreen Preview"
+                  >
+                    <Maximize2 className="w-3 h-3" />
+                    <span className="hidden sm:inline">Fullscreen</span>
+                  </button>
+                </div>
+
                 <div className="w-full">
                   {renderInteractiveDemo()}
                 </div>
@@ -1040,6 +1082,46 @@ func main() {
           </button>
         </div>
       </motion.div>
+
+      {/* Fullscreen Component Playground Overlay */}
+      <AnimatePresence>
+        {isFullscreenPreview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-[100] bg-[#070707] bg-dot-subtle flex flex-col overflow-y-auto"
+          >
+            {/* Top Sticky Bar with safe spacing and clean responsive alignment */}
+            <div className="sticky top-0 inset-x-0 z-[110] bg-[#070707]/95 border-b border-[#1A1A1A] backdrop-blur-md px-4 sm:px-8 py-3 flex items-center justify-between gap-3 shadow-lg shrink-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <span className="text-xs sm:text-sm font-semibold text-white truncate max-w-[180px] sm:max-w-none">
+                  {component.name}
+                </span>
+                <span className="text-[10px] font-mono text-[#777777] hidden sm:inline">Preview</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsFullscreenPreview(false)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#242424] hover:border-[#383838] text-xs font-medium text-[#CCCCCC] hover:text-white transition-all shadow-md focus-ring shrink-0 cursor-pointer"
+                title="Exit Fullscreen Preview (Esc)"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Exit Preview</span>
+              </button>
+            </div>
+
+            {/* Centered Fullscreen Component Demo with natural vertical padding and full visibility */}
+            <div className="w-full max-w-3xl mx-auto px-4 py-8 sm:py-16 my-auto flex items-center justify-center">
+              {renderInteractiveDemo()}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
+

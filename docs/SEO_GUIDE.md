@@ -139,7 +139,7 @@ Category Breakdown:
 
 ✓ Passed Checks: 38
 ========================================================
-✨ EasyUI passed all essential SEO audit criteria successfully!
+EasyUI passed all essential SEO audit criteria successfully!
 ```
 
 ---
