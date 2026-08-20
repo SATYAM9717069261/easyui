@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
 
-const SITE_URL = 'https://easyui-v1.vercel.app';
+const SITE_URL = 'https://easyui.site';
 const REGISTRY_PATH = path.join(ROOT_DIR, 'registry.json');
 const SITEMAP_PATH = path.join(ROOT_DIR, 'public', 'sitemap.xml');
 const ROBOTS_PATH = path.join(ROOT_DIR, 'public', 'robots.txt');

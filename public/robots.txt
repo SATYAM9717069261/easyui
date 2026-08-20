@@ -9,5 +9,5 @@ Disallow: /private/
 Disallow: /internal/
 
 # Host & Sitemap
-Host: https://easyui-v1.vercel.app
-Sitemap: https://easyui-v1.vercel.app/sitemap.xml
+Host: https://easyui.site
+Sitemap: https://easyui.site/sitemap.xml
