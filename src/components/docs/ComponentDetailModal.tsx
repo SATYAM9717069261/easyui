@@ -827,6 +827,27 @@ func main() {
                 {component.category}
               </span>
               <span className="text-xs text-[#606060] font-mono">easyui/{component.id}</span>
+              <button
+                type="button"
+                onClick={() => {
+                  const compUrl = `${window.location.origin}/components/${component.id}`;
+                  handleCopy(compUrl, 'compUrl');
+                }}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#121212] hover:bg-[#1A1A1A] border border-[#202020] hover:border-[#303030] text-[10px] font-mono text-[#888888] hover:text-white transition-colors cursor-pointer"
+                title="Copy component URL"
+              >
+                {copiedCode === 'compUrl' ? (
+                  <>
+                    <Check className="w-3 h-3 text-emerald-400" />
+                    <span className="text-emerald-400">Copied Link</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3 h-3 text-[#666666]" />
+                    <span>Copy Link</span>
+                  </>
+                )}
+              </button>
             </div>
             <h2 className="text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight">
               {component.name}

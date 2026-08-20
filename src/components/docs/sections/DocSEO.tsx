@@ -158,9 +158,9 @@ useSEO({
 
         <ul className="list-disc list-inside space-y-1.5 text-xs text-[#A1A1A1] ml-2">
           <li>Homepage (<code className="text-[#ECECEC] font-mono">https://easyui.site/</code>)</li>
-          <li>All Components directory (<code className="text-[#ECECEC] font-mono">/#components</code> and pagination pages)</li>
-          <li>All 22+ component deep links (<code className="text-[#ECECEC] font-mono">/#components/magnetic-button</code>, etc.)</li>
-          <li>All Documentation topics (<code className="text-[#ECECEC] font-mono">/#docs/introduction</code>, <code className="text-[#ECECEC] font-mono">/#docs/seo</code>, etc.)</li>
+          <li>All Components directory (<code className="text-[#ECECEC] font-mono">/components</code> and pagination pages)</li>
+          <li>All component deep links (<code className="text-[#ECECEC] font-mono">/components/magnetic-button</code>, etc.)</li>
+          <li>All Documentation topics (<code className="text-[#ECECEC] font-mono">/docs/introduction</code>, <code className="text-[#ECECEC] font-mono">/docs/seo</code>, etc.)</li>
         </ul>
       </div>
 

@@ -31,7 +31,7 @@ export function generateWebSiteSchema(): Record<string, any> {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${SEO_CONFIG.siteUrl}/#components?search={search_term_string}`,
+        urlTemplate: `${SEO_CONFIG.siteUrl}/components?search={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },

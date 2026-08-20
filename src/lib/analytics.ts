@@ -143,22 +143,12 @@ export function useAnalyticsTracker(state?: {
     initGA();
   }, []);
 
-  // Track page view whenever view state or hash changes
+  // Track page view whenever view state or route changes
   useEffect(() => {
-    // Construct descriptive route path
-    const hash = window.location.hash || '';
-    let computedPath = window.location.pathname;
-
-    if (state?.activeView === 'docs') {
-      computedPath += `#docs/${state.activeDocTopic || 'introduction'}`;
-    } else if (state?.activeView === 'components') {
-      computedPath += state.componentPage && state.componentPage > 1
-        ? `#components?page=${state.componentPage}`
-        : '#components';
-    } else if (hash) {
-      computedPath += hash;
-    } else {
-      computedPath += '#showcase';
+    // Construct clean descriptive route path
+    let computedPath = window.location.pathname || '/';
+    if (window.location.search) {
+      computedPath += window.location.search;
     }
 
     // Set document title according to active section

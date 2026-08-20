@@ -38,28 +38,37 @@ export function App() {
     selectedModalComponent,
   });
 
-  // Sync state from URL hash and search params
+  // Sync state from URL pathname and search params (with legacy hash migration support)
   const parseUrlState = useCallback(() => {
+    let pathname = window.location.pathname;
+    let search = window.location.search;
     const rawHash = window.location.hash.replace(/^#\/?/, '');
 
-    // Check if query params exist in search or in hash (e.g. #components?page=2 or ?page=2)
+    // Seamless migration for legacy bookmarks/links using hash: #components/slug -> /components/slug
+    if (rawHash.startsWith('components') || rawHash.startsWith('docs') || rawHash.startsWith('all-components')) {
+      let migratedPath = '/' + rawHash;
+      if (rawHash.includes('?')) {
+        const [r, q] = rawHash.split('?');
+        migratedPath = '/' + r + (q ? '?' + q : '');
+      }
+      window.history.replaceState(null, '', migratedPath);
+      pathname = window.location.pathname;
+      search = window.location.search;
+    }
+
+    // Check pagination search query params (e.g. ?page=2)
     let pageFromUrl = 1;
-    if (rawHash.includes('?')) {
-      const queryString = rawHash.split('?')[1];
-      const params = new URLSearchParams(queryString);
-      const p = parseInt(params.get('page') || '1', 10);
-      if (!isNaN(p) && p > 0) pageFromUrl = p;
-    } else if (window.location.search) {
-      const params = new URLSearchParams(window.location.search);
+    if (search) {
+      const params = new URLSearchParams(search);
       const p = parseInt(params.get('page') || '1', 10);
       if (!isNaN(p) && p > 0) pageFromUrl = p;
     }
 
-    const route = rawHash.split('?')[0];
+    const cleanPath = pathname.replace(/^\/+|\/+$/g, '');
 
-    // Direct deep-link to component: #components/button or #components/magnetic-button
-    if (route.startsWith('components/')) {
-      const compSlug = route.replace(/^components\//, '');
+    // 1. Direct deep-link to component: /components/:slug
+    if (cleanPath.startsWith('components/')) {
+      const compSlug = cleanPath.replace(/^components\//, '').split('/')[0];
       const found = EASY_COMPONENTS.find((c) => c.id === compSlug);
       if (found) {
         setSelectedModalComponent(found);
@@ -67,17 +76,19 @@ export function App() {
       }
     }
 
-    if (route === 'components' || route === 'all-components') {
+    // 2. All components catalog view: /components or /all-components
+    if (cleanPath === 'components' || cleanPath === 'all-components') {
       setSelectedModalComponent(null);
       setActiveView('components');
       setComponentPage(pageFromUrl);
       return;
     }
 
-    if (route.startsWith('docs')) {
+    // 3. Documentation topics: /docs or /docs/:topic
+    if (cleanPath === 'docs' || cleanPath.startsWith('docs/')) {
       setSelectedModalComponent(null);
       setActiveView('docs');
-      const parts = route.split('/');
+      const parts = cleanPath.split('/');
       if (parts.length === 1 || !parts[1]) {
         setActiveDocTopic('introduction');
       } else {
@@ -86,17 +97,27 @@ export function App() {
       return;
     }
 
-    // Default: showcase
+    // 4. Default: showcase / homepage (/)
     setSelectedModalComponent(null);
     setActiveView('showcase');
   }, []);
 
+  const navigate = useCallback(
+    (path: string, replace = false) => {
+      if (replace) {
+        window.history.replaceState(null, '', path);
+      } else {
+        window.history.pushState(null, '', path);
+      }
+      parseUrlState();
+    },
+    [parseUrlState]
+  );
+
   useEffect(() => {
     parseUrlState();
-    window.addEventListener('hashchange', parseUrlState);
     window.addEventListener('popstate', parseUrlState);
     return () => {
-      window.removeEventListener('hashchange', parseUrlState);
       window.removeEventListener('popstate', parseUrlState);
     };
   }, [parseUrlState]);
@@ -116,26 +137,24 @@ export function App() {
   const handleSelectComponentById = (id: string) => {
     const found = EASY_COMPONENTS.find((c) => c.id === id);
     if (found) {
-      window.location.hash = `components/${found.id}`;
-      setSelectedModalComponent(found);
+      navigate(`/components/${found.id}`);
     }
   };
 
   const handleCloseModal = () => {
     setSelectedModalComponent(null);
     if (activeView === 'components') {
-      window.location.hash = componentPage > 1 ? `components?page=${componentPage}` : 'components';
+      navigate(componentPage > 1 ? `/components?page=${componentPage}` : '/components');
     } else if (activeView === 'docs') {
-      window.location.hash = `docs/${activeDocTopic}`;
+      navigate(`/docs/${activeDocTopic}`);
     } else {
-      window.location.hash = '';
+      navigate('/');
     }
   };
 
   const handleNavigateComponents = () => {
     if (activeView !== 'showcase') {
-      window.location.hash = '';
-      setActiveView('showcase');
+      navigate('/');
       setTimeout(() => {
         document.getElementById('components-directory')?.scrollIntoView({ behavior: 'smooth' });
       }, 50);
@@ -145,35 +164,33 @@ export function App() {
   };
 
   const handleNavigateAllComponents = (page = 1) => {
-    const hash = page > 1 ? `components?page=${page}` : 'components';
-    window.location.hash = hash;
+    navigate(page > 1 ? `/components?page=${page}` : '/components');
     setActiveView('components');
     setComponentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handlePageChange = (page: number) => {
-    const hash = page > 1 ? `components?page=${page}` : 'components';
-    window.location.hash = hash;
+    navigate(page > 1 ? `/components?page=${page}` : '/components');
     setComponentPage(page);
   };
 
   const handleNavigateHome = () => {
-    window.location.hash = '';
+    navigate('/');
     setActiveView('showcase');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavigateDocs = (topicId?: string) => {
     const topic = topicId || 'introduction';
-    window.location.hash = `docs/${topic}`;
+    navigate(`/docs/${topic}`);
     setActiveView('docs');
     setActiveDocTopic(topic);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectDocTopic = (topicId: string) => {
-    window.location.hash = `docs/${topicId}`;
+    navigate(`/docs/${topicId}`);
     setActiveDocTopic(topicId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
