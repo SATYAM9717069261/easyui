@@ -93,8 +93,8 @@ export function runSEOAudit(): AuditReport {
     const sitemap = fs.readFileSync(SITEMAP_PATH, 'utf-8');
     check('Technical SEO', sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'), 'CRITICAL', 'sitemap.xml has valid XML schema namespace', 'sitemap.xml has invalid XML schema namespace', 'public/sitemap.xml');
     check('Technical SEO', sitemap.includes(`${SITE_URL}/`), 'CRITICAL', 'sitemap.xml contains homepage URL', 'sitemap.xml missing homepage URL', 'public/sitemap.xml');
-    check('Technical SEO', sitemap.includes(`${SITE_URL}/#components`), 'CRITICAL', 'sitemap.xml contains components catalog URL', 'sitemap.xml missing components catalog URL', 'public/sitemap.xml');
-    check('Technical SEO', sitemap.includes(`${SITE_URL}/#docs/introduction`), 'WARNING', 'sitemap.xml contains documentation topic URLs', 'sitemap.xml missing documentation URLs', 'public/sitemap.xml');
+    check('Technical SEO', sitemap.includes(`${SITE_URL}/components`), 'CRITICAL', 'sitemap.xml contains components catalog URL', 'sitemap.xml missing components catalog URL', 'public/sitemap.xml');
+    check('Technical SEO', sitemap.includes(`${SITE_URL}/docs/introduction`), 'WARNING', 'sitemap.xml contains documentation topic URLs', 'sitemap.xml missing documentation URLs', 'public/sitemap.xml');
   }
 
   const manifestExists = fs.existsSync(MANIFEST_PATH);
@@ -200,7 +200,7 @@ export function runSEOAudit(): AuditReport {
     const sitemapContent = fs.readFileSync(SITEMAP_PATH, 'utf-8');
     let unindexedComponents = 0;
     for (const item of registryItems) {
-      if (!sitemapContent.includes(`/#components/${item.name}`)) {
+      if (!sitemapContent.includes(`/components/${item.name}`)) {
         unindexedComponents++;
       }
     }

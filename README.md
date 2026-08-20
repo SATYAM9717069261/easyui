@@ -339,7 +339,7 @@ EasyUI features an automated, zero-config SEO pipeline. When a developer creates
 ### What is Automated?
 
 - **Dynamic Metadata** — Dynamic page title, meta description, robots directives, and keywords generated per component.
-- **Canonical URLs** — Normalized, clean canonical URLs (`https://easyui.site/#components/${slug}`).
+- **Canonical URLs** — Normalized, clean canonical URLs (`https://easyui.site/components/${slug}`).
 - **Dynamic XML Sitemap** — `public/sitemap.xml` automatically syncs all component routes, documentation topics, and pagination pages.
 - **Open Graph & Twitter Cards** — Rich social sharing cards generated from component metadata and brand visuals.
 - **Structured Data (JSON-LD)** — Rich Google schemas (`SoftwareApplication`, `TechArticle`, `BreadcrumbList`, `WebSite` with `SearchAction`, `Organization`).

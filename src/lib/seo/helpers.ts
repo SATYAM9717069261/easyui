@@ -41,11 +41,7 @@ export function getCanonicalUrl(pathOrHash = ''): string {
     }
   }
 
-  // Return clean canonical URL
-  if (clean.startsWith('components/') || clean === 'components' || clean.startsWith('docs/')) {
-    return `${base}/#${clean}`;
-  }
-
+  // Return clean canonical URL without hash
   return `${base}/${clean}`;
 }
 

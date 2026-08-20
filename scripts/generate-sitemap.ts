@@ -30,44 +30,44 @@ export function generateSitemap(): void {
     },
     // 2. All Components Directory
     {
-      loc: `${SITE_URL}/#components`,
+      loc: `${SITE_URL}/components`,
       lastmod: today,
       changefreq: 'daily',
       priority: '0.9',
     },
     // 3. Documentation Topics
     {
-      loc: `${SITE_URL}/#docs/introduction`,
+      loc: `${SITE_URL}/docs/introduction`,
       lastmod: today,
       changefreq: 'weekly',
       priority: '0.85',
     },
     {
-      loc: `${SITE_URL}/#docs/quick-start`,
+      loc: `${SITE_URL}/docs/quick-start`,
       lastmod: today,
       changefreq: 'weekly',
       priority: '0.85',
     },
     {
-      loc: `${SITE_URL}/#docs/architecture`,
+      loc: `${SITE_URL}/docs/architecture`,
       lastmod: today,
       changefreq: 'weekly',
       priority: '0.80',
     },
     {
-      loc: `${SITE_URL}/#docs/motion-system`,
+      loc: `${SITE_URL}/docs/motion-system`,
       lastmod: today,
       changefreq: 'weekly',
       priority: '0.80',
     },
     {
-      loc: `${SITE_URL}/#docs/collaboration`,
+      loc: `${SITE_URL}/docs/collaboration`,
       lastmod: today,
       changefreq: 'weekly',
       priority: '0.75',
     },
     {
-      loc: `${SITE_URL}/#docs/seo`,
+      loc: `${SITE_URL}/docs/seo`,
       lastmod: today,
       changefreq: 'weekly',
       priority: '0.80',
@@ -84,7 +84,7 @@ export function generateSitemap(): void {
       const totalPages = Math.ceil(items.length / 10);
       for (let p = 2; p <= totalPages; p++) {
         entries.push({
-          loc: `${SITE_URL}/#components?page=${p}`,
+          loc: `${SITE_URL}/components?page=${p}`,
           lastmod: today,
           changefreq: 'weekly',
           priority: '0.80',
@@ -95,7 +95,7 @@ export function generateSitemap(): void {
       for (const item of items) {
         if (item.name) {
           entries.push({
-            loc: `${SITE_URL}/#components/${item.name}`,
+            loc: `${SITE_URL}/components/${item.name}`,
             lastmod: today,
             changefreq: 'weekly',
             priority: '0.85',

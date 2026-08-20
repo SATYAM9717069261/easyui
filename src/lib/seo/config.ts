@@ -43,14 +43,14 @@ export const SEO_CONFIG = {
   },
   routes: {
     home: '/',
-    components: '/#components',
-    docs: '/#docs',
-    docsIntro: '/#docs/introduction',
-    docsQuickStart: '/#docs/quick-start',
-    docsArchitecture: '/#docs/architecture',
-    docsMotion: '/#docs/motion-system',
-    docsCollaboration: '/#docs/collaboration',
-    docsSEO: '/#docs/seo',
+    components: '/components',
+    docs: '/docs',
+    docsIntro: '/docs/introduction',
+    docsQuickStart: '/docs/quick-start',
+    docsArchitecture: '/docs/architecture',
+    docsMotion: '/docs/motion-system',
+    docsCollaboration: '/docs/collaboration',
+    docsSEO: '/docs/seo',
   }
 } as const;
 
