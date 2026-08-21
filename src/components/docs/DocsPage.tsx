@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, 
   X, 
-  ArrowLeft
+  ArrowLeft,
 } from 'lucide-react';
 import { Container } from '../layout/Container';
 import { DocSidebar } from './DocSidebar';
@@ -116,29 +117,46 @@ export const DocsPage: React.FC<DocsPageProps> = ({
           </div>
 
           {/* Mobile Sidebar Drawer */}
-          {mobileSidebarOpen && (
-            <div className="fixed inset-0 z-50 lg:hidden flex">
-              <div
-                className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
-                onClick={() => setMobileSidebarOpen(false)}
-              />
-              <div className="relative w-72 max-w-[80vw] bg-[#0A0A0A] border-r border-[#1E1E1E] h-full p-6 overflow-y-auto z-10 space-y-6">
-                <div className="flex items-center justify-between border-b border-[#1A1A1A] pb-3">
-                  <span className="text-xs font-mono text-[#888888] uppercase tracking-wider">Documentation</span>
-                  <button
-                    onClick={() => setMobileSidebarOpen(false)}
-                    className="p-1 rounded-md text-[#888888] hover:text-white transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-                <DocSidebar
-                  activeTopic={activeTopic}
-                  onSelectTopic={handleSelectTopicWithMobileClose}
+          <AnimatePresence>
+            {mobileSidebarOpen && (
+              <div className="fixed inset-0 z-50 lg:hidden flex">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+                  onClick={() => setMobileSidebarOpen(false)}
                 />
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  animate={{ x: 0 }}
+                  exit={{ x: '-100%' }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 320,
+                    damping: 32,
+                    mass: 0.8,
+                  }}
+                  className="relative w-72 max-w-[80vw] bg-[#0A0A0A] border-r border-[#1E1E1E] h-full p-6 overflow-y-auto z-10 space-y-6 shadow-2xl"
+                >
+                  <div className="flex items-center justify-between border-b border-[#1A1A1A] pb-3">
+                    <span className="text-xs font-mono text-[#888888] uppercase tracking-wider">Documentation</span>
+                    <button
+                      onClick={() => setMobileSidebarOpen(false)}
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-white bg-[#111111] hover:bg-[#181818] border border-[#202020] transition-colors cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                  <DocSidebar
+                    activeTopic={activeTopic}
+                    onSelectTopic={handleSelectTopicWithMobileClose}
+                  />
+                </motion.div>
               </div>
-            </div>
-          )}
+            )}
+          </AnimatePresence>
 
           {/* Main Documentation Article */}
           <main className="flex-1 min-w-0 max-w-3xl pb-12">

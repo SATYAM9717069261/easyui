@@ -8,7 +8,6 @@ import {
   Sparkles,
   ShieldCheck,
   Maximize2,
-  ArrowLeft,
   ChevronRight,
   RefreshCw,
   Search,
@@ -22,8 +21,9 @@ import {
 } from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
 import { EASY_COMPONENTS } from '../registry/components-data';
-import { motionTransitions } from '../../lib/motion-tokens';
 import { cn, copyToClipboard } from '../../lib/utils';
+import { isComponentNew, getNewestComponent } from '../../lib/components';
+import { NewBadge } from '../common/NewBadge';
 
 // UI components for live interactive demonstrations
 import { MagneticButton } from '../ui/MagneticButton';
@@ -72,6 +72,9 @@ import { PeekCard } from '../ui/PeekCard';
 import { SelectionBasket } from '../ui/SelectionBasket';
 import { FocusMode } from '../ui/FocusMode';
 
+export type MainTab = 'preview' | 'usage' | 'code' | 'props' | 'accessibility';
+export type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
+
 export interface ComponentDetailPageProps {
   component: EasyComponentMeta;
   onSelectComponent: (id: string) => void;
@@ -83,7 +86,6 @@ export interface ComponentDetailPageProps {
 const AnimatedNumberShowcase: React.FC = () => {
   const [revenue, setRevenue] = useState(12450);
   const [growth, setGrowth] = useState(24.5);
-  const [users, setUsers] = useState(1240000);
   const [isLiveTicker, setIsLiveTicker] = useState(false);
 
   useEffect(() => {
@@ -96,10 +98,10 @@ const AnimatedNumberShowcase: React.FC = () => {
   }, [isLiveTicker]);
 
   return (
-    <div className="py-6 w-full max-w-xl mx-auto space-y-6 select-none">
+    <div className="py-6 w-full max-w-lg mx-auto space-y-4 select-none px-2">
       {/* Top Main Hero Metric */}
-      <div className="p-6 rounded-2xl bg-[#0A0A0A] border border-[#1E1E1E] text-center space-y-3 shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
-        <span className="text-xs font-mono uppercase tracking-wider text-[#737373]">Live Production ARR</span>
+      <div className="p-6 sm:p-8 rounded-2xl bg-[#0A0A0A] border border-[#1E1E1E] text-center space-y-3 shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-[#666666]">Live Production ARR</span>
         <div className="text-4xl sm:text-5xl font-bold font-mono tracking-tight text-white flex items-center justify-center">
           <AnimatedNumber value={revenue} prefix="$" useGrouping />
         </div>
@@ -111,14 +113,14 @@ const AnimatedNumberShowcase: React.FC = () => {
       </div>
 
       {/* Interactive Controls Bar */}
-      <div className="p-4 rounded-xl bg-[#0E0E0E] border border-[#1A1A1A] space-y-3">
+      <div className="p-3.5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-3">
         <div className="text-xs font-medium text-[#D4D4D4] flex items-center justify-between">
-          <span>Interactive Controls</span>
+          <span className="text-[11px] font-mono text-[#737373]">Live Playground</span>
           <button
             type="button"
             onClick={() => setIsLiveTicker(!isLiveTicker)}
             className={cn(
-              'px-2.5 py-1 rounded-md text-[11px] font-mono border transition-colors flex items-center gap-1.5',
+              'px-2.5 py-1 rounded-md text-[10px] font-mono border transition-colors flex items-center gap-1.5 cursor-pointer',
               isLiveTicker
                 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
                 : 'bg-[#141414] border-[#222222] text-[#808080] hover:text-white'
@@ -129,70 +131,38 @@ const AnimatedNumberShowcase: React.FC = () => {
           </button>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={() => setRevenue((prev) => prev + 1000)}
-            className="px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] text-xs font-mono text-[#F5F5F5] hover:border-[#333333] transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
           >
             +$1,000
           </button>
           <button
             type="button"
             onClick={() => setRevenue((prev) => Math.max(100, prev - 500))}
-            className="px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] text-xs font-mono text-[#F5F5F5] hover:border-[#333333] transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
           >
             -$500
           </button>
           <button
             type="button"
             onClick={() => setRevenue(Math.floor(Math.random() * 88000) + 12000)}
-            className="px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] text-xs font-mono text-[#F5F5F5] hover:border-[#333333] transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
           >
-            Randomize Value
+            Randomize
           </button>
           <button
             type="button"
             onClick={() => {
               setRevenue(12450);
               setGrowth(24.5);
-              setUsers(1240000);
             }}
-            className="px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] text-xs font-mono text-[#808080] hover:text-white transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#737373] hover:text-white transition-colors text-center cursor-pointer"
           >
             Reset
           </button>
-        </div>
-      </div>
-
-      {/* Grid of Other Variations (Compact Notation & Metric Suffixes) */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="p-4 rounded-xl bg-[#0A0A0A] border border-[#1E1E1E] space-y-1">
-          <span className="text-[11px] font-mono text-[#737373]">Compact Notation</span>
-          <div className="text-xl font-bold font-mono text-white flex items-center justify-between">
-            <AnimatedNumber value={users} compact suffix=" users" />
-            <button
-              type="button"
-              onClick={() => setUsers((prev) => prev + 250000)}
-              className="text-[10px] font-mono text-white bg-[#161616] px-1.5 py-0.5 rounded border border-[#252525] hover:border-[#353535]"
-            >
-              +250K
-            </button>
-          </div>
-        </div>
-
-        <div className="p-4 rounded-xl bg-[#0A0A0A] border border-[#1E1E1E] space-y-1">
-          <span className="text-[11px] font-mono text-[#737373]">Growth Rate</span>
-          <div className="text-xl font-bold font-mono text-emerald-400 flex items-center justify-between">
-            <AnimatedNumber value={growth} prefix="+" suffix="%" decimals={1} />
-            <button
-              type="button"
-              onClick={() => setGrowth((prev) => parseFloat((prev + 5.2).toFixed(1)))}
-              className="text-[10px] font-mono text-white bg-[#161616] px-1.5 py-0.5 rounded border border-[#252525] hover:border-[#353535]"
-            >
-              +5.2%
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -437,20 +407,8 @@ export const ComponentDetailPage: React.FC<ComponentDetailPageProps> = ({
     setTimeout(() => setIsCopiedCli(false), 2000);
   };
 
-  // List of new components to display a subtle 'New' badge
-  const NEW_COMPONENTS = useMemo(
-    () =>
-      new Set([
-        'payment-receipt-printer',
-        'particle-delete',
-        'activity-feed',
-        'dot-field',
-        'glass-navbar',
-        'metric-hud',
-        'interactive-timeline',
-      ]),
-    []
-  );
+  // Calculate newest component for unified 'New' badge synchronisation
+  const newestComponent = useMemo(() => getNewestComponent(EASY_COMPONENTS), []);
 
   // Filtered components list for the sidebar
   const filteredComponents = useMemo(() => {
@@ -1307,23 +1265,29 @@ const completion = await client.completions.create({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
                 className="fixed inset-0 bg-black/80 backdrop-blur-sm"
                 onClick={() => setMobileSidebarOpen(false)}
               />
               <motion.div
-                initial={{ x: -280 }}
+                initial={{ x: '-100%' }}
                 animate={{ x: 0 }}
-                exit={{ x: -280 }}
-                transition={motionTransitions.springSnappy}
-                className="relative w-80 max-w-[85vw] bg-[#0A0A0A] border-r border-[#1E1E1E] h-full p-5 overflow-y-auto z-10 flex flex-col gap-5"
+                exit={{ x: '-100%' }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 320,
+                  damping: 32,
+                  mass: 0.8,
+                }}
+                className="relative w-80 max-w-[85vw] bg-[#0A0A0A] border-r border-[#1E1E1E] h-full p-5 overflow-y-auto z-10 flex flex-col gap-4 shadow-2xl"
               >
                 <div className="flex items-center justify-between border-b border-[#181818] pb-3">
                   <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Components Catalog</span>
                   <button
                     onClick={() => setMobileSidebarOpen(false)}
-                    className="p-1 rounded-md text-zinc-400 hover:text-white"
+                    className="p-1.5 rounded-lg text-zinc-400 hover:text-white bg-[#111111] hover:bg-[#181818] border border-[#202020] transition-colors cursor-pointer"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
@@ -1346,7 +1310,7 @@ const completion = await client.completions.create({
                   <div className="space-y-0.5">
                     {filteredComponents.map((item) => {
                       const isActive = item.id === component.id;
-                      const isNew = NEW_COMPONENTS.has(item.id);
+                      const isNew = isComponentNew(item, newestComponent);
                       return (
                         <button
                           key={item.id}
@@ -1362,11 +1326,7 @@ const completion = await client.completions.create({
                           )}
                         >
                           <span className="truncate">{item.name}</span>
-                          {isNew && (
-                            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-mono font-medium text-zinc-400 bg-white/[0.06] border border-white/[0.08]">
-                              New
-                            </span>
-                          )}
+                          {isNew && <NewBadge size="xs" />}
                         </button>
                       );
                     })}
@@ -1462,7 +1422,7 @@ const completion = await client.completions.create({
                 <div className="space-y-0.5">
                   {filteredComponents.map((item) => {
                     const isActive = item.id === component.id;
-                    const isNew = NEW_COMPONENTS.has(item.id);
+                    const isNew = isComponentNew(item, newestComponent);
                     return (
                       <button
                         key={item.id}
@@ -1476,11 +1436,7 @@ const completion = await client.completions.create({
                       >
                         <span className="truncate">{item.name}</span>
                         <div className="flex items-center gap-1.5 shrink-0">
-                          {isNew && (
-                            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-mono font-medium text-zinc-400 bg-white/[0.06] border border-white/[0.08]">
-                              New
-                            </span>
-                          )}
+                          {isNew && <NewBadge size="xs" />}
                           {isActive && (
                             <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
                           )}
@@ -1934,27 +1890,30 @@ const completion = await client.completions.create({
             transition={{ duration: 0.15 }}
             className="fixed inset-0 z-[100] bg-[#060606] flex flex-col overflow-y-auto"
           >
-            {/* Top Sticky Fullscreen Bar */}
-            <div className="sticky top-0 inset-x-0 z-[110] bg-[#080808]/95 border-b border-[#1A1A1A] backdrop-blur-md px-6 py-3 flex items-center justify-between gap-3 shadow-lg shrink-0">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-white shrink-0" />
-                <span className="text-sm font-semibold text-white">{component.name}</span>
-                <span className="text-[11px] font-mono text-zinc-500">Live Stage</span>
+            {/* Minimal Fullscreen Header Bar */}
+            <div className="sticky top-0 inset-x-0 z-[110] bg-[#070707]/90 border-b border-[#141414] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+                <span className="text-xs sm:text-sm font-medium text-white truncate max-w-[160px] sm:max-w-none">
+                  {component.name}
+                </span>
+                <span className="text-[10px] font-mono text-[#555555] hidden sm:inline">Live Stage</span>
               </div>
 
               <button
                 type="button"
                 onClick={() => setIsFullscreenPreview(false)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#242424] text-xs font-medium text-zinc-200 hover:text-white transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#111111] hover:bg-[#181818] border border-[#202020] hover:border-[#333333] text-xs font-mono text-[#A1A1A1] hover:text-white transition-colors shrink-0 cursor-pointer"
                 title="Exit Fullscreen (Esc)"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Exit Preview</span>
+                <X className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline text-xs font-sans">Exit</span>
+                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#161616] border border-[#282828] text-[#737373]">ESC</kbd>
               </button>
             </div>
 
             {/* Centered Fullscreen Content */}
-            <div className="w-full max-w-4xl mx-auto px-4 py-12 my-auto flex items-center justify-center">
+            <div className="w-full max-w-4xl mx-auto px-4 py-8 sm:py-16 my-auto flex items-center justify-center">
               {renderInteractiveDemo()}
             </div>
           </motion.div>

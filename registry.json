@@ -924,6 +924,11 @@
           "path": "src/lib/motion-tokens.ts",
           "type": "registry:lib",
           "target": "lib/motion-tokens.ts"
+        },
+        {
+          "path": "src/lib/constants.ts",
+          "type": "registry:lib",
+          "target": "lib/constants.ts"
         }
       ]
     },
