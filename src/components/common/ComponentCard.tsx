@@ -375,6 +375,25 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
             </div>
           </div>
         );
+      case 'particle-delete':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-2.5 rounded-lg bg-[#0E0E0E] border border-[#202020] pointer-events-none scale-90 sm:scale-95 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="w-6 h-6 rounded-md bg-[#141414] border border-[#222222] flex items-center justify-center text-[#A1A1A1]">
+                  <Terminal className="w-3 h-3" />
+                </span>
+                <div className="min-w-0">
+                  <div className="text-[11px] font-medium text-white truncate">Edge Cluster</div>
+                  <div className="text-[9px] font-mono text-[#666666]">12 workers</div>
+                </div>
+              </div>
+              <span className="p-1 rounded text-rose-400 bg-rose-500/10 text-[9px] font-mono shrink-0">
+                Delete
+              </span>
+            </div>
+          </div>
+        );
       default:
         return (
           <div className="h-40 flex flex-col items-center justify-center p-4 text-center">
