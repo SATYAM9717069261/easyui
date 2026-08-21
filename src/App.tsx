@@ -133,6 +133,13 @@ export function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Scroll to top instantly whenever the active view changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [activeView]);
+
   const handleSelectComponentById = (id: string) => {
     const found = EASY_COMPONENTS.find((c) => c.id === id);
     if (found) {
@@ -152,32 +159,33 @@ export function App() {
   };
 
   const handleNavigateComponents = () => {
-    if (activeView !== 'showcase') {
-      navigate('/');
-      setTimeout(() => {
-        document.getElementById('components-directory')?.scrollIntoView({ behavior: 'smooth' });
-      }, 50);
-    } else {
-      document.getElementById('components-directory')?.scrollIntoView({ behavior: 'smooth' });
-    }
+    handleNavigateAllComponents(1);
   };
 
   const handleNavigateAllComponents = (page = 1) => {
+    setSelectedModalComponent(null);
     navigate(page > 1 ? `/components?page=${page}` : '/components');
     setActiveView('components');
     setComponentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handlePageChange = (page: number) => {
     navigate(page > 1 ? `/components?page=${page}` : '/components');
     setComponentPage(page);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handleNavigateHome = () => {
     navigate('/');
     setActiveView('showcase');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handleNavigateDocs = (topicId?: string) => {
@@ -185,13 +193,17 @@ export function App() {
     navigate(`/docs/${topic}`);
     setActiveView('docs');
     setActiveDocTopic(topic);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handleSelectDocTopic = (topicId: string) => {
     navigate(`/docs/${topicId}`);
     setActiveDocTopic(topicId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   return (

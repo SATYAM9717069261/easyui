@@ -70,6 +70,13 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
     return getPaginatedComponents(filteredComponents, currentPage, ITEMS_PER_PAGE);
   }, [filteredComponents, currentPage]);
 
+  // Scroll to top immediately when mounting AllComponentsPage or changing page
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [currentPage]);
+
   // Ensure current page is valid when filters change
   useEffect(() => {
     if (currentPage > pagination.totalPages && pagination.totalPages > 0) {
@@ -80,11 +87,13 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
   const handleCategoryChange = (cat: ComponentCategory) => {
     setSelectedCategory(cat);
     onPageChange(1);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
   const handleSearchChange = (val: string) => {
     setSearchQuery(val);
     onPageChange(1);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
   return (
