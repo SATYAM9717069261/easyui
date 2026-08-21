@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Copy, Check, Terminal, Code2, Sparkles, ShieldCheck, Eye, Layers, Maximize2, ArrowLeft } from 'lucide-react';
+import {
+  X,
+  Copy,
+  Check,
+  Terminal,
+  Code2,
+  Sparkles,
+  ShieldCheck,
+  Maximize2,
+  ArrowLeft,
+} from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
 import { motionTransitions } from '../../lib/motion-tokens';
-import { copyToClipboard } from '../../lib/utils';
+import { cn, copyToClipboard } from '../../lib/utils';
 import { MagneticButton } from '../ui/MagneticButton';
 import { SpotlightCard } from '../ui/SpotlightCard';
 import { ExpandableSearch } from '../ui/ExpandableSearch';
@@ -36,8 +46,7 @@ import { Login } from '../ui/Login';
 import { SignUp } from '../ui/SignUp';
 import { FAQ } from '../ui/FAQ';
 import { PaymentReceiptPrinter } from '../ui/PaymentReceiptPrinter';
-import { EASY_COMPONENTS } from '../registry/components-data';
-import { getRelatedComponents } from '../../lib/seo';
+import { ParticleDelete } from '../ui/ParticleDelete';
 
 export interface ComponentDetailModalProps {
   component: EasyComponentMeta | null;
@@ -45,19 +54,24 @@ export interface ComponentDetailModalProps {
   onSelectComponent?: (id: string) => void;
 }
 
+type TabType = 'preview' | 'usage' | 'install' | 'source' | 'api' | 'a11y';
+type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
+
 export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
   component,
   onClose,
-  onSelectComponent,
 }) => {
-  const [activeTab, setActiveTab] = useState<'preview' | 'install' | 'usage' | 'source' | 'api' | 'a11y'>('preview');
+  const [activeTab, setActiveTab] = useState<TabType>('preview');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [isFullscreenPreview, setIsFullscreenPreview] = useState(false);
+  const [installMode, setInstallMode] = useState<'cli' | 'manual'>('cli');
+  const [pkgManager, setPkgManager] = useState<PkgManager>('pnpm');
 
   useEffect(() => {
     if (component) {
       setActiveTab('preview');
       setIsFullscreenPreview(false);
+      setInstallMode('cli');
     }
   }, [component]);
 
@@ -90,6 +104,32 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
     setCopiedCode(label);
     setTimeout(() => setCopiedCode(null), 2000);
   };
+
+  const getInstallDepCommand = () => {
+    const deps = component.dependencies || [];
+    if (deps.length === 0) return '';
+    const depStr = deps.join(' ');
+    switch (pkgManager) {
+      case 'npm':
+        return `npm install ${depStr}`;
+      case 'yarn':
+        return `yarn add ${depStr}`;
+      case 'bun':
+        return `bun add ${depStr}`;
+      case 'pnpm':
+      default:
+        return `pnpm add ${depStr}`;
+    }
+  };
+
+  const tabs: Array<{ id: TabType; label: string }> = [
+    { id: 'preview', label: 'Preview' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'install', label: 'Installation' },
+    { id: 'source', label: 'Source' },
+    { id: 'api', label: 'Props API' },
+    { id: 'a11y', label: 'Accessibility' },
+  ];
 
   const renderInteractiveDemo = () => {
     switch (component.id) {
@@ -785,6 +825,12 @@ func main() {
             </div>
           </div>
         );
+      case 'particle-delete':
+        return (
+          <div className="py-2 w-full">
+            <ParticleDelete />
+          </div>
+        );
       default:
         return (
           <div className="py-12 text-center text-xs text-[#808080]">
@@ -797,207 +843,374 @@ func main() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-label={component.name}
     >
-      {/* Backdrop */}
+      {/* Backdrop with quiet blur so dotted background remains visible */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 bg-black/80 backdrop-blur-md"
+        className="fixed inset-0 bg-black/75 backdrop-blur-xs"
       />
 
-      {/* Modal Surface */}
+      {/* Main Dialog Modal Surface */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.97, y: 8 }}
+        initial={{ opacity: 0, scale: 0.98, y: 6 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.97, y: 8 }}
+        exit={{ opacity: 0, scale: 0.98, y: 6 }}
         transition={motionTransitions.springSnappy}
-        className="relative w-full max-w-4xl h-[640px] sm:h-[720px] max-h-[90vh] rounded-2xl border border-[#1C1C1C] bg-[#0A0A0A] shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex flex-col z-10 overflow-hidden my-auto"
+        className="relative w-full max-w-5xl h-[680px] sm:h-[740px] max-h-[90vh] rounded-2xl border border-[#202020] bg-[#0A0A0A] shadow-[0_25px_70px_rgba(0,0,0,0.95)] flex flex-col z-10 overflow-hidden my-auto"
       >
-        {/* Modal Top Bar */}
-        <div className="flex items-start justify-between p-5 sm:p-6 pb-4 sm:pb-5 border-b border-[#141414]">
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-[10px] font-mono text-white px-2 py-0.5 rounded bg-[#141414] border border-[#202020]">
-                {component.category}
-              </span>
-              <span className="text-xs text-[#606060] font-mono">easyui/{component.id}</span>
-              <button
-                type="button"
-                onClick={() => {
-                  const compUrl = `${window.location.origin}/components/${component.id}`;
-                  handleCopy(compUrl, 'compUrl');
-                }}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#121212] hover:bg-[#1A1A1A] border border-[#202020] hover:border-[#303030] text-[10px] font-mono text-[#888888] hover:text-white transition-colors cursor-pointer"
-                title="Copy component URL"
-              >
-                {copiedCode === 'compUrl' ? (
-                  <>
-                    <Check className="w-3 h-3 text-emerald-400" />
-                    <span className="text-emerald-400">Copied Link</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3 h-3 text-[#666666]" />
-                    <span>Copy Link</span>
-                  </>
-                )}
-              </button>
+        {/* Minimalist Header */}
+        <div className="px-5 sm:px-6 py-4 border-b border-[#1A1A1A] flex items-start justify-between gap-4 bg-[#0A0A0A] shrink-0">
+          <div className="min-w-0">
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-1.5 mb-1 text-[11px] font-mono text-[#666666]">
+              <span>easyui</span>
+              <span>/</span>
+              <span className="text-[#A1A1A1] font-medium truncate">{component.id}</span>
             </div>
-            <h2 className="text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight">
+
+            {/* Component Title */}
+            <h2 className="text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight truncate">
               {component.name}
             </h2>
-            <p className="text-xs text-[#808080] mt-1.5 line-clamp-2 sm:line-clamp-none max-w-2xl leading-relaxed">
-              {component.description}
-            </p>
           </div>
 
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-[#737373] hover:text-[#F5F5F5] hover:bg-[#141414] transition-colors focus-ring cursor-pointer ml-4 shrink-0"
-            aria-label="Close"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+          {/* Quick Header Actions (Copy Link & Close) */}
+          <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
+            <button
+              type="button"
+              onClick={() => {
+                const compUrl = `${window.location.origin}/components/${component.id}`;
+                handleCopy(compUrl, 'compUrl');
+              }}
+              className="p-2 rounded-lg text-[#737373] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent hover:border-[#222222] transition-colors cursor-pointer focus-ring"
+              title="Copy component link"
+              aria-label="Copy component link"
+            >
+              {copiedCode === 'compUrl' ? (
+                <Check className="w-4 h-4 text-white" />
+              ) : (
+                <Copy className="w-4 h-4" />
+              )}
+            </button>
 
-        {/* Modal Tabs Bar powered by EasyUI AnimatedTabs component */}
-        <div className="px-3 sm:px-6 py-2.5 bg-[#080808] border-b border-[#161616] overflow-x-auto scrollbar-none">
-          <div className="min-w-max">
-            <AnimatedTabs
-              key={`modal-tabs-${component.id}`}
-              tabs={[
-                { id: 'preview', label: 'Preview', icon: <Eye className="w-3.5 h-3.5" /> },
-                { id: 'install', label: 'Installation', icon: <Terminal className="w-3.5 h-3.5" /> },
-                { id: 'usage', label: 'Usage', icon: <Code2 className="w-3.5 h-3.5" /> },
-                { id: 'source', label: 'Source', icon: <Layers className="w-3.5 h-3.5" /> },
-                { id: 'api', label: 'Props API', icon: <Sparkles className="w-3.5 h-3.5" /> },
-                { id: 'a11y', label: 'Accessibility', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
-              ]}
-              activeTab={activeTab}
-              onChange={(tabId) => setActiveTab(tabId as any)}
-              renderContent={false}
-              layoutId={`modal-animated-tabs-indicator-${component.id}`}
-            />
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-2 rounded-lg text-[#737373] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent hover:border-[#222222] transition-colors cursor-pointer focus-ring"
+              title="Close preview (Esc)"
+              aria-label="Close dialog"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
-        {/* Modal Body Content (Consistent stable viewport) */}
+        {/* Minimal Tab Bar */}
+        <div className="px-4 sm:px-6 bg-[#080808] border-b border-[#1A1A1A] flex items-center gap-1 overflow-x-auto scrollbar-none shrink-0">
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={cn(
+                  'relative px-3 sm:px-3.5 py-2.5 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap',
+                  isActive ? 'text-[#F5F5F5]' : 'text-[#6F6F6F] hover:text-[#A1A1A1]'
+                )}
+              >
+                <span>{tab.label}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId={`modal-active-tab-line-${component.id}`}
+                    className="absolute bottom-0 inset-x-0 h-[2px] bg-white rounded-full"
+                    transition={motionTransitions.springSnappy}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Tab Body Viewport */}
         <div className="p-5 sm:p-6 overflow-y-auto flex-1 text-xs space-y-6">
-          {/* TAB 1: LIVE PREVIEW */}
+          {/* TAB 1: PREVIEW */}
           {activeTab === 'preview' && (
             <div className="space-y-5">
-              <div className="relative rounded-xl border border-[#1A1A1A] bg-[#070707] bg-dot-subtle min-h-[220px] flex items-center justify-center p-3 sm:p-5 overflow-hidden">
-                {/* Fullscreen Expand Action */}
-                <div className="absolute top-2.5 right-2.5 z-20">
-                  <button
-                    type="button"
-                    onClick={() => setIsFullscreenPreview(true)}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#121212]/90 hover:bg-[#1C1C1C] border border-[#222222] hover:border-[#333333] text-[11px] text-[#A1A1A1] hover:text-white backdrop-blur-sm transition-all shadow-md focus-ring cursor-pointer"
-                    title="Open Fullscreen Preview"
-                  >
-                    <Maximize2 className="w-3 h-3" />
-                    <span className="hidden sm:inline">Fullscreen</span>
-                  </button>
-                </div>
+              {/* Preview Stage */}
+              <div className="relative rounded-xl border border-[#1C1C1C] bg-[#070707] min-h-[300px] sm:min-h-[360px] flex items-center justify-center p-4 sm:p-8 overflow-hidden">
+                {/* Fullscreen Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsFullscreenPreview(true)}
+                  className="absolute top-3 right-3 p-1.5 rounded-md text-[#737373] hover:text-white bg-[#121212]/80 hover:bg-[#1C1C1C] border border-[#222222] transition-colors cursor-pointer focus-ring"
+                  title="Fullscreen preview"
+                  aria-label="Fullscreen preview"
+                >
+                  <Maximize2 className="w-3.5 h-3.5" />
+                </button>
 
-                <div className="w-full">
+                <div className="w-full flex items-center justify-center">
                   {renderInteractiveDemo()}
                 </div>
               </div>
 
-              <div>
-                <h4 className="text-xs font-semibold text-[#F5F5F5] uppercase tracking-wider mb-2.5">
-                  Key Features
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {component.features.map((feat, i) => (
-                    <div
-                      key={i}
-                      className="p-2.5 sm:p-3 rounded-lg border border-[#1B1B1B] bg-[#0E0E0E] text-xs text-[#A1A1A1] flex items-start gap-2"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-white mt-1 shrink-0" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
+              {/* Minimal Key Features List */}
+              {component.features && component.features.length > 0 && (
+                <div className="pt-1">
+                  <h3 className="text-xs font-semibold text-[#808080] uppercase tracking-wider mb-2.5">
+                    Features
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#A1A1A1]">
+                    {component.features.map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2 py-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#444444] mt-1.5 shrink-0" />
+                        <span className="leading-relaxed">{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 
-          {/* TAB 2: INSTALLATION */}
-          {activeTab === 'install' && (
-            <div className="space-y-4">
-              <p className="text-xs text-[#8E8E8E]">
-                Add this component to your shadcn project via the EasyUI GitHub registry:
-              </p>
-              <div className="rounded-xl border border-[#1E1E1E] bg-[#090909] p-3.5 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 font-mono text-xs">
-                <span className="text-white break-all">{component.cliCommand}</span>
-                <button
-                  onClick={() => handleCopy(component.cliCommand, 'cli')}
-                  className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] text-[11px] text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors cursor-pointer shrink-0"
-                >
-                  {copiedCode === 'cli' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedCode === 'cli' ? 'Copied' : 'Copy Command'}</span>
-                </button>
-              </div>
-
-              <div className="p-4 rounded-xl border border-[#1A1A1A] bg-[#0E0E0E] space-y-2">
-                <h5 className="text-xs font-semibold text-[#F5F5F5]">Dependencies</h5>
-                <p className="text-xs text-[#6F6F6F]">
-                  Requires: {component.dependencies && component.dependencies.length > 0 ? (
-                    component.dependencies.map((dep, idx) => (
-                      <span key={dep}>
-                        <code className="text-[#A1A1A1] bg-[#141414] px-1.5 py-0.5 rounded font-mono">{dep}</code>
-                        {idx < component.dependencies!.length - 1 ? ', ' : ''}
-                      </span>
-                    ))
-                  ) : (
-                    <span className="text-[#A1A1A1]">No external npm dependencies (Tailwind CSS only)</span>
-                  )}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* TAB 3: USAGE */}
+          {/* TAB 2: USAGE */}
           {activeTab === 'usage' && (
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[#8E8E8E]">Example Usage in React / Next.js:</span>
-                <button
-                  onClick={() => handleCopy(component.usageCode, 'usage')}
-                  className="flex items-center gap-1 text-[11px] text-white hover:underline cursor-pointer"
-                >
-                  {copiedCode === 'usage' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedCode === 'usage' ? 'Copied' : 'Copy Example'}</span>
-                </button>
+            <div className="space-y-5">
+              {/* Import Section */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-[#888888] font-medium">Import component</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const importStmt = `import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`;
+                      handleCopy(importStmt, 'import');
+                    }}
+                    className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                  >
+                    {copiedCode === 'import' ? (
+                      <Check className="w-3.5 h-3.5 text-white" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                    <span>{copiedCode === 'import' ? 'Copied' : 'Copy'}</span>
+                  </button>
+                </div>
+                <pre className="p-3.5 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#E5E5E5] overflow-x-auto">
+                  <code>{`import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`}</code>
+                </pre>
               </div>
-              <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#080808] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[380px] leading-relaxed">
-                <code>{component.usageCode}</code>
-              </pre>
+
+              {/* Example Section */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-[#888888] font-medium">Example</span>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(component.usageCode, 'usage')}
+                    className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                  >
+                    {copiedCode === 'usage' ? (
+                      <Check className="w-3.5 h-3.5 text-white" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                    <span>{copiedCode === 'usage' ? 'Copied' : 'Copy Example'}</span>
+                  </button>
+                </div>
+                <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[380px] leading-relaxed scrollbar-thin">
+                  <code>{component.usageCode}</code>
+                </pre>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: INSTALLATION */}
+          {activeTab === 'install' && (
+            <div className="space-y-5">
+              {/* CLI / Manual Toggle */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#111111] border border-[#202020]">
+                  <button
+                    type="button"
+                    onClick={() => setInstallMode('cli')}
+                    className={cn(
+                      'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
+                      installMode === 'cli'
+                        ? 'bg-[#222222] text-white shadow-xs'
+                        : 'text-[#737373] hover:text-[#CCCCCC]'
+                    )}
+                  >
+                    CLI
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setInstallMode('manual')}
+                    className={cn(
+                      'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
+                      installMode === 'manual'
+                        ? 'bg-[#222222] text-white shadow-xs'
+                        : 'text-[#737373] hover:text-[#CCCCCC]'
+                    )}
+                  >
+                    Manual
+                  </button>
+                </div>
+
+                {installMode === 'manual' && component.dependencies && component.dependencies.length > 0 && (
+                  <div className="flex items-center gap-1 text-[11px] font-mono">
+                    {(['pnpm', 'npm', 'yarn', 'bun'] as PkgManager[]).map((pm) => (
+                      <button
+                        key={pm}
+                        type="button"
+                        onClick={() => setPkgManager(pm)}
+                        className={cn(
+                          'px-2 py-0.5 rounded transition-colors cursor-pointer',
+                          pkgManager === pm
+                            ? 'bg-[#1E1E1E] text-white'
+                            : 'text-[#666666] hover:text-[#AAAAAA]'
+                        )}
+                      >
+                        {pm}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* CLI Mode View */}
+              {installMode === 'cli' && (
+                <div className="space-y-4">
+                  <p className="text-xs text-[#888888]">
+                    Add the component directly to your project using the shadcn CLI:
+                  </p>
+                  <div className="rounded-xl border border-[#1E1E1E] bg-[#070707] p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-[#E5E5E5]">
+                    <span className="truncate">{component.cliCommand}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(component.cliCommand, 'cli')}
+                      className="p-1.5 rounded-md text-[#737373] hover:text-white bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] transition-colors cursor-pointer shrink-0"
+                      title="Copy CLI command"
+                      aria-label="Copy CLI command"
+                    >
+                      {copiedCode === 'cli' ? (
+                        <Check className="w-3.5 h-3.5 text-white" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Required Dependencies */}
+                  <div className="pt-2">
+                    <h4 className="text-xs font-semibold text-[#808080] uppercase tracking-wider mb-2">
+                      Dependencies
+                    </h4>
+                    {component.dependencies && component.dependencies.length > 0 ? (
+                      <div className="flex flex-wrap gap-2">
+                        {component.dependencies.map((dep) => (
+                          <code
+                            key={dep}
+                            className="px-2.5 py-1 rounded-md bg-[#111111] border border-[#1E1E1E] font-mono text-[11px] text-[#D4D4D4]"
+                          >
+                            {dep}
+                          </code>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-[#6F6F6F]">
+                        No external npm dependencies required (standard Tailwind CSS only).
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Manual Mode View */}
+              {installMode === 'manual' && (
+                <div className="space-y-4">
+                  {/* Step 1: Dependencies */}
+                  {component.dependencies && component.dependencies.length > 0 && (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-[#888888] font-medium">1. Install dependencies</span>
+                        <button
+                          type="button"
+                          onClick={() => handleCopy(getInstallDepCommand(), 'deps')}
+                          className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                        >
+                          {copiedCode === 'deps' ? (
+                            <Check className="w-3.5 h-3.5 text-white" />
+                          ) : (
+                            <Copy className="w-3.5 h-3.5" />
+                          )}
+                          <span>{copiedCode === 'deps' ? 'Copied' : 'Copy'}</span>
+                        </button>
+                      </div>
+                      <pre className="p-3.5 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#E5E5E5] overflow-x-auto">
+                        <code>{getInstallDepCommand()}</code>
+                      </pre>
+                    </div>
+                  )}
+
+                  {/* Step 2: Component Code */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-[#888888] font-medium">
+                        {component.dependencies && component.dependencies.length > 0 ? '2. ' : '1. '}
+                        Copy component code to <code className="font-mono text-[#D4D4D4]">components/ui/{component.id}.tsx</code>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(component.sourceCode, 'source-manual')}
+                        className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                      >
+                        {copiedCode === 'source-manual' ? (
+                          <Check className="w-3.5 h-3.5 text-white" />
+                        ) : (
+                          <Copy className="w-3.5 h-3.5" />
+                        )}
+                        <span>{copiedCode === 'source-manual' ? 'Copied' : 'Copy Source'}</span>
+                      </button>
+                    </div>
+                    <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[260px] leading-relaxed scrollbar-thin">
+                      <code>{component.sourceCode}</code>
+                    </pre>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
           {/* TAB 4: SOURCE */}
           {activeTab === 'source' && (
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[#8E8E8E]">Full Component Source Code (TypeScript):</span>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-mono text-[#888888] text-[11px]">
+                  components/ui/{component.id}.tsx
+                </span>
                 <button
+                  type="button"
                   onClick={() => handleCopy(component.sourceCode, 'source')}
-                  className="flex items-center gap-1 text-[11px] text-white hover:underline cursor-pointer"
+                  className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                 >
-                  {copiedCode === 'source' ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedCode === 'source' ? (
+                    <Check className="w-3.5 h-3.5 text-white" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
                   <span>{copiedCode === 'source' ? 'Copied' : 'Copy Source'}</span>
                 </button>
               </div>
-              <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#080808] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[380px] leading-relaxed">
+              <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[420px] leading-relaxed scrollbar-thin">
                 <code>{component.sourceCode}</code>
               </pre>
             </div>
@@ -1005,99 +1218,57 @@ func main() {
 
           {/* TAB 5: PROPS API */}
           {activeTab === 'api' && (
-            <div className="space-y-4">
-              <h4 className="text-xs font-semibold text-[#F5F5F5] uppercase tracking-wider">
-                Props & Configuration
-              </h4>
-              <div className="rounded-xl border border-[#1E1E1E] overflow-hidden">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-[#121212] text-[#808080] border-b border-[#1E1E1E]">
-                    <tr>
-                      <th className="p-3 font-mono">Prop</th>
-                      <th className="p-3 font-mono">Type</th>
-                      <th className="p-3 font-mono">Default</th>
-                      <th className="p-3 font-mono">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#181818] bg-[#0A0A0A]">
-                    {component.props.map((p, i) => (
-                      <tr key={i} className="hover:bg-[#101010]">
-                        <td className="p-3 font-mono text-white font-semibold">{p.name}</td>
-                        <td className="p-3 font-mono text-[#A1A1A1]">{p.type}</td>
-                        <td className="p-3 font-mono text-[#6F6F6F]">{p.default || '-'}</td>
-                        <td className="p-3 text-[#CCCCCC]">{p.description}</td>
+            <div className="space-y-3">
+              <div className="rounded-xl border border-[#1E1E1E] overflow-hidden bg-[#070707]">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-[#0D0D0D] text-[#808080] border-b border-[#1E1E1E]">
+                      <tr>
+                        <th className="py-2.5 px-3.5 font-mono font-medium">Prop</th>
+                        <th className="py-2.5 px-3.5 font-mono font-medium">Type</th>
+                        <th className="py-2.5 px-3.5 font-mono font-medium">Default</th>
+                        <th className="py-2.5 px-3.5 font-medium">Description</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-[#161616]">
+                      {component.props.map((p, i) => (
+                        <tr key={i} className="hover:bg-[#0E0E0E] transition-colors">
+                          <td className="py-2.5 px-3.5 font-mono text-white font-medium">{p.name}</td>
+                          <td className="py-2.5 px-3.5 font-mono text-[#8E8E8E]">{p.type}</td>
+                          <td className="py-2.5 px-3.5 font-mono text-[#6F6F6F]">{p.default || '—'}</td>
+                          <td className="py-2.5 px-3.5 text-[#A1A1A1] leading-relaxed">{p.description}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           )}
 
           {/* TAB 6: ACCESSIBILITY */}
           {activeTab === 'a11y' && (
-            <div className="space-y-4">
-              <h4 className="text-xs font-semibold text-[#F5F5F5] uppercase tracking-wider">
-                Accessibility Standard
-              </h4>
-              <div className="space-y-2">
+            <div className="space-y-3">
+              <div className="rounded-xl border border-[#1E1E1E] bg-[#070707] divide-y divide-[#161616]">
                 {component.accessibility.map((item, i) => (
-                  <div
-                    key={i}
-                    className="p-3.5 rounded-xl border border-[#1C1C1C] bg-[#0E0E0E] text-xs text-[#CCCCCC] flex items-center gap-3"
-                  >
-                    <ShieldCheck className="w-4 h-4 text-white shrink-0" />
-                    <span>{item}</span>
+                  <div key={i} className="p-3.5 text-xs text-[#A1A1A1] flex items-start gap-3">
+                    <ShieldCheck className="w-4 h-4 text-white mt-0.5 shrink-0" />
+                    <span className="leading-relaxed">{item}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Contextually Related Components for Enhanced Discovery & Internal Linking */}
-          {getRelatedComponents(component, EASY_COMPONENTS, 3).length > 0 && (
-            <div className="pt-5 border-t border-[#161616] space-y-3">
-              <div className="flex items-center justify-between">
-                <h4 className="text-xs font-semibold text-[#8E8E8E] uppercase tracking-wider">
-                  Related Components
-                </h4>
-                <span className="text-[11px] text-[#555555]">Contextual Pairings</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                {getRelatedComponents(component, EASY_COMPONENTS, 3).map((rel) => (
-                  <button
-                    key={rel.id}
-                    onClick={() => {
-                      if (onSelectComponent) {
-                        onSelectComponent(rel.id);
-                      }
-                    }}
-                    className="p-3 rounded-xl border border-[#1C1C1C] bg-[#0C0C0C] hover:bg-[#121212] hover:border-[#2C2C2C] text-left transition-all group cursor-pointer"
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-medium text-[#E5E5E5] group-hover:text-white transition-colors">
-                        {rel.name}
-                      </span>
-                      <span className="text-[9px] font-mono text-[#8E8E8E] px-1.5 py-0.5 rounded bg-[#161616]">
-                        {rel.category}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-[#707070] line-clamp-1">
-                      {rel.tagline || rel.description}
-                    </p>
-                  </button>
                 ))}
               </div>
             </div>
           )}
         </div>
 
-        {/* Modal Bottom Bar */}
-        <div className="p-4 bg-[#080808] border-t border-[#181818] flex items-center justify-between text-xs text-[#6F6F6F]">
-          <span>EasyUI Copy & Paste Components</span>
+        {/* Minimal Footer */}
+        <div className="px-5 sm:px-6 py-3 bg-[#080808] border-t border-[#161616] flex items-center justify-between text-xs text-[#606060] shrink-0">
+          <span className="hidden sm:inline">EasyUI Component Documentation</span>
+          <span className="sm:hidden font-mono text-[11px]">easyui/{component.id}</span>
           <button
+            type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] text-[#F5F5F5] transition-colors"
+            className="px-3 py-1 rounded-md bg-[#141414] hover:bg-[#1E1E1E] text-[#E5E5E5] text-xs font-medium transition-colors cursor-pointer border border-[#222222]"
           >
             Done
           </button>
@@ -1114,10 +1285,10 @@ func main() {
             transition={{ duration: 0.18 }}
             className="fixed inset-0 z-[100] bg-[#070707] bg-dot-subtle flex flex-col overflow-y-auto"
           >
-            {/* Top Sticky Bar with safe spacing and clean responsive alignment */}
+            {/* Top Sticky Bar */}
             <div className="sticky top-0 inset-x-0 z-[110] bg-[#070707]/95 border-b border-[#1A1A1A] backdrop-blur-md px-4 sm:px-8 py-3 flex items-center justify-between gap-3 shadow-lg shrink-0">
               <div className="flex items-center gap-2 min-w-0">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-white/80 shrink-0" />
                 <span className="text-xs sm:text-sm font-semibold text-white truncate max-w-[180px] sm:max-w-none">
                   {component.name}
                 </span>
@@ -1135,7 +1306,7 @@ func main() {
               </button>
             </div>
 
-            {/* Centered Fullscreen Component Demo with natural vertical padding and full visibility */}
+            {/* Centered Fullscreen Demo */}
             <div className="w-full max-w-3xl mx-auto px-4 py-8 sm:py-16 my-auto flex items-center justify-center">
               {renderInteractiveDemo()}
             </div>
@@ -1145,4 +1316,3 @@ func main() {
     </div>
   );
 };
-

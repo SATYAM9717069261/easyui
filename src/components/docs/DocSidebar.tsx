@@ -6,6 +6,7 @@ import {
   GitPullRequest, 
   Sliders, 
   Search,
+  X,
   type LucideIcon
 } from 'lucide-react';
 
@@ -18,8 +19,6 @@ interface NavItem {
   id: string;
   label: string;
   icon: LucideIcon;
-  badge?: string;
-  description?: string;
 }
 
 interface NavSection {
@@ -37,37 +36,46 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
     {
       group: 'Getting Started',
       items: [
-        { id: 'introduction', label: 'Introduction & Vision', icon: BookOpen },
-        { id: 'quick-start', label: 'Quick Start & Setup', icon: Terminal, badge: 'Setup' },
-        { id: 'motion', label: 'Motion Tokens & Physics', icon: Sliders },
+        { id: 'introduction', label: 'Introduction', icon: BookOpen },
+        { id: 'quick-start', label: 'Quick Start', icon: Terminal },
+        { id: 'motion', label: 'Motion Tokens', icon: Sliders },
       ],
     },
     {
       group: 'Architecture & Engine',
       items: [
-        { id: 'architecture', label: 'Automatic Structure & Registry', icon: Cpu, badge: 'Engine' },
-        { id: 'seo', label: 'Automated SEO & Audit System', icon: Search, badge: 'Auto' },
-        { id: 'collaboration', label: 'How to Collaborate & Contribute', icon: GitPullRequest, badge: 'Guide' },
+        { id: 'architecture', label: 'Registry Architecture', icon: Cpu },
+        { id: 'seo', label: 'Automated SEO System', icon: Search },
+        { id: 'collaboration', label: 'Contributing Guide', icon: GitPullRequest },
       ],
     },
   ];
 
   return (
-    <aside className="w-full lg:w-64 shrink-0 flex flex-col space-y-6">
+    <aside className="w-full lg:w-64 shrink-0 flex flex-col space-y-6 select-none">
       {/* Sidebar Search */}
       <div className="relative">
-        <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#606060]" />
+        <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#606060] pointer-events-none" />
         <input
           type="text"
           value={filterQuery}
           onChange={(e) => setFilterQuery(e.target.value)}
-          placeholder="Filter documentation..."
-          className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-[#0A0A0A] border border-[#181818] focus:border-[#2C2C2C] focus:outline-none text-xs text-[#F5F5F5] placeholder-[#555555] transition-colors font-mono"
+          placeholder="Filter docs..."
+          className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#0C0C0C] border border-[#1E1E1E] focus:border-[#383838] focus:outline-none text-xs text-[#ECECEC] placeholder-[#555555] transition-colors"
         />
+        {filterQuery && (
+          <button
+            onClick={() => setFilterQuery('')}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#666666] hover:text-[#FFFFFF]"
+            aria-label="Clear filter"
+          >
+            <X className="w-3 h-3" />
+          </button>
+        )}
       </div>
 
       {/* Main Navigation Topics */}
-      <div className="space-y-5">
+      <div className="space-y-6">
         {docNavSections.map((section, idx) => {
           const filteredItems = section.items.filter((item) =>
             item.label.toLowerCase().includes(filterQuery.toLowerCase())
@@ -75,8 +83,8 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
           if (filteredItems.length === 0) return null;
 
           return (
-            <div key={idx} className="space-y-1">
-              <h4 className="text-[10px] font-mono text-[#555555] uppercase tracking-wider px-3 font-semibold">
+            <div key={idx} className="space-y-1.5">
+              <h4 className="text-[11px] font-semibold text-[#666666] uppercase tracking-wider px-3">
                 {section.group}
               </h4>
               <div className="space-y-0.5">
@@ -87,21 +95,14 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => onSelectTopic(item.id)}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors text-left ${
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all text-left group ${
                         isActive
-                          ? 'bg-[#161616] text-white font-medium border border-[#242424]'
-                          : 'text-[#808080] hover:text-[#F5F5F5] hover:bg-[#0E0E0E]'
+                          ? 'bg-[#181818] text-white font-medium shadow-sm border border-[#282828]'
+                          : 'text-[#888888] hover:text-[#ECECEC] hover:bg-[#101010]'
                       }`}
                     >
-                      <div className="flex items-center gap-2">
-                        <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#606060]'}`} />
-                        <span>{item.label}</span>
-                      </div>
-                      {item.badge && (
-                        <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#101010] border border-[#1C1C1C] text-[#737373]">
-                          {item.badge}
-                        </span>
-                      )}
+                      <Icon className={`w-3.5 h-3.5 shrink-0 transition-colors ${isActive ? 'text-white' : 'text-[#666666] group-hover:text-[#A1A1A1]'}`} />
+                      <span className="truncate">{item.label}</span>
                     </button>
                   );
                 })}

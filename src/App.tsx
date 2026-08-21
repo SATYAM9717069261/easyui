@@ -2,11 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { HeroSection } from './components/sections/HeroSection';
-import { PhilosophySection } from './components/sections/PhilosophySection';
-import { FeaturedShowcase } from './components/sections/FeaturedShowcase';
 import { ComponentDirectory } from './components/sections/ComponentDirectory';
 import { AllComponentsPage } from './components/sections/AllComponentsPage';
-import { CodePhilosophy } from './components/sections/CodePhilosophy';
 import { DevExperience } from './components/sections/DevExperience';
 import { FinalCta } from './components/sections/FinalCta';
 import { CommandMenu } from './components/ui/CommandMenu';
@@ -133,6 +130,13 @@ export function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Scroll to top instantly whenever the active view changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [activeView]);
+
   const handleSelectComponentById = (id: string) => {
     const found = EASY_COMPONENTS.find((c) => c.id === id);
     if (found) {
@@ -152,32 +156,33 @@ export function App() {
   };
 
   const handleNavigateComponents = () => {
-    if (activeView !== 'showcase') {
-      navigate('/');
-      setTimeout(() => {
-        document.getElementById('components-directory')?.scrollIntoView({ behavior: 'smooth' });
-      }, 50);
-    } else {
-      document.getElementById('components-directory')?.scrollIntoView({ behavior: 'smooth' });
-    }
+    handleNavigateAllComponents(1);
   };
 
   const handleNavigateAllComponents = (page = 1) => {
+    setSelectedModalComponent(null);
     navigate(page > 1 ? `/components?page=${page}` : '/components');
     setActiveView('components');
     setComponentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handlePageChange = (page: number) => {
     navigate(page > 1 ? `/components?page=${page}` : '/components');
     setComponentPage(page);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handleNavigateHome = () => {
     navigate('/');
     setActiveView('showcase');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handleNavigateDocs = (topicId?: string) => {
@@ -185,13 +190,17 @@ export function App() {
     navigate(`/docs/${topic}`);
     setActiveView('docs');
     setActiveDocTopic(topic);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handleSelectDocTopic = (topicId: string) => {
     navigate(`/docs/${topicId}`);
     setActiveDocTopic(topicId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   return (
@@ -227,34 +236,22 @@ export function App() {
         />
       ) : (
         <main>
-          {/* Section 02: Hero */}
+          {/* Hero */}
           <HeroSection
             onExplore={handleNavigateComponents}
             onSelectComponent={handleSelectComponentById}
           />
 
-          {/* Section 03: Philosophy (The Standard) */}
-          <PhilosophySection />
-
-          {/* Section 04: How It Works (Dev Experience) */}
+          {/* How It Works (Dev Experience) */}
           <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
 
-          {/* Section 05: Featured Components (Showroom) */}
-          <FeaturedShowcase
-            onSelectComponent={handleSelectComponentById}
-            onNavigateAllComponents={() => handleNavigateAllComponents(1)}
-          />
-
-          {/* Section 06: Component Directory (Homepage limited 6 items) */}
+          {/* Component Directory (Homepage limited 6 items) */}
           <ComponentDirectory
             onSelectComponent={handleSelectComponentById}
             onNavigateAllComponents={() => handleNavigateAllComponents(1)}
           />
 
-          {/* Section 07: Code Philosophy */}
-          <CodePhilosophy />
-
-          {/* Section 08: Final CTA */}
+          {/* Final CTA */}
           <FinalCta onBrowse={() => handleNavigateAllComponents(1)} />
         </main>
       )}

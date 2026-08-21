@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onNavigateComponents}
               className={`text-xs font-medium transition-colors cursor-pointer ${
-                activeView === 'showcase' || activeView === 'components'
+                activeView === 'components'
                   ? 'text-white'
                   : 'text-[#808080] hover:text-[#F5F5F5]'
               }`}
@@ -133,7 +133,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                     onNavigateComponents();
                     setMobileOpen(false);
                   }}
-                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] rounded-lg transition-colors"
+                  className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
+                    activeView === 'components'
+                      ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
+                      : 'text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212]'
+                  }`}
                 >
                   Components
                 </button>
@@ -142,7 +146,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                     onNavigateDocs();
                     setMobileOpen(false);
                   }}
-                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] rounded-lg transition-colors"
+                  className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
+                    activeView === 'docs'
+                      ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
+                      : 'text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212]'
+                  }`}
                 >
                   Docs & Installation
                 </button>

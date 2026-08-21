@@ -24,7 +24,12 @@
   }
 
   /* Headings: Geist Sans with heavier weight & slightly tight letter-spacing */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
     color: var(--text-primary);
   }
@@ -44,7 +49,9 @@
     letter-spacing: var(--tracking-snug);
   }
 
-  h4, h5, h6 {
+  h4,
+  h5,
+  h6 {
     font-weight: 600;
     letter-spacing: -0.015em;
   }
@@ -55,7 +62,10 @@
     letter-spacing: var(--tracking-body);
   }
 
-  code, kbd, samp, pre {
+  code,
+  kbd,
+  samp,
+  pre {
     font-family: var(--font-mono);
   }
 }
@@ -75,6 +85,7 @@
 .focus-ring {
   outline: none;
 }
+
 .focus-ring:focus-visible {
   outline: 2px solid rgba(56, 189, 248, 0.5);
   outline-offset: 2px;

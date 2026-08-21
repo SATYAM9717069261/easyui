@@ -29,34 +29,34 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
     <nav
       role="navigation"
       aria-label="Component pagination"
-      className={cn('flex items-center justify-center gap-1.5 sm:gap-2 py-4', className)}
+      className={cn('flex items-center justify-center gap-4 sm:gap-6 py-4 select-none', className)}
     >
-      {/* Previous Page Arrow */}
+      {/* Previous Page Link */}
       <button
         type="button"
         onClick={() => !isFirstPage && onPageChange(currentPage - 1)}
         disabled={isFirstPage}
         aria-label="Previous page"
         className={cn(
-          'flex items-center justify-center h-8 px-2.5 rounded-lg border text-xs font-mono transition-colors focus-ring',
+          'inline-flex items-center gap-1 text-xs font-sans transition-colors focus-ring',
           isFirstPage
-            ? 'opacity-30 cursor-not-allowed border-[#161616] bg-[#070707] text-[#555555]'
-            : 'border-[#181818] bg-[#0A0A0A] text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] hover:border-[#262626] cursor-pointer'
+            ? 'opacity-25 cursor-not-allowed text-[#555555]'
+            : 'text-[#888888] hover:text-white cursor-pointer'
         )}
       >
-        <ChevronLeft className="w-3.5 h-3.5 mr-0.5" />
-        <span className="hidden sm:inline">Prev</span>
+        <ChevronLeft className="w-3.5 h-3.5" />
+        <span>Prev</span>
       </button>
 
       {/* Page Numbers & Ellipsis */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1.5">
         {paginationRange.map((pageNumber, index) => {
           if (pageNumber === '...') {
             return (
               <span
                 key={`ellipsis-${index}`}
                 aria-hidden="true"
-                className="w-7 h-8 flex items-center justify-center text-xs font-mono text-[#555555] select-none"
+                className="w-7 h-7 flex items-center justify-center text-xs font-sans text-[#555555]"
               >
                 …
               </span>
@@ -74,10 +74,10 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
               aria-label={`Page ${page}`}
               aria-current={isActive ? 'page' : undefined}
               className={cn(
-                'min-w-8 h-8 px-2 rounded-lg text-xs font-mono transition-colors focus-ring cursor-pointer flex items-center justify-center',
+                'w-7 h-7 flex items-center justify-center text-xs font-sans transition-colors focus-ring rounded',
                 isActive
-                  ? 'bg-[#181818] text-[#F5F5F5] border border-[#2A2A2A] font-semibold shadow-sm'
-                  : 'bg-[#0A0A0A] text-[#737373] border border-[#141414] hover:text-[#A1A1A1] hover:bg-[#101010] hover:border-[#202020]'
+                  ? 'text-white font-semibold'
+                  : 'text-[#666666] hover:text-[#D4D4D4] cursor-pointer'
               )}
             >
               {page}
@@ -86,21 +86,21 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
         })}
       </div>
 
-      {/* Next Page Arrow */}
+      {/* Next Page Link */}
       <button
         type="button"
         onClick={() => !isLastPage && onPageChange(currentPage + 1)}
         disabled={isLastPage}
         aria-label="Next page"
         className={cn(
-          'flex items-center justify-center h-8 px-2.5 rounded-lg border text-xs font-mono transition-colors focus-ring',
+          'inline-flex items-center gap-1 text-xs font-sans transition-colors focus-ring',
           isLastPage
-            ? 'opacity-30 cursor-not-allowed border-[#161616] bg-[#070707] text-[#555555]'
-            : 'border-[#181818] bg-[#0A0A0A] text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] hover:border-[#262626] cursor-pointer'
+            ? 'opacity-25 cursor-not-allowed text-[#555555]'
+            : 'text-[#888888] hover:text-white cursor-pointer'
         )}
       >
-        <span className="hidden sm:inline">Next</span>
-        <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+        <span>Next</span>
+        <ChevronRight className="w-3.5 h-3.5" />
       </button>
     </nav>
   );

@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Container } from '../layout/Container';
 import { EASY_COMPONENTS } from '../registry/components-data';
 import type { ComponentCategory } from '../../types/component';
-import { Search, ArrowLeft, Home, Sparkles } from 'lucide-react';
+import { Search, ArrowLeft } from 'lucide-react';
 import { ComponentCard } from '../common/ComponentCard';
 import { ComponentPagination } from '../common/ComponentPagination';
 import {
@@ -70,6 +70,13 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
     return getPaginatedComponents(filteredComponents, currentPage, ITEMS_PER_PAGE);
   }, [filteredComponents, currentPage]);
 
+  // Scroll to top immediately when mounting AllComponentsPage or changing page
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [currentPage]);
+
   // Ensure current page is valid when filters change
   useEffect(() => {
     if (currentPage > pagination.totalPages && pagination.totalPages > 0) {
@@ -80,71 +87,68 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
   const handleCategoryChange = (cat: ComponentCategory) => {
     setSelectedCategory(cat);
     onPageChange(1);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
   const handleSearchChange = (val: string) => {
     setSearchQuery(val);
     onPageChange(1);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#F5F5F5] pt-4 pb-24">
+    <div className="min-h-screen bg-[#050505] text-[#F5F5F5] pt-2 pb-24">
       <Container size="xl">
         {/* Top Header & Breadcrumbs */}
-        <div className="flex flex-wrap items-center justify-between gap-4 py-4 mb-8 border-b border-[#181818]">
-          <div className="flex items-center gap-2 text-xs font-mono text-[#808080]">
+        <div className="flex flex-wrap items-center justify-between gap-3 py-3 mb-4 sm:mb-6 border-b border-[#161616]">
+          <div className="flex items-center gap-1.5 text-xs font-sans text-[#808080]">
             <button
               onClick={onNavigateHome}
-              className="flex items-center gap-1 hover:text-[#F5F5F5] transition-colors focus-ring rounded"
+              className="hover:text-white transition-colors focus-ring rounded"
             >
-              <Home className="w-3.5 h-3.5" />
-              <span>EasyUI</span>
+              EasyUI
             </button>
             <span className="text-[#444444]">/</span>
             <span className="text-white font-medium">All Components</span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={onNavigateHome}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#101010] hover:bg-[#181818] border border-[#202020] text-xs text-[#A1A1A1] hover:text-white transition-all focus-ring"
+              aria-label="Back to Home"
+              className="p-1.5 rounded-lg text-[#888888] hover:text-white hover:bg-[#141414] transition-all focus-ring"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Home</span>
+              <ArrowLeft className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        {/* Section Header & Search Bar */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4 sm:mb-6">
           <div>
-            <span className="text-[11px] font-mono text-[#737373] uppercase tracking-widest flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-[#A1A1A1]" />
-              Registry Catalog
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#F5F5F5] tracking-tight">
               All Components
             </h1>
-            <p className="text-sm text-[#808080] mt-1.5 max-w-xl">
+            <p className="text-xs sm:text-sm text-[#808080] mt-1 max-w-xl">
               Explore all {allSortedComponents.length} components. Crafted with spring physics, copy-paste ownership, and zero configuration.
             </p>
           </div>
 
           {/* Search Bar */}
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 text-[#606060] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-[#606060] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder="Search components, tags..."
-              className="w-full pl-9 pr-3 py-2 text-xs rounded-lg bg-[#0A0A0A] border border-[#181818] text-[#F5F5F5] placeholder-[#606060] focus-ring"
+              placeholder="Search components..."
+              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-[#0C0C0C] border border-[#1E1E1E] focus:border-[#333333] text-[#F5F5F5] placeholder-[#606060] focus-ring transition-colors"
             />
           </div>
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-8 scrollbar-none">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-5 sm:mb-7 scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -159,18 +163,6 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
               {cat}
             </button>
           ))}
-        </div>
-
-        {/* Results summary (only if filtered or paginated) */}
-        <div className="flex items-center justify-between text-xs font-mono text-[#606060] mb-5">
-          <span>
-            Showing {pagination.items.length > 0 ? pagination.startIndex + 1 : 0}–{pagination.endIndex} of {pagination.totalItems} components
-          </span>
-          {pagination.totalPages > 1 && (
-            <span>
-              Page {pagination.currentPage} of {pagination.totalPages}
-            </span>
-          )}
         </div>
 
         {/* Components Grid */}
@@ -190,7 +182,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {pagination.items.map((comp) => (
                 <ComponentCard
                   key={comp.id}
@@ -202,7 +194,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
             </div>
 
             {/* Pagination Controls */}
-            <div className="mt-12 pt-6 border-t border-[#141414]">
+            <div className="mt-8 pt-4 border-t border-[#141414]">
               <ComponentPagination
                 currentPage={pagination.currentPage}
                 totalPages={pagination.totalPages}

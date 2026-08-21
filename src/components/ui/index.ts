@@ -95,3 +95,8 @@ export type { FAQProps, FAQItem } from './FAQ';
 export { PaymentReceiptPrinter } from './PaymentReceiptPrinter';
 export type { PaymentReceiptPrinterProps, ReceiptItem } from './PaymentReceiptPrinter';
 
+export { ParticleDelete, ParticleDeleteContainer } from './ParticleDelete';
+export type { ParticleDeleteProps, ParticleDeleteContainerProps, ParticleDeleteItem } from './ParticleDelete';
+export { useParticleDelete, particleDelete } from '../../lib/particle-delete';
+export type { ParticleDeleteOptions } from '../../lib/particle-delete';
+
