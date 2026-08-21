@@ -214,7 +214,7 @@ async function discoverComponents(): Promise<DiscoveredComponent[]> {
     }
 
     const slug = toKebabCase(componentName);
-    const primarySource = fs.readFileSync(primaryFilePath, 'utf-8');
+    const primarySource = fs.readFileSync(primaryFilePath, 'utf-8').replace(/\r\n/g, '\n');
 
     // Analyze imports
     const { npmDeps, internalFiles } = analyzeSourceImports(primarySource, primaryFilePath, validPackageDeps);
@@ -222,7 +222,7 @@ async function discoverComponents(): Promise<DiscoveredComponent[]> {
     // Also analyze any additional files
     for (const addFile of additionalFiles) {
       if (fs.existsSync(addFile) && (addFile.endsWith('.ts') || addFile.endsWith('.tsx'))) {
-        const addSource = fs.readFileSync(addFile, 'utf-8');
+        const addSource = fs.readFileSync(addFile, 'utf-8').replace(/\r\n/g, '\n');
         const addAnalysis = analyzeSourceImports(addSource, addFile, validPackageDeps);
         addAnalysis.npmDeps.forEach((d) => npmDeps.add(d));
         addAnalysis.internalFiles.forEach((f) => internalFiles.add(f));
