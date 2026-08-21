@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Container } from '../layout/Container';
 import { EASY_COMPONENTS } from '../registry/components-data';
 import type { ComponentCategory } from '../../types/component';
-import { Search, ArrowLeft, Home } from 'lucide-react';
+import { Search, ArrowLeft } from 'lucide-react';
 import { ComponentCard } from '../common/ComponentCard';
 import { ComponentPagination } from '../common/ComponentPagination';
 import {
@@ -101,13 +101,12 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
       <Container size="xl">
         {/* Top Header & Breadcrumbs */}
         <div className="flex flex-wrap items-center justify-between gap-3 py-3 mb-4 sm:mb-6 border-b border-[#161616]">
-          <div className="flex items-center gap-2 text-xs font-mono text-[#808080]">
+          <div className="flex items-center gap-1.5 text-xs font-mono text-[#808080]">
             <button
               onClick={onNavigateHome}
-              className="flex items-center gap-1 hover:text-[#F5F5F5] transition-colors focus-ring rounded"
+              className="hover:text-white transition-colors focus-ring rounded"
             >
-              <Home className="w-3.5 h-3.5" />
-              <span>EasyUI</span>
+              EasyUI
             </button>
             <span className="text-[#444444]">/</span>
             <span className="text-white font-medium">All Components</span>
