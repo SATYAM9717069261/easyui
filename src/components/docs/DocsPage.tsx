@@ -61,7 +61,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
       <Container size="xl">
         {/* Top Header & Breadcrumbs */}
         <div className="flex items-center justify-between gap-4 py-3 mb-8 border-b border-[#161616]">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-mono text-[#777777]">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-sans text-[#777777]">
             <button
               onClick={onNavigateHome}
               className="hover:text-white transition-colors"

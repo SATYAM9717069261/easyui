@@ -38,7 +38,7 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
         disabled={isFirstPage}
         aria-label="Previous page"
         className={cn(
-          'inline-flex items-center gap-1 text-xs font-mono transition-colors focus-ring',
+          'inline-flex items-center gap-1 text-xs font-sans transition-colors focus-ring',
           isFirstPage
             ? 'opacity-25 cursor-not-allowed text-[#555555]'
             : 'text-[#888888] hover:text-white cursor-pointer'
@@ -49,14 +49,14 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
       </button>
 
       {/* Page Numbers & Ellipsis */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5">
         {paginationRange.map((pageNumber, index) => {
           if (pageNumber === '...') {
             return (
               <span
                 key={`ellipsis-${index}`}
                 aria-hidden="true"
-                className="w-6 h-6 flex items-center justify-center text-xs font-mono text-[#555555]"
+                className="w-7 h-7 flex items-center justify-center text-xs font-sans text-[#555555]"
               >
                 …
               </span>
@@ -74,7 +74,7 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
               aria-label={`Page ${page}`}
               aria-current={isActive ? 'page' : undefined}
               className={cn(
-                'w-7 h-7 flex items-center justify-center text-xs font-mono transition-colors focus-ring rounded',
+                'w-7 h-7 flex items-center justify-center text-xs font-sans transition-colors focus-ring rounded',
                 isActive
                   ? 'text-white font-semibold'
                   : 'text-[#666666] hover:text-[#D4D4D4] cursor-pointer'
@@ -93,7 +93,7 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
         disabled={isLastPage}
         aria-label="Next page"
         className={cn(
-          'inline-flex items-center gap-1 text-xs font-mono transition-colors focus-ring',
+          'inline-flex items-center gap-1 text-xs font-sans transition-colors focus-ring',
           isLastPage
             ? 'opacity-25 cursor-not-allowed text-[#555555]'
             : 'text-[#888888] hover:text-white cursor-pointer'
