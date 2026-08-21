@@ -46,6 +46,7 @@ import { Login } from '../ui/Login';
 import { SignUp } from '../ui/SignUp';
 import { FAQ } from '../ui/FAQ';
 import { PaymentReceiptPrinter } from '../ui/PaymentReceiptPrinter';
+import { ParticleDelete } from '../ui/ParticleDelete';
 
 export interface ComponentDetailModalProps {
   component: EasyComponentMeta | null;
@@ -822,6 +823,12 @@ func main() {
             <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-[#050505]/70 border border-[#222222] text-[11px] font-mono text-[#A1A1A1] backdrop-blur-sm pointer-events-none">
               Move cursor across canvas to test repulsion & glow
             </div>
+          </div>
+        );
+      case 'particle-delete':
+        return (
+          <div className="py-2 w-full">
+            <ParticleDelete />
           </div>
         );
       default:
