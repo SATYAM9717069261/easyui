@@ -2,26 +2,23 @@ import type { EasyUIComponentMeta } from '../../types/component';
 
 const meta: EasyUIComponentMeta = {
   title: 'Dot Field',
-  description: 'High-performance interactive Canvas dot matrix from React Bits with cursor proximity physics, radial glow aura, and customizable dispersion.',
+  description: 'High-performance lightweight static Canvas dot matrix background with dynamic gradient coloring and responsive density scaling.',
   category: 'Motion',
-  tagline: 'Interactive Canvas particle matrix with cursor bulge & glow',
-  badges: ['HTML5 Canvas', 'React Bits', 'Interactive Physics'],
+  tagline: 'Lightweight static Canvas particle matrix background',
+  badges: ['HTML5 Canvas', 'Static Visual', 'Zero Overhead'],
   createdAt: '2026-08-08',
   features: [
-    '60 FPS Canvas hardware-accelerated rendering',
-    'Cursor repulsion and proximity bulge physics',
-    'SVG radial glow aura tracking',
-    'Dynamic gradient coloring and sparkle mode',
+    'Hardware-accelerated HTML5 Canvas rendering',
+    'Zero CPU overhead — renders once and updates only on resize',
+    'Clean linear gradient coloring with custom stops',
+    'Responsive ResizeObserver layout support',
   ],
   props: [
-    { name: 'dotRadius', type: 'number', default: '1.5', description: 'Radius of each individual dot' },
-    { name: 'dotSpacing', type: 'number', default: '14', description: 'Spacing between dots in the grid' },
-    { name: 'bulgeStrength', type: 'number', default: '67', description: 'Strength of the bulge effect around cursor' },
-    { name: 'glowRadius', type: 'number', default: '160', description: 'Radius of SVG glow effect' },
-    { name: 'sparkle', type: 'boolean', default: 'false', description: 'Random sparkle animation on dots' },
+    { name: 'dotRadius', type: 'number', default: '1.5', description: 'Radius of each individual dot (px)' },
+    { name: 'dotSpacing', type: 'number', default: '14', description: 'Spacing between adjacent dots in the grid (px)' },
     { name: 'gradientFrom', type: 'string', default: "'rgba(56, 189, 248, 0.35)'", description: 'Start gradient color' },
     { name: 'gradientTo', type: 'string', default: "'rgba(168, 85, 247, 0.25)'", description: 'End gradient color' },
-    { name: 'glowColor', type: 'string', default: "'#120F17'", description: 'Radial glow color following cursor' },
+    { name: 'className', type: 'string', default: "''", description: 'Optional container CSS class' },
   ],
   accessibility: [
     'Canvas decorative element',
@@ -35,9 +32,6 @@ export function Demo() {
       <DotField
         dotRadius={1.5}
         dotSpacing={14}
-        bulgeStrength={67}
-        glowRadius={160}
-        sparkle={true}
         gradientFrom="rgba(56, 189, 248, 0.35)"
         gradientTo="rgba(168, 85, 247, 0.25)"
       />

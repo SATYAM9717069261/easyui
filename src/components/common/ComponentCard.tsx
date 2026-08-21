@@ -453,17 +453,14 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         return (
           <div className="h-40 relative rounded-lg overflow-hidden border border-[#1A1A1A] bg-[#070707]">
             <DotField
-              dotRadius={hovered ? 1.6 : 1.2}
+              dotRadius={1.5}
               dotSpacing={12}
-              bulgeStrength={hovered ? 80 : 50}
-              glowRadius={hovered ? 160 : 120}
-              sparkle={true}
               gradientFrom={hovered ? 'rgba(255, 255, 255, 0.4)' : 'rgba(255, 255, 255, 0.25)'}
               gradientTo="rgba(255, 255, 255, 0.08)"
             />
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <span className="text-[10px] font-mono text-[#737373] bg-[#050505]/80 px-2.5 py-1 rounded-md border border-[#1A1A1A]">
-                Hover to Interact
+                Static Canvas Matrix
               </span>
             </div>
           </div>
@@ -690,26 +687,44 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
     }
   };
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
+      e.preventDefault();
+      onSelect(component.id);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+    if (e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      onSelect(component.id);
+    }
+  };
+
   return (
-    <div
-      onClick={() => onSelect(component.id)}
+    <a
+      href={`/components/${component.id}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
       className={cn(
-        'group rounded-2xl border border-[#181818] bg-[#090909] overflow-hidden hover:border-[#2A2A2A] hover:shadow-[0_8px_30px_rgba(0,0,0,0.8)] transition-all duration-200 cursor-pointer flex flex-col justify-between',
+        'group rounded-2xl border border-[#181818] bg-[#090909] overflow-hidden hover:border-[#2A2A2A] hover:shadow-[0_8px_30px_rgba(0,0,0,0.8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer flex flex-col justify-between block',
         className
       )}
     >
       {/* Live Preview Area */}
       <div className="relative bg-[#070707] border-b border-[#131313] bg-grid-pattern overflow-hidden">
         {/* Subtle Copy CLI Button (Reveals on card hover) */}
-        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150">
           <button
             type="button"
             onClick={handleCopyCLI}
             className="p-1.5 rounded-lg bg-[#111111]/90 backdrop-blur border border-[#222222] text-[#737373] hover:text-white hover:border-[#333333] transition-colors focus-ring"
             title="Copy CLI command"
-            aria-label="Copy CLI command"
+            aria-label={`Copy CLI command for ${component.name}`}
           >
             {copied ? (
               <Check className="w-3.5 h-3.5 text-white" />
@@ -734,6 +749,6 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
           {component.category}
         </span>
       </div>
-    </div>
+    </a>
   );
 };

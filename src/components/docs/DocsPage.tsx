@@ -183,9 +183,17 @@ export const DocsPage: React.FC<DocsPageProps> = ({
             {activeTopic === 'collaboration' && (
               <DocCollaboration onNavigateSection={handleSelectTopicWithMobileClose} />
             )}
+
+            {/* Fallback to Introduction for unknown or root doc topic */}
+            {!['introduction', 'quick-start', 'motion', 'architecture', 'seo', 'collaboration'].includes(activeTopic) && (
+              <DocIntroduction onNavigateSection={handleSelectTopicWithMobileClose} />
+            )}
           </main>
         </div>
       </Container>
     </div>
   );
 };
+
+export default DocsPage;
+

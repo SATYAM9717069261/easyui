@@ -23,6 +23,7 @@ import type { EasyComponentMeta } from '../../types/component';
 import { EASY_COMPONENTS } from '../registry/components-data';
 import { cn, copyToClipboard } from '../../lib/utils';
 import { isComponentNew, getNewestComponent } from '../../lib/components';
+import { useComponentSource } from '../../lib/source-loader';
 import { NewBadge } from '../common/NewBadge';
 
 // UI components for live interactive demonstrations
@@ -365,6 +366,8 @@ export const ComponentDetailPage: React.FC<ComponentDetailPageProps> = ({
   onNavigateDocs,
 }) => {
   const [activeTab, setActiveTab] = useState<MainTab>('preview');
+  const { sourceCode: loadedSourceCode } = useComponentSource(component.id, activeTab === 'code');
+  const effectiveSourceCode = loadedSourceCode || component.sourceCode || '';
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [pkgManager, setPkgManager] = useState<PkgManager>('pnpm');
   const [installMode, setInstallMode] = useState<'cli' | 'manual'>('cli');
@@ -1088,17 +1091,7 @@ const completion = await client.completions.create({
       case 'dot-field':
         return (
           <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#222222] bg-[#0A0A0A]">
-            <DotField
-              key={demoKey}
-              dotRadius={1.5}
-              dotSpacing={14}
-              bulgeStrength={67}
-              glowRadius={160}
-              sparkle={true}
-              gradientFrom="rgba(255, 255, 255, 0.25)"
-              gradientTo="rgba(255, 255, 255, 0.08)"
-              glowColor="rgba(255, 255, 255, 0.05)"
-            />
+            <DotField dotRadius={1.2} dotSpacing={20} gradientFrom="#818cf8" gradientTo="#c084fc" className="w-full h-80 rounded-2xl" />
           </div>
         );
       case 'particle-delete':
@@ -1647,7 +1640,7 @@ const completion = await client.completions.create({
                   </span>
                   <button
                     type="button"
-                    onClick={() => handleCopy(component.sourceCode, 'source')}
+                    onClick={() => handleCopy(effectiveSourceCode, 'source')}
                     className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors cursor-pointer"
                   >
                     {copiedCode === 'source' ? (
@@ -1659,7 +1652,7 @@ const completion = await client.completions.create({
                   </button>
                 </div>
                 <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-zinc-300 overflow-x-auto max-h-[520px] leading-relaxed scrollbar-thin">
-                  <code>{component.sourceCode}</code>
+                  <code>{effectiveSourceCode}</code>
                 </pre>
               </div>
             )}
@@ -1922,3 +1915,5 @@ const completion = await client.completions.create({
     </div>
   );
 };
+
+export default ComponentDetailPage;

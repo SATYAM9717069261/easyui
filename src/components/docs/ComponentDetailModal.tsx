@@ -13,6 +13,8 @@ import {
 import type { EasyComponentMeta } from '../../types/component';
 import { motionTransitions } from '../../lib/motion-tokens';
 import { cn, copyToClipboard } from '../../lib/utils';
+import { useComponentSource } from '../../lib/source-loader';
+import { useFocusTrap } from '../../lib/hooks/useFocusTrap';
 import { MagneticButton } from '../ui/MagneticButton';
 import { SpotlightCard } from '../ui/SpotlightCard';
 import { ExpandableSearch } from '../ui/ExpandableSearch';
@@ -347,6 +349,12 @@ export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
   onClose,
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('preview');
+  const { sourceCode: loadedSourceCode } = useComponentSource(
+    component?.id || '',
+    activeTab === 'source' || activeTab === 'install'
+  );
+  const effectiveSourceCode = loadedSourceCode || component?.sourceCode || '';
+  const modalRef = useFocusTrap<HTMLDivElement>({ isOpen: Boolean(component), onClose });
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [isFullscreenPreview, setIsFullscreenPreview] = useState(false);
   const [installMode, setInstallMode] = useState<'cli' | 'manual'>('cli');
@@ -1095,16 +1103,7 @@ func main() {
       case 'dot-field':
         return (
           <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#222222] bg-[#0A0A0A]">
-            <DotField
-              dotRadius={1.5}
-              dotSpacing={14}
-              bulgeStrength={67}
-              glowRadius={160}
-              sparkle={true}
-              gradientFrom="rgba(255, 255, 255, 0.25)"
-              gradientTo="rgba(255, 255, 255, 0.08)"
-              glowColor="rgba(255, 255, 255, 0.05)"
-            />
+            <DotField dotRadius={1.2} dotSpacing={20} gradientFrom="#818cf8" gradientTo="#c084fc" className="w-full h-80 rounded-2xl" />
             <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-[#050505]/70 border border-[#222222] text-[11px] font-mono text-[#A1A1A1] backdrop-blur-sm pointer-events-none">
               Move cursor across canvas to test repulsion & glow
             </div>
@@ -1236,6 +1235,7 @@ func main() {
 
   return (
     <div
+      ref={modalRef}
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto"
       role="dialog"
       aria-modal="true"
@@ -1563,7 +1563,7 @@ func main() {
                       </span>
                       <button
                         type="button"
-                        onClick={() => handleCopy(component.sourceCode, 'source-manual')}
+                        onClick={() => handleCopy(effectiveSourceCode, 'source-manual')}
                         className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                       >
                         {copiedCode === 'source-manual' ? (
@@ -1575,7 +1575,7 @@ func main() {
                       </button>
                     </div>
                     <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[260px] leading-relaxed scrollbar-thin">
-                      <code>{component.sourceCode}</code>
+                      <code>{effectiveSourceCode}</code>
                     </pre>
                   </div>
                 </div>
@@ -1592,7 +1592,7 @@ func main() {
                 </span>
                 <button
                   type="button"
-                  onClick={() => handleCopy(component.sourceCode, 'source')}
+                  onClick={() => handleCopy(effectiveSourceCode, 'source')}
                   className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                 >
                   {copiedCode === 'source' ? (
@@ -1604,7 +1604,7 @@ func main() {
                 </button>
               </div>
               <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[420px] leading-relaxed scrollbar-thin">
-                <code>{component.sourceCode}</code>
+                <code>{effectiveSourceCode}</code>
               </pre>
             </div>
           )}
@@ -1710,3 +1710,5 @@ func main() {
     </div>
   );
 };
+
+export default ComponentDetailModal;

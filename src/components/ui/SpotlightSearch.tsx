@@ -250,6 +250,9 @@ export const SpotlightSearch: React.FC<SpotlightSearchProps> = ({
 
           {/* Ultra-minimal Spotlight Container */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Spotlight Search"
             initial={{ opacity: 0, scale: 0.98, y: -6 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: -6 }}

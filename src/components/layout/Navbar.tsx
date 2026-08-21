@@ -31,6 +31,14 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   });
 
+  const handleLinkClick = (e: React.MouseEvent, action?: () => void) => {
+    if (!e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
+      e.preventDefault();
+      action?.();
+      setMobileOpen(false);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 w-full flex flex-col items-center pointer-events-none">
       {/* Full-width docked background header (fades smoothly when scrolled) */}
@@ -69,24 +77,29 @@ export const Navbar: React.FC<NavbarProps> = ({
         className="relative flex items-center justify-between border backdrop-blur-xl pointer-events-auto"
       >
         {/* Logo */}
-        <button
-          onClick={onNavigateHome || onNavigateComponents}
+        <a
+          href="/"
+          onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
           className="flex items-center gap-2 group cursor-pointer focus-ring rounded-md py-1 shrink-0"
+          aria-label="EasyUI Home"
         >
           <img
             src="/logo.png"
             alt="EasyUI Logo"
+            width="20"
+            height="20"
             className="w-5 h-5 object-contain group-hover:scale-105 transition-transform duration-200"
           />
           <span className="text-sm font-medium text-[#F5F5F5] font-mono group-hover:text-white transition-colors">
             easyui
           </span>
-        </button>
+        </a>
 
         {/* Desktop Center Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          <button
-            onClick={onNavigateComponents}
+        <nav className="hidden md:flex items-center gap-6" aria-label="Main Navigation">
+          <a
+            href="/components"
+            onClick={(e) => handleLinkClick(e, onNavigateComponents)}
             className={`text-xs font-medium transition-colors cursor-pointer ${
               activeView === 'components' || activeView === 'component-detail'
                 ? 'text-white'
@@ -94,9 +107,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             Components
-          </button>
-          <button
-            onClick={onNavigateDocs}
+          </a>
+          <a
+            href="/docs/introduction"
+            onClick={(e) => handleLinkClick(e, onNavigateDocs)}
             className={`text-xs font-medium transition-colors cursor-pointer ${
               activeView === 'docs'
                 ? 'text-white'
@@ -104,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             Docs
-          </button>
+          </a>
           <a
             href={GITHUB_URL}
             target="_blank"
@@ -119,8 +133,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-2 shrink-0">
           {/* Search Trigger Button */}
           <button
+            type="button"
             onClick={onOpenSearch}
             className="flex items-center gap-2 h-7 px-2.5 rounded-lg border border-[#1C1C1C] bg-[#0A0A0A] hover:border-[#282828] hover:bg-[#101010] text-xs text-[#737373] hover:text-[#A1A1A1] transition-colors focus-ring cursor-pointer"
+            aria-label="Search components (Cmd+K)"
           >
             <Search className="w-3 h-3" />
             <span className="hidden sm:inline text-[11px]">Search...</span>
@@ -142,9 +158,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile Menu Trigger */}
           <button
+            type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
+            aria-label="Toggle navigation menu"
             className="md:hidden p-1.5 rounded-lg text-[#808080] hover:text-[#F5F5F5] hover:bg-[#101010] focus-ring transition-colors cursor-pointer"
-            aria-label="Toggle menu"
           >
             <motion.div
               initial={false}
@@ -161,18 +180,17 @@ export const Navbar: React.FC<NavbarProps> = ({
       <AnimatePresence>
         {mobileOpen && isScrolled && (
           <motion.div
+            id="mobile-nav"
             initial={{ opacity: 0, y: 0, scale: 0.96 }}
             animate={{ opacity: 1, y: 16, scale: 1 }}
             exit={{ opacity: 0, y: 0, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 350, damping: 28 }}
             className="md:hidden w-[calc(100%-24px)] max-w-[860px] rounded-2xl border border-[#242424] bg-[#0A0A0A]/95 backdrop-blur-2xl shadow-[0_20px_40px_rgba(0,0,0,0.9)] overflow-hidden pointer-events-auto p-2"
           >
-            <div className="space-y-1">
-              <button
-                onClick={() => {
-                  onNavigateComponents();
-                  setMobileOpen(false);
-                }}
+            <nav className="space-y-1" aria-label="Mobile Navigation">
+              <a
+                href="/components"
+                onClick={(e) => handleLinkClick(e, onNavigateComponents)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'components'
                     ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
@@ -180,12 +198,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 Components
-              </button>
-              <button
-                onClick={() => {
-                  onNavigateDocs();
-                  setMobileOpen(false);
-                }}
+              </a>
+              <a
+                href="/docs/introduction"
+                onClick={(e) => handleLinkClick(e, onNavigateDocs)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'docs'
                     ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
@@ -193,7 +209,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 Docs & Installation
-              </button>
+              </a>
               <a
                 href={GITHUB_URL}
                 target="_blank"
@@ -202,7 +218,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 GitHub Repository
               </a>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
@@ -211,6 +227,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <AnimatePresence>
         {mobileOpen && !isScrolled && (
           <motion.div
+            id="mobile-nav"
             initial={{ opacity: 0, y: -8, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -8, height: 0 }}
@@ -218,12 +235,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="md:hidden absolute top-full left-0 right-0 border-b border-[#1A1A1A] bg-[#070707]/95 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.85)] overflow-hidden pointer-events-auto"
           >
             <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="py-3 space-y-1">
-                <button
-                  onClick={() => {
-                    onNavigateComponents();
-                    setMobileOpen(false);
-                  }}
+              <nav className="py-3 space-y-1" aria-label="Mobile Navigation">
+                <a
+                  href="/components"
+                  onClick={(e) => handleLinkClick(e, onNavigateComponents)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'components'
                       ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
@@ -231,12 +246,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }`}
                 >
                   Components
-                </button>
-                <button
-                  onClick={() => {
-                    onNavigateDocs();
-                    setMobileOpen(false);
-                  }}
+                </a>
+                <a
+                  href="/docs/introduction"
+                  onClick={(e) => handleLinkClick(e, onNavigateDocs)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'docs'
                       ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
@@ -244,7 +257,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }`}
                 >
                   Docs & Installation
-                </button>
+                </a>
                 <a
                   href={GITHUB_URL}
                   target="_blank"
@@ -253,7 +266,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   GitHub Repository
                 </a>
-              </div>
+              </nav>
             </div>
           </motion.div>
         )}
@@ -262,3 +275,4 @@ export const Navbar: React.FC<NavbarProps> = ({
   );
 };
 
+export default Navbar;

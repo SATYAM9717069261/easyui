@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 // Declaration for gtag on window object
 declare global {
@@ -136,8 +136,6 @@ export function useAnalyticsTracker(state?: {
   componentPage?: number;
   activeDocTopic?: string;
 }): void {
-  const isFirstRender = useRef(true);
-
   // Initialize GA once on mount
   useEffect(() => {
     initGA();
@@ -161,22 +159,4 @@ export function useAnalyticsTracker(state?: {
 
     trackPageView(computedPath, pageTitle);
   }, [state?.activeView, state?.componentPage, state?.activeDocTopic]);
-
-  // Also listen for native popstate / hashchange events
-  useEffect(() => {
-    const handleNavigation = () => {
-      trackPageView();
-    };
-
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-    }
-
-    window.addEventListener('hashchange', handleNavigation);
-    window.addEventListener('popstate', handleNavigation);
-    return () => {
-      window.removeEventListener('hashchange', handleNavigation);
-      window.removeEventListener('popstate', handleNavigation);
-    };
-  }, []);
 }

@@ -199,7 +199,7 @@
       "name": "dot-field",
       "type": "registry:ui",
       "title": "Dot Field",
-      "description": "High-performance interactive Canvas dot matrix from React Bits with cursor proximity physics, radial glow aura, and customizable dispersion.",
+      "description": "High-performance lightweight static Canvas dot matrix background with dynamic gradient coloring and responsive density scaling.",
       "files": [
         {
           "path": "src/components/ui/DotField.tsx",

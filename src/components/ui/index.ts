@@ -100,7 +100,7 @@ export type { ParticleDeleteProps, ParticleDeleteContainerProps, ParticleDeleteI
 export { useParticleDelete, particleDelete } from '../../lib/particle-delete';
 export type { ParticleDeleteOptions } from '../../lib/particle-delete';
 
-export { AnimatedFileUpload, formatFileSize, getFileIcon } from './AnimatedFileUpload';
+export { AnimatedFileUpload } from './AnimatedFileUpload';
 export type { AnimatedFileUploadProps, UploadFileItem, FileUploadStatus } from './AnimatedFileUpload';
 
 export { PaymentStatus } from './PaymentStatus';

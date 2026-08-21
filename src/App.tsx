@@ -1,25 +1,53 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { HeroSection } from './components/sections/HeroSection';
 import { ComponentDirectory } from './components/sections/ComponentDirectory';
-import { AllComponentsPage } from './components/sections/AllComponentsPage';
 import { DevExperience } from './components/sections/DevExperience';
 import { FinalCta } from './components/sections/FinalCta';
 import { SpotlightSearch } from './components/ui/SpotlightSearch';
-import { ComponentDetailPage } from './components/docs/ComponentDetailPage';
-import { DocsPage } from './components/docs/DocsPage';
 import { EASY_COMPONENTS } from './components/registry/components-data';
 import type { EasyComponentMeta } from './types/component';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useAnalyticsTracker } from './lib/analytics';
 import { useSEO } from './lib/seo';
+import { scrollToTop } from './lib/utils';
+import { AlertCircle, ArrowLeft, Grid } from 'lucide-react';
+
+// Route-level lazy loading for bundle optimization
+const ComponentDetailPage = lazy(() =>
+  import('./components/docs/ComponentDetailPage').then((m) => ({ default: m.ComponentDetailPage }))
+);
+const DocsPage = lazy(() =>
+  import('./components/docs/DocsPage').then((m) => ({ default: m.DocsPage }))
+);
+const AllComponentsPage = lazy(() =>
+  import('./components/sections/AllComponentsPage').then((m) => ({ default: m.AllComponentsPage }))
+);
+
+// Fast Map lookup for components
+const COMPONENT_MAP = new Map<string, EasyComponentMeta>(
+  EASY_COMPONENTS.map((c) => [c.id, c])
+);
+
+// Consistent EasyUI dark page loading indicator
+function PageLoader() {
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-xs text-zinc-500 font-mono">
+      <div className="w-6 h-6 border-2 border-zinc-700 border-t-white rounded-full animate-spin" />
+      <span>Loading...</span>
+    </div>
+  );
+}
 
 export function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState<EasyComponentMeta | null>(null);
-  const [activeView, setActiveView] = useState<'showcase' | 'components' | 'docs' | 'component-detail'>('showcase');
+  const [invalidComponentSlug, setInvalidComponentSlug] = useState<string | null>(null);
+  const [activeView, setActiveView] = useState<
+    'showcase' | 'components' | 'docs' | 'component-detail' | 'component-not-found'
+  >('showcase');
   const [activeDocTopic, setActiveDocTopic] = useState<string>('introduction');
   const [componentPage, setComponentPage] = useState<number>(1);
 
@@ -28,7 +56,7 @@ export function App() {
 
   // Dynamic SEO metadata & JSON-LD management
   useSEO({
-    activeView,
+    activeView: activeView === 'component-not-found' ? 'showcase' : activeView,
     componentPage,
     activeDocTopic,
     selectedComponent,
@@ -65,10 +93,17 @@ export function App() {
     // 1. Dedicated component page route: /components/:slug
     if (cleanPath.startsWith('components/')) {
       const compSlug = cleanPath.replace(/^components\//, '').split('/')[0];
-      const found = EASY_COMPONENTS.find((c) => c.id === compSlug);
+      const found = COMPONENT_MAP.get(compSlug);
       if (found) {
         setSelectedComponent(found);
+        setInvalidComponentSlug(null);
         setActiveView('component-detail');
+        return;
+      } else {
+        // Invalid component slug: render explicit 404 state instead of silent redirect
+        setSelectedComponent(null);
+        setInvalidComponentSlug(compSlug);
+        setActiveView('component-not-found');
         return;
       }
     }
@@ -76,26 +111,41 @@ export function App() {
     // 2. All components catalog view: /components or /all-components
     if (cleanPath === 'components' || cleanPath === 'all-components') {
       setSelectedComponent(null);
+      setInvalidComponentSlug(null);
       setActiveView('components');
       setComponentPage(pageFromUrl);
       return;
     }
 
-    // 3. Documentation topics: /docs or /docs/:topic
-    if (cleanPath === 'docs' || cleanPath.startsWith('docs/')) {
+    // 3. Documentation topics: /docs, /doc, /docs/:topic, /doc/:topic
+    if (
+      cleanPath === 'docs' ||
+      cleanPath === 'doc' ||
+      cleanPath.startsWith('docs/') ||
+      cleanPath.startsWith('doc/')
+    ) {
       setSelectedComponent(null);
+      setInvalidComponentSlug(null);
       setActiveView('docs');
       const parts = cleanPath.split('/');
       if (parts.length === 1 || !parts[1]) {
         setActiveDocTopic('introduction');
       } else {
-        setActiveDocTopic(parts[1]);
+        const rawTopic = parts[1].toLowerCase();
+        if (rawTopic === 'motion-tokens') {
+          setActiveDocTopic('motion');
+        } else if (rawTopic === 'contributing') {
+          setActiveDocTopic('collaboration');
+        } else {
+          setActiveDocTopic(rawTopic);
+        }
       }
       return;
     }
 
     // 4. Default: showcase / homepage (/)
     setSelectedComponent(null);
+    setInvalidComponentSlug(null);
     setActiveView('showcase');
   }, []);
 
@@ -133,78 +183,95 @@ export function App() {
 
   // Scroll to top instantly whenever the active view changes
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+    scrollToTop();
   }, [activeView]);
 
-  const handleSelectComponentById = (id: string) => {
-    const found = EASY_COMPONENTS.find((c) => c.id === id);
-    if (found) {
-      setSelectedComponent(found);
-      setActiveView('component-detail');
-      navigate(`/components/${found.id}`);
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    }
-  };
+  const handleSelectComponentById = useCallback(
+    (id: string) => {
+      const found = COMPONENT_MAP.get(id);
+      if (found) {
+        setSelectedComponent(found);
+        setInvalidComponentSlug(null);
+        setActiveView('component-detail');
+        navigate(`/components/${found.id}`);
+        scrollToTop();
+      } else {
+        setSelectedComponent(null);
+        setInvalidComponentSlug(id);
+        setActiveView('component-not-found');
+        navigate(`/components/${id}`);
+        scrollToTop();
+      }
+    },
+    [navigate]
+  );
 
-  const handleNavigateComponents = () => {
+  const handleNavigateAllComponents = useCallback(
+    (page = 1) => {
+      setSelectedComponent(null);
+      setInvalidComponentSlug(null);
+      navigate(page > 1 ? `/components?page=${page}` : '/components');
+      setActiveView('components');
+      setComponentPage(page);
+      scrollToTop();
+    },
+    [navigate]
+  );
+
+  const handleNavigateComponents = useCallback(() => {
     handleNavigateAllComponents(1);
-  };
+  }, [handleNavigateAllComponents]);
 
-  const handleNavigateAllComponents = (page = 1) => {
+  const handlePageChange = useCallback(
+    (page: number) => {
+      navigate(page > 1 ? `/components?page=${page}` : '/components');
+      setComponentPage(page);
+      scrollToTop();
+    },
+    [navigate]
+  );
+
+  const handleNavigateHome = useCallback(() => {
     setSelectedComponent(null);
-    navigate(page > 1 ? `/components?page=${page}` : '/components');
-    setActiveView('components');
-    setComponentPage(page);
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  };
-
-  const handlePageChange = (page: number) => {
-    navigate(page > 1 ? `/components?page=${page}` : '/components');
-    setComponentPage(page);
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  };
-
-  const handleNavigateHome = () => {
-    setSelectedComponent(null);
+    setInvalidComponentSlug(null);
     navigate('/');
     setActiveView('showcase');
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  };
+    scrollToTop();
+  }, [navigate]);
 
-  const handleNavigateDocs = (topicId?: string) => {
-    setSelectedComponent(null);
-    const topic = topicId || 'introduction';
-    navigate(`/docs/${topic}`);
-    setActiveView('docs');
-    setActiveDocTopic(topic);
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  };
+  const handleNavigateDocs = useCallback(
+    (topicId?: string) => {
+      setSelectedComponent(null);
+      setInvalidComponentSlug(null);
+      const topic = topicId || 'introduction';
+      navigate(`/docs/${topic}`);
+      setActiveView('docs');
+      setActiveDocTopic(topic);
+      scrollToTop();
+    },
+    [navigate]
+  );
 
-  const handleSelectDocTopic = (topicId: string) => {
-    navigate(`/docs/${topicId}`);
-    setActiveDocTopic(topicId);
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  };
+  const handleSelectDocTopic = useCallback(
+    (topicId: string) => {
+      navigate(`/docs/${topicId}`);
+      setActiveDocTopic(topicId);
+      scrollToTop();
+    },
+    [navigate]
+  );
 
   return (
     <div className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-white/20 selection:text-white">
-      {/* Vercel Analytics & Speed Insights */}
-      <Analytics />
-      <SpeedInsights />
+      {/* Vercel Analytics & Speed Insights (active on production deployment) */}
+      {typeof window !== 'undefined' &&
+        !window.location.hostname.includes('localhost') &&
+        !window.location.hostname.includes('127.0.0.1') && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
 
       {/* Navigation */}
       <Navbar
@@ -212,54 +279,92 @@ export function App() {
         onNavigateComponents={handleNavigateComponents}
         onNavigateDocs={() => handleNavigateDocs('introduction')}
         onNavigateHome={handleNavigateHome}
-        activeView={activeView}
+        activeView={activeView === 'component-not-found' ? 'components' : activeView}
       />
 
-      {/* Main View Router */}
-      {activeView === 'component-detail' && selectedComponent ? (
-        <ComponentDetailPage
-          component={selectedComponent}
-          onSelectComponent={handleSelectComponentById}
-          onNavigateHome={handleNavigateHome}
-          onNavigateComponents={handleNavigateComponents}
-          onNavigateDocs={handleNavigateDocs}
-        />
-      ) : activeView === 'docs' ? (
-        <DocsPage
-          activeTopic={activeDocTopic}
-          onSelectTopic={handleSelectDocTopic}
-          onNavigateHome={handleNavigateHome}
-          onNavigateComponents={handleNavigateComponents}
-        />
-      ) : activeView === 'components' ? (
-        <AllComponentsPage
-          currentPage={componentPage}
-          onPageChange={handlePageChange}
-          onSelectComponent={handleSelectComponentById}
-          onNavigateHome={handleNavigateHome}
-          onNavigateDocs={() => handleNavigateDocs('introduction')}
-        />
-      ) : (
-        <main>
-          {/* Hero */}
-          <HeroSection
-            onExplore={handleNavigateComponents}
+      {/* Main View Router with Suspense */}
+      <Suspense fallback={<PageLoader />}>
+        {activeView === 'component-detail' && selectedComponent ? (
+          <ComponentDetailPage
+            component={selectedComponent}
             onSelectComponent={handleSelectComponentById}
+            onNavigateHome={handleNavigateHome}
+            onNavigateComponents={handleNavigateComponents}
+            onNavigateDocs={handleNavigateDocs}
           />
-
-          {/* How It Works (Dev Experience) */}
-          <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
-
-          {/* Component Directory (Homepage limited 6 items) */}
-          <ComponentDirectory
+        ) : activeView === 'component-not-found' ? (
+          <main className="min-h-[70vh] flex items-center justify-center p-6 text-center">
+            <div className="max-w-md w-full p-8 rounded-2xl bg-[#090909] border border-[#1E1E1E] space-y-5">
+              <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
+                <AlertCircle className="w-6 h-6" />
+              </div>
+              <div className="space-y-2">
+                <h1 className="text-xl font-bold text-white tracking-tight">Component Not Found</h1>
+                <p className="text-xs text-[#888888] leading-relaxed">
+                  No component exists matching{' '}
+                  <code className="px-1.5 py-0.5 rounded bg-[#141414] text-rose-400 font-mono">
+                    /components/{invalidComponentSlug || 'unknown'}
+                  </code>
+                  . It may have been moved or renamed.
+                </p>
+              </div>
+              <div className="flex items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={handleNavigateComponents}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-black text-xs font-medium hover:bg-zinc-200 transition-colors cursor-pointer"
+                >
+                  <Grid className="w-3.5 h-3.5" />
+                  <span>Browse Components</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNavigateHome}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#141414] hover:bg-[#1C1C1C] border border-[#222222] text-xs text-white transition-colors cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Go Home</span>
+                </button>
+              </div>
+            </div>
+          </main>
+        ) : activeView === 'docs' ? (
+          <DocsPage
+            activeTopic={activeDocTopic}
+            onSelectTopic={handleSelectDocTopic}
+            onNavigateHome={handleNavigateHome}
+            onNavigateComponents={handleNavigateComponents}
+          />
+        ) : activeView === 'components' ? (
+          <AllComponentsPage
+            currentPage={componentPage}
+            onPageChange={handlePageChange}
             onSelectComponent={handleSelectComponentById}
-            onNavigateAllComponents={() => handleNavigateAllComponents(1)}
+            onNavigateHome={handleNavigateHome}
+            onNavigateDocs={() => handleNavigateDocs('introduction')}
           />
+        ) : (
+          <main>
+            {/* Hero */}
+            <HeroSection
+              onExplore={handleNavigateComponents}
+              onSelectComponent={handleSelectComponentById}
+            />
 
-          {/* Final CTA */}
-          <FinalCta onBrowse={() => handleNavigateAllComponents(1)} />
-        </main>
-      )}
+            {/* How It Works (Dev Experience) */}
+            <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
+
+            {/* Component Directory (Homepage limited 6 items) */}
+            <ComponentDirectory
+              onSelectComponent={handleSelectComponentById}
+              onNavigateAllComponents={() => handleNavigateAllComponents(1)}
+            />
+
+            {/* Final CTA */}
+            <FinalCta onBrowse={() => handleNavigateAllComponents(1)} />
+          </main>
+        )}
+      </Suspense>
 
       {/* Footer */}
       <Footer

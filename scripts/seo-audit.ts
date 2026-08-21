@@ -13,7 +13,7 @@ const ROBOTS_PATH = path.join(ROOT_DIR, 'public', 'robots.txt');
 const MANIFEST_PATH = path.join(ROOT_DIR, 'public', 'site.webmanifest');
 const INDEX_HTML_PATH = path.join(ROOT_DIR, 'index.html');
 const LOGO_PATH = path.join(ROOT_DIR, 'public', 'logo.png');
-const OG_IMAGE_PATH = path.join(ROOT_DIR, 'public', 'og-image.png');
+const OG_IMAGE_PATH = path.join(ROOT_DIR, 'public', 'og-image.webp');
 const UI_DIR = path.join(ROOT_DIR, 'src', 'components', 'ui');
 
 export type IssueSeverity = 'CRITICAL' | 'WARNING' | 'INFO' | 'PASS';
@@ -214,14 +214,14 @@ export function runSEOAudit(): AuditReport {
   check('Images', logoExists, 'WARNING', 'Brand logo asset exists in public/logo.png', 'public/logo.png is missing', 'public/logo.png');
 
   const ogImgExists = fs.existsSync(OG_IMAGE_PATH);
-  check('Images', ogImgExists, 'WARNING', 'Open Graph social card image exists in public/og-image.png', 'public/og-image.png is missing', 'public/og-image.png');
+  check('Images', ogImgExists, 'WARNING', 'Open Graph social card image exists in public/og-image.webp', 'public/og-image.webp is missing', 'public/og-image.webp');
 
   const faviconIcoExists = fs.existsSync(path.join(ROOT_DIR, 'public', 'favicon.ico'));
   check('Images', faviconIcoExists || logoExists, 'INFO', 'Favicon brand asset exists (public/logo.png & public/favicon.ico)', 'Favicon asset is missing', 'public/logo.png');
 
   if (ogImgExists) {
     const stat = fs.statSync(OG_IMAGE_PATH);
-    check('Images', stat.size > 1000, 'INFO', `OG image is non-empty (${(stat.size / 1024).toFixed(1)} KB)`, 'public/og-image.png is empty or corrupt', 'public/og-image.png');
+    check('Images', stat.size > 1000, 'INFO', `OG image is non-empty (${(stat.size / 1024).toFixed(1)} KB)`, 'public/og-image.webp is empty or corrupt', 'public/og-image.webp');
   }
 
   // ==========================================
@@ -254,8 +254,20 @@ export function runSEOAudit(): AuditReport {
   // 7. Performance & Accessibility Checks
   // ==========================================
   if (indexExists) {
+    const fontsDir = path.join(ROOT_DIR, 'public', 'fonts');
+    const hasSelfHostedFonts = fs.existsSync(fontsDir) && fs.readdirSync(fontsDir).length > 0;
     const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf-8');
-    check('Performance & A11y', indexHtml.includes('rel="preconnect"'), 'INFO', 'Font origins preconnected for swift typography rendering', 'index.html missing font preconnect links', 'index.html');
+    const hasPreconnect = indexHtml.includes('rel="preconnect"');
+    check(
+      'Performance & A11y',
+      hasSelfHostedFonts || hasPreconnect,
+      'INFO',
+      hasSelfHostedFonts
+        ? 'High-performance self-hosted fonts deployed in public/fonts/'
+        : 'Font origins preconnected for swift typography rendering',
+      'Fonts are neither self-hosted nor preconnected',
+      'public/fonts'
+    );
   }
 
   const motionTokensPath = path.join(ROOT_DIR, 'src', 'lib', 'motion-tokens.ts');
