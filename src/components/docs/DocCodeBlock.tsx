@@ -26,37 +26,37 @@ export const DocCodeBlock: React.FC<DocCodeBlockProps> = ({
   };
 
   return (
-    <div className={`rounded-xl border border-[#1E1E1E] bg-[#0A0A0A] overflow-hidden my-4 shadow-sm ${className}`}>
+    <div className={`rounded-xl border border-[#1E1E1E] bg-[#090909] overflow-hidden my-4 transition-colors hover:border-[#282828] ${className}`}>
       {/* Header bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#0E0E0E] border-b border-[#181818] text-xs">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#0E0E0E] border-b border-[#1A1A1A] text-xs">
         <div className="flex items-center gap-2">
           {isTerminal ? (
             <>
-              <Terminal className="w-3.5 h-3.5 text-[#A1A1A1]" />
-              <span className="font-mono text-[#8A8A8A]">{title || 'Terminal'}</span>
+              <Terminal className="w-3.5 h-3.5 text-[#888888]" />
+              <span className="font-mono text-[11px] text-[#A1A1A1]">{title || 'Terminal'}</span>
             </>
           ) : (
             <>
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#262626]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#262626]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#262626]" />
+              <div className="flex items-center gap-1.5 opacity-60">
+                <span className="w-2 h-2 rounded-full bg-[#333333]" />
+                <span className="w-2 h-2 rounded-full bg-[#333333]" />
+                <span className="w-2 h-2 rounded-full bg-[#333333]" />
               </div>
-              {title && <span className="font-mono text-[#A1A1A1] ml-2">{title}</span>}
-              {!title && <span className="font-mono text-[#6F6F6F] uppercase text-[10px]">{language}</span>}
+              {title && <span className="font-mono text-[11px] text-[#A1A1A1] ml-1.5">{title}</span>}
+              {!title && <span className="font-mono text-[#707070] uppercase text-[10px] ml-1">{language}</span>}
             </>
           )}
         </div>
 
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 px-2 py-1 rounded bg-[#161616] hover:bg-[#202020] border border-[#242424] text-[#A1A1A1] hover:text-[#F5F5F5] transition-all text-[11px] font-mono"
-          title="Copy code"
+          aria-label={copied ? 'Code copied' : 'Copy code to clipboard'}
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#141414] hover:bg-[#1C1C1C] border border-[#222222] text-[#8E8E8E] hover:text-[#FFFFFF] transition-all text-[11px] font-mono"
         >
           {copied ? (
             <>
-              <Check className="w-3 h-3 text-white" />
-              <span className="text-white">Copied</span>
+              <Check className="w-3 h-3 text-emerald-400" />
+              <span className="text-emerald-400 font-medium">Copied</span>
             </>
           ) : (
             <>
@@ -68,7 +68,7 @@ export const DocCodeBlock: React.FC<DocCodeBlockProps> = ({
       </div>
 
       {/* Code Area */}
-      <pre className="p-4 text-xs font-mono text-[#D4D4D4] overflow-x-auto leading-relaxed scrollbar-thin">
+      <pre className="p-4 text-[13px] font-mono text-[#D8D8D8] overflow-x-auto leading-relaxed scrollbar-thin">
         <code>{code.trim()}</code>
       </pre>
     </div>
