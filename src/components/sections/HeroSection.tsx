@@ -146,7 +146,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-xs sm:text-base text-[#8E8E8E] max-w-2xl mt-4 sm:mt-5 font-normal leading-relaxed px-1 sm:px-0"
             >
-              Integrate EasyUI effortlessly with our developer-friendly library. Carefully crafted with polished interaction, thoughtful motion, and source you fully own—get started in seconds.
+              Integrate EasyUI into your project with simple, ready-to-use components. Clean design, smooth interactions, and full control over the source code. Get started in seconds.
+
             </motion.p>
 
             {/* Call to Actions - Pill Capsule Buttons */}
