@@ -2,11 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { HeroSection } from './components/sections/HeroSection';
-import { PhilosophySection } from './components/sections/PhilosophySection';
-import { FeaturedShowcase } from './components/sections/FeaturedShowcase';
 import { ComponentDirectory } from './components/sections/ComponentDirectory';
 import { AllComponentsPage } from './components/sections/AllComponentsPage';
-import { CodePhilosophy } from './components/sections/CodePhilosophy';
 import { DevExperience } from './components/sections/DevExperience';
 import { FinalCta } from './components/sections/FinalCta';
 import { CommandMenu } from './components/ui/CommandMenu';
@@ -239,34 +236,22 @@ export function App() {
         />
       ) : (
         <main>
-          {/* Section 02: Hero */}
+          {/* Hero */}
           <HeroSection
             onExplore={handleNavigateComponents}
             onSelectComponent={handleSelectComponentById}
           />
 
-          {/* Section 03: Philosophy (The Standard) */}
-          <PhilosophySection />
-
-          {/* Section 04: How It Works (Dev Experience) */}
+          {/* How It Works (Dev Experience) */}
           <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
 
-          {/* Section 05: Featured Components (Showroom) */}
-          <FeaturedShowcase
-            onSelectComponent={handleSelectComponentById}
-            onNavigateAllComponents={() => handleNavigateAllComponents(1)}
-          />
-
-          {/* Section 06: Component Directory (Homepage limited 6 items) */}
+          {/* Component Directory (Homepage limited 6 items) */}
           <ComponentDirectory
             onSelectComponent={handleSelectComponentById}
             onNavigateAllComponents={() => handleNavigateAllComponents(1)}
           />
 
-          {/* Section 07: Code Philosophy */}
-          <CodePhilosophy />
-
-          {/* Section 08: Final CTA */}
+          {/* Final CTA */}
           <FinalCta onBrowse={() => handleNavigateAllComponents(1)} />
         </main>
       )}

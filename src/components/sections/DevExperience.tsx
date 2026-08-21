@@ -63,14 +63,13 @@ export function Hero() {
       <Container size="xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#111111] border border-[#1F1F1F] text-[11px] font-mono text-[#A1A1A1] uppercase tracking-wider mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            <span className="text-[11px] font-mono text-[#737373] uppercase tracking-widest">
               How It Works
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight">
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
               How to use EasyUI in 3 easy steps.
             </h2>
-            <p className="text-sm text-[#808080] mt-2 leading-relaxed">
+            <p className="text-sm text-[#808080] mt-1.5 leading-relaxed">
               No complex setup or heavy npm packages. Drop beautiful, production-ready components straight into your React & Next.js codebase.
             </p>
           </div>
