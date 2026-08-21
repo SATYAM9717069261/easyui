@@ -5,6 +5,7 @@ import type { ComponentCategory } from '../../types/component';
 import { Search, ArrowLeft } from 'lucide-react';
 import { ComponentCard } from '../common/ComponentCard';
 import { ComponentPagination } from '../common/ComponentPagination';
+import { InspirationNote } from '../common/InspirationNote';
 import {
   getSortedComponents,
   getNewestComponent,
@@ -134,16 +135,19 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
             </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 text-[#606060] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder="Search components..."
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-[#0C0C0C] border border-[#1E1E1E] focus:border-[#333333] text-[#F5F5F5] placeholder-[#606060] focus-ring transition-colors"
-            />
+          {/* Search Bar with Inspiration Note above */}
+          <div className="flex flex-col items-start md:items-end gap-1.5 w-full md:w-auto">
+            <InspirationNote />
+            <div className="relative w-full md:w-72">
+              <Search className="w-3.5 h-3.5 text-[#606060] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => handleSearchChange(e.target.value)}
+                placeholder="Search components..."
+                className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-[#0C0C0C] border border-[#1E1E1E] focus:border-[#333333] text-[#F5F5F5] placeholder-[#606060] focus-ring transition-colors"
+              />
+            </div>
           </div>
         </div>
 
