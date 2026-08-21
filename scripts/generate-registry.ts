@@ -10,6 +10,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const UI_DIR = path.join(ROOT_DIR, 'src', 'components', 'ui');
 const REGISTRY_PATH = path.join(ROOT_DIR, 'registry.json');
 const COMPONENTS_DATA_PATH = path.join(ROOT_DIR, 'src', 'components', 'registry', 'components-data.ts');
+const SOURCE_DIR = path.join(ROOT_DIR, 'public', 'source');
 const PACKAGE_JSON_PATH = path.join(ROOT_DIR, 'package.json');
 
 const REPO_SLUG = 'Surajmaurya1/easyui';
@@ -213,7 +214,7 @@ async function discoverComponents(): Promise<DiscoveredComponent[]> {
     }
 
     const slug = toKebabCase(componentName);
-    const primarySource = fs.readFileSync(primaryFilePath, 'utf-8');
+    const primarySource = fs.readFileSync(primaryFilePath, 'utf-8').replace(/\r\n/g, '\n');
 
     // Analyze imports
     const { npmDeps, internalFiles } = analyzeSourceImports(primarySource, primaryFilePath, validPackageDeps);
@@ -221,7 +222,7 @@ async function discoverComponents(): Promise<DiscoveredComponent[]> {
     // Also analyze any additional files
     for (const addFile of additionalFiles) {
       if (fs.existsSync(addFile) && (addFile.endsWith('.ts') || addFile.endsWith('.tsx'))) {
-        const addSource = fs.readFileSync(addFile, 'utf-8');
+        const addSource = fs.readFileSync(addFile, 'utf-8').replace(/\r\n/g, '\n');
         const addAnalysis = analyzeSourceImports(addSource, addFile, validPackageDeps);
         addAnalysis.npmDeps.forEach((d) => npmDeps.add(d));
         addAnalysis.internalFiles.forEach((f) => internalFiles.add(f));
@@ -334,6 +335,23 @@ function generateRegistryJson(components: DiscoveredComponent[]): void {
 }
 
 function generateComponentsData(components: DiscoveredComponent[]): void {
+  // Ensure public/source directory exists
+  if (!fs.existsSync(SOURCE_DIR)) {
+    fs.mkdirSync(SOURCE_DIR, { recursive: true });
+  }
+
+  // Write separate source code JSON files for on-demand lazy loading
+  for (const comp of components) {
+    const sourceFilePath = path.join(SOURCE_DIR, `${comp.slug}.json`);
+    const payload = {
+      id: comp.slug,
+      name: comp.meta.title,
+      sourceCode: comp.sourceCode,
+    };
+    fs.writeFileSync(sourceFilePath, JSON.stringify(payload, null, 2) + '\n', 'utf-8');
+  }
+  console.log(`✓ Generated ${normalizeRelativePath(path.relative(ROOT_DIR, SOURCE_DIR))}/ (${components.length} source files)`);
+
   const componentCatalogEntries = components.map((comp) => {
     const cliCommand = `npx shadcn@latest add ${REPO_SLUG}/${comp.slug}`;
     const category = comp.meta.category || 'Motion';
@@ -358,7 +376,6 @@ function generateComponentsData(components: DiscoveredComponent[]): void {
       accessibility,
       createdAt,
       usageCode,
-      sourceCode: comp.sourceCode,
       dependencies: comp.dependencies,
       files: comp.registryFiles,
     };

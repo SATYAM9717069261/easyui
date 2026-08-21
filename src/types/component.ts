@@ -38,7 +38,7 @@ export interface EasyComponentMeta {
   badges: string[];
   cliCommand: string;
   usageCode: string;
-  sourceCode: string;
+  sourceCode?: string;
   props: ComponentProp[];
   accessibility: string[];
   features: string[];

@@ -18,10 +18,11 @@ import type { EasyComponentMeta } from '../../types/component';
 import { EASY_COMPONENTS } from '../../components/registry/components-data';
 
 interface UseSEOProps {
-  activeView: 'showcase' | 'components' | 'docs';
+  activeView: 'showcase' | 'components' | 'docs' | 'component-detail';
   componentPage?: number;
   activeDocTopic?: string;
   selectedModalComponent?: EasyComponentMeta | null;
+  selectedComponent?: EasyComponentMeta | null;
 }
 
 /**
@@ -33,12 +34,14 @@ export function useSEO({
   componentPage = 1,
   activeDocTopic = 'introduction',
   selectedModalComponent,
+  selectedComponent,
 }: UseSEOProps): void {
   useEffect(() => {
-    // 1. If a component modal is opened, apply component-specific SEO
-    if (selectedModalComponent) {
-      const compSEO = getComponentSEO(selectedModalComponent);
-      const structuredData = generateComponentSchema(selectedModalComponent);
+    const activeComponent = selectedComponent || selectedModalComponent;
+    // 1. If viewing dedicated component page or component detail, apply component-specific SEO
+    if (activeComponent) {
+      const compSEO = getComponentSEO(activeComponent);
+      const structuredData = generateComponentSchema(activeComponent);
 
       updatePageMetadata({
         ...compSEO,
@@ -121,5 +124,5 @@ export function useSEO({
     };
 
     updatePageMetadata(homeMeta);
-  }, [activeView, componentPage, activeDocTopic, selectedModalComponent]);
+  }, [activeView, componentPage, activeDocTopic, selectedModalComponent, selectedComponent]);
 }

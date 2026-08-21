@@ -9,11 +9,12 @@ import {
   Sparkles,
   ShieldCheck,
   Maximize2,
-  ArrowLeft,
 } from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
 import { motionTransitions } from '../../lib/motion-tokens';
 import { cn, copyToClipboard } from '../../lib/utils';
+import { useComponentSource } from '../../lib/source-loader';
+import { useFocusTrap } from '../../lib/hooks/useFocusTrap';
 import { MagneticButton } from '../ui/MagneticButton';
 import { SpotlightCard } from '../ui/SpotlightCard';
 import { ExpandableSearch } from '../ui/ExpandableSearch';
@@ -47,6 +48,18 @@ import { SignUp } from '../ui/SignUp';
 import { FAQ } from '../ui/FAQ';
 import { PaymentReceiptPrinter } from '../ui/PaymentReceiptPrinter';
 import { ParticleDelete } from '../ui/ParticleDelete';
+import { AnimatedFileUpload } from '../ui/AnimatedFileUpload';
+import { PaymentStatus } from '../ui/PaymentStatus';
+import { UndoToast } from '../ui/UndoToast';
+import { ExpandableDataRow } from '../ui/ExpandableDataRow';
+import { ScrollProgressNav } from '../ui/ScrollProgressNav';
+import { AnimatedNumber } from '../ui/AnimatedNumber';
+import { SpotlightSearch } from '../ui/SpotlightSearch';
+import { MorphingButton } from '../ui/MorphingButton';
+import { DragToConfirm } from '../ui/DragToConfirm';
+import { PeekCard } from '../ui/PeekCard';
+import { SelectionBasket } from '../ui/SelectionBasket';
+import { FocusMode } from '../ui/FocusMode';
 
 export interface ComponentDetailModalProps {
   component: EasyComponentMeta | null;
@@ -57,11 +70,291 @@ export interface ComponentDetailModalProps {
 type TabType = 'preview' | 'usage' | 'install' | 'source' | 'api' | 'a11y';
 type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 
+const AnimatedNumberShowcase: React.FC = () => {
+  const [revenue, setRevenue] = useState(12450);
+  const [growth, setGrowth] = useState(24.5);
+  const [isLiveTicker, setIsLiveTicker] = useState(false);
+
+  useEffect(() => {
+    if (!isLiveTicker) return;
+    const interval = setInterval(() => {
+      setRevenue((prev) => prev + Math.floor(Math.random() * 350) + 50);
+      setGrowth((prev) => parseFloat((prev + (Math.random() * 0.4 - 0.15)).toFixed(1)));
+    }, 1800);
+    return () => clearInterval(interval);
+  }, [isLiveTicker]);
+
+  return (
+    <div className="py-6 w-full max-w-lg mx-auto space-y-4 select-none px-2">
+      {/* Top Main Hero Metric */}
+      <div className="p-6 sm:p-8 rounded-2xl bg-[#0A0A0A] border border-[#1E1E1E] text-center space-y-3 shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-[#666666]">Live Production ARR</span>
+        <div className="text-4xl sm:text-5xl font-bold font-mono tracking-tight text-white flex items-center justify-center">
+          <AnimatedNumber value={revenue} prefix="$" useGrouping />
+        </div>
+        <div className="flex items-center justify-center gap-2 text-xs font-mono text-emerald-400">
+          <span>+</span>
+          <AnimatedNumber value={growth} suffix="%" decimals={1} />
+          <span className="text-[#666666]">annualized expansion</span>
+        </div>
+      </div>
+
+      {/* Interactive Controls Bar */}
+      <div className="p-3.5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-3">
+        <div className="text-xs font-medium text-[#D4D4D4] flex items-center justify-between">
+          <span className="text-[11px] font-mono text-[#737373]">Live Playground</span>
+          <button
+            type="button"
+            onClick={() => setIsLiveTicker(!isLiveTicker)}
+            className={cn(
+              'px-2.5 py-1 rounded-md text-[10px] font-mono border transition-colors flex items-center gap-1.5 cursor-pointer',
+              isLiveTicker
+                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                : 'bg-[#141414] border-[#222222] text-[#808080] hover:text-white'
+            )}
+          >
+            <span className={cn('w-1.5 h-1.5 rounded-full', isLiveTicker ? 'bg-emerald-400 animate-pulse' : 'bg-[#666666]')} />
+            {isLiveTicker ? 'Ticker Active' : 'Simulate Ticker'}
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setRevenue((prev) => prev + 1000)}
+            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+          >
+            +$1,000
+          </button>
+          <button
+            type="button"
+            onClick={() => setRevenue((prev) => Math.max(100, prev - 500))}
+            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+          >
+            -$500
+          </button>
+          <button
+            type="button"
+            onClick={() => setRevenue(Math.floor(Math.random() * 88000) + 12000)}
+            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+          >
+            Randomize
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setRevenue(12450);
+              setGrowth(24.5);
+            }}
+            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#737373] hover:text-white transition-colors text-center cursor-pointer"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ScrollProgressNavShowcase: React.FC = () => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const sections = [
+    { id: 'sec-overview-modal', index: '01', label: 'Overview' },
+    { id: 'sec-architecture-modal', index: '02', label: 'Architecture' },
+    { id: 'sec-components-modal', index: '03', label: 'Components' },
+    { id: 'sec-telemetry-modal', index: '04', label: 'Telemetry' },
+    { id: 'sec-pricing-modal', index: '05', label: 'Pricing' },
+  ];
+
+  return (
+    <div className="w-full max-w-xl mx-auto space-y-4">
+      <div className="flex items-center justify-between px-1 text-xs text-[#737373] font-mono">
+        <span>Simulated Scroll Viewport</span>
+        <span>Scroll or click pills to test navigation</span>
+      </div>
+
+      {/* Simulated Scrollable Container */}
+      <div className="relative rounded-2xl border border-[#202020] bg-[#070707] overflow-hidden shadow-2xl">
+        {/* Floating / Sticky Nav inside container */}
+        <div className="p-3 sticky top-0 z-30 bg-[#070707]/90 backdrop-blur-md border-b border-[#141414] flex justify-center">
+          <ScrollProgressNav
+            mode="inline"
+            sections={sections}
+            containerRef={containerRef}
+          />
+        </div>
+
+        {/* Scrollable Content Body */}
+        <div
+          ref={containerRef}
+          className="h-[300px] overflow-y-auto p-5 space-y-6 scroll-smooth"
+        >
+          <div id="sec-overview-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+            <span className="text-[10px] font-mono text-white/50 uppercase">01 Overview</span>
+            <h4 className="text-sm font-semibold text-white">Edge First Motion Architecture</h4>
+            <p className="text-xs text-[#808080] leading-relaxed">
+              EasyUI is engineered from the ground up for minimal latency, zero-jank spring physics, and Apple-grade micro interactions.
+            </p>
+          </div>
+
+          <div id="sec-architecture-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+            <span className="text-[10px] font-mono text-white/50 uppercase">02 Architecture</span>
+            <h4 className="text-sm font-semibold text-white">Monochrome Slate Design Tokens</h4>
+            <p className="text-xs text-[#808080] leading-relaxed">
+              Strict grayscale elevation hierarchy using #050505 canvas, #0A0A0A surface, and calibrated 1px borders.
+            </p>
+          </div>
+
+          <div id="sec-components-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+            <span className="text-[10px] font-mono text-white/50 uppercase">03 Components</span>
+            <h4 className="text-sm font-semibold text-white">36 Production UI Elements</h4>
+            <p className="text-xs text-[#808080] leading-relaxed">
+              Every component supports keyboard shortcuts, touch gestures, screen-reader semantics, and prefers-reduced-motion.
+            </p>
+          </div>
+
+          <div id="sec-telemetry-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+            <span className="text-[10px] font-mono text-white/50 uppercase">04 Telemetry</span>
+            <h4 className="text-sm font-semibold text-white">Real-Time Event Streams</h4>
+            <p className="text-xs text-[#808080] leading-relaxed">
+              Sub-millisecond latency tracking and automated canary deployments across 32 regional edge nodes worldwide.
+            </p>
+          </div>
+
+          <div id="sec-pricing-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+            <span className="text-[10px] font-mono text-white/50 uppercase">05 Pricing</span>
+            <h4 className="text-sm font-semibold text-white">Open Source & Free Forever</h4>
+            <p className="text-xs text-[#808080] leading-relaxed">
+              Install any component with the CLI. No subscriptions, no lock-in, 100% copy-pasteable TypeScript code.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SelectionBasketShowcase: React.FC = () => {
+  const [selectedIds, setSelectedIds] = useState<string[]>(['item-1', 'item-3']);
+  const items = [
+    { id: 'item-1', name: 'invoice_oct_2026.pdf', size: '2.4 MB', type: 'PDF' },
+    { id: 'item-2', name: 'design_system_tokens.json', size: '84 KB', type: 'JSON' },
+    { id: 'item-3', name: 'customer_churn_analytics.csv', size: '1.8 MB', type: 'CSV' },
+    { id: 'item-4', name: 'production_ssl_certificates.pem', size: '12 KB', type: 'KEY' },
+  ];
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
+
+  const handleSelectAll = () => {
+    if (selectedIds.length === items.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(items.map((i) => i.id));
+    }
+  };
+
+  return (
+    <div className="relative w-full max-w-xl mx-auto min-h-[340px] pb-16 p-4 rounded-2xl border border-[#202020] bg-[#070707] flex flex-col justify-between select-none">
+      <div className="space-y-3">
+        <div className="flex items-center justify-between px-1 text-xs text-[#737373] font-mono">
+          <span>Select items to trigger bottom toolbar</span>
+          <button
+            type="button"
+            onClick={handleSelectAll}
+            className="text-[11px] text-[#A1A1A1] hover:text-white transition-colors underline underline-offset-2"
+          >
+            {selectedIds.length === items.length ? 'Deselect All' : 'Select All'}
+          </button>
+        </div>
+
+        <div className="space-y-1.5">
+          {items.map((item) => {
+            const isChecked = selectedIds.includes(item.id);
+            return (
+              <div
+                key={item.id}
+                onClick={() => toggleSelect(item.id)}
+                className={cn(
+                  'flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer',
+                  isChecked
+                    ? 'bg-[#121212] border-[#2A2A2A] text-white shadow-sm'
+                    : 'bg-[#0B0B0B] border-[#181818] text-[#808080] hover:bg-[#0E0E0E] hover:text-[#D4D4D4]'
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className={cn(
+                      'w-4 h-4 rounded border flex items-center justify-center transition-colors',
+                      isChecked
+                        ? 'bg-white border-white text-black'
+                        : 'border-[#333333] bg-[#141414]'
+                    )}
+                  >
+                    {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
+                  </div>
+                  <span className="text-xs font-mono">{item.name}</span>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] font-mono text-[#666666]">
+                  <span>{item.type}</span>
+                  <span>·</span>
+                  <span>{item.size}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Docked Selection Basket in contained mode */}
+      <SelectionBasket
+        mode="contained"
+        selectedCount={selectedIds.length}
+        totalCount={items.length}
+        onClearSelection={() => setSelectedIds([])}
+        onSelectAll={handleSelectAll}
+      />
+    </div>
+  );
+};
+
+const SpotlightSearchShowcase: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="py-8 w-full max-w-md mx-auto flex flex-col items-center gap-4">
+      <button
+        type="button"
+        onClick={() => setIsOpen(true)}
+        className="px-4 py-2.5 rounded-xl bg-[#111111] hover:bg-[#181818] border border-[#222222] text-xs font-mono text-[#D4D4D4] flex items-center gap-3 transition-colors hover:border-[#333333] shadow-lg"
+      >
+        <span>Press</span>
+        <kbd className="px-1.5 py-0.5 rounded bg-[#1C1C1C] border border-[#2E2E2E] text-white">⌘K</kbd>
+        <span>or click to open Spotlight Search</span>
+      </button>
+      <p className="text-xs text-[#666666] font-mono">Keyboard-driven overlay with instant fuzzy filter and smooth spring highlight</p>
+      <SpotlightSearch
+        open={isOpen}
+        onOpenChange={setIsOpen}
+      />
+    </div>
+  );
+};
+
 export const ComponentDetailModal: React.FC<ComponentDetailModalProps> = ({
   component,
   onClose,
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('preview');
+  const { sourceCode: loadedSourceCode } = useComponentSource(
+    component?.id || '',
+    activeTab === 'source' || activeTab === 'install'
+  );
+  const effectiveSourceCode = loadedSourceCode || component?.sourceCode || '';
+  const modalRef = useFocusTrap<HTMLDivElement>({ isOpen: Boolean(component), onClose });
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [isFullscreenPreview, setIsFullscreenPreview] = useState(false);
   const [installMode, setInstallMode] = useState<'cli' | 'manual'>('cli');
@@ -810,16 +1103,7 @@ func main() {
       case 'dot-field':
         return (
           <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#222222] bg-[#0A0A0A]">
-            <DotField
-              dotRadius={1.5}
-              dotSpacing={14}
-              bulgeStrength={67}
-              glowRadius={160}
-              sparkle={true}
-              gradientFrom="rgba(255, 255, 255, 0.25)"
-              gradientTo="rgba(255, 255, 255, 0.08)"
-              glowColor="rgba(255, 255, 255, 0.05)"
-            />
+            <DotField dotRadius={1.2} dotSpacing={20} gradientFrom="#818cf8" gradientTo="#c084fc" className="w-full h-80 rounded-2xl" />
             <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-[#050505]/70 border border-[#222222] text-[11px] font-mono text-[#A1A1A1] backdrop-blur-sm pointer-events-none">
               Move cursor across canvas to test repulsion & glow
             </div>
@@ -829,6 +1113,114 @@ func main() {
         return (
           <div className="py-2 w-full">
             <ParticleDelete />
+          </div>
+        );
+      case 'animated-file-upload':
+        return (
+          <div className="py-4 w-full max-w-lg mx-auto">
+            <AnimatedFileUpload
+              multiple
+              accept="image/*,application/pdf"
+              maxSize={15 * 1024 * 1024}
+              onFilesSelected={(files) => console.log('Selected:', files)}
+              onUploadComplete={(file) => console.log('Uploaded:', file.name)}
+            />
+          </div>
+        );
+      case 'payment-status':
+        return (
+          <div className="py-4 w-full max-w-md mx-auto">
+            <PaymentStatus
+              amount="$149.00"
+              status="success"
+              transactionId="tx_9842a8d11c7f"
+              paymentMethod="Apple Pay"
+              last4="4242"
+            />
+          </div>
+        );
+      case 'undo-toast':
+        return (
+          <div className="py-8 w-full max-w-md mx-auto">
+            <UndoToast
+              open={true}
+              title="Project archived"
+              description="5 seconds remaining to restore project"
+              duration={8000}
+              onUndo={() => console.log('Undone')}
+            />
+          </div>
+        );
+      case 'expandable-data-row':
+        return (
+          <div className="py-4 w-full max-w-2xl mx-auto">
+            <ExpandableDataRow allowMultiple={false} defaultExpandedIds={['usr_01']} />
+          </div>
+        );
+      case 'scroll-progress-nav':
+        return <ScrollProgressNavShowcase />;
+      case 'animated-number':
+        return <AnimatedNumberShowcase />;
+      case 'spotlight-search':
+        return <SpotlightSearchShowcase />;
+      case 'morphing-button':
+        return (
+          <div className="py-12 w-full flex flex-col items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <MorphingButton status="idle" idleText="Save Changes" />
+              <MorphingButton status="loading" loadingText="Saving..." />
+              <MorphingButton status="success" successText="Saved ✓" />
+              <MorphingButton status="error" errorText="Failed" variant="danger" />
+            </div>
+            <p className="text-xs text-[#666666]">Maintains physical shape & size across asynchronous state morphs</p>
+          </div>
+        );
+      case 'drag-to-confirm':
+        return (
+          <div className="py-8 w-full max-w-md mx-auto space-y-4">
+            <DragToConfirm
+              actionType="delete"
+              label="Slide to delete pipeline →"
+              confirmedLabel="Pipeline Deleted ✓"
+              onConfirm={() => console.log('Confirmed')}
+            />
+            <p className="text-xs text-center text-[#666666]">Physical resistance spring handle with tactile snapback</p>
+          </div>
+        );
+      case 'peek-card':
+        return (
+          <div className="py-12 w-full flex flex-col items-center justify-center gap-4">
+            <PeekCard
+              data={{
+                title: 'Payment #3948',
+                subtitle: 'Stripe Direct Charge',
+                amount: '$249.00',
+                status: 'Succeeded',
+                customer: {
+                  name: 'Alexander Wright',
+                  email: 'alex.w@acme-corp.com',
+                },
+                timestamp: 'Oct 24, 2026 at 2:15 PM',
+                metadata: [
+                  { label: 'Method', value: 'Mastercard •••• 4242' },
+                  { label: 'Fee', value: '$7.52 (3%)' },
+                  { label: 'Risk Score', value: 'Normal (08)' },
+                ],
+              }}
+            >
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111111] hover:bg-[#181818] border border-[#222222] text-xs font-mono text-white cursor-pointer transition-colors">
+                Hover over: Payment #3948
+              </span>
+            </PeekCard>
+            <p className="text-xs text-[#666666]">Contextual preview card emerging smoothly from trigger element</p>
+          </div>
+        );
+      case 'selection-basket':
+        return <SelectionBasketShowcase />;
+      case 'focus-mode':
+        return (
+          <div className="py-4 w-full max-w-2xl mx-auto">
+            <FocusMode />
           </div>
         );
       default:
@@ -843,6 +1235,7 @@ func main() {
 
   return (
     <div
+      ref={modalRef}
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto"
       role="dialog"
       aria-modal="true"
@@ -1170,7 +1563,7 @@ func main() {
                       </span>
                       <button
                         type="button"
-                        onClick={() => handleCopy(component.sourceCode, 'source-manual')}
+                        onClick={() => handleCopy(effectiveSourceCode, 'source-manual')}
                         className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                       >
                         {copiedCode === 'source-manual' ? (
@@ -1182,7 +1575,7 @@ func main() {
                       </button>
                     </div>
                     <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[260px] leading-relaxed scrollbar-thin">
-                      <code>{component.sourceCode}</code>
+                      <code>{effectiveSourceCode}</code>
                     </pre>
                   </div>
                 </div>
@@ -1199,7 +1592,7 @@ func main() {
                 </span>
                 <button
                   type="button"
-                  onClick={() => handleCopy(component.sourceCode, 'source')}
+                  onClick={() => handleCopy(effectiveSourceCode, 'source')}
                   className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                 >
                   {copiedCode === 'source' ? (
@@ -1211,7 +1604,7 @@ func main() {
                 </button>
               </div>
               <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[420px] leading-relaxed scrollbar-thin">
-                <code>{component.sourceCode}</code>
+                <code>{effectiveSourceCode}</code>
               </pre>
             </div>
           )}
@@ -1285,29 +1678,30 @@ func main() {
             transition={{ duration: 0.18 }}
             className="fixed inset-0 z-[100] bg-[#070707] bg-dot-subtle flex flex-col overflow-y-auto"
           >
-            {/* Top Sticky Bar */}
-            <div className="sticky top-0 inset-x-0 z-[110] bg-[#070707]/95 border-b border-[#1A1A1A] backdrop-blur-md px-4 sm:px-8 py-3 flex items-center justify-between gap-3 shadow-lg shrink-0">
+            {/* Minimal Fullscreen Header Bar */}
+            <div className="sticky top-0 inset-x-0 z-[110] bg-[#070707]/90 border-b border-[#141414] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
               <div className="flex items-center gap-2 min-w-0">
-                <span className="w-2 h-2 rounded-full bg-white/80 shrink-0" />
-                <span className="text-xs sm:text-sm font-semibold text-white truncate max-w-[180px] sm:max-w-none">
+                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+                <span className="text-xs sm:text-sm font-medium text-white truncate max-w-[160px] sm:max-w-none">
                   {component.name}
                 </span>
-                <span className="text-[10px] font-mono text-[#777777] hidden sm:inline">Preview</span>
+                <span className="text-[10px] font-mono text-[#555555] hidden sm:inline">Live Stage</span>
               </div>
 
               <button
                 type="button"
                 onClick={() => setIsFullscreenPreview(false)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#242424] hover:border-[#383838] text-xs font-medium text-[#CCCCCC] hover:text-white transition-all shadow-md focus-ring shrink-0 cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#111111] hover:bg-[#181818] border border-[#202020] hover:border-[#333333] text-xs font-mono text-[#A1A1A1] hover:text-white transition-colors shrink-0 cursor-pointer"
                 title="Exit Fullscreen Preview (Esc)"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Exit Preview</span>
+                <X className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline text-xs font-sans">Exit</span>
+                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#161616] border border-[#282828] text-[#737373]">ESC</kbd>
               </button>
             </div>
 
             {/* Centered Fullscreen Demo */}
-            <div className="w-full max-w-3xl mx-auto px-4 py-8 sm:py-16 my-auto flex items-center justify-center">
+            <div className="w-full max-w-4xl mx-auto px-4 py-8 sm:py-16 my-auto flex items-center justify-center">
               {renderInteractiveDemo()}
             </div>
           </motion.div>
@@ -1316,3 +1710,5 @@ func main() {
     </div>
   );
 };
+
+export default ComponentDetailModal;

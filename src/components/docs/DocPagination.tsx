@@ -12,7 +12,7 @@ interface DocNavEntry {
   category: string;
 }
 
-export const DOC_ORDER: DocNavEntry[] = [
+const DOC_ORDER: DocNavEntry[] = [
   { id: 'introduction', title: 'Introduction & Vision', category: 'Getting Started' },
   { id: 'quick-start', title: 'Quick Start & Setup', category: 'Getting Started' },
   { id: 'motion', title: 'Motion Tokens & Physics', category: 'Getting Started' },

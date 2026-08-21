@@ -31,6 +31,54 @@
       ]
     },
     {
+      "name": "animated-file-upload",
+      "type": "registry:ui",
+      "title": "Animated File Upload",
+      "description": "A minimal, physical drag-and-drop file uploader with smooth drop reaction, independent file upload tracking, progressive state morphing, and accessible retry flows.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/AnimatedFileUpload.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/animated-file-upload.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "animated-number",
+      "type": "registry:ui",
+      "title": "Animated Number Morph",
+      "description": "An Apple-grade smooth rolling digit counter that independently morphs individual numerical columns with physics-based springs, locale commas, currencies, and compact notation.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/AnimatedNumber.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/animated-number.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
       "name": "animated-tabs",
       "type": "registry:ui",
       "title": "Animated Tabs",
@@ -151,7 +199,7 @@
       "name": "dot-field",
       "type": "registry:ui",
       "title": "Dot Field",
-      "description": "High-performance interactive Canvas dot matrix from React Bits with cursor proximity physics, radial glow aura, and customizable dispersion.",
+      "description": "High-performance lightweight static Canvas dot matrix background with dynamic gradient coloring and responsive density scaling.",
       "files": [
         {
           "path": "src/components/ui/DotField.tsx",
@@ -162,6 +210,60 @@
           "path": "src/components/ui/DotField.css",
           "type": "registry:ui",
           "target": "components/ui/dot-field.css"
+        }
+      ]
+    },
+    {
+      "name": "drag-to-confirm",
+      "type": "registry:ui",
+      "title": "Drag to Confirm",
+      "description": "A physical drag-to-confirm slider for high-stakes and destructive actions, equipped with elastic spring snapback physics, progressive track illumination, and accessible keyboard fallbacks.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/DragToConfirm.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/drag-to-confirm.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "expandable-data-row",
+      "type": "registry:ui",
+      "title": "Expandable Data Row",
+      "description": "A polished table component with fluid accordion row unfolding, revealing deep metadata, audit activity feeds, and quick actions, with automatic card restructuring on mobile viewports.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/ExpandableDataRow.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/expandable-data-row.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
         }
       ]
     },
@@ -232,6 +334,33 @@
           "path": "src/components/ui/FloatingActionDock.tsx",
           "type": "registry:ui",
           "target": "components/ui/floating-action-dock.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "focus-mode",
+      "type": "registry:ui",
+      "title": "Focus Mode",
+      "description": "An atmospheric focus-mode interaction that isolates selected cards or sections by smoothly dimming surrounding distractions with zero layout shift, tactile spring scaling, and Escape key dismissal.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/FocusMode.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/focus-mode.tsx"
         },
         {
           "path": "src/lib/utils.ts",
@@ -407,6 +536,33 @@
       ]
     },
     {
+      "name": "morphing-button",
+      "type": "registry:ui",
+      "title": "Morphing Button",
+      "description": "A layout-stable interactive action button that smoothly transitions between Idle, Loading, Success, and Error states without jarring jumps or dimension shifts.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/MorphingButton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/morphing-button.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "morphing-dialog",
       "type": "registry:ui",
       "title": "Morphing Dialog",
@@ -514,6 +670,60 @@
       ]
     },
     {
+      "name": "payment-status",
+      "type": "registry:ui",
+      "title": "Payment Status",
+      "description": "A calm, Apple-grade payment confirmation card with animated SVG path checkmark drawing, staged verification lifecycle transitions, receipt inspection, and failure recovery.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/PaymentStatus.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/payment-status.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "peek-card",
+      "type": "registry:ui",
+      "title": "Peek Card",
+      "description": "An origin-anchored contextual preview popover that emerges directly from target triggers on hover or tap with smart collision edge detection and rich metadata summaries.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/PeekCard.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/peek-card.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "reveal-card",
       "type": "registry:ui",
       "title": "Reveal Card",
@@ -531,6 +741,60 @@
           "path": "src/lib/utils.ts",
           "type": "registry:lib",
           "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "scroll-progress-nav",
+      "type": "registry:ui",
+      "title": "Scroll Progress Navigation",
+      "description": "A floating table-of-contents navigation pill that tracks scroll depth, dynamically morphs between resting and floating states, highlights active sections, and enables smooth scrolling.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/ScrollProgressNav.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/scroll-progress-nav.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "selection-basket",
+      "type": "registry:ui",
+      "title": "Selection Basket",
+      "description": "A floating bulk-action toolbar that smoothly rises from the bottom of the screen when multiple dataset items are selected, supporting batch operations, horizontal scrolling, and clear triggers.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/SelectionBasket.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/selection-basket.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
         }
       ]
     },
@@ -633,6 +897,65 @@
           "path": "src/lib/utils.ts",
           "type": "registry:lib",
           "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "spotlight-search",
+      "type": "registry:ui",
+      "title": "Spotlight Search",
+      "description": "A global command palette and search overlay triggered by ⌘K featuring real-time fuzzy filtering, moving active highlight springs, kbd shortcuts, and full keyboard navigation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/SpotlightSearch.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/spotlight-search.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        },
+        {
+          "path": "src/lib/constants.ts",
+          "type": "registry:lib",
+          "target": "lib/constants.ts"
+        }
+      ]
+    },
+    {
+      "name": "undo-toast",
+      "type": "registry:ui",
+      "title": "Undo Toast",
+      "description": "An advanced undo notification toast featuring an interactive progress countdown, pause-on-hover mechanics, action reversal animation, and versatile position anchoring.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/UndoToast.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/undo-toast.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
         }
       ]
     }

@@ -100,3 +100,40 @@ export type { ParticleDeleteProps, ParticleDeleteContainerProps, ParticleDeleteI
 export { useParticleDelete, particleDelete } from '../../lib/particle-delete';
 export type { ParticleDeleteOptions } from '../../lib/particle-delete';
 
+export { AnimatedFileUpload } from './AnimatedFileUpload';
+export type { AnimatedFileUploadProps, UploadFileItem, FileUploadStatus } from './AnimatedFileUpload';
+
+export { PaymentStatus } from './PaymentStatus';
+export type { PaymentStatusProps, PaymentLifecycleStatus, PaymentReceiptItem } from './PaymentStatus';
+
+export { UndoToast } from './UndoToast';
+export type { UndoToastProps, UndoToastVariant, UndoToastPosition } from './UndoToast';
+
+export { ExpandableDataRow } from './ExpandableDataRow';
+export type { ExpandableDataRowProps, DataRowItem } from './ExpandableDataRow';
+
+export { ScrollProgressNav } from './ScrollProgressNav';
+export type { ScrollProgressNavProps, NavSectionItem } from './ScrollProgressNav';
+
+export { AnimatedNumber } from './AnimatedNumber';
+export type { AnimatedNumberProps } from './AnimatedNumber';
+
+export { SpotlightSearch } from './SpotlightSearch';
+export type { SpotlightSearchProps, SpotlightSearchItem } from './SpotlightSearch';
+
+export { MorphingButton } from './MorphingButton';
+export type { MorphingButtonProps, ButtonStatusState, MorphingButtonVariant } from './MorphingButton';
+
+export { DragToConfirm } from './DragToConfirm';
+export type { DragToConfirmProps, DragConfirmActionType } from './DragToConfirm';
+
+export { PeekCard } from './PeekCard';
+export type { PeekCardProps, PeekCardData } from './PeekCard';
+
+export { SelectionBasket } from './SelectionBasket';
+export type { SelectionBasketProps, SelectionActionItem } from './SelectionBasket';
+
+export { FocusMode } from './FocusMode';
+export type { FocusModeProps, FocusModeItem } from './FocusMode';
+
+

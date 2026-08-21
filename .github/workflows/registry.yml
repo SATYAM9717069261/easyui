@@ -2,13 +2,13 @@ name: Registry CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, suraj/dev0]
   pull_request:
-    branches: [main]
+    branches: [main, suraj/dev0]
 
 jobs:
   validate:
-    name: Validate Registry & Build
+    name: Validate Registry, Tests & Build
     runs-on: ubuntu-latest
 
     steps:
@@ -29,12 +29,18 @@ jobs:
 
       - name: Verify generated registry files are committed and in sync
         run: |
-          git diff --exit-code registry.json src/components/registry/components-data.ts || (
+          git diff --exit-code registry.json src/components/registry/components-data.ts public/source || (
             echo "::error::Generated registry files are out of sync with source files. Run 'npm run component:sync' locally and commit the changes." && exit 1
           )
 
       - name: Run linter
         run: npm run lint
+
+      - name: Run TypeScript typecheck
+        run: npx tsc -b
+
+      - name: Run tests
+        run: npm run test
 
       - name: Run build
         run: npm run build

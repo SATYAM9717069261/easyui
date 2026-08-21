@@ -88,13 +88,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <DotField
           dotRadius={1.5}
           dotSpacing={15}
-          bulgeStrength={65}
-          glowRadius={180}
-          sparkle={true}
-          waveAmplitude={0}
           gradientFrom="rgba(255, 255, 255, 0.22)"
           gradientTo="rgba(255, 255, 255, 0.08)"
-          glowColor="rgba(255, 255, 255, 0.05)"
           className="w-full h-full"
         />
         {/* Soft atmospheric gradients matching deep dark theme */}
