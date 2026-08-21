@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { EasyComponentMeta } from '../../types/component';
 import { Copy, Check, Sparkles, Code2, Terminal } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
@@ -11,6 +11,7 @@ import { SmoothAccordion } from '../ui/SmoothAccordion';
 import { NotificationStack } from '../ui/NotificationStack';
 import { MorphingDialog } from '../ui/MorphingDialog';
 import { DotField } from '../ui/DotField';
+import { AnimatedNumber } from '../ui/AnimatedNumber';
 import { NewBadge } from './NewBadge';
 import { copyToClipboard, cn } from '../../lib/utils';
 
@@ -20,6 +21,29 @@ export interface ComponentCardProps {
   onSelect: (id: string) => void;
   className?: string;
 }
+
+const AnimatedNumberPreview: React.FC = () => {
+  const [val, setVal] = useState(12450);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setVal((prev) => (prev === 12450 ? 14890 : prev === 14890 ? 18320 : 12450));
+    }, 2200);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="h-40 flex flex-col items-center justify-center p-4">
+      <div className="text-2xl font-bold font-mono tracking-tight text-white mb-1">
+        <AnimatedNumber value={val} prefix="$" useGrouping />
+      </div>
+      <div className="flex items-center gap-2 text-[10px] font-mono text-emerald-400">
+        <span>+24.5%</span>
+        <span className="text-[#666666]">rolling digits</span>
+      </div>
+    </div>
+  );
+};
 
 export const ComponentCard: React.FC<ComponentCardProps> = ({
   component,
@@ -391,6 +415,154 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
               <span className="p-1 rounded text-rose-400 bg-rose-500/10 text-[9px] font-mono shrink-0">
                 Delete
               </span>
+            </div>
+          </div>
+        );
+      case 'animated-file-upload':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-3 rounded-xl border border-dashed border-[#282828] bg-[#0A0A0A] flex flex-col items-center justify-center text-center pointer-events-none scale-90 sm:scale-95">
+              <div className="w-7 h-7 rounded-lg bg-[#141414] border border-[#222222] flex items-center justify-center mb-1.5 text-[#A1A1A1]">
+                <Sparkles className="w-3.5 h-3.5" />
+              </div>
+              <span className="text-[11px] font-medium text-[#F5F5F5]">Drop files here</span>
+              <span className="text-[9px] text-[#666666]">or browse device</span>
+            </div>
+          </div>
+        );
+      case 'payment-status':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-3 rounded-xl bg-[#0B0B0B] border border-[#1E1E1E] space-y-2 pointer-events-none scale-90 sm:scale-95">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[9px] font-bold">✓</span>
+                  <span className="text-[11px] font-semibold text-white">Payment Successful</span>
+                </div>
+                <span className="text-[10px] font-mono text-emerald-400">$149.00</span>
+              </div>
+              <div className="flex justify-between text-[9px] font-mono text-[#666666] border-t border-[#161616] pt-1.5">
+                <span>tx_9842a8d11c7f</span>
+                <span>Apple Pay</span>
+              </div>
+            </div>
+          </div>
+        );
+      case 'undo-toast':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[250px] p-2.5 rounded-xl bg-[#0E0E0E] border border-[#222222] shadow-lg pointer-events-none scale-90 sm:scale-95">
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <span className="text-[11px] font-medium text-[#F5F5F5]">Project archived</span>
+                <span className="px-2 py-0.5 rounded bg-white text-black text-[9px] font-medium">Undo</span>
+              </div>
+              <div className="h-0.5 w-full bg-[#1A1A1A] rounded-full overflow-hidden">
+                <div className="h-full bg-white/70 w-3/4" />
+              </div>
+            </div>
+          </div>
+        );
+      case 'expandable-data-row':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[250px] rounded-xl bg-[#0B0B0B] border border-[#202020] overflow-hidden pointer-events-none scale-90 sm:scale-95">
+              <div className="p-2.5 flex items-center justify-between border-b border-[#181818] bg-[#0E0E0E]">
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#1C1C1C] text-[9px] flex items-center justify-center text-white">AW</span>
+                  <span className="text-[11px] font-medium text-white">Alex Wright</span>
+                </div>
+                <span className="text-[10px] font-mono text-emerald-400">+$2,450</span>
+              </div>
+              <div className="p-2 bg-[#090909] text-[9px] font-mono text-[#737373] flex justify-between">
+                <span>Enterprise Plan</span>
+                <span>Unfolded ▾</span>
+              </div>
+            </div>
+          </div>
+        );
+      case 'scroll-progress-nav':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="rounded-full bg-[#0E0E0E] border border-[#222222] shadow-xl p-1 flex items-center gap-1 pointer-events-none scale-90 sm:scale-95">
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-[#666666]">01</span>
+              <span className="px-3 py-1 rounded-full text-[11px] font-medium bg-[#1F1F1F] border border-[#333333] text-white flex items-center gap-1.5 shadow">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                Features
+              </span>
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-[#666666]">03 Docs</span>
+            </div>
+          </div>
+        );
+      case 'animated-number':
+        return <AnimatedNumberPreview />;
+      case 'spotlight-search':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-2.5 rounded-xl bg-[#0D0D0D] border border-[#222222] shadow-md pointer-events-none scale-90 sm:scale-95">
+              <div className="flex items-center justify-between text-[11px] text-[#737373] mb-2 border-b border-[#181818] pb-1.5">
+                <span>Search components...</span>
+                <span className="text-[9px] font-mono bg-[#161616] px-1 rounded text-white">⌘K</span>
+              </div>
+              <div className="space-y-1">
+                <div className="px-2 py-1 rounded-md bg-[#181818] text-[10px] text-white flex justify-between">
+                  <span>Magnetic Button</span>
+                  <span className="text-[#666666] font-mono">B</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'morphing-button':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <div className="px-4 py-2 rounded-lg bg-[#F5F5F5] text-[#050505] text-xs font-medium shadow flex items-center gap-1.5 pointer-events-none scale-90 sm:scale-95">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Save Changes → Saved ✓</span>
+            </div>
+          </div>
+        );
+      case 'drag-to-confirm':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] h-10 rounded-xl bg-[#0E0E0E] border border-[#222222] p-1 flex items-center justify-between pointer-events-none scale-90 sm:scale-95">
+              <div className="w-8 h-8 rounded-lg bg-[#1F1F1F] border border-[#333333] flex items-center justify-center text-white text-[10px]">
+                →
+              </div>
+              <span className="text-[10px] font-mono text-[#666666] pr-3">Slide to confirm</span>
+            </div>
+          </div>
+        );
+      case 'peek-card':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-2.5 rounded-xl bg-[#0D0D0D] border border-[#222222] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+              <div className="flex justify-between items-center">
+                <span className="text-[11px] font-semibold text-white">Payment #3948</span>
+                <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-1 rounded">Succeeded</span>
+              </div>
+              <div className="text-[10px] text-[#737373]">Alexander Wright · $249.00</div>
+            </div>
+          </div>
+        );
+      case 'selection-basket':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="px-3 py-1.5 rounded-xl bg-[#0E0E0E] border border-[#242424] shadow-lg flex items-center gap-2 pointer-events-none scale-90 sm:scale-95">
+              <span className="w-4 h-4 rounded-full bg-white text-black text-[9px] font-bold flex items-center justify-center">3</span>
+              <span className="text-[10px] font-medium text-white">selected</span>
+              <span className="px-2 py-0.5 rounded bg-[#1A1A1A] text-[9px] text-[#D4D4D4] border border-[#2A2A2A]">Export</span>
+            </div>
+          </div>
+        );
+      case 'focus-mode':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-3 rounded-xl bg-[#0D0D0D] border border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.08)] pointer-events-none scale-90 sm:scale-95">
+              <div className="flex justify-between text-[11px] font-medium text-white mb-1">
+                <span>Revenue Focus</span>
+                <span className="text-[9px] font-mono text-emerald-400">+18.4%</span>
+              </div>
+              <span className="text-[9px] font-mono text-[#666666] block">Press ESC to exit</span>
             </div>
           </div>
         );

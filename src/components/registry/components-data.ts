@@ -98,6 +98,216 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "animated-file-upload",
+    "name": "Animated File Upload",
+    "tagline": "Physical drag-and-drop file uploader with per-file progress morphing",
+    "description": "A minimal, physical drag-and-drop file uploader with smooth drop reaction, independent file upload tracking, progressive state morphing, and accessible retry flows.",
+    "category": "Forms",
+    "badges": [
+      "Drag & Drop",
+      "Forms",
+      "Spring Physics"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/animated-file-upload",
+    "features": [
+      "Subtle physical dropzone scaling and border reaction without exaggerated AI glow",
+      "Automatic mime-type detection and contextual file icon attribution",
+      "Multi-file queue management with independent Uploading → Processing → Complete stages",
+      "Self-morphing progress bar into checkmark state with non-aggressive error recovery",
+      "Customizable file constraints (maxSize, maxFiles, accept) with accessible screen reader labels"
+    ],
+    "props": [
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "default": "true",
+        "description": "Allow multiple files selection and upload"
+      },
+      {
+        "name": "accept",
+        "type": "string | string[]",
+        "default": "undefined",
+        "description": "Accepted MIME types or file extensions (e.g. image/*, .pdf)"
+      },
+      {
+        "name": "maxSize",
+        "type": "number",
+        "default": "26214400 (25MB)",
+        "description": "Maximum file size in bytes"
+      },
+      {
+        "name": "maxFiles",
+        "type": "number",
+        "default": "10",
+        "description": "Maximum number of concurrent files in list"
+      },
+      {
+        "name": "dropTitle",
+        "type": "string",
+        "default": "'Drop files here'",
+        "description": "Primary drop target heading"
+      },
+      {
+        "name": "dropSubtitle",
+        "type": "string",
+        "default": "'or browse from your device'",
+        "description": "Secondary call-to-action text"
+      },
+      {
+        "name": "variant",
+        "type": "'standard' | 'compact'",
+        "default": "'standard'",
+        "description": "Display density mode"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables all interactions and file picking"
+      },
+      {
+        "name": "onFilesSelected",
+        "type": "(files: File[]) => void",
+        "default": "undefined",
+        "description": "Callback triggered when files are chosen"
+      },
+      {
+        "name": "onUploadComplete",
+        "type": "(file: UploadFileItem) => void",
+        "default": "undefined",
+        "description": "Callback fired on successful upload completion"
+      },
+      {
+        "name": "uploadHandler",
+        "type": "(file, onProgress) => Promise<void>",
+        "default": "undefined",
+        "description": "Custom async upload handler returning a promise"
+      }
+    ],
+    "accessibility": [
+      "Keyboard accessible dropzone triggerable via Enter or Space key",
+      "Hidden semantic file input accessible to assistive technologies",
+      "Aria-live announcements for file upload progression, completion, and error states",
+      "Respects prefers-reduced-motion with instant state changes"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { AnimatedFileUpload } from \"@/components/ui/animated-file-upload\";\n\nexport function Demo() {\n  return (\n    <div className=\"max-w-md mx-auto p-4\">\n      <AnimatedFileUpload\n        multiple\n        maxSize={10 * 1024 * 1024}\n        accept=\"image/*,application/pdf\"\n        onFilesSelected={(files) => console.log('Selected:', files)}\n        onUploadComplete={(file) => console.log('Uploaded:', file.name)}\n      />\n    </div>\n  );\n}",
+    "sourceCode": "import React, { useState, useRef, useCallback } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport {\n  Upload,\n  File as FileIcon,\n  Check,\n  AlertCircle,\n  X,\n  RotateCcw,\n  FileText,\n  Image as ImageIcon,\n  Film,\n  Music,\n  Archive,\n  Code\n} from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport type FileUploadStatus = 'queued' | 'uploading' | 'processing' | 'complete' | 'error';\n\nexport interface UploadFileItem {\n  id: string;\n  name: string;\n  size: number;\n  type: string;\n  progress: number;\n  status: FileUploadStatus;\n  errorMessage?: string;\n  rawFile?: File;\n}\n\nexport interface AnimatedFileUploadProps {\n  /** Allow multiple files selection and upload */\n  multiple?: boolean;\n  /** Accepted MIME types or extensions (e.g., \"image/*,application/pdf\" or [\".png\", \".jpg\"]) */\n  accept?: string | string[];\n  /** Maximum file size in bytes (e.g., 10 * 1024 * 1024 for 10MB) */\n  maxSize?: number;\n  /** Maximum number of files allowed when multiple is true */\n  maxFiles?: number;\n  /** Custom label for primary drop title */\n  dropTitle?: string;\n  /** Custom label for secondary browse action */\n  dropSubtitle?: string;\n  /** Layout mode: standard full-size or compact inline */\n  variant?: 'standard' | 'compact';\n  /** Disabled state */\n  disabled?: boolean;\n  /** Initial files list for controlled or default showcase */\n  initialFiles?: UploadFileItem[];\n  /** Callback fired when files are dropped or selected */\n  onFilesSelected?: (files: File[]) => void;\n  /** Callback fired when a file upload completes */\n  onUploadComplete?: (file: UploadFileItem) => void;\n  /** Custom upload simulation or upload handler returning a promise */\n  uploadHandler?: (\n    file: UploadFileItem,\n    onProgress: (progress: number) => void\n  ) => Promise<void>;\n  /** Custom class name */\n  className?: string;\n}\n\nexport const formatFileSize = (bytes: number): string => {\n  if (bytes === 0) return '0 B';\n  const k = 1024;\n  const sizes = ['B', 'KB', 'MB', 'GB'];\n  const i = Math.floor(Math.log(bytes) / Math.log(k));\n  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;\n};\n\nexport const getFileIcon = (fileName: string, mimeType: string) => {\n  const ext = fileName.split('.').pop()?.toLowerCase() || '';\n  if (mimeType.startsWith('image/') || ['jpg', 'jpeg', 'png', 'svg', 'webp', 'gif'].includes(ext)) {\n    return ImageIcon;\n  }\n  if (mimeType.startsWith('video/') || ['mp4', 'mov', 'webm', 'mkv'].includes(ext)) {\n    return Film;\n  }\n  if (mimeType.startsWith('audio/') || ['mp3', 'wav', 'ogg', 'flac'].includes(ext)) {\n    return Music;\n  }\n  if (['zip', 'rar', 'tar', 'gz', '7z'].includes(ext)) {\n    return Archive;\n  }\n  if (['ts', 'tsx', 'js', 'jsx', 'json', 'html', 'css', 'py', 'rs', 'go'].includes(ext)) {\n    return Code;\n  }\n  if (['pdf', 'doc', 'docx', 'txt', 'md'].includes(ext)) {\n    return FileText;\n  }\n  return FileIcon;\n};\n\nexport const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({\n  multiple = true,\n  accept,\n  maxSize = 25 * 1024 * 1024, // 25MB default\n  maxFiles = 10,\n  dropTitle = 'Drop files here',\n  dropSubtitle = 'or browse from your device',\n  variant = 'standard',\n  disabled = false,\n  initialFiles,\n  onFilesSelected,\n  onUploadComplete,\n  uploadHandler,\n  className,\n}) => {\n  const [isDragOver, setIsDragOver] = useState(false);\n  const [files, setFiles] = useState<UploadFileItem[]>(initialFiles || []);\n  const inputRef = useRef<HTMLInputElement>(null);\n\n  const acceptString = Array.isArray(accept) ? accept.join(',') : accept;\n\n  const simulateUpload = useCallback(\n    (fileItem: UploadFileItem) => {\n      let currentProgress = 0;\n      const interval = setInterval(() => {\n        currentProgress += Math.floor(Math.random() * 18) + 12;\n        if (currentProgress >= 90 && currentProgress < 100) {\n          setFiles((prev) =>\n            prev.map((f) =>\n              f.id === fileItem.id\n                ? { ...f, progress: 92, status: 'processing' }\n                : f\n            )\n          );\n        } else if (currentProgress >= 100) {\n          clearInterval(interval);\n          setFiles((prev) =>\n            prev.map((f) => {\n              if (f.id === fileItem.id) {\n                const updated = { ...f, progress: 100, status: 'complete' as const };\n                onUploadComplete?.(updated);\n                return updated;\n              }\n              return f;\n            })\n          );\n        } else {\n          setFiles((prev) =>\n            prev.map((f) =>\n              f.id === fileItem.id\n                ? { ...f, progress: currentProgress, status: 'uploading' }\n                : f\n            )\n          );\n        }\n      }, 180);\n    },\n    [onUploadComplete]\n  );\n\n  const processIncomingFiles = useCallback(\n    (incoming: File[]) => {\n      if (disabled) return;\n      const validFiles: UploadFileItem[] = [];\n\n      incoming.forEach((file) => {\n        const id = `${file.name}-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;\n        const isOverSize = maxSize && file.size > maxSize;\n\n        if (isOverSize) {\n          validFiles.push({\n            id,\n            name: file.name,\n            size: file.size,\n            type: file.type,\n            progress: 0,\n            status: 'error',\n            errorMessage: `File exceeds maximum allowed size (${formatFileSize(maxSize)})`,\n            rawFile: file,\n          });\n        } else {\n          const item: UploadFileItem = {\n            id,\n            name: file.name,\n            size: file.size,\n            type: file.type,\n            progress: 0,\n            status: 'uploading',\n            rawFile: file,\n          };\n          validFiles.push(item);\n        }\n      });\n\n      setFiles((prev) => {\n        const combined = multiple ? [...validFiles, ...prev] : validFiles;\n        return combined.slice(0, maxFiles);\n      });\n\n      onFilesSelected?.(incoming);\n\n      // Start processing/uploading valid files\n      validFiles.forEach((fileItem) => {\n        if (fileItem.status !== 'error') {\n          if (uploadHandler) {\n            uploadHandler(fileItem, (progress) => {\n              setFiles((prev) =>\n                prev.map((f) =>\n                  f.id === fileItem.id ? { ...f, progress } : f\n                )\n              );\n            })\n              .then(() => {\n                setFiles((prev) =>\n                  prev.map((f) =>\n                    f.id === fileItem.id\n                      ? { ...f, progress: 100, status: 'complete' }\n                      : f\n                  )\n                );\n                onUploadComplete?.(fileItem);\n              })\n              .catch((err) => {\n                setFiles((prev) =>\n                  prev.map((f) =>\n                    f.id === fileItem.id\n                      ? {\n                          ...f,\n                          status: 'error',\n                          errorMessage: err?.message || 'Upload failed',\n                        }\n                      : f\n                  )\n                );\n              });\n          } else {\n            simulateUpload(fileItem);\n          }\n        }\n      });\n    },\n    [disabled, maxSize, multiple, maxFiles, onFilesSelected, onUploadComplete, uploadHandler, simulateUpload]\n  );\n\n  const handleDragOver = (e: React.DragEvent) => {\n    e.preventDefault();\n    e.stopPropagation();\n    if (!disabled && !isDragOver) {\n      setIsDragOver(true);\n    }\n  };\n\n  const handleDragLeave = (e: React.DragEvent) => {\n    e.preventDefault();\n    e.stopPropagation();\n    setIsDragOver(false);\n  };\n\n  const handleDrop = (e: React.DragEvent) => {\n    e.preventDefault();\n    e.stopPropagation();\n    setIsDragOver(false);\n    if (disabled) return;\n\n    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {\n      const droppedFiles = Array.from(e.dataTransfer.files);\n      processIncomingFiles(multiple ? droppedFiles : [droppedFiles[0]]);\n    }\n  };\n\n  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    if (e.target.files && e.target.files.length > 0) {\n      const selected = Array.from(e.target.files);\n      processIncomingFiles(multiple ? selected : [selected[0]]);\n      if (inputRef.current) {\n        inputRef.current.value = '';\n      }\n    }\n  };\n\n  const handleRemoveFile = (id: string) => {\n    setFiles((prev) => prev.filter((f) => f.id !== id));\n  };\n\n  const handleRetryFile = (fileItem: UploadFileItem) => {\n    setFiles((prev) =>\n      prev.map((f) =>\n        f.id === fileItem.id\n          ? { ...f, progress: 0, status: 'uploading', errorMessage: undefined }\n          : f\n      )\n    );\n    if (uploadHandler) {\n      uploadHandler(fileItem, (progress) => {\n        setFiles((prev) =>\n          prev.map((f) => (f.id === fileItem.id ? { ...f, progress } : f))\n        );\n      })\n        .then(() => {\n          setFiles((prev) =>\n            prev.map((f) =>\n              f.id === fileItem.id\n                ? { ...f, progress: 100, status: 'complete' }\n                : f\n            )\n          );\n        })\n        .catch((err) => {\n          setFiles((prev) =>\n            prev.map((f) =>\n              f.id === fileItem.id\n                ? { ...f, status: 'error', errorMessage: err?.message || 'Upload failed' }\n                : f\n            )\n          );\n        });\n    } else {\n      simulateUpload(fileItem);\n    }\n  };\n\n  const isCompact = variant === 'compact';\n\n  return (\n    <div className={cn('w-full select-none font-sans', className)}>\n      <input\n        ref={inputRef}\n        type=\"file\"\n        multiple={multiple}\n        accept={acceptString}\n        onChange={handleFileInputChange}\n        disabled={disabled}\n        className=\"hidden\"\n        aria-label=\"Upload files\"\n      />\n\n      {/* Drop Zone Box */}\n      <motion.div\n        onDragOver={handleDragOver}\n        onDragLeave={handleDragLeave}\n        onDrop={handleDrop}\n        onClick={() => !disabled && inputRef.current?.click()}\n        onKeyDown={(e) => {\n          if ((e.key === 'Enter' || e.key === ' ') && !disabled) {\n            e.preventDefault();\n            inputRef.current?.click();\n          }\n        }}\n        tabIndex={disabled ? -1 : 0}\n        role=\"button\"\n        aria-disabled={disabled}\n        whileHover={disabled ? undefined : { borderColor: '#2A2A2A' }}\n        animate={{\n          scale: isDragOver ? 1.01 : 1,\n          borderColor: isDragOver ? '#383838' : '#1D1D1D',\n          backgroundColor: isDragOver ? '#0E0E0E' : '#0A0A0A',\n        }}\n        transition={motionTransitions.springSnappy}\n        className={cn(\n          'relative flex flex-col items-center justify-center text-center cursor-pointer border border-dashed rounded-xl transition-colors focus-ring',\n          isCompact ? 'p-5 sm:p-6 min-h-[120px]' : 'p-8 sm:p-10 min-h-[180px]',\n          disabled && 'opacity-40 cursor-not-allowed border-solid'\n        )}\n      >\n        <motion.div\n          animate={{\n            y: isDragOver ? -3 : 0,\n            scale: isDragOver ? 1.08 : 1,\n          }}\n          transition={motionTransitions.springSnappy}\n          className=\"w-10 h-10 rounded-lg bg-[#141414] border border-[#222222] flex items-center justify-center text-[#A1A1A1] mb-3 group-hover:text-white\"\n        >\n          <Upload className={cn('w-5 h-5 transition-colors', isDragOver ? 'text-white' : 'text-[#808080]')} />\n        </motion.div>\n\n        <div className=\"space-y-1\">\n          <p className=\"text-sm font-medium text-[#F5F5F5]\">{dropTitle}</p>\n          <p className=\"text-xs text-[#808080]\">\n            {dropSubtitle}{' '}\n            {maxSize && (\n              <span className=\"text-[#555555]\">\n                (up to {formatFileSize(maxSize)})\n              </span>\n            )}\n          </p>\n        </div>\n      </motion.div>\n\n      {/* Uploading / Uploaded Files List */}\n      <AnimatePresence mode=\"popLayout\">\n        {files.length > 0 && (\n          <motion.div\n            initial={{ opacity: 0, y: 8 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: 8 }}\n            transition={motionTransitions.springGentle}\n            className=\"mt-4 space-y-2\"\n          >\n            <div className=\"flex items-center justify-between px-1 text-[11px] font-mono text-[#737373] uppercase tracking-wider\">\n              <span>Files ({files.length})</span>\n              {files.some((f) => f.status === 'complete') && (\n                <button\n                  type=\"button\"\n                  onClick={() => setFiles((prev) => prev.filter((f) => f.status !== 'complete'))}\n                  className=\"hover:text-[#A1A1A1] transition-colors focus-ring rounded\"\n                >\n                  Clear Completed\n                </button>\n              )}\n            </div>\n\n            <div className=\"space-y-2\">\n              {files.map((file) => {\n                const IconComponent = getFileIcon(file.name, file.type);\n                const isComplete = file.status === 'complete';\n                const isError = file.status === 'error';\n                const isProcessing = file.status === 'processing';\n                const isUploading = file.status === 'uploading';\n\n                return (\n                  <motion.div\n                    key={file.id}\n                    layout\n                    initial={{ opacity: 0, y: 10, scale: 0.98 }}\n                    animate={{ opacity: 1, y: 0, scale: 1 }}\n                    exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}\n                    transition={motionTransitions.springGentle}\n                    className={cn(\n                      'relative overflow-hidden rounded-xl border p-3 sm:p-3.5 bg-[#0A0A0A] transition-colors',\n                      isError\n                        ? 'border-[#381B1B] bg-[#0E0909]'\n                        : isComplete\n                        ? 'border-[#1E251E] bg-[#0A0D0A]'\n                        : 'border-[#1C1C1C]'\n                    )}\n                  >\n                    <div className=\"flex items-center gap-3 relative z-10\">\n                      {/* File Type Icon */}\n                      <div\n                        className={cn(\n                          'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border',\n                          isError\n                            ? 'bg-[#1F1212] border-[#381B1B] text-rose-400'\n                            : isComplete\n                            ? 'bg-[#121A12] border-[#223522] text-emerald-400'\n                            : 'bg-[#141414] border-[#222222] text-[#A1A1A1]'\n                        )}\n                      >\n                        <IconComponent className=\"w-4 h-4\" />\n                      </div>\n\n                      {/* File Metadata */}\n                      <div className=\"flex-1 min-w-0\">\n                        <div className=\"flex items-center justify-between gap-2\">\n                          <p className=\"text-xs font-medium text-[#F5F5F5] truncate\">\n                            {file.name}\n                          </p>\n                          <span className=\"text-[10px] font-mono text-[#737373] shrink-0\">\n                            {formatFileSize(file.size)}\n                          </span>\n                        </div>\n\n                        {/* Status line */}\n                        <div className=\"flex items-center justify-between text-[11px] mt-1\">\n                          {isError ? (\n                            <span className=\"text-rose-400/90 flex items-center gap-1\">\n                              <AlertCircle className=\"w-3 h-3 shrink-0\" />\n                              <span className=\"truncate\">{file.errorMessage || 'Upload failed'}</span>\n                            </span>\n                          ) : isComplete ? (\n                            <span className=\"text-emerald-400/90 flex items-center gap-1\">\n                              <Check className=\"w-3 h-3 shrink-0\" />\n                              <span>Ready</span>\n                            </span>\n                          ) : isProcessing ? (\n                            <span className=\"text-[#A1A1A1] flex items-center gap-1.5 font-mono text-[10px]\">\n                              <span className=\"w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse\" />\n                              Processing...\n                            </span>\n                          ) : (\n                            <span className=\"text-[#808080] font-mono text-[10px]\">\n                              Uploading {file.progress}%\n                            </span>\n                          )}\n                        </div>\n                      </div>\n\n                      {/* Action buttons */}\n                      <div className=\"flex items-center gap-1 shrink-0\">\n                        {isError && (\n                          <button\n                            type=\"button\"\n                            onClick={() => handleRetryFile(file)}\n                            className=\"p-1 rounded-md text-[#808080] hover:text-white hover:bg-[#1C1C1C] transition-colors focus-ring\"\n                            title=\"Retry upload\"\n                            aria-label={`Retry uploading ${file.name}`}\n                          >\n                            <RotateCcw className=\"w-3.5 h-3.5\" />\n                          </button>\n                        )}\n                        <button\n                          type=\"button\"\n                          onClick={() => handleRemoveFile(file.id)}\n                          className=\"p-1 rounded-md text-[#666666] hover:text-[#F5F5F5] hover:bg-[#1C1C1C] transition-colors focus-ring\"\n                          title=\"Remove file\"\n                          aria-label={`Remove ${file.name}`}\n                        >\n                          <X className=\"w-3.5 h-3.5\" />\n                        </button>\n                      </div>\n                    </div>\n\n                    {/* Progress Bar (at the bottom) */}\n                    {(isUploading || isProcessing) && (\n                      <div className=\"absolute bottom-0 left-0 right-0 h-[2px] bg-[#161616]\">\n                        <motion.div\n                          className=\"h-full bg-white\"\n                          initial={{ width: '0%' }}\n                          animate={{ width: `${file.progress}%` }}\n                          transition={{ duration: 0.15, ease: 'easeOut' }}\n                        />\n                      </div>\n                    )}\n                  </motion.div>\n                );\n              })}\n            </div>\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/AnimatedFileUpload.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/animated-file-upload.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "animated-number",
+    "name": "Animated Number Morph",
+    "tagline": "Independent column digit rolling physics for metrics and financial dashboards",
+    "description": "An Apple-grade smooth rolling digit counter that independently morphs individual numerical columns with physics-based springs, locale commas, currencies, and compact notation.",
+    "category": "Motion",
+    "badges": [
+      "Metrics",
+      "Motion Physics",
+      "Typography"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/animated-number",
+    "features": [
+      "Independent digit column spring animation preventing layout jitter",
+      "Automatic thousand grouping (e.g. 12,450) and fixed decimal formatting",
+      "Compact notation support for large values (1.2M, 45K)",
+      "Configurable prefixes, suffixes, and spring stiffness parameters",
+      "Full accessibility with aria-label text narration"
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "default": "0",
+        "description": "The numeric target value to morph towards"
+      },
+      {
+        "name": "decimals",
+        "type": "number",
+        "default": "0",
+        "description": "Number of decimal places to preserve"
+      },
+      {
+        "name": "prefix",
+        "type": "string",
+        "default": "''",
+        "description": "Text or currency prepended to number (e.g. \"$\")"
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "default": "''",
+        "description": "Text or unit appended to number (e.g. \"%\", \"ms\")"
+      },
+      {
+        "name": "useGrouping",
+        "type": "boolean",
+        "default": "true",
+        "description": "Formats with comma separators"
+      },
+      {
+        "name": "compact",
+        "type": "boolean",
+        "default": "false",
+        "description": "Formats using compact abbreviations (K, M, B)"
+      },
+      {
+        "name": "stiffness",
+        "type": "number",
+        "default": "170",
+        "description": "Spring transition stiffness"
+      },
+      {
+        "name": "damping",
+        "type": "number",
+        "default": "22",
+        "description": "Spring transition damping"
+      }
+    ],
+    "accessibility": [
+      "Screen readers read the complete rendered string via aria-label attribute",
+      "Bypasses motion if user has reduced-motion preference enabled"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { AnimatedNumber } from \"@/components/ui/animated-number\";\n\nexport function Demo() {\n  const [revenue, setRevenue] = useState(12450);\n\n  return (\n    <div className=\"text-3xl font-bold\">\n      <AnimatedNumber value={revenue} prefix=\"$\" useGrouping />\n    </div>\n  );\n}",
+    "sourceCode": "import React, { useEffect } from 'react';\nimport { motion, useSpring, useTransform } from 'framer-motion';\nimport { cn } from '../../lib/utils';\n\nexport interface AnimatedNumberProps {\n  /** Numeric value to animate to */\n  value: number;\n  /** Number of decimal places (default: 0) */\n  decimals?: number;\n  /** Prepend text or currency symbol (e.g. \"$\", \"+\") */\n  prefix?: string;\n  /** Append text (e.g. \"%\", \" users\", \"ms\") */\n  suffix?: string;\n  /** Spring physics stiffness */\n  stiffness?: number;\n  /** Spring physics damping */\n  damping?: number;\n  /** Mass of spring */\n  mass?: number;\n  /** Format as locale string (e.g. \"1,250\") */\n  useGrouping?: boolean;\n  /** Compact notation (e.g. 1.2M, 45K) */\n  compact?: boolean;\n  /** Custom class name */\n  className?: string;\n}\n\n// Single Digit Rolling Column\nconst DigitColumn: React.FC<{\n  digit: string;\n  stiffness?: number;\n  damping?: number;\n  mass?: number;\n}> = ({ digit, stiffness = 160, damping = 18, mass = 0.8 }) => {\n  const isNumber = !isNaN(parseInt(digit, 10));\n  const numValue = isNumber ? parseInt(digit, 10) : 0;\n\n  const spring = useSpring(numValue, {\n    stiffness,\n    damping,\n    mass,\n  });\n\n  const y = useTransform(spring, (current) => `-${current * 10}%`);\n\n  useEffect(() => {\n    spring.set(numValue);\n  }, [spring, numValue]);\n\n  if (!isNumber) {\n    return <span className=\"inline-block\">{digit}</span>;\n  }\n\n  return (\n    <div className=\"inline-block relative overflow-hidden h-[1.15em] leading-[1.15em] w-[0.58em] text-center\">\n      <motion.div\n        style={{ y }}\n        className=\"flex flex-col select-none\"\n      >\n        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (\n          <div key={n} className=\"h-[1.15em] flex items-center justify-center\">\n            {n}\n          </div>\n        ))}\n      </motion.div>\n    </div>\n  );\n};\n\nexport const AnimatedNumber: React.FC<AnimatedNumberProps> = ({\n  value,\n  decimals = 0,\n  prefix = '',\n  suffix = '',\n  stiffness = 170,\n  damping = 22,\n  mass = 0.6,\n  useGrouping = true,\n  compact = false,\n  className,\n}) => {\n  const formatNumber = (val: number): string => {\n    if (compact) {\n      const formatter = new Intl.NumberFormat('en-US', {\n        notation: 'compact',\n        maximumFractionDigits: decimals,\n        minimumFractionDigits: decimals,\n      });\n      return formatter.format(val);\n    }\n\n    const fixed = Math.abs(val).toFixed(decimals);\n    const [intPart, decPart] = fixed.split('.');\n\n    let formattedInt = intPart;\n    if (useGrouping) {\n      formattedInt = intPart.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',');\n    }\n\n    const sign = val < 0 ? '-' : '';\n    return decPart !== undefined ? `${sign}${formattedInt}.${decPart}` : `${sign}${formattedInt}`;\n  };\n\n  const formattedStr = formatNumber(value);\n  const chars = formattedStr.split('');\n\n  return (\n    <span\n      className={cn(\n        'inline-flex items-baseline font-mono tracking-tight text-[#F5F5F5] select-none',\n        className\n      )}\n      aria-label={`${prefix}${formattedStr}${suffix}`}\n    >\n      {prefix && <span className=\"mr-0.5\">{prefix}</span>}\n      <span className=\"inline-flex items-baseline overflow-hidden\">\n        {chars.map((char, index) => (\n          <DigitColumn\n            key={`${index}-${char === ',' || char === '.' || char === '-' ? char : 'num'}`}\n            digit={char}\n            stiffness={stiffness}\n            damping={damping}\n            mass={mass}\n          />\n        ))}\n      </span>\n      {suffix && <span className=\"ml-0.5\">{suffix}</span>}\n    </span>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/AnimatedNumber.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/animated-number.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
     "id": "animated-tabs",
     "name": "Animated Tabs",
     "tagline": "Layout-spring sliding active pill indicator",
@@ -140,7 +350,7 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ],
     "createdAt": "2026-08-10",
     "usageCode": "import { AnimatedTabs } from \"@/components/ui/animated-tabs\";\n\nexport function Demo() {\n  const tabs = [\n    { id: 'overview', label: 'Overview', content: <div>Metrics Overview</div> },\n    { id: 'analytics', label: 'Analytics', content: <div>Traffic Charts</div> },\n    { id: 'settings', label: 'Settings', content: <div>Preferences</div> },\n  ];\n  return <AnimatedTabs tabs={tabs} defaultTab=\"overview\" />;\n}",
-    "sourceCode": "import React, { useState } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport interface TabItem {\n  id: string;\n  label: string;\n  icon?: React.ReactNode;\n  content?: React.ReactNode;\n  badge?: string | number;\n}\n\nexport interface AnimatedTabsProps {\n  tabs: TabItem[];\n  defaultTab?: string;\n  activeTab?: string;\n  onChange?: (tabId: string) => void;\n  className?: string;\n  renderContent?: boolean;\n  layoutId?: string;\n}\n\nexport const AnimatedTabs: React.FC<AnimatedTabsProps> = ({\n  tabs,\n  defaultTab,\n  activeTab: controlledActiveTab,\n  onChange,\n  className,\n  renderContent = true,\n  layoutId: customLayoutId,\n}) => {\n  const [internalActiveTab, setInternalActiveTab] = useState<string>(defaultTab || tabs[0]?.id || '');\n  const activeTab = controlledActiveTab !== undefined ? controlledActiveTab : internalActiveTab;\n  const uniqueId = React.useId();\n  const indicatorLayoutId = customLayoutId || `active-tab-indicator-${uniqueId}`;\n\n  React.useEffect(() => {\n    if (defaultTab && controlledActiveTab === undefined) {\n      setInternalActiveTab(defaultTab);\n    }\n  }, [defaultTab, controlledActiveTab]);\n\n  const handleTabClick = (tabId: string) => {\n    if (controlledActiveTab === undefined) {\n      setInternalActiveTab(tabId);\n    }\n    onChange?.(tabId);\n  };\n\n  const currentTabObj = tabs.find((t) => t.id === activeTab);\n\n  return (\n    <div className={cn('flex flex-col gap-4', className)}>\n      <div className=\"flex items-center gap-1 p-1 rounded-lg bg-[#0E0E0E] border border-[#1D1D1D] self-start\">\n        {tabs.map((tab) => {\n          const isActive = activeTab === tab.id;\n          return (\n            <button\n              key={tab.id}\n              onClick={() => handleTabClick(tab.id)}\n              className={cn(\n                'relative px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring select-none flex items-center gap-2',\n                isActive ? 'text-[#F5F5F5]' : 'text-[#6F6F6F] hover:text-[#A1A1A1]'\n              )}\n            >\n              {isActive && (\n                <motion.div\n                  layoutId={indicatorLayoutId}\n                  className=\"absolute inset-0 rounded-md bg-[#181818] border border-[#2A2A2A] shadow-sm\"\n                  transition={motionTransitions.springMorph}\n                />\n              )}\n              <span className=\"relative z-10 flex items-center gap-1.5\">\n                {tab.icon && <span className=\"text-[#A1A1A1]\">{tab.icon}</span>}\n                {tab.label}\n                {tab.badge && (\n                  <span className=\"px-1.5 py-0.5 text-[10px] font-mono rounded bg-[#252525] text-[#A1A1A1]\">\n                    {tab.badge}\n                  </span>\n                )}\n              </span>\n            </button>\n          );\n        })}\n      </div>\n\n      {renderContent && (\n        <div className=\"relative min-h-[60px]\">\n          <AnimatePresence mode=\"wait\">\n            {currentTabObj?.content && (\n              <motion.div\n                key={activeTab}\n                initial={{ opacity: 0, y: 6 }}\n                animate={{ opacity: 1, y: 0 }}\n                exit={{ opacity: 0, y: -6 }}\n                transition={motionTransitions.springGentle}\n                className=\"text-sm text-[#A1A1A1]\"\n              >\n                {currentTabObj.content}\n              </motion.div>\n            )}\n          </AnimatePresence>\n        </div>\n      )}\n    </div>\n  );\n};\n",
+    "sourceCode": "import React, { useState } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport interface TabItem {\n  id: string;\n  label: string;\n  icon?: React.ReactNode;\n  content?: React.ReactNode;\n  badge?: string | number;\n}\n\nexport interface AnimatedTabsProps {\n  tabs: TabItem[];\n  defaultTab?: string;\n  activeTab?: string;\n  onChange?: (tabId: string) => void;\n  className?: string;\n  tabsContainerClassName?: string;\n  renderContent?: boolean;\n  layoutId?: string;\n  variant?: 'default' | 'glass' | 'pill';\n}\n\nexport const AnimatedTabs: React.FC<AnimatedTabsProps> = ({\n  tabs,\n  defaultTab,\n  activeTab: controlledActiveTab,\n  onChange,\n  className,\n  tabsContainerClassName,\n  renderContent = true,\n  layoutId: customLayoutId,\n  variant = 'default',\n}) => {\n  const [internalActiveTab, setInternalActiveTab] = useState<string>(defaultTab || tabs[0]?.id || '');\n  const activeTab = controlledActiveTab !== undefined ? controlledActiveTab : internalActiveTab;\n  const uniqueId = React.useId();\n  const indicatorLayoutId = customLayoutId || `active-tab-indicator-${uniqueId}`;\n\n  React.useEffect(() => {\n    if (defaultTab && controlledActiveTab === undefined) {\n      setInternalActiveTab(defaultTab);\n    }\n  }, [defaultTab, controlledActiveTab]);\n\n  const handleTabClick = (tabId: string) => {\n    if (controlledActiveTab === undefined) {\n      setInternalActiveTab(tabId);\n    }\n    onChange?.(tabId);\n  };\n\n  const currentTabObj = tabs.find((t) => t.id === activeTab);\n  const isGlass = variant === 'glass' || variant === 'pill';\n\n  return (\n    <div className={cn('flex flex-col gap-4', className)}>\n      <div\n        className={cn(\n          'flex items-center gap-1 self-start select-none',\n          isGlass\n            ? 'p-1 rounded-full bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]'\n            : 'p-1 rounded-lg bg-[#0E0E0E] border border-[#1D1D1D]',\n          tabsContainerClassName\n        )}\n      >\n        {tabs.map((tab) => {\n          const isActive = activeTab === tab.id;\n          return (\n            <button\n              key={tab.id}\n              onClick={() => handleTabClick(tab.id)}\n              className={cn(\n                'relative text-xs sm:text-sm font-medium transition-colors focus-ring select-none flex items-center gap-2 cursor-pointer',\n                isGlass\n                  ? 'px-4 py-1.5 rounded-full'\n                  : 'px-3.5 py-1.5 rounded-md',\n                isActive\n                  ? 'text-[#F5F5F5] font-medium'\n                  : 'text-[#737373] hover:text-[#D4D4D4]'\n              )}\n            >\n              {isActive && (\n                <motion.div\n                  layoutId={indicatorLayoutId}\n                  className={cn(\n                    'absolute inset-0 shadow-sm',\n                    isGlass\n                      ? 'rounded-full bg-[#181818] border border-[#2A2A2A]'\n                      : 'rounded-md bg-[#181818] border border-[#2A2A2A]'\n                  )}\n                  transition={motionTransitions.springMorph}\n                />\n              )}\n              <span className=\"relative z-10 flex items-center gap-1.5\">\n                {tab.icon && <span>{tab.icon}</span>}\n                {tab.label}\n                {tab.badge && (\n                  <span className=\"px-1.5 py-0.5 text-[10px] font-mono rounded bg-[#252525] text-[#A1A1A1]\">\n                    {tab.badge}\n                  </span>\n                )}\n              </span>\n            </button>\n          );\n        })}\n      </div>\n\n      {renderContent && (\n        <div className=\"relative min-h-[60px]\">\n          <AnimatePresence mode=\"wait\">\n            {currentTabObj?.content && (\n              <motion.div\n                key={activeTab}\n                initial={{ opacity: 0, y: 6 }}\n                animate={{ opacity: 1, y: 0 }}\n                exit={{ opacity: 0, y: -6 }}\n                transition={motionTransitions.springGentle}\n                className=\"text-sm text-[#A1A1A1]\"\n              >\n                {currentTabObj.content}\n              </motion.div>\n            )}\n          </AnimatePresence>\n        </div>\n      )}\n    </div>\n  );\n};\n",
     "dependencies": [
       "framer-motion"
     ],
@@ -512,6 +722,174 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "drag-to-confirm",
+    "name": "Drag to Confirm",
+    "tagline": "Spring-resistant slider for confirming destructive or critical operations",
+    "description": "A physical drag-to-confirm slider for high-stakes and destructive actions, equipped with elastic spring snapback physics, progressive track illumination, and accessible keyboard fallbacks.",
+    "category": "Buttons",
+    "badges": [
+      "Confirmation",
+      "Gesture Physics",
+      "Safety Controls"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/drag-to-confirm",
+    "features": [
+      "Physical gesture drag handle with spring snapback upon incomplete drags",
+      "Dynamic text opacity and track fill response correlated with drag distance",
+      "Supports Delete, Archive, Confirm, Submit, and Unlock action profiles",
+      "Automatic post-confirmation reset timer with customizable delay",
+      "Full keyboard accessibility (Space/Enter to trigger) and touch screen compatibility"
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "'Slide to confirm'",
+        "description": "Action instruction text rendered along track"
+      },
+      {
+        "name": "confirmedLabel",
+        "type": "string",
+        "default": "'Confirmed ✓'",
+        "description": "Text shown when slider is locked into completion"
+      },
+      {
+        "name": "actionType",
+        "type": "'delete' | 'archive' | 'confirm' | 'submit' | 'unlock' | 'continue'",
+        "default": "'confirm'",
+        "description": "Action preset style"
+      },
+      {
+        "name": "onConfirm",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback triggered upon successful confirmation completion"
+      },
+      {
+        "name": "autoResetDelay",
+        "type": "number",
+        "default": "2500",
+        "description": "Milliseconds before resetting back to start"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables slider gesture and interaction"
+      }
+    ],
+    "accessibility": [
+      "Accessible role=\"slider\" with aria-valuemin, aria-valuemax, and aria-valuenow attributes",
+      "Focus-visible ring around draggable handle for keyboard navigators",
+      "Screen reader fallback action button for assistive tech users"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { DragToConfirm } from \"@/components/ui/drag-to-confirm\";\n\nexport function Demo() {\n  return (\n    <DragToConfirm\n      actionType=\"delete\"\n      label=\"Slide to delete database →\"\n      confirmedLabel=\"Database Deleted\"\n      onConfirm={() => console.log('Destroy action confirmed')}\n    />\n  );\n}",
+    "sourceCode": "import React, { useState, useRef, useEffect, useCallback } from 'react';\nimport { motion, useMotionValue, useTransform, animate } from 'framer-motion';\nimport { ChevronRight, Check, Trash2, Lock } from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport type DragConfirmActionType =\n  | 'delete'\n  | 'archive'\n  | 'confirm'\n  | 'submit'\n  | 'unlock'\n  | 'continue';\n\nexport interface DragToConfirmProps {\n  /** Label shown along track */\n  label?: string;\n  /** Label shown upon completion */\n  confirmedLabel?: string;\n  /** Action archetype */\n  actionType?: DragConfirmActionType;\n  /** Callback fired on confirmation reach */\n  onConfirm?: () => void;\n  /** Callback fired when reset back to start */\n  onReset?: () => void;\n  /** Reset to start automatically after completion delay (ms) */\n  autoResetDelay?: number;\n  /** Disabled state */\n  disabled?: boolean;\n  /** Custom track class name */\n  className?: string;\n}\n\nexport const DragToConfirm: React.FC<DragToConfirmProps> = ({\n  label = 'Slide to confirm',\n  confirmedLabel = 'Confirmed ✓',\n  actionType = 'confirm',\n  onConfirm,\n  onReset,\n  autoResetDelay = 2500,\n  disabled = false,\n  className,\n}) => {\n  const [isConfirmed, setIsConfirmed] = useState(false);\n  const trackRef = useRef<HTMLDivElement>(null);\n  const [dragMax, setDragMax] = useState(200);\n\n  const x = useMotionValue(0);\n\n  const calculateMaxDrag = useCallback(() => {\n    if (trackRef.current) {\n      const trackWidth = trackRef.current.offsetWidth;\n      // Handle button width is 44px, padding 4px * 2 = 8px\n      setDragMax(Math.max(50, trackWidth - 52));\n    }\n  }, []);\n\n  useEffect(() => {\n    calculateMaxDrag();\n    window.addEventListener('resize', calculateMaxDrag);\n    return () => window.removeEventListener('resize', calculateMaxDrag);\n  }, [calculateMaxDrag]);\n\n  // Opacity of track text decreases as user drags handle across\n  const textOpacity = useTransform(x, [0, dragMax * 0.7], [1, 0.05]);\n  const trackBgOpacity = useTransform(x, [0, dragMax], [0, 1]);\n\n  const handleDragEnd = () => {\n    const currentX = x.get();\n    if (currentX >= dragMax * 0.88 && !isConfirmed) {\n      // Snapped to end successfully\n      animate(x, dragMax, motionTransitions.springSnappy);\n      setIsConfirmed(true);\n      onConfirm?.();\n\n      if (autoResetDelay > 0) {\n        setTimeout(() => {\n          setIsConfirmed(false);\n          animate(x, 0, motionTransitions.springResponsive);\n          onReset?.();\n        }, autoResetDelay);\n      }\n    } else {\n      // Snap back to 0\n      animate(x, 0, motionTransitions.springResponsive);\n    }\n  };\n\n  const handleKeyboardConfirm = () => {\n    if (disabled || isConfirmed) return;\n    animate(x, dragMax, motionTransitions.springSnappy);\n    setIsConfirmed(true);\n    onConfirm?.();\n\n    if (autoResetDelay > 0) {\n      setTimeout(() => {\n        setIsConfirmed(false);\n        animate(x, 0, motionTransitions.springResponsive);\n        onReset?.();\n      }, autoResetDelay);\n    }\n  };\n\n  const getActionIcon = () => {\n    switch (actionType) {\n      case 'delete':\n        return <Trash2 className=\"w-4 h-4 text-rose-400\" />;\n      case 'unlock':\n        return <Lock className=\"w-4 h-4 text-amber-400\" />;\n      default:\n        return <ChevronRight className=\"w-4 h-4 text-white\" />;\n    }\n  };\n\n  return (\n    <div className={cn('w-full max-w-sm font-sans select-none', className)}>\n      <div\n        ref={trackRef}\n        className={cn(\n          'relative h-[52px] rounded-full border p-1 flex items-center overflow-hidden transition-colors',\n          isConfirmed\n            ? 'bg-[#111A11] border-[#223822]'\n            : 'bg-[#0E0E0E] border-[#222222]',\n          disabled && 'opacity-30 cursor-not-allowed'\n        )}\n      >\n        {/* Dynamic reactive fill background */}\n        <motion.div\n          style={{ opacity: trackBgOpacity }}\n          className={cn(\n            'absolute inset-0 z-0 transition-opacity',\n            actionType === 'delete'\n              ? 'bg-rose-950/30'\n              : 'bg-[#181818]'\n          )}\n        />\n\n        {/* Track Label */}\n        <motion.div\n          style={{ opacity: textOpacity }}\n          className=\"absolute inset-0 flex items-center justify-center pointer-events-none text-xs font-medium tracking-wide text-[#808080] z-10\"\n        >\n          {isConfirmed ? '' : label}\n        </motion.div>\n\n        {/* Confirmed Label State */}\n        {isConfirmed && (\n          <motion.div\n            initial={{ opacity: 0, scale: 0.95 }}\n            animate={{ opacity: 1, scale: 1 }}\n            className=\"absolute inset-0 flex items-center justify-center pointer-events-none text-xs font-semibold text-emerald-400 z-10\"\n          >\n            {confirmedLabel}\n          </motion.div>\n        )}\n\n        {/* Draggable Handle Button */}\n        <motion.div\n          drag={disabled || isConfirmed ? false : 'x'}\n          dragConstraints={{ left: 0, right: dragMax }}\n          dragElastic={0.05}\n          dragMomentum={false}\n          style={{ x }}\n          onDragEnd={handleDragEnd}\n          whileTap={disabled ? undefined : { scale: 0.96 }}\n          className={cn(\n            'w-[44px] h-[44px] rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-20 shadow-md relative focus-ring',\n            isConfirmed\n              ? 'bg-emerald-500 text-black border-transparent'\n              : actionType === 'delete'\n              ? 'bg-[#1C1212] border border-[#381B1B] text-rose-300'\n              : 'bg-[#222222] border border-[#333333] text-white hover:bg-[#2A2A2A]'\n          )}\n          tabIndex={disabled ? -1 : 0}\n          role=\"slider\"\n          aria-label={label}\n          aria-valuemin={0}\n          aria-valuemax={100}\n          aria-valuenow={isConfirmed ? 100 : 0}\n          onKeyDown={(e) => {\n            if (e.key === 'Enter' || e.key === ' ') {\n              e.preventDefault();\n              handleKeyboardConfirm();\n            }\n          }}\n        >\n          {isConfirmed ? (\n            <motion.div\n              initial={{ scale: 0 }}\n              animate={{ scale: 1 }}\n              transition={motionTransitions.springSnappy}\n            >\n              <Check className=\"w-5 h-5 text-black stroke-[2.5]\" />\n            </motion.div>\n          ) : (\n            getActionIcon()\n          )}\n        </motion.div>\n      </div>\n\n      {/* Accessible fallback keyboard button */}\n      <div className=\"sr-only\">\n        <button\n          type=\"button\"\n          onClick={handleKeyboardConfirm}\n          disabled={disabled || isConfirmed}\n        >\n          {label}\n        </button>\n      </div>\n    </div>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/DragToConfirm.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/drag-to-confirm.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "expandable-data-row",
+    "name": "Expandable Data Row",
+    "tagline": "Smooth unfolding table row with deep metadata and responsive mobile conversion",
+    "description": "A polished table component with fluid accordion row unfolding, revealing deep metadata, audit activity feeds, and quick actions, with automatic card restructuring on mobile viewports.",
+    "category": "Motion",
+    "badges": [
+      "Tables",
+      "Accordion Motion",
+      "Responsive"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/expandable-data-row",
+    "features": [
+      "Soft accordion expansion unfolding details directly beneath rows without modals",
+      "Single or multi-row simultaneous expansion modes",
+      "Full metadata breakdown with account metrics and historical activity timeline",
+      "Adaptive layout engine transforming desktop table into touch cards on mobile devices",
+      "Integrated quick actions with one-click email copying and callback hooks"
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "DataRowItem[]",
+        "default": "[...]",
+        "description": "Data records with user, status, revenue, and metadata"
+      },
+      {
+        "name": "allowMultiple",
+        "type": "boolean",
+        "default": "false",
+        "description": "Permit multiple expanded rows concurrently"
+      },
+      {
+        "name": "defaultExpandedIds",
+        "type": "string[]",
+        "default": "['usr_01']",
+        "description": "Initially expanded row identifiers"
+      },
+      {
+        "name": "isLoading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Displays pulse skeleton loaders during data fetch"
+      },
+      {
+        "name": "onRowAction",
+        "type": "(action: string, row: DataRowItem) => void",
+        "default": "undefined",
+        "description": "Callback fired on row action buttons"
+      }
+    ],
+    "accessibility": [
+      "Aria-expanded attributes and keyboard navigation (Enter, Space, Tab)",
+      "Semantic table row and button hierarchy compliant with WCAG 2.1 AA",
+      "Reduced motion support with instant height visibility toggle"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { ExpandableDataRow } from \"@/components/ui/expandable-data-row\";\n\nexport function Demo() {\n  return (\n    <ExpandableDataRow\n      items={[\n        {\n          id: \"usr_01\",\n          user: { name: \"Sarah Connor\", email: \"sarah@cyberdyne.io\" },\n          status: \"active\",\n          revenue: \"$4,280\",\n          date: \"Oct 24, 2026\",\n          metadata: { plan: \"Enterprise Plus\", sessions: 482 },\n        }\n      ]}\n    />\n  );\n}",
+    "sourceCode": "import React, { useState } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport {\n  ChevronRight,\n  CreditCard,\n  ArrowUpRight,\n  Copy,\n  Check\n} from 'lucide-react';\nimport { cn, copyToClipboard } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport interface DataRowItem {\n  id: string;\n  user: {\n    name: string;\n    email: string;\n    avatar?: string;\n    role?: string;\n  };\n  status: 'active' | 'pending' | 'churned' | 'paused';\n  revenue: string | number;\n  date: string;\n  metadata?: {\n    plan?: string;\n    sessions?: number;\n    lastActive?: string;\n    billingMethod?: string;\n    location?: string;\n  };\n  recentActivity?: Array<{\n    action: string;\n    timestamp: string;\n  }>;\n}\n\nexport interface ExpandableDataRowProps {\n  /** Array of row items */\n  items?: DataRowItem[];\n  /** Allow multiple open rows simultaneously */\n  allowMultiple?: boolean;\n  /** Initial expanded row IDs */\n  defaultExpandedIds?: string[];\n  /** Loading skeleton state */\n  isLoading?: boolean;\n  /** Custom action callback */\n  onRowAction?: (action: string, row: DataRowItem) => void;\n  /** Custom class name */\n  className?: string;\n}\n\nconst defaultItems: DataRowItem[] = [\n  {\n    id: 'usr_01',\n    user: {\n      name: 'Sarah Connor',\n      email: 'sarah.c@cyberdyne.io',\n      role: 'Lead Architect',\n    },\n    status: 'active',\n    revenue: '$4,280',\n    date: 'Oct 24, 2026',\n    metadata: {\n      plan: 'Enterprise Plus',\n      sessions: 482,\n      lastActive: '12m ago',\n      billingMethod: 'Visa •••• 8841',\n      location: 'San Francisco, CA',\n    },\n    recentActivity: [\n      { action: 'Upgraded team seat quota to 50 members', timestamp: '2 hours ago' },\n      { action: 'Generated production API key for US-East cluster', timestamp: 'Yesterday' },\n      { action: 'Completed SAML SSO authentication setup', timestamp: '3 days ago' },\n    ],\n  },\n  {\n    id: 'usr_02',\n    user: {\n      name: 'Marcus Vance',\n      email: 'marcus@hyperion.tech',\n      role: 'VP Engineering',\n    },\n    status: 'pending',\n    revenue: '$1,950',\n    date: 'Oct 22, 2026',\n    metadata: {\n      plan: 'Growth Pro',\n      sessions: 124,\n      lastActive: '2h ago',\n      billingMethod: 'Mastercard •••• 1092',\n      location: 'London, UK',\n    },\n    recentActivity: [\n      { action: 'Requested custom SOC2 compliance report', timestamp: '4 hours ago' },\n      { action: 'Added 4 new engineers to developer workspace', timestamp: '2 days ago' },\n    ],\n  },\n  {\n    id: 'usr_03',\n    user: {\n      name: 'Elena Rostova',\n      email: 'elena@solaris.design',\n      role: 'Principal Designer',\n    },\n    status: 'active',\n    revenue: '$3,400',\n    date: 'Oct 19, 2026',\n    metadata: {\n      plan: 'Design Scale',\n      sessions: 890,\n      lastActive: 'Just now',\n      billingMethod: 'Apple Pay',\n      location: 'Berlin, DE',\n    },\n    recentActivity: [\n      { action: 'Exported component token dictionary (JSON)', timestamp: '10m ago' },\n      { action: 'Created 8 new shared motion templates', timestamp: 'Yesterday' },\n    ],\n  },\n  {\n    id: 'usr_04',\n    user: {\n      name: 'Alex Chen',\n      email: 'alex@quantum-ops.co',\n      role: 'DevOps Lead',\n    },\n    status: 'paused',\n    revenue: '$850',\n    date: 'Oct 14, 2026',\n    metadata: {\n      plan: 'Starter Team',\n      sessions: 42,\n      lastActive: '5d ago',\n      billingMethod: 'Invoice (Net-30)',\n      location: 'Toronto, CA',\n    },\n    recentActivity: [\n      { action: 'Paused subscription renewal pending budget review', timestamp: '5 days ago' },\n    ],\n  },\n];\n\nexport const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({\n  items = defaultItems,\n  allowMultiple = false,\n  defaultExpandedIds = ['usr_01'],\n  isLoading = false,\n  onRowAction,\n  className,\n}) => {\n  const [expandedIds, setExpandedIds] = useState<string[]>(defaultExpandedIds);\n  const [copiedId, setCopiedId] = useState<string | null>(null);\n\n  const toggleRow = (id: string) => {\n    if (allowMultiple) {\n      setExpandedIds((prev) =>\n        prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]\n      );\n    } else {\n      setExpandedIds((prev) => (prev.includes(id) ? [] : [id]));\n    }\n  };\n\n  const handleCopyEmail = (email: string, id: string, e: React.MouseEvent) => {\n    e.stopPropagation();\n    copyToClipboard(email);\n    setCopiedId(id);\n    setTimeout(() => setCopiedId(null), 2000);\n  };\n\n  const getStatusBadge = (status: DataRowItem['status']) => {\n    switch (status) {\n      case 'active':\n        return (\n          <span className=\"inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-mono border border-emerald-500/20\">\n            <span className=\"w-1 h-1 rounded-full bg-emerald-400\" />\n            Active\n          </span>\n        );\n      case 'pending':\n        return (\n          <span className=\"inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-[10px] font-mono border border-amber-500/20\">\n            <span className=\"w-1 h-1 rounded-full bg-amber-400\" />\n            Pending\n          </span>\n        );\n      case 'paused':\n        return (\n          <span className=\"inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-neutral-500/10 text-[#A1A1A1] text-[10px] font-mono border border-neutral-500/20\">\n            <span className=\"w-1 h-1 rounded-full bg-[#808080]\" />\n            Paused\n          </span>\n        );\n      case 'churned':\n        return (\n          <span className=\"inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 text-[10px] font-mono border border-rose-500/20\">\n            <span className=\"w-1 h-1 rounded-full bg-rose-400\" />\n            Churned\n          </span>\n        );\n    }\n  };\n\n  if (isLoading) {\n    return (\n      <div className={cn('w-full rounded-xl border border-[#1D1D1D] bg-[#0A0A0A] p-4 space-y-3', className)}>\n        {[1, 2, 3].map((n) => (\n          <div key={n} className=\"h-12 rounded-lg bg-[#141414] animate-pulse\" />\n        ))}\n      </div>\n    );\n  }\n\n  return (\n    <div className={cn('w-full rounded-xl border border-[#1D1D1D] bg-[#0A0A0A] overflow-hidden select-none font-sans', className)}>\n      {/* Desktop Table Header (hidden on mobile) */}\n      <div className=\"hidden md:grid grid-cols-12 gap-4 px-5 py-3 border-b border-[#161616] text-[11px] font-mono uppercase tracking-wider text-[#737373] bg-[#080808]\">\n        <div className=\"col-span-5\">User & Account</div>\n        <div className=\"col-span-2\">Status</div>\n        <div className=\"col-span-2\">Revenue</div>\n        <div className=\"col-span-2\">Date Added</div>\n        <div className=\"col-span-1 text-right\">Action</div>\n      </div>\n\n      {/* Row Items */}\n      <div className=\"divide-y divide-[#141414]\">\n        {items.map((item) => {\n          const isExpanded = expandedIds.includes(item.id);\n\n          return (\n            <div key={item.id} className=\"transition-colors hover:bg-[#0E0E0E]/60\">\n              {/* Row Header Target */}\n              <button\n                type=\"button\"\n                onClick={() => toggleRow(item.id)}\n                className=\"w-full text-left p-4 sm:px-5 sm:py-3.5 focus-ring block\"\n                aria-expanded={isExpanded}\n              >\n                {/* Desktop layout */}\n                <div className=\"hidden md:grid grid-cols-12 gap-4 items-center\">\n                  <div className=\"col-span-5 flex items-center gap-3\">\n                    <motion.div\n                      animate={{ rotate: isExpanded ? 90 : 0 }}\n                      transition={motionTransitions.springSnappy}\n                      className=\"text-[#6F6F6F]\"\n                    >\n                      <ChevronRight className=\"w-4 h-4\" />\n                    </motion.div>\n\n                    <div className=\"w-7 h-7 rounded-full bg-[#181818] border border-[#262626] flex items-center justify-center text-xs font-medium text-[#F5F5F5]\">\n                      {item.user.name.slice(0, 2).toUpperCase()}\n                    </div>\n\n                    <div className=\"min-w-0\">\n                      <p className=\"text-xs font-medium text-[#F5F5F5] truncate\">{item.user.name}</p>\n                      <p className=\"text-[11px] text-[#737373] truncate\">{item.user.email}</p>\n                    </div>\n                  </div>\n\n                  <div className=\"col-span-2\">{getStatusBadge(item.status)}</div>\n\n                  <div className=\"col-span-2 text-xs font-mono text-[#D4D4D4] font-medium\">\n                    {item.revenue}\n                  </div>\n\n                  <div className=\"col-span-2 text-xs font-mono text-[#808080]\">\n                    {item.date}\n                  </div>\n\n                  <div className=\"col-span-1 flex justify-end\">\n                    <span className=\"text-xs text-[#737373] hover:text-white transition-colors\">\n                      {isExpanded ? 'Collapse' : 'Details'}\n                    </span>\n                  </div>\n                </div>\n\n                {/* Mobile Responsive Card layout */}\n                <div className=\"md:hidden flex items-center justify-between gap-3\">\n                  <div className=\"flex items-center gap-3 min-w-0\">\n                    <div className=\"w-8 h-8 rounded-full bg-[#181818] border border-[#262626] flex items-center justify-center text-xs font-medium text-[#F5F5F5] shrink-0\">\n                      {item.user.name.slice(0, 2).toUpperCase()}\n                    </div>\n                    <div className=\"min-w-0\">\n                      <p className=\"text-xs font-medium text-[#F5F5F5] truncate\">{item.user.name}</p>\n                      <div className=\"flex items-center gap-2 mt-0.5\">\n                        <span className=\"text-[10px] font-mono text-[#D4D4D4]\">{item.revenue}</span>\n                        <span className=\"text-[10px] text-[#555555]\">•</span>\n                        {getStatusBadge(item.status)}\n                      </div>\n                    </div>\n                  </div>\n\n                  <motion.div\n                    animate={{ rotate: isExpanded ? 90 : 0 }}\n                    transition={motionTransitions.springSnappy}\n                    className=\"text-[#808080] shrink-0\"\n                  >\n                    <ChevronRight className=\"w-4 h-4\" />\n                  </motion.div>\n                </div>\n              </button>\n\n              {/* Smooth Unfolding Expansion Container */}\n              <AnimatePresence initial={false}>\n                {isExpanded && (\n                  <motion.div\n                    initial={{ height: 0, opacity: 0 }}\n                    animate={{ height: 'auto', opacity: 1 }}\n                    exit={{ height: 0, opacity: 0 }}\n                    transition={motionTransitions.springGentle}\n                    className=\"overflow-hidden bg-[#070707] border-t border-[#141414]\"\n                  >\n                    <div className=\"p-4 sm:p-5 sm:pl-12 grid grid-cols-1 lg:grid-cols-12 gap-6 text-xs\">\n                      {/* Column 1: Metadata specs */}\n                      <div className=\"lg:col-span-5 space-y-3\">\n                        <p className=\"text-[10px] font-mono text-[#737373] uppercase tracking-wider\">\n                          Account Metadata\n                        </p>\n                        <div className=\"grid grid-cols-2 gap-2.5\">\n                          <div className=\"p-2.5 rounded-lg bg-[#0C0C0C] border border-[#181818]\">\n                            <span className=\"text-[10px] text-[#737373] block\">Active Tier</span>\n                            <span className=\"text-xs text-[#E5E5E5] font-medium mt-0.5 block\">{item.metadata?.plan || 'Standard'}</span>\n                          </div>\n                          <div className=\"p-2.5 rounded-lg bg-[#0C0C0C] border border-[#181818]\">\n                            <span className=\"text-[10px] text-[#737373] block\">Location</span>\n                            <span className=\"text-xs text-[#E5E5E5] font-medium mt-0.5 block\">{item.metadata?.location || 'Unknown'}</span>\n                          </div>\n                          <div className=\"p-2.5 rounded-lg bg-[#0C0C0C] border border-[#181818]\">\n                            <span className=\"text-[10px] text-[#737373] block\">Payment Method</span>\n                            <span className=\"text-xs text-[#E5E5E5] font-mono mt-0.5 block\">{item.metadata?.billingMethod || 'Card'}</span>\n                          </div>\n                          <div className=\"p-2.5 rounded-lg bg-[#0C0C0C] border border-[#181818]\">\n                            <span className=\"text-[10px] text-[#737373] block\">Last Activity</span>\n                            <span className=\"text-xs text-[#E5E5E5] font-mono mt-0.5 block\">{item.metadata?.lastActive || 'Recently'}</span>\n                          </div>\n                        </div>\n                      </div>\n\n                      {/* Column 2: Recent Activity Timeline */}\n                      <div className=\"lg:col-span-4 space-y-2\">\n                        <p className=\"text-[10px] font-mono text-[#737373] uppercase tracking-wider\">\n                          Recent Activity\n                        </p>\n                        <div className=\"space-y-1.5\">\n                          {item.recentActivity?.map((act, i) => (\n                            <div key={i} className=\"flex items-start gap-2 text-[11px] p-2 rounded-lg bg-[#0C0C0C] border border-[#181818]\">\n                              <span className=\"w-1.5 h-1.5 rounded-full bg-sky-400/80 mt-1.5 shrink-0\" />\n                              <div className=\"min-w-0\">\n                                <p className=\"text-[#C4C4C4] leading-tight\">{act.action}</p>\n                                <span className=\"text-[9px] font-mono text-[#666666]\">{act.timestamp}</span>\n                              </div>\n                            </div>\n                          ))}\n                        </div>\n                      </div>\n\n                      {/* Column 3: Quick Action Bar */}\n                      <div className=\"lg:col-span-3 flex flex-col justify-between space-y-3\">\n                        <div>\n                          <p className=\"text-[10px] font-mono text-[#737373] uppercase tracking-wider mb-2\">\n                            Quick Actions\n                          </p>\n                          <div className=\"space-y-1.5\">\n                            <button\n                              type=\"button\"\n                              onClick={(e) => handleCopyEmail(item.user.email, item.id, e)}\n                              className=\"w-full flex items-center justify-between px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1C1C1C] border border-[#222222] text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors focus-ring\"\n                            >\n                              <span>Copy Email</span>\n                              {copiedId === item.id ? <Check className=\"w-3 h-3 text-emerald-400\" /> : <Copy className=\"w-3 h-3 text-[#737373]\" />}\n                            </button>\n                            <button\n                              type=\"button\"\n                              onClick={() => onRowAction?.('manage-billing', item)}\n                              className=\"w-full flex items-center justify-between px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1C1C1C] border border-[#222222] text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors focus-ring\"\n                            >\n                              <span>Manage Billing</span>\n                              <CreditCard className=\"w-3 h-3 text-[#737373]\" />\n                            </button>\n                            <button\n                              type=\"button\"\n                              onClick={() => onRowAction?.('view-profile', item)}\n                              className=\"w-full flex items-center justify-between px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1C1C1C] border border-[#222222] text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors focus-ring\"\n                            >\n                              <span>User Profile</span>\n                              <ArrowUpRight className=\"w-3 h-3 text-[#737373]\" />\n                            </button>\n                          </div>\n                        </div>\n\n                        <div className=\"text-[10px] font-mono text-[#555555] pt-2 border-t border-[#141414]\">\n                          ID: {item.id}\n                        </div>\n                      </div>\n                    </div>\n                  </motion.div>\n                )}\n              </AnimatePresence>\n            </div>\n          );\n        })}\n      </div>\n    </div>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/ExpandableDataRow.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/expandable-data-row.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "expandable-search",
     "name": "Expandable Search",
     "tagline": "Compact spring width morphing search input",
@@ -726,6 +1104,80 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/components/ui/FloatingActionDock.tsx",
         "type": "registry:ui",
         "target": "components/ui/floating-action-dock.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "focus-mode",
+    "name": "Focus Mode",
+    "tagline": "Atmospheric UI isolation dimming background distractions without layout shifts",
+    "description": "An atmospheric focus-mode interaction that isolates selected cards or sections by smoothly dimming surrounding distractions with zero layout shift, tactile spring scaling, and Escape key dismissal.",
+    "category": "Motion",
+    "badges": [
+      "Focus Mode",
+      "Motion Physics",
+      "Overlays"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/focus-mode",
+    "features": [
+      "Subtle background opacity dampening bringing selected components into focus",
+      "Zero layout shift architecture keeping existing dashboard grid geometry intact",
+      "Tactile spring scaling and border elevation on active focused target",
+      "Keyboard Escape key listener and explicit exit controls",
+      "Reduced motion support with instant opacity transitions"
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "FocusModeItem[]",
+        "default": "[...]",
+        "description": "List of dashboard cards or sections"
+      },
+      {
+        "name": "focusedId",
+        "type": "string | null",
+        "default": "null",
+        "description": "Controlled focused card ID"
+      },
+      {
+        "name": "onFocusChange",
+        "type": "(id: string | null) => void",
+        "default": "undefined",
+        "description": "Callback fired when focused element changes"
+      },
+      {
+        "name": "dimOpacity",
+        "type": "number",
+        "default": "0.2",
+        "description": "Opacity applied to unfocused background cards"
+      }
+    ],
+    "accessibility": [
+      "Escape key listener automatically dismisses focus mode and restores full viewport opacity",
+      "Focus rings remain strictly compliant with EasyUI sky-400 tokens"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { FocusMode } from \"@/components/ui/focus-mode\";\n\nexport function Demo() {\n  return (\n    <FocusMode\n      items={[\n        {\n          id: \"mrr\",\n          title: \"Monthly Recurring Revenue\",\n          metric: \"$148,290\",\n          delta: \"+18.4%\",\n          content: <p>Enterprise plan renewals</p>\n        }\n      ]}\n    />\n  );\n}",
+    "sourceCode": "import React, { useState, useEffect, useCallback } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport { Focus, X } from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport interface FocusModeItem {\n  id: string;\n  title: string;\n  category?: string;\n  metric?: string;\n  delta?: string;\n  content: React.ReactNode;\n}\n\nexport interface FocusModeProps {\n  /** Array of cards or sections */\n  items?: FocusModeItem[];\n  /** Controlled active focused item ID */\n  focusedId?: string | null;\n  /** Callback when focused item changes */\n  onFocusChange?: (id: string | null) => void;\n  /** Background opacity level when item is focused (0.15 - 0.35) */\n  dimOpacity?: number;\n  /** Custom class name */\n  className?: string;\n}\n\nconst defaultItems: FocusModeItem[] = [\n  {\n    id: 'revenue',\n    title: 'Monthly Recurring Revenue',\n    category: 'Financials',\n    metric: '$148,290',\n    delta: '+18.4% vs last month',\n    content: (\n      <div className=\"space-y-3\">\n        <p className=\"text-xs text-[#808080]\">\n          Gross expansion revenue driven by 42 net-new enterprise team conversions this cycle.\n        </p>\n        <div className=\"h-16 rounded-lg bg-[#111111] border border-[#1C1C1C] flex items-end gap-1.5 p-2\">\n          {[35, 45, 60, 50, 75, 90, 85, 100].map((h, i) => (\n            <div\n              key={i}\n              className=\"flex-1 bg-white/70 hover:bg-white rounded-sm transition-colors\"\n              style={{ height: `${h}%` }}\n            />\n          ))}\n        </div>\n      </div>\n    ),\n  },\n  {\n    id: 'traffic',\n    title: 'Edge API Throughput',\n    category: 'Infrastructure',\n    metric: '42.8M req/s',\n    delta: '99.998% uptime',\n    content: (\n      <div className=\"space-y-3\">\n        <p className=\"text-xs text-[#808080]\">\n          Global Anycast network serving p99 latencies under 14ms across all regions.\n        </p>\n        <div className=\"grid grid-cols-2 gap-2 text-[11px] font-mono\">\n          <div className=\"p-2 rounded bg-[#111111] border border-[#1C1C1C]\">\n            <span className=\"text-[#666666] block\">Cache Hit</span>\n            <span className=\"text-emerald-400 font-bold\">96.4%</span>\n          </div>\n          <div className=\"p-2 rounded bg-[#111111] border border-[#1C1C1C]\">\n            <span className=\"text-[#666666] block\">P99 TTFB</span>\n            <span className=\"text-white font-bold\">12.1ms</span>\n          </div>\n        </div>\n      </div>\n    ),\n  },\n  {\n    id: 'users',\n    title: 'Active Developers',\n    category: 'Adoption',\n    metric: '18,450',\n    delta: '+2,100 this week',\n    content: (\n      <div className=\"space-y-3\">\n        <p className=\"text-xs text-[#808080]\">\n          Weekly active engineers utilizing CLI component scaffolding across 140+ countries.\n        </p>\n        <div className=\"flex items-center gap-2 pt-2\">\n          <span className=\"w-2 h-2 rounded-full bg-emerald-400 animate-pulse\" />\n          <span className=\"text-[11px] font-mono text-[#D4D4D4]\">892 live deployment pipelines</span>\n        </div>\n      </div>\n    ),\n  },\n];\n\nexport const FocusMode: React.FC<FocusModeProps> = ({\n  items = defaultItems,\n  focusedId: controlledFocusedId,\n  onFocusChange,\n  dimOpacity = 0.2,\n  className,\n}) => {\n  const [activeId, setActiveId] = useState<string | null>(controlledFocusedId || null);\n\n  useEffect(() => {\n    if (controlledFocusedId !== undefined) {\n      setActiveId(controlledFocusedId);\n    }\n  }, [controlledFocusedId]);\n\n  const setFocus = useCallback((id: string | null) => {\n    setActiveId(id);\n    onFocusChange?.(id);\n  }, [onFocusChange]);\n\n  // Listen for Escape key to exit focus mode\n  useEffect(() => {\n    const handleKeyDown = (e: KeyboardEvent) => {\n      if (e.key === 'Escape' && activeId) {\n        e.preventDefault();\n        setFocus(null);\n      }\n    };\n    window.addEventListener('keydown', handleKeyDown);\n    return () => window.removeEventListener('keydown', handleKeyDown);\n  }, [activeId, setFocus]);\n\n  return (\n    <div className={cn('relative w-full select-none font-sans', className)}>\n      {/* Top Banner with Instructions when in Focus Mode */}\n      <AnimatePresence>\n        {activeId && (\n          <motion.div\n            initial={{ opacity: 0, y: -10 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -10 }}\n            transition={motionTransitions.springSnappy}\n            className=\"mb-4 flex items-center justify-between px-4 py-2 rounded-xl bg-[#121212] border border-[#222222] text-xs\"\n          >\n            <div className=\"flex items-center gap-2 text-[#A1A1A1]\">\n              <Focus className=\"w-3.5 h-3.5 text-white\" />\n              <span>\n                Focus Mode Active:{' '}\n                <strong className=\"text-white font-medium\">\n                  {items.find((i) => i.id === activeId)?.title}\n                </strong>\n              </span>\n            </div>\n\n            <div className=\"flex items-center gap-2\">\n              <span className=\"text-[10px] font-mono text-[#666666] hidden sm:inline\">\n                Press <kbd className=\"px-1 py-0.5 bg-[#1C1C1C] border border-[#2A2A2A] rounded text-white\">ESC</kbd> to exit\n              </span>\n              <button\n                type=\"button\"\n                onClick={() => setFocus(null)}\n                className=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#1C1C1C] hover:bg-[#252525] text-white text-xs font-medium border border-[#2A2A2A] transition-colors focus-ring\"\n              >\n                <X className=\"w-3 h-3\" />\n                <span>Exit</span>\n              </button>\n            </div>\n          </motion.div>\n        )}\n      </AnimatePresence>\n\n      {/* Grid of Focusable Cards */}\n      <div className=\"grid grid-cols-1 md:grid-cols-3 gap-4\">\n        {items.map((item) => {\n          const isFocused = activeId === item.id;\n          const isDimmed = activeId !== null && !isFocused;\n\n          return (\n            <motion.div\n              key={item.id}\n              layout\n              animate={{\n                opacity: isDimmed ? dimOpacity : 1,\n                scale: isFocused ? 1.02 : 1,\n                borderColor: isFocused ? '#383838' : '#1D1D1D',\n                boxShadow: isFocused\n                  ? '0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1)'\n                  : '0 4px 12px rgba(0,0,0,0.4)',\n              }}\n              transition={motionTransitions.springGentle}\n              className={cn(\n                'relative rounded-xl border bg-[#0A0A0A] p-5 transition-all overflow-hidden flex flex-col justify-between',\n                isDimmed ? 'pointer-events-none' : 'hover:border-[#2A2A2A]'\n              )}\n            >\n              <div>\n                {/* Header Row */}\n                <div className=\"flex items-start justify-between gap-2 mb-3\">\n                  <div>\n                    {item.category && (\n                      <span className=\"text-[10px] font-mono text-[#737373] uppercase tracking-wider block\">\n                        {item.category}\n                      </span>\n                    )}\n                    <h4 className=\"text-sm font-semibold text-[#F5F5F5] tracking-tight mt-0.5\">\n                      {item.title}\n                    </h4>\n                  </div>\n\n                  {/* Focus Toggle Button */}\n                  <button\n                    type=\"button\"\n                    onClick={() => setFocus(isFocused ? null : item.id)}\n                    className={cn(\n                      'p-1.5 rounded-lg border transition-colors focus-ring',\n                      isFocused\n                        ? 'bg-white text-black border-transparent'\n                        : 'bg-[#141414] hover:bg-[#1E1E1E] text-[#808080] hover:text-white border-[#222222]'\n                    )}\n                    title={isFocused ? 'Exit Focus' : 'Focus on this card'}\n                    aria-label={isFocused ? `Exit focus on ${item.title}` : `Focus on ${item.title}`}\n                  >\n                    {isFocused ? <X className=\"w-3.5 h-3.5\" /> : <Focus className=\"w-3.5 h-3.5\" />}\n                  </button>\n                </div>\n\n                {/* Primary Metric */}\n                {item.metric && (\n                  <div className=\"mb-4\">\n                    <p className=\"text-2xl font-bold font-mono text-white tracking-tight\">\n                      {item.metric}\n                    </p>\n                    {item.delta && (\n                      <p className=\"text-[11px] font-mono text-emerald-400 mt-0.5\">\n                        {item.delta}\n                      </p>\n                    )}\n                  </div>\n                )}\n\n                {/* Body Content */}\n                <div className=\"pt-2 border-t border-[#141414]\">\n                  {item.content}\n                </div>\n              </div>\n\n              {/* Bottom Quick Focus Action */}\n              {!isFocused && !isDimmed && (\n                <button\n                  type=\"button\"\n                  onClick={() => setFocus(item.id)}\n                  className=\"mt-4 w-full py-1.5 rounded-lg bg-[#121212] hover:bg-[#181818] border border-[#1E1E1E] text-[11px] font-medium text-[#808080] hover:text-[#D4D4D4] transition-colors flex items-center justify-center gap-1.5 focus-ring\"\n                >\n                  <Focus className=\"w-3 h-3\" />\n                  <span>Focus View</span>\n                </button>\n              )}\n            </motion.div>\n          );\n        })}\n      </div>\n    </div>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/FocusMode.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/focus-mode.tsx"
       },
       {
         "path": "src/lib/utils.ts",
@@ -1283,6 +1735,93 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "morphing-button",
+    "name": "Morphing Button",
+    "tagline": "Dimension-preserving state morphing button with fluid icon transitions",
+    "description": "A layout-stable interactive action button that smoothly transitions between Idle, Loading, Success, and Error states without jarring jumps or dimension shifts.",
+    "category": "Buttons",
+    "badges": [
+      "Buttons",
+      "Micro-interactions",
+      "State Morphing"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/morphing-button",
+    "features": [
+      "Zero layout shift architecture preserving natural bounding dimensions across states",
+      "Icon morphing with spring-based scale and translation transitions",
+      "Multiple design presets (Primary, Secondary, Danger, and Ghost)",
+      "Interactive spring tap physics (whileTap scale 0.97)",
+      "Complete disabled and busy ARIA state compatibility"
+    ],
+    "props": [
+      {
+        "name": "status",
+        "type": "'idle' | 'loading' | 'success' | 'error'",
+        "default": "'idle'",
+        "description": "Current button lifecycle state"
+      },
+      {
+        "name": "idleText",
+        "type": "string",
+        "default": "'Save Changes'",
+        "description": "Label shown in default resting state"
+      },
+      {
+        "name": "loadingText",
+        "type": "string",
+        "default": "'Saving...'",
+        "description": "Label shown when operation is pending"
+      },
+      {
+        "name": "successText",
+        "type": "string",
+        "default": "'Saved'",
+        "description": "Label shown upon successful completion"
+      },
+      {
+        "name": "errorText",
+        "type": "string",
+        "default": "'Failed'",
+        "description": "Label shown when operation fails"
+      },
+      {
+        "name": "variant",
+        "type": "'primary' | 'secondary' | 'danger' | 'ghost'",
+        "default": "'primary'",
+        "description": "Visual surface styling preset"
+      }
+    ],
+    "accessibility": [
+      "ARIA live role=\"button\" with dynamic aria-busy during loading",
+      "Focus-visible ring conforming to EasyUI accessibility tokens",
+      "Screen readers announce state changes without losing focus target"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { MorphingButton } from \"@/components/ui/morphing-button\";\n\nexport function Demo() {\n  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');\n\n  const handleClick = () => {\n    setStatus('loading');\n    setTimeout(() => {\n      setStatus('success');\n      setTimeout(() => setStatus('idle'), 2000);\n    }, 1500);\n  };\n\n  return (\n    <MorphingButton\n      status={status}\n      idleText=\"Deploy Project\"\n      loadingText=\"Building Edge...\"\n      successText=\"Deployed ✓\"\n      onClick={handleClick}\n    />\n  );\n}",
+    "sourceCode": "import React from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport { Check, AlertCircle, Loader2, Save } from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport type ButtonStatusState = 'idle' | 'loading' | 'success' | 'error';\nexport type MorphingButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost';\n\nexport interface MorphingButtonProps\n  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onAnimationStart' | 'onDrag' | 'onDragEnd' | 'onDragStart' | 'style'> {\n  /** Current state of button */\n  status?: ButtonStatusState;\n  /** Idle state label */\n  idleText?: string;\n  /** Loading state label */\n  loadingText?: string;\n  /** Success state label */\n  successText?: string;\n  /** Error state label */\n  errorText?: string;\n  /** Visual variant tone */\n  variant?: MorphingButtonVariant;\n  /** Custom idle icon */\n  idleIcon?: React.ReactNode;\n  /** Custom success icon */\n  successIcon?: React.ReactNode;\n  /** Custom error icon */\n  errorIcon?: React.ReactNode;\n  /** Click action handler */\n  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;\n  /** Custom class name */\n  className?: string;\n}\n\nexport const MorphingButton: React.FC<MorphingButtonProps> = ({\n  status = 'idle',\n  idleText = 'Save Changes',\n  loadingText = 'Saving...',\n  successText = 'Saved',\n  errorText = 'Failed',\n  variant = 'primary',\n  idleIcon = <Save className=\"w-3.5 h-3.5\" />,\n  successIcon = <Check className=\"w-3.5 h-3.5 text-emerald-400\" />,\n  errorIcon = <AlertCircle className=\"w-3.5 h-3.5 text-rose-400\" />,\n  disabled = false,\n  onClick,\n  className,\n  ...props\n}) => {\n  const isLoading = status === 'loading';\n  const isSuccess = status === 'success';\n  const isError = status === 'error';\n\n  const variantStyles: Record<MorphingButtonVariant, string> = {\n    primary:\n      'bg-[#F5F5F5] text-[#050505] hover:bg-white border-transparent shadow-[0_0_20px_-3px_rgba(255,255,255,0.15)]',\n    secondary:\n      'bg-[#141414] text-[#F5F5F5] hover:bg-[#1C1C1C] border-[#222222] hover:border-[#333333]',\n    danger:\n      'bg-[#1C1212] text-rose-300 hover:bg-[#2A1818] border-[#381B1B] hover:border-rose-500/40',\n    ghost:\n      'bg-transparent text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#141414] border-transparent',\n  };\n\n  return (\n    <motion.button\n      whileTap={disabled || isLoading ? undefined : { scale: 0.97 }}\n      transition={motionTransitions.springSnappy}\n      disabled={disabled || isLoading}\n      onClick={onClick}\n      className={cn(\n        'relative inline-flex items-center justify-center font-medium select-none focus-ring px-4 py-2 text-xs sm:text-sm rounded-lg border transition-all duration-200 min-h-[38px] min-w-[120px] overflow-hidden',\n        variantStyles[variant],\n        disabled && 'opacity-30 cursor-not-allowed',\n        className\n      )}\n      {...props}\n    >\n      <AnimatePresence mode=\"wait\" initial={false}>\n        {isLoading && (\n          <motion.span\n            key=\"loading\"\n            initial={{ opacity: 0, y: 6 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -6 }}\n            transition={motionTransitions.springSnappy}\n            className=\"flex items-center gap-2\"\n          >\n            <Loader2 className=\"w-3.5 h-3.5 animate-spin\" />\n            <span>{loadingText}</span>\n          </motion.span>\n        )}\n\n        {isSuccess && (\n          <motion.span\n            key=\"success\"\n            initial={{ opacity: 0, scale: 0.8 }}\n            animate={{ opacity: 1, scale: 1 }}\n            exit={{ opacity: 0, scale: 0.8 }}\n            transition={motionTransitions.springSnappy}\n            className=\"flex items-center gap-2 text-emerald-400 font-semibold\"\n          >\n            {successIcon}\n            <span>{successText}</span>\n          </motion.span>\n        )}\n\n        {isError && (\n          <motion.span\n            key=\"error\"\n            initial={{ opacity: 0, scale: 0.8 }}\n            animate={{ opacity: 1, scale: 1 }}\n            exit={{ opacity: 0, scale: 0.8 }}\n            transition={motionTransitions.springSnappy}\n            className=\"flex items-center gap-2 text-rose-400 font-semibold\"\n          >\n            {errorIcon}\n            <span>{errorText}</span>\n          </motion.span>\n        )}\n\n        {status === 'idle' && (\n          <motion.span\n            key=\"idle\"\n            initial={{ opacity: 0, y: -6 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: 6 }}\n            transition={motionTransitions.springSnappy}\n            className=\"flex items-center gap-2\"\n          >\n            {idleIcon}\n            <span>{idleText}</span>\n          </motion.span>\n        )}\n      </AnimatePresence>\n    </motion.button>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/MorphingButton.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/morphing-button.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "morphing-dialog",
     "name": "Morphing Dialog",
     "tagline": "Seamless shared layoutId card to modal transition",
@@ -1472,7 +2011,7 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ],
     "createdAt": "2026-08-21",
     "usageCode": "import { ParticleDeleteContainer, useParticleDelete, particleDelete } from \"@/components/ui/particle-delete\";\nimport { Trash2 } from \"lucide-react\";\n\nexport function Demo() {\n  const [items, setItems] = useState([\n    { id: '1', name: 'Database Snapshot #409' },\n    { id: '2', name: 'Redis Cache Layer' }\n  ]);\n\n  const handleDelete = (id: string) => {\n    setItems((prev) => prev.filter((i) => i.id !== id));\n  };\n\n  return (\n    <div className=\"space-y-3\">\n      {items.map((item) => (\n        <ParticleDeleteContainer\n          key={item.id}\n          onDelete={() => handleDelete(item.id)}\n          className=\"p-4 rounded-xl bg-[#0D0D0D] border border-[#222222] flex items-center justify-between\"\n        >\n          {({ isDeleting, handleDelete: triggerDelete }) => (\n            <>\n              <span className=\"text-sm font-medium text-white\">{item.name}</span>\n              <button\n                type=\"button\"\n                onClick={triggerDelete}\n                disabled={isDeleting}\n                className=\"p-2 rounded-lg bg-[#141414] hover:bg-rose-950/40 text-[#888888] hover:text-rose-400 border border-[#262626] transition-colors\"\n              >\n                <Trash2 className=\"w-4 h-4\" />\n              </button>\n            </>\n          )}\n        </ParticleDeleteContainer>\n      ))}\n    </div>\n  );\n}",
-    "sourceCode": "import React, { useState, useRef } from 'react';\nimport {\n  Trash2,\n  RotateCcw,\n  Sparkles,\n  Layers,\n  Database,\n  Cpu,\n  Shield,\n} from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport {\n  particleDelete,\n  useParticleDelete,\n  type ParticleDeleteOptions,\n} from '../../lib/particle-delete';\n\nexport interface ParticleDeleteItem {\n  id: string;\n  title: string;\n  category: string;\n  description: string;\n  icon: 'shield' | 'database' | 'cpu' | 'layers';\n  tag: string;\n  meta: string;\n}\n\nexport interface ParticleDeleteContainerProps\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {\n  onDelete?: () => void;\n  options?: ParticleDeleteOptions;\n  children: React.ReactNode | ((args: { isDeleting: boolean; handleDelete: () => void }) => React.ReactNode);\n  className?: string;\n}\n\n/**\n * Reusable wrapper component that attaches the particle dissolution effect to any element upon delete.\n */\nexport const ParticleDeleteContainer = React.forwardRef<\n  HTMLDivElement,\n  ParticleDeleteContainerProps\n>(({ onDelete, options, children, className, ...props }, ref) => {\n  const localRef = useRef<HTMLDivElement | null>(null);\n  const { isDeleting, triggerDelete } = useParticleDelete(options);\n\n  const handleDelete = () => {\n    const el = (ref && 'current' in ref ? ref.current : null) || localRef.current;\n    if (el) {\n      triggerDelete(el, onDelete);\n    } else {\n      onDelete?.();\n    }\n  };\n\n  return (\n    <div\n      ref={(node) => {\n        localRef.current = node;\n        if (typeof ref === 'function') ref(node);\n        else if (ref && 'current' in ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;\n      }}\n      className={cn('relative', className)}\n      data-deleting={isDeleting}\n      {...props}\n    >\n      {typeof children === 'function'\n        ? children({ isDeleting, handleDelete })\n        : children}\n    </div>\n  );\n});\n\nParticleDeleteContainer.displayName = 'ParticleDeleteContainer';\n\nexport interface ParticleDeleteProps extends React.HTMLAttributes<HTMLDivElement> {\n  initialItems?: ParticleDeleteItem[];\n  className?: string;\n  options?: ParticleDeleteOptions;\n}\n\nconst DEFAULT_SAMPLE_ITEMS: ParticleDeleteItem[] = [\n  {\n    id: 'edge-cluster-iad1',\n    title: 'Edge Cluster (iad-1)',\n    category: 'Infra',\n    description: '12 active workers · 42ms latency',\n    icon: 'cpu',\n    tag: 'Healthy',\n    meta: 'Primary route',\n  },\n  {\n    id: 'auth-session-vault',\n    title: 'Prod Session Vault',\n    category: 'Security',\n    description: 'RSA-4096 secret pair · Token rotation active',\n    icon: 'shield',\n    tag: 'Active',\n    meta: 'Vault #01',\n  },\n  {\n    id: 'redis-cache-layer',\n    title: 'L2 Memory Cache',\n    category: 'Database',\n    description: '1.2 GB stored · 99.8% hit ratio',\n    icon: 'database',\n    tag: 'Optimal',\n    meta: 'Redis v7',\n  },\n];\n\n/**\n * EasyUI ParticleDelete Interactive Component\n *\n * Minimal, refined card deck demonstrating particle dissolution on deletion.\n */\nexport const ParticleDelete: React.FC<ParticleDeleteProps> = ({\n  initialItems = DEFAULT_SAMPLE_ITEMS,\n  className,\n  options,\n  ...props\n}) => {\n  const [items, setItems] = useState<ParticleDeleteItem[]>(initialItems);\n  const [deletingId, setDeletingId] = useState<string | null>(null);\n\n  const cardRefs = useRef<Map<string, HTMLElement>>(new Map());\n\n  const handleDeleteItem = async (id: string) => {\n    if (deletingId) return;\n    const targetEl = cardRefs.current.get(id);\n\n    setDeletingId(id);\n\n    if (targetEl) {\n      await particleDelete(targetEl, options);\n    }\n\n    setItems((prev) => prev.filter((item) => item.id !== id));\n    setDeletingId(null);\n  };\n\n  const handleReset = () => {\n    setItems(initialItems);\n  };\n\n  const getItemIcon = (icon: ParticleDeleteItem['icon']) => {\n    switch (icon) {\n      case 'shield':\n        return <Shield className=\"w-3.5 h-3.5 text-[#A1A1A1]\" />;\n      case 'database':\n        return <Database className=\"w-3.5 h-3.5 text-[#A1A1A1]\" />;\n      case 'layers':\n        return <Layers className=\"w-3.5 h-3.5 text-[#A1A1A1]\" />;\n      case 'cpu':\n      default:\n        return <Cpu className=\"w-3.5 h-3.5 text-[#A1A1A1]\" />;\n    }\n  };\n\n  return (\n    <div\n      role=\"region\"\n      aria-label=\"Particle Delete Items\"\n      className={cn(\n        'w-full max-w-lg mx-auto rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] p-3.5 sm:p-4 text-[#F5F5F5]',\n        className\n      )}\n      {...props}\n    >\n      {/* Minimal Header */}\n      <div className=\"flex items-center justify-between pb-3 mb-3 border-b border-[#161616]\">\n        <div className=\"flex items-center gap-2\">\n          <span className=\"text-xs font-semibold text-white\">Active Resources</span>\n          <span className=\"text-[10px] font-mono text-[#737373] bg-[#121212] px-1.5 py-0.5 rounded border border-[#1E1E1E]\">\n            {items.length}\n          </span>\n        </div>\n\n        {items.length < initialItems.length && (\n          <button\n            type=\"button\"\n            onClick={handleReset}\n            className=\"inline-flex items-center gap-1 text-[11px] font-mono text-[#A1A1A1] hover:text-white transition-colors cursor-pointer focus-ring rounded\"\n          >\n            <RotateCcw className=\"w-3 h-3\" />\n            <span>Restore ({initialItems.length - items.length})</span>\n          </button>\n        )}\n      </div>\n\n      {/* Minimal Items List */}\n      <div className=\"space-y-2\">\n        {items.length === 0 ? (\n          <div className=\"py-8 text-center rounded-lg border border-dashed border-[#1A1A1A] bg-[#070707] space-y-2\">\n            <Sparkles className=\"w-4 h-4 text-[#606060] mx-auto\" />\n            <p className=\"text-xs text-[#737373]\">All items dissolved into particles.</p>\n            <button\n              type=\"button\"\n              onClick={handleReset}\n              className=\"text-xs text-white underline underline-offset-4 hover:text-[#D4D4D4] transition-colors cursor-pointer focus-ring rounded\"\n            >\n              Reset resources\n            </button>\n          </div>\n        ) : (\n          items.map((item) => {\n            const isThisDeleting = deletingId === item.id;\n\n            return (\n              <div\n                key={item.id}\n                ref={(node) => {\n                  if (node) cardRefs.current.set(item.id, node);\n                  else cardRefs.current.delete(item.id);\n                }}\n                className={cn(\n                  'group rounded-lg border border-[#181818] bg-[#0E0E0E] p-2.5 sm:p-3 hover:border-[#262626] transition-all flex items-center justify-between gap-3',\n                  isThisDeleting && 'pointer-events-none'\n                )}\n              >\n                {/* Left: Icon + Text info */}\n                <div className=\"flex items-center gap-2.5 min-w-0\">\n                  <div className=\"w-7 h-7 rounded-md bg-[#141414] border border-[#202020] flex items-center justify-center shrink-0\">\n                    {getItemIcon(item.icon)}\n                  </div>\n\n                  <div className=\"min-w-0\">\n                    <div className=\"flex items-center gap-1.5\">\n                      <span className=\"text-xs font-medium text-white truncate\">\n                        {item.title}\n                      </span>\n                      <span className=\"text-[9px] font-mono text-[#666666] px-1 py-0.2 rounded bg-[#121212] border border-[#1A1A1A]\">\n                        {item.category}\n                      </span>\n                    </div>\n                    <p className=\"text-[11px] text-[#737373] truncate\">\n                      {item.description}\n                    </p>\n                  </div>\n                </div>\n\n                {/* Right: Minimal Delete Button */}\n                <button\n                  type=\"button\"\n                  disabled={isThisDeleting || deletingId !== null}\n                  onClick={() => handleDeleteItem(item.id)}\n                  className={cn(\n                    'p-1.5 rounded-md transition-colors cursor-pointer shrink-0 focus-ring',\n                    isThisDeleting\n                      ? 'text-rose-400 bg-rose-500/10'\n                      : 'text-[#606060] hover:text-rose-400 hover:bg-rose-500/10'\n                  )}\n                  title={`Delete ${item.title}`}\n                  aria-label={`Delete ${item.title}`}\n                >\n                  <Trash2 className=\"w-3.5 h-3.5\" />\n                </button>\n              </div>\n            );\n          })\n        )}\n      </div>\n    </div>\n  );\n};\n",
+    "sourceCode": "import React, { useState, useRef } from 'react';\r\nimport {\r\n  Trash2,\r\n  RotateCcw,\r\n  Sparkles,\r\n  Layers,\r\n  Database,\r\n  Cpu,\r\n  Shield,\r\n} from 'lucide-react';\r\nimport { cn } from '../../lib/utils';\r\nimport {\r\n  particleDelete,\r\n  useParticleDelete,\r\n  type ParticleDeleteOptions,\r\n} from '../../lib/particle-delete';\r\n\r\nexport interface ParticleDeleteItem {\r\n  id: string;\r\n  title: string;\r\n  category: string;\r\n  description: string;\r\n  icon: 'shield' | 'database' | 'cpu' | 'layers';\r\n  tag: string;\r\n  meta: string;\r\n}\r\n\r\nexport interface ParticleDeleteContainerProps\r\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {\r\n  onDelete?: () => void;\r\n  options?: ParticleDeleteOptions;\r\n  children: React.ReactNode | ((args: { isDeleting: boolean; handleDelete: () => void }) => React.ReactNode);\r\n  className?: string;\r\n}\r\n\r\n/**\r\n * Reusable wrapper component that attaches the particle dissolution effect to any element upon delete.\r\n */\r\nexport const ParticleDeleteContainer = React.forwardRef<\r\n  HTMLDivElement,\r\n  ParticleDeleteContainerProps\r\n>(({ onDelete, options, children, className, ...props }, ref) => {\r\n  const localRef = useRef<HTMLDivElement | null>(null);\r\n  const { isDeleting, triggerDelete } = useParticleDelete(options);\r\n\r\n  const handleDelete = () => {\r\n    const el = (ref && 'current' in ref ? ref.current : null) || localRef.current;\r\n    if (el) {\r\n      triggerDelete(el, onDelete);\r\n    } else {\r\n      onDelete?.();\r\n    }\r\n  };\r\n\r\n  return (\r\n    <div\r\n      ref={(node) => {\r\n        localRef.current = node;\r\n        if (typeof ref === 'function') ref(node);\r\n        else if (ref && 'current' in ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;\r\n      }}\r\n      className={cn('relative', className)}\r\n      data-deleting={isDeleting}\r\n      {...props}\r\n    >\r\n      {typeof children === 'function'\r\n        ? children({ isDeleting, handleDelete })\r\n        : children}\r\n    </div>\r\n  );\r\n});\r\n\r\nParticleDeleteContainer.displayName = 'ParticleDeleteContainer';\r\n\r\nexport interface ParticleDeleteProps extends React.HTMLAttributes<HTMLDivElement> {\r\n  initialItems?: ParticleDeleteItem[];\r\n  className?: string;\r\n  options?: ParticleDeleteOptions;\r\n}\r\n\r\nconst DEFAULT_SAMPLE_ITEMS: ParticleDeleteItem[] = [\r\n  {\r\n    id: 'edge-cluster-iad1',\r\n    title: 'Edge Cluster (iad-1)',\r\n    category: 'Infra',\r\n    description: '12 active workers · 42ms latency',\r\n    icon: 'cpu',\r\n    tag: 'Healthy',\r\n    meta: 'Primary route',\r\n  },\r\n  {\r\n    id: 'auth-session-vault',\r\n    title: 'Prod Session Vault',\r\n    category: 'Security',\r\n    description: 'RSA-4096 secret pair · Token rotation active',\r\n    icon: 'shield',\r\n    tag: 'Active',\r\n    meta: 'Vault #01',\r\n  },\r\n  {\r\n    id: 'redis-cache-layer',\r\n    title: 'L2 Memory Cache',\r\n    category: 'Database',\r\n    description: '1.2 GB stored · 99.8% hit ratio',\r\n    icon: 'database',\r\n    tag: 'Optimal',\r\n    meta: 'Redis v7',\r\n  },\r\n];\r\n\r\n/**\r\n * EasyUI ParticleDelete Interactive Component\r\n *\r\n * Minimal, refined card deck demonstrating particle dissolution on deletion.\r\n */\r\nexport const ParticleDelete: React.FC<ParticleDeleteProps> = ({\r\n  initialItems = DEFAULT_SAMPLE_ITEMS,\r\n  className,\r\n  options,\r\n  ...props\r\n}) => {\r\n  const [items, setItems] = useState<ParticleDeleteItem[]>(initialItems);\r\n  const [deletingId, setDeletingId] = useState<string | null>(null);\r\n\r\n  const cardRefs = useRef<Map<string, HTMLElement>>(new Map());\r\n\r\n  const handleDeleteItem = async (id: string) => {\r\n    if (deletingId) return;\r\n    const targetEl = cardRefs.current.get(id);\r\n\r\n    setDeletingId(id);\r\n\r\n    if (targetEl) {\r\n      await particleDelete(targetEl, options);\r\n    }\r\n\r\n    setItems((prev) => prev.filter((item) => item.id !== id));\r\n    setDeletingId(null);\r\n  };\r\n\r\n  const handleReset = () => {\r\n    setItems(initialItems);\r\n  };\r\n\r\n  const getItemIcon = (icon: ParticleDeleteItem['icon']) => {\r\n    switch (icon) {\r\n      case 'shield':\r\n        return <Shield className=\"w-3.5 h-3.5 text-[#A1A1A1]\" />;\r\n      case 'database':\r\n        return <Database className=\"w-3.5 h-3.5 text-[#A1A1A1]\" />;\r\n      case 'layers':\r\n        return <Layers className=\"w-3.5 h-3.5 text-[#A1A1A1]\" />;\r\n      case 'cpu':\r\n      default:\r\n        return <Cpu className=\"w-3.5 h-3.5 text-[#A1A1A1]\" />;\r\n    }\r\n  };\r\n\r\n  return (\r\n    <div\r\n      role=\"region\"\r\n      aria-label=\"Particle Delete Items\"\r\n      className={cn(\r\n        'w-full max-w-lg mx-auto rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] p-3.5 sm:p-4 text-[#F5F5F5]',\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {/* Minimal Header */}\r\n      <div className=\"flex items-center justify-between pb-3 mb-3 border-b border-[#161616]\">\r\n        <div className=\"flex items-center gap-2\">\r\n          <span className=\"text-xs font-semibold text-white\">Active Resources</span>\r\n          <span className=\"text-[10px] font-mono text-[#737373] bg-[#121212] px-1.5 py-0.5 rounded border border-[#1E1E1E]\">\r\n            {items.length}\r\n          </span>\r\n        </div>\r\n\r\n        {items.length < initialItems.length && (\r\n          <button\r\n            type=\"button\"\r\n            onClick={handleReset}\r\n            className=\"inline-flex items-center gap-1 text-[11px] font-mono text-[#A1A1A1] hover:text-white transition-colors cursor-pointer focus-ring rounded\"\r\n          >\r\n            <RotateCcw className=\"w-3 h-3\" />\r\n            <span>Restore ({initialItems.length - items.length})</span>\r\n          </button>\r\n        )}\r\n      </div>\r\n\r\n      {/* Minimal Items List */}\r\n      <div className=\"space-y-2\">\r\n        {items.length === 0 ? (\r\n          <div className=\"py-8 text-center rounded-lg border border-dashed border-[#1A1A1A] bg-[#070707] space-y-2\">\r\n            <Sparkles className=\"w-4 h-4 text-[#606060] mx-auto\" />\r\n            <p className=\"text-xs text-[#737373]\">All items dissolved into particles.</p>\r\n            <button\r\n              type=\"button\"\r\n              onClick={handleReset}\r\n              className=\"text-xs text-white underline underline-offset-4 hover:text-[#D4D4D4] transition-colors cursor-pointer focus-ring rounded\"\r\n            >\r\n              Reset resources\r\n            </button>\r\n          </div>\r\n        ) : (\r\n          items.map((item) => {\r\n            const isThisDeleting = deletingId === item.id;\r\n\r\n            return (\r\n              <div\r\n                key={item.id}\r\n                ref={(node) => {\r\n                  if (node) cardRefs.current.set(item.id, node);\r\n                  else cardRefs.current.delete(item.id);\r\n                }}\r\n                className={cn(\r\n                  'group rounded-lg border border-[#181818] bg-[#0E0E0E] p-2.5 sm:p-3 hover:border-[#262626] transition-all flex items-center justify-between gap-3',\r\n                  isThisDeleting && 'pointer-events-none'\r\n                )}\r\n              >\r\n                {/* Left: Icon + Text info */}\r\n                <div className=\"flex items-center gap-2.5 min-w-0\">\r\n                  <div className=\"w-7 h-7 rounded-md bg-[#141414] border border-[#202020] flex items-center justify-center shrink-0\">\r\n                    {getItemIcon(item.icon)}\r\n                  </div>\r\n\r\n                  <div className=\"min-w-0\">\r\n                    <div className=\"flex items-center gap-1.5\">\r\n                      <span className=\"text-xs font-medium text-white truncate\">\r\n                        {item.title}\r\n                      </span>\r\n                      <span className=\"text-[9px] font-mono text-[#666666] px-1 py-0.2 rounded bg-[#121212] border border-[#1A1A1A]\">\r\n                        {item.category}\r\n                      </span>\r\n                    </div>\r\n                    <p className=\"text-[11px] text-[#737373] truncate\">\r\n                      {item.description}\r\n                    </p>\r\n                  </div>\r\n                </div>\r\n\r\n                {/* Right: Minimal Delete Button */}\r\n                <button\r\n                  type=\"button\"\r\n                  disabled={isThisDeleting || deletingId !== null}\r\n                  onClick={() => handleDeleteItem(item.id)}\r\n                  className={cn(\r\n                    'p-1.5 rounded-md transition-colors cursor-pointer shrink-0 focus-ring',\r\n                    isThisDeleting\r\n                      ? 'text-rose-400 bg-rose-500/10'\r\n                      : 'text-[#606060] hover:text-rose-400 hover:bg-rose-500/10'\r\n                  )}\r\n                  title={`Delete ${item.title}`}\r\n                  aria-label={`Delete ${item.title}`}\r\n                >\r\n                  <Trash2 className=\"w-3.5 h-3.5\" />\r\n                </button>\r\n              </div>\r\n            );\r\n          })\r\n        )}\r\n      </div>\r\n    </div>\r\n  );\r\n};\r\n",
     "dependencies": [
       "lucide-react"
     ],
@@ -1717,6 +2256,205 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "payment-status",
+    "name": "Payment Status",
+    "tagline": "Refined transaction status card with self-drawing checkmark and receipt actions",
+    "description": "A calm, Apple-grade payment confirmation card with animated SVG path checkmark drawing, staged verification lifecycle transitions, receipt inspection, and failure recovery.",
+    "category": "Feedback",
+    "badges": [
+      "Payment",
+      "Feedback",
+      "SVG Motion"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/payment-status",
+    "features": [
+      "5 clear lifecycle states: Processing, Verifying, Success, Failed, and Refunded",
+      "Self-drawing SVG stroke checkmark animation upon payment confirmation",
+      "Staggered metadata reveal for amount, transaction hash, timestamp, and card info",
+      "Unfolding itemized receipt accordion with instant text-file receipt download",
+      "One-click transaction ID copying with instant checkmark feedback",
+      "Non-aggressive error state with instant retry and payment method alternatives"
+    ],
+    "props": [
+      {
+        "name": "status",
+        "type": "'processing' | 'verifying' | 'success' | 'failed' | 'refunded'",
+        "default": "'processing'",
+        "description": "Current lifecycle state of payment"
+      },
+      {
+        "name": "amount",
+        "type": "string | number",
+        "default": "'$149.00'",
+        "description": "Transaction total amount formatted or numeric"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "default": "'$'",
+        "description": "Currency symbol prepended to amount"
+      },
+      {
+        "name": "transactionId",
+        "type": "string",
+        "default": "'tx_9842a8d11c7f'",
+        "description": "Unique transaction identifier"
+      },
+      {
+        "name": "date",
+        "type": "string | Date",
+        "default": "'Today at 3:42 PM'",
+        "description": "Date/time timestamp of payment"
+      },
+      {
+        "name": "paymentMethod",
+        "type": "string",
+        "default": "'Apple Pay'",
+        "description": "Payment gateway or card provider"
+      },
+      {
+        "name": "last4",
+        "type": "string",
+        "default": "'4242'",
+        "description": "Last 4 digits of card or account"
+      },
+      {
+        "name": "items",
+        "type": "PaymentReceiptItem[]",
+        "default": "[...]",
+        "description": "Itemized purchase items for detailed receipt view"
+      },
+      {
+        "name": "merchantName",
+        "type": "string",
+        "default": "'EasyUI Cloud'",
+        "description": "Merchant or brand organization name"
+      },
+      {
+        "name": "onRetry",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when user clicks Try Again"
+      },
+      {
+        "name": "onChangePaymentMethod",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when user changes card method"
+      }
+    ],
+    "accessibility": [
+      "Aria-live region alerts assistive technology on status transition updates",
+      "Keyboard accessible receipt toggle and transaction ID copy buttons",
+      "Compliant contrast ratio on dark monochrome surface",
+      "Full reduced-motion compatibility with zero stroke animation lag"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { PaymentStatus } from \"@/components/ui/payment-status\";\n\nexport function Demo() {\n  return (\n    <PaymentStatus\n      status=\"success\"\n      amount=\"$149.00\"\n      transactionId=\"tx_8830192a\"\n      paymentMethod=\"Apple Pay\"\n      last4=\"4242\"\n    />\n  );\n}",
+    "sourceCode": "import React, { useState } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport {\n  Check,\n  AlertCircle,\n  RotateCcw,\n  Copy,\n  Download,\n  Receipt,\n  CreditCard,\n  ArrowRight,\n  ShieldCheck\n} from 'lucide-react';\nimport { cn, copyToClipboard } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport type PaymentLifecycleStatus =\n  | 'processing'\n  | 'verifying'\n  | 'success'\n  | 'failed'\n  | 'refunded';\n\nexport interface PaymentReceiptItem {\n  name: string;\n  quantity?: number;\n  price: string | number;\n}\n\nexport interface PaymentStatusProps {\n  /** Current payment status */\n  status?: PaymentLifecycleStatus;\n  /** Formatted payment amount (e.g. \"$128.00\" or 128) */\n  amount?: string | number;\n  /** Currency code or symbol */\n  currency?: string;\n  /** Unique transaction reference ID */\n  transactionId?: string;\n  /** Transaction date */\n  date?: string | Date;\n  /** Payment method label */\n  paymentMethod?: string;\n  /** Card or account last 4 digits */\n  last4?: string;\n  /** Custom error message when status is 'failed' */\n  errorMessage?: string;\n  /** Refund reason or note when status is 'refunded' */\n  refundReason?: string;\n  /** Itemized summary items for receipt view */\n  items?: PaymentReceiptItem[];\n  /** Merchant or product title */\n  merchantName?: string;\n  /** Retry payment handler */\n  onRetry?: () => void;\n  /** Change payment method handler */\n  onChangePaymentMethod?: () => void;\n  /** Custom handler when downloading receipt */\n  onDownloadReceipt?: () => void;\n  /** Custom handler when viewing receipt */\n  onViewReceipt?: () => void;\n  /** Custom class name */\n  className?: string;\n}\n\nexport const PaymentStatus: React.FC<PaymentStatusProps> = ({\n  status = 'processing',\n  amount = '$149.00',\n  currency = '$',\n  transactionId = 'tx_9842a8d11c7f',\n  date = 'Today at 3:42 PM',\n  paymentMethod = 'Apple Pay',\n  last4 = '4242',\n  errorMessage = \"Payment couldn't be completed. Your card issuer declined the request.\",\n  refundReason = 'Refunded to original payment method within 3–5 business days.',\n  items = [\n    { name: 'EasyUI Pro Team Plan', quantity: 1, price: '$129.00' },\n    { name: 'Priority Support Add-on', quantity: 1, price: '$20.00' },\n  ],\n  merchantName = 'EasyUI Cloud',\n  onRetry,\n  onChangePaymentMethod,\n  onDownloadReceipt,\n  onViewReceipt,\n  className,\n}) => {\n  const [copied, setCopied] = useState(false);\n  const [showReceiptDetails, setShowReceiptDetails] = useState(false);\n\n  const formattedAmount =\n    typeof amount === 'number'\n      ? `${currency}${amount.toFixed(2)}`\n      : amount.startsWith(currency)\n      ? amount\n      : `${currency}${amount}`;\n\n  const formattedDate =\n    date instanceof Date\n      ? date.toLocaleDateString('en-US', {\n          month: 'short',\n          day: 'numeric',\n          year: 'numeric',\n          hour: '2-digit',\n          minute: '2-digit',\n        })\n      : date;\n\n  const handleCopyId = () => {\n    copyToClipboard(transactionId);\n    setCopied(true);\n    setTimeout(() => setCopied(false), 2000);\n  };\n\n  const handleDownload = () => {\n    if (onDownloadReceipt) {\n      onDownloadReceipt();\n    } else {\n      const receiptText = `RECEIPT - ${merchantName}\nTransaction ID: ${transactionId}\nDate: ${formattedDate}\nPayment Method: ${paymentMethod} (•••• ${last4})\nAmount: ${formattedAmount}\nStatus: ${status.toUpperCase()}\nItems:\n${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\\n')}\n`;\n      const blob = new Blob([receiptText], { type: 'text/plain;charset=utf-8' });\n      const url = URL.createObjectURL(blob);\n      const a = document.createElement('a');\n      a.href = url;\n      a.download = `receipt-${transactionId}.txt`;\n      a.click();\n      URL.revokeObjectURL(url);\n    }\n  };\n\n  return (\n    <div\n      className={cn(\n        'w-full max-w-md mx-auto rounded-2xl border border-[#1D1D1D] bg-[#0A0A0A] p-6 sm:p-7 text-left font-sans shadow-[0_12px_30px_-10px_rgba(0,0,0,0.8)] transition-all select-none',\n        className\n      )}\n    >\n      <div className=\"flex flex-col items-center text-center\">\n        {/* Status Indicator Badge */}\n        <div className=\"relative mb-5\">\n          {status === 'processing' && (\n            <div className=\"w-14 h-14 rounded-full bg-[#141414] border border-[#222222] flex items-center justify-center relative\">\n              <motion.div\n                className=\"absolute inset-0 rounded-full border border-white/30 border-t-white\"\n                animate={{ rotate: 360 }}\n                transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }}\n              />\n              <CreditCard className=\"w-5 h-5 text-[#A1A1A1]\" />\n            </div>\n          )}\n\n          {status === 'verifying' && (\n            <div className=\"w-14 h-14 rounded-full bg-[#141414] border border-[#222222] flex items-center justify-center relative\">\n              <motion.div\n                className=\"absolute inset-1 rounded-full border border-sky-400/40 border-t-sky-400\"\n                animate={{ rotate: 360 }}\n                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}\n              />\n              <ShieldCheck className=\"w-6 h-6 text-sky-400\" />\n            </div>\n          )}\n\n          {status === 'success' && (\n            <motion.div\n              initial={{ scale: 0.8, opacity: 0 }}\n              animate={{ scale: 1, opacity: 1 }}\n              transition={motionTransitions.springSnappy}\n              className=\"w-14 h-14 rounded-full bg-[#111A11] border border-[#223822] flex items-center justify-center text-emerald-400 relative\"\n            >\n              <svg className=\"w-7 h-7\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2.5\" strokeLinecap=\"round\" strokeLinejoin=\"round\">\n                <motion.path\n                  d=\"M20 6L9 17l-5-5\"\n                  initial={{ pathLength: 0 }}\n                  animate={{ pathLength: 1 }}\n                  transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' }}\n                />\n              </svg>\n            </motion.div>\n          )}\n\n          {status === 'failed' && (\n            <motion.div\n              initial={{ scale: 0.8, opacity: 0 }}\n              animate={{ scale: 1, opacity: 1 }}\n              transition={motionTransitions.springSnappy}\n              className=\"w-14 h-14 rounded-full bg-[#1F1212] border border-[#381B1B] flex items-center justify-center text-rose-400\"\n            >\n              <AlertCircle className=\"w-7 h-7\" />\n            </motion.div>\n          )}\n\n          {status === 'refunded' && (\n            <motion.div\n              initial={{ scale: 0.8, opacity: 0 }}\n              animate={{ scale: 1, opacity: 1 }}\n              transition={motionTransitions.springSnappy}\n              className=\"w-14 h-14 rounded-full bg-[#141414] border border-[#252525] flex items-center justify-center text-[#A1A1A1]\"\n            >\n              <RotateCcw className=\"w-6 h-6\" />\n            </motion.div>\n          )}\n        </div>\n\n        {/* Heading and Subtext */}\n        <h3 className=\"text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight\">\n          {status === 'processing' && 'Processing Payment'}\n          {status === 'verifying' && 'Verifying Transaction'}\n          {status === 'success' && 'Payment Successful'}\n          {status === 'failed' && \"Payment Couldn't Be Completed\"}\n          {status === 'refunded' && 'Payment Refunded'}\n        </h3>\n\n        <p className=\"text-xs sm:text-sm text-[#808080] mt-1 max-w-xs\">\n          {status === 'processing' && 'Securely communicating with payment provider...'}\n          {status === 'verifying' && 'Confirming token authorization and anti-fraud checks...'}\n          {status === 'success' && `Your purchase with ${merchantName} is confirmed.`}\n          {status === 'failed' && errorMessage}\n          {status === 'refunded' && refundReason}\n        </p>\n\n        {/* Amount Pill */}\n        <div className=\"mt-4 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#121212] border border-[#222222]\">\n          <span className=\"text-[11px] font-mono text-[#737373]\">Total</span>\n          <span className=\"text-sm font-semibold font-mono text-[#F5F5F5]\">\n            {formattedAmount}\n          </span>\n        </div>\n      </div>\n\n      {/* Transaction Details Staggered Card */}\n      <AnimatePresence mode=\"wait\">\n        {(status === 'success' || status === 'refunded') && (\n          <motion.div\n            initial={{ opacity: 0, y: 12 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: 12 }}\n            transition={motionTransitions.springGentle}\n            className=\"mt-6 pt-5 border-t border-[#161616] space-y-2.5 text-xs\"\n          >\n            <div className=\"flex items-center justify-between py-1\">\n              <span className=\"text-[#808080]\">Transaction ID</span>\n              <button\n                type=\"button\"\n                onClick={handleCopyId}\n                className=\"inline-flex items-center gap-1 font-mono text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors focus-ring px-1.5 py-0.5 rounded bg-[#111111] border border-[#202020]\"\n                title=\"Copy Transaction ID\"\n              >\n                <span>{transactionId.slice(0, 14)}...</span>\n                {copied ? <Check className=\"w-3 h-3 text-emerald-400\" /> : <Copy className=\"w-3 h-3 text-[#737373]\" />}\n              </button>\n            </div>\n\n            <div className=\"flex items-center justify-between py-1\">\n              <span className=\"text-[#808080]\">Date & Time</span>\n              <span className=\"font-mono text-[#D4D4D4]\">{formattedDate}</span>\n            </div>\n\n            <div className=\"flex items-center justify-between py-1\">\n              <span className=\"text-[#808080]\">Payment Method</span>\n              <span className=\"text-[#D4D4D4] flex items-center gap-1.5\">\n                <CreditCard className=\"w-3.5 h-3.5 text-[#808080]\" />\n                {paymentMethod} {last4 ? `(•••• ${last4})` : ''}\n              </span>\n            </div>\n\n            {/* Receipt Actions */}\n            <div className=\"pt-4 mt-2 border-t border-[#161616] flex items-center justify-between gap-2\">\n              <button\n                type=\"button\"\n                onClick={() => {\n                  setShowReceiptDetails(!showReceiptDetails);\n                  onViewReceipt?.();\n                }}\n                className=\"flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#141414] hover:bg-[#1A1A1A] border border-[#222222] hover:border-[#2A2A2A] text-xs font-medium text-[#D4D4D4] hover:text-[#F5F5F5] transition-colors focus-ring\"\n              >\n                <Receipt className=\"w-3.5 h-3.5 text-[#808080]\" />\n                <span>{showReceiptDetails ? 'Hide Details' : 'View Receipt'}</span>\n              </button>\n\n              <button\n                type=\"button\"\n                onClick={handleDownload}\n                className=\"flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#141414] hover:bg-[#1A1A1A] border border-[#222222] hover:border-[#2A2A2A] text-xs font-medium text-[#D4D4D4] hover:text-[#F5F5F5] transition-colors focus-ring\"\n              >\n                <Download className=\"w-3.5 h-3.5 text-[#808080]\" />\n                <span>Download</span>\n              </button>\n            </div>\n\n            {/* Unfolding Receipt Item Breakdown */}\n            <AnimatePresence>\n              {showReceiptDetails && (\n                <motion.div\n                  initial={{ height: 0, opacity: 0 }}\n                  animate={{ height: 'auto', opacity: 1 }}\n                  exit={{ height: 0, opacity: 0 }}\n                  transition={motionTransitions.springGentle}\n                  className=\"overflow-hidden pt-2 space-y-1.5 bg-[#080808] p-3 rounded-lg border border-[#181818]\"\n                >\n                  <p className=\"text-[10px] font-mono uppercase text-[#737373] tracking-wider mb-1\">\n                    Itemized Breakdown\n                  </p>\n                  {items.map((item, idx) => (\n                    <div key={idx} className=\"flex items-center justify-between text-xs text-[#A1A1A1]\">\n                      <span>\n                        {item.quantity ? `${item.quantity}x ` : ''}\n                        {item.name}\n                      </span>\n                      <span className=\"font-mono text-[#D4D4D4]\">{item.price}</span>\n                    </div>\n                  ))}\n                  <div className=\"pt-2 mt-1 border-t border-[#1C1C1C] flex justify-between font-medium text-xs text-[#F5F5F5]\">\n                    <span>Total Paid</span>\n                    <span className=\"font-mono\">{formattedAmount}</span>\n                  </div>\n                </motion.div>\n              )}\n            </AnimatePresence>\n          </motion.div>\n        )}\n\n        {status === 'failed' && (\n          <motion.div\n            initial={{ opacity: 0, y: 12 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: 12 }}\n            transition={motionTransitions.springGentle}\n            className=\"mt-6 pt-5 border-t border-[#161616] space-y-2\"\n          >\n            <button\n              type=\"button\"\n              onClick={onRetry}\n              className=\"w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#F5F5F5] hover:bg-white text-[#050505] font-medium text-xs sm:text-sm transition-all focus-ring shadow-[0_0_20px_-3px_rgba(255,255,255,0.15)]\"\n            >\n              <RotateCcw className=\"w-4 h-4\" />\n              <span>Try Again</span>\n            </button>\n\n            <button\n              type=\"button\"\n              onClick={onChangePaymentMethod}\n              className=\"w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#141414] hover:bg-[#1A1A1A] border border-[#222222] text-[#A1A1A1] hover:text-[#F5F5F5] font-medium text-xs transition-colors focus-ring\"\n            >\n              <span>Change Payment Method</span>\n              <ArrowRight className=\"w-3.5 h-3.5 text-[#737373]\" />\n            </button>\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/PaymentStatus.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/payment-status.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "peek-card",
+    "name": "Peek Card",
+    "tagline": "Origin-anchored contextual preview card with edge-aware collision detection",
+    "description": "An origin-anchored contextual preview popover that emerges directly from target triggers on hover or tap with smart collision edge detection and rich metadata summaries.",
+    "category": "Overlays",
+    "badges": [
+      "Popovers",
+      "Overlays",
+      "Context Preview"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/peek-card",
+    "features": [
+      "Origin-anchored emergence animation feeling connected to source elements",
+      "Automatic edge collision detection preventing viewport bounding overflow",
+      "Rich preset layout for transactions, user profiles, invoices, and metrics",
+      "Mobile tap toggle and desktop hover/focus dual interaction model",
+      "Integrated copy actions and status indicators with reduced-motion support"
+    ],
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Trigger target element wrapped by peek card"
+      },
+      {
+        "name": "data",
+        "type": "PeekCardData",
+        "default": "[...]",
+        "description": "Structured preview dataset"
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "default": "200",
+        "description": "Hover activation delay in milliseconds"
+      },
+      {
+        "name": "placement",
+        "type": "'top' | 'bottom' | 'auto'",
+        "default": "'auto'",
+        "description": "Preferred emergence direction"
+      },
+      {
+        "name": "isLoading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Renders skeleton placeholder during async lookup"
+      }
+    ],
+    "accessibility": [
+      "Keyboard accessible through native onFocus and onBlur handlers",
+      "Closes automatically on Escape key press or outside click"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { PeekCard } from \"@/components/ui/peek-card\";\n\nexport function Demo() {\n  return (\n    <PeekCard\n      data={{\n        title: \"Payment #3948\",\n        amount: \"$249.00\",\n        customer: { name: \"Alexander Wright\", email: \"alex@acme.com\" },\n        status: \"Succeeded\",\n      }}\n    >\n      <span className=\"underline decoration-dotted cursor-pointer\">\n        Payment #3948\n      </span>\n    </PeekCard>\n  );\n}",
+    "sourceCode": "import React, { useState, useRef, useEffect, useCallback } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport { Check, Copy } from 'lucide-react';\nimport { cn, copyToClipboard } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport interface PeekCardData {\n  title: string;\n  subtitle?: string;\n  amount?: string;\n  status?: string;\n  customer?: {\n    name: string;\n    email: string;\n    avatar?: string;\n  };\n  timestamp?: string;\n  metadata?: Array<{ label: string; value: string }>;\n  actions?: Array<{ label: string; onClick?: () => void }>;\n}\n\nexport interface PeekCardProps {\n  /** Trigger element (e.g. text link, badge, invoice pill) */\n  children: React.ReactNode;\n  /** Peek data object or custom render function */\n  data?: PeekCardData;\n  /** Custom peek preview renderer */\n  renderContent?: () => React.ReactNode;\n  /** Hover delay in milliseconds */\n  delay?: number;\n  /** Placement preference: 'top' | 'bottom' | 'auto' */\n  placement?: 'top' | 'bottom' | 'auto';\n  /** Loading skeleton state */\n  isLoading?: boolean;\n  /** Custom class name for trigger */\n  className?: string;\n}\n\nexport const PeekCard: React.FC<PeekCardProps> = ({\n  children,\n  data = {\n    title: 'Payment #3948',\n    subtitle: 'Stripe Direct Charge',\n    amount: '$249.00',\n    status: 'Succeeded',\n    customer: {\n      name: 'Alexander Wright',\n      email: 'alex.w@acme-corp.com',\n    },\n    timestamp: 'Oct 24, 2026 at 2:15 PM',\n    metadata: [\n      { label: 'Method', value: 'Mastercard •••• 4242' },\n      { label: 'Fee', value: '$7.52 (3%)' },\n      { label: 'Risk Score', value: 'Normal (08)' },\n    ],\n  },\n  renderContent,\n  delay = 200,\n  placement = 'auto',\n  isLoading = false,\n  className,\n}) => {\n  const [isOpen, setIsOpen] = useState(false);\n  const [copied, setCopied] = useState(false);\n  const [calculatedPlacement, setCalculatedPlacement] = useState<'top' | 'bottom'>('top');\n  const triggerRef = useRef<HTMLDivElement>(null);\n  const timeoutRef = useRef<number | null>(null);\n\n  const calculatePosition = useCallback(() => {\n    if (!triggerRef.current) return;\n    const rect = triggerRef.current.getBoundingClientRect();\n    const spaceAbove = rect.top;\n    const spaceBelow = window.innerHeight - rect.bottom;\n\n    if (placement === 'top') {\n      setCalculatedPlacement('top');\n    } else if (placement === 'bottom') {\n      setCalculatedPlacement('bottom');\n    } else {\n      // Auto: prefer top unless space above is tight (< 220px)\n      setCalculatedPlacement(spaceAbove < 220 && spaceBelow > spaceAbove ? 'bottom' : 'top');\n    }\n  }, [placement]);\n\n  const handleMouseEnter = () => {\n    timeoutRef.current = window.setTimeout(() => {\n      calculatePosition();\n      setIsOpen(true);\n    }, delay);\n  };\n\n  const handleMouseLeave = () => {\n    if (timeoutRef.current) clearTimeout(timeoutRef.current);\n    setIsOpen(false);\n  };\n\n  const handleTriggerClick = (e: React.MouseEvent) => {\n    // Mobile tap support\n    e.stopPropagation();\n    calculatePosition();\n    setIsOpen(!isOpen);\n  };\n\n  const handleCopyEmail = (email?: string) => {\n    if (!email) return;\n    copyToClipboard(email);\n    setCopied(true);\n    setTimeout(() => setCopied(false), 2000);\n  };\n\n  useEffect(() => {\n    const handleOutsideClick = (e: MouseEvent) => {\n      if (triggerRef.current && !triggerRef.current.contains(e.target as Node)) {\n        setIsOpen(false);\n      }\n    };\n    document.addEventListener('click', handleOutsideClick);\n    return () => document.removeEventListener('click', handleOutsideClick);\n  }, []);\n\n  return (\n    <div\n      ref={triggerRef}\n      onMouseEnter={handleMouseEnter}\n      onMouseLeave={handleMouseLeave}\n      onClick={handleTriggerClick}\n      onFocus={() => {\n        calculatePosition();\n        setIsOpen(true);\n      }}\n      onBlur={() => setIsOpen(false)}\n      tabIndex={0}\n      className={cn('relative inline-flex items-center cursor-pointer select-none font-sans focus-ring rounded', className)}\n    >\n      {/* Anchor Trigger Component */}\n      {children}\n\n      {/* Floating Connected Peek Card */}\n      <AnimatePresence>\n        {isOpen && (\n          <motion.div\n            initial={{\n              opacity: 0,\n              y: calculatedPlacement === 'top' ? 6 : -6,\n              scale: 0.96,\n            }}\n            animate={{ opacity: 1, y: 0, scale: 1 }}\n            exit={{\n              opacity: 0,\n              y: calculatedPlacement === 'top' ? 4 : -4,\n              scale: 0.96,\n              transition: { duration: 0.12 },\n            }}\n            transition={motionTransitions.springSnappy}\n            className={cn(\n              'absolute left-1/2 -translate-x-1/2 z-50 w-72 sm:w-80 rounded-xl border border-[#222222] bg-[#0C0C0C] p-4 text-left shadow-[0_16px_40px_rgba(0,0,0,0.9)] cursor-default',\n              calculatedPlacement === 'top' ? 'bottom-full mb-2' : 'top-full mt-2'\n            )}\n            onClick={(e) => e.stopPropagation()}\n          >\n            {renderContent ? (\n              renderContent()\n            ) : isLoading ? (\n              <div className=\"space-y-2.5 animate-pulse\">\n                <div className=\"h-4 bg-[#1C1C1C] rounded w-2/3\" />\n                <div className=\"h-10 bg-[#161616] rounded\" />\n                <div className=\"h-4 bg-[#1C1C1C] rounded w-1/2\" />\n              </div>\n            ) : (\n              <div className=\"space-y-3 text-xs\">\n                {/* Header */}\n                <div className=\"flex items-start justify-between gap-2 border-b border-[#1A1A1A] pb-2.5\">\n                  <div>\n                    <p className=\"font-semibold text-sm text-[#F5F5F5]\">{data.title}</p>\n                    {data.subtitle && <p className=\"text-[11px] text-[#737373]\">{data.subtitle}</p>}\n                  </div>\n                  {data.amount && (\n                    <span className=\"font-mono text-sm font-semibold text-white bg-[#141414] px-2 py-0.5 rounded border border-[#222222]\">\n                      {data.amount}\n                    </span>\n                  )}\n                </div>\n\n                {/* Customer / Actor Profile */}\n                {data.customer && (\n                  <div className=\"flex items-center justify-between p-2 rounded-lg bg-[#080808] border border-[#181818]\">\n                    <div className=\"flex items-center gap-2 min-w-0\">\n                      <div className=\"w-6 h-6 rounded-full bg-[#181818] border border-[#282828] flex items-center justify-center text-[10px] text-white\">\n                        {data.customer.name.slice(0, 2).toUpperCase()}\n                      </div>\n                      <div className=\"min-w-0\">\n                        <p className=\"text-[11px] font-medium text-[#D4D4D4] truncate\">{data.customer.name}</p>\n                        <p className=\"text-[10px] text-[#737373] truncate\">{data.customer.email}</p>\n                      </div>\n                    </div>\n\n                    <button\n                      type=\"button\"\n                      onClick={() => handleCopyEmail(data.customer?.email)}\n                      className=\"p-1 rounded text-[#737373] hover:text-white hover:bg-[#181818] transition-colors\"\n                      title=\"Copy customer email\"\n                    >\n                      {copied ? <Check className=\"w-3 h-3 text-emerald-400\" /> : <Copy className=\"w-3 h-3\" />}\n                    </button>\n                  </div>\n                )}\n\n                {/* Metadata key-values */}\n                {data.metadata && (\n                  <div className=\"space-y-1.5 text-[11px]\">\n                    {data.metadata.map((item, idx) => (\n                      <div key={idx} className=\"flex justify-between text-[#808080]\">\n                        <span>{item.label}</span>\n                        <span className=\"font-mono text-[#D4D4D4]\">{item.value}</span>\n                      </div>\n                    ))}\n                  </div>\n                )}\n\n                {/* Footer Timestamp */}\n                {data.timestamp && (\n                  <div className=\"pt-2 border-t border-[#161616] flex justify-between items-center text-[10px] text-[#606060] font-mono\">\n                    <span>{data.timestamp}</span>\n                    <span className=\"text-emerald-400 flex items-center gap-1\">\n                      <span className=\"w-1.5 h-1.5 rounded-full bg-emerald-400\" />\n                      {data.status || 'Active'}\n                    </span>\n                  </div>\n                )}\n              </div>\n            )}\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/PeekCard.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/peek-card.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "reveal-card",
     "name": "Reveal Card",
     "tagline": "3D cursor physics tilt with interactive glare reveal",
@@ -1767,6 +2505,167 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/utils.ts",
         "type": "registry:lib",
         "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
+    "id": "scroll-progress-nav",
+    "name": "Scroll Progress Navigation",
+    "tagline": "Floating progress navigation pill tracking scroll depth and active document headings",
+    "description": "A floating table-of-contents navigation pill that tracks scroll depth, dynamically morphs between resting and floating states, highlights active sections, and enables smooth scrolling.",
+    "category": "Navigation",
+    "badges": [
+      "Navigation",
+      "Scroll Physics",
+      "Floating"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/scroll-progress-nav",
+    "features": [
+      "Real-time document scroll progress bar integrated along the pill boundary",
+      "Shared layout pill indicator smoothly moving between active headings",
+      "Seamless transition from static page banner to compact floating island",
+      "Smooth scroll anchoring with customizable offset threshold",
+      "Mobile-optimized responsive compact menu preventing content obstruction"
+    ],
+    "props": [
+      {
+        "name": "sections",
+        "type": "NavSectionItem[]",
+        "default": "[...]",
+        "description": "Navigation links with IDs, index numbers, and labels"
+      },
+      {
+        "name": "scrollThreshold",
+        "type": "number",
+        "default": "150",
+        "description": "Scroll distance in px before morphing into floating pill"
+      },
+      {
+        "name": "activeId",
+        "type": "string",
+        "default": "undefined",
+        "description": "Controlled active section ID override"
+      },
+      {
+        "name": "onSectionClick",
+        "type": "(id: string) => void",
+        "default": "undefined",
+        "description": "Callback fired when user selects a section"
+      },
+      {
+        "name": "position",
+        "type": "'top-center' | 'bottom-center' | 'top-right'",
+        "default": "'top-center'",
+        "description": "Screen anchor position"
+      }
+    ],
+    "accessibility": [
+      "Semantic nav element with aria-label=\"Table of contents\"",
+      "Keyboard navigable tab order and focus-visible outlines",
+      "Smooth scroll honors prefers-reduced-motion settings"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { ScrollProgressNav } from \"@/components/ui/scroll-progress-nav\";\n\nexport function Demo() {\n  return (\n    <ScrollProgressNav\n      sections={[\n        { id: \"overview\", index: \"01\", label: \"Overview\" },\n        { id: \"features\", index: \"02\", label: \"Features\" },\n        { id: \"components\", index: \"03\", label: \"Components\" },\n        { id: \"docs\", index: \"04\", label: \"Documentation\" }\n      ]}\n    />\n  );\n}",
+    "sourceCode": "import React, { useState, useEffect, useCallback } from 'react';\nimport { motion } from 'framer-motion';\nimport { ArrowUp, ChevronRight } from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport interface NavSectionItem {\n  id: string;\n  label: string;\n  index?: string;\n}\n\nexport interface ScrollProgressNavProps {\n  /** Section navigation items */\n  sections?: NavSectionItem[];\n  /** Threshold in px to morph into floating pill */\n  scrollThreshold?: number;\n  /** Active section manual override or default */\n  activeId?: string;\n  /** Callback fired when a section is clicked */\n  onSectionClick?: (id: string) => void;\n  /** Position alignment: 'top-center' | 'bottom-center' | 'top-right' */\n  position?: 'top-center' | 'bottom-center' | 'top-right';\n  /** Custom class name */\n  className?: string;\n}\n\nconst defaultSections: NavSectionItem[] = [\n  { id: 'overview', index: '01', label: 'Overview' },\n  { id: 'features', index: '02', label: 'Features' },\n  { id: 'components', index: '03', label: 'Components' },\n  { id: 'documentation', index: '04', label: 'Documentation' },\n  { id: 'pricing', index: '05', label: 'Pricing' },\n];\n\nexport const ScrollProgressNav: React.FC<ScrollProgressNavProps> = ({\n  sections = defaultSections,\n  scrollThreshold = 150,\n  activeId: controlledActiveId,\n  onSectionClick,\n  position = 'top-center',\n  className,\n}) => {\n  const [isFloating, setIsFloating] = useState(false);\n  const [scrollProgress, setScrollProgress] = useState(0);\n  const [activeSection, setActiveSection] = useState<string>(\n    controlledActiveId || sections[0]?.id || ''\n  );\n  const [isExpanded, setIsExpanded] = useState(false);\n\n  const handleScroll = useCallback(() => {\n    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;\n    const currentScroll = window.scrollY;\n\n    if (totalHeight > 0) {\n      const progress = Math.min(100, Math.max(0, (currentScroll / totalHeight) * 100));\n      setScrollProgress(progress);\n    }\n\n    setIsFloating(currentScroll > scrollThreshold);\n\n    if (!controlledActiveId) {\n      // Find section currently in viewport\n      for (let i = sections.length - 1; i >= 0; i--) {\n        const el = document.getElementById(sections[i].id);\n        if (el) {\n          const rect = el.getBoundingClientRect();\n          if (rect.top <= window.innerHeight * 0.4) {\n            setActiveSection(sections[i].id);\n            break;\n          }\n        }\n      }\n    }\n  }, [scrollThreshold, controlledActiveId, sections]);\n\n  useEffect(() => {\n    window.addEventListener('scroll', handleScroll, { passive: true });\n    handleScroll();\n    return () => window.removeEventListener('scroll', handleScroll);\n  }, [handleScroll]);\n\n  const scrollToSection = (id: string) => {\n    setActiveSection(id);\n    onSectionClick?.(id);\n    const target = document.getElementById(id);\n    if (target) {\n      target.scrollIntoView({ behavior: 'smooth', block: 'start' });\n    }\n    setIsExpanded(false);\n  };\n\n  const scrollToTop = () => {\n    window.scrollTo({ top: 0, behavior: 'smooth' });\n  };\n\n  const currentActiveItem = sections.find((s) => s.id === activeSection) || sections[0];\n\n  const positionClasses = {\n    'top-center': 'top-6 left-1/2 -translate-x-1/2',\n    'bottom-center': 'bottom-6 left-1/2 -translate-x-1/2',\n    'top-right': 'top-6 right-6',\n  };\n\n  return (\n    <div\n      className={cn(\n        'fixed z-40 font-sans transition-all duration-300 select-none max-w-[95vw]',\n        positionClasses[position],\n        className\n      )}\n    >\n      <motion.nav\n        layout\n        transition={motionTransitions.springMorph}\n        className={cn(\n          'relative rounded-full border border-[#222222] bg-[#0E0E0E]/90 backdrop-blur-md shadow-[0_12px_32px_rgba(0,0,0,0.7)] p-1 flex items-center gap-1',\n          isFloating ? 'ring-1 ring-white/10' : ''\n        )}\n        role=\"navigation\"\n        aria-label=\"Table of contents\"\n      >\n        {/* Ambient progress ring / line */}\n        <div className=\"absolute inset-0 rounded-full overflow-hidden pointer-events-none\">\n          <div\n            className=\"h-[2px] bg-white/40 absolute top-0 left-0 transition-all duration-150\"\n            style={{ width: `${scrollProgress}%` }}\n          />\n        </div>\n\n        {/* Floating compact indicator (mobile or compact state) */}\n        <div className=\"flex md:hidden items-center px-2 py-1 gap-2\">\n          <span className=\"text-[10px] font-mono text-white/60\">{currentActiveItem?.index}</span>\n          <span className=\"text-xs font-medium text-[#F5F5F5]\">{currentActiveItem?.label}</span>\n          <button\n            type=\"button\"\n            onClick={() => setIsExpanded(!isExpanded)}\n            className=\"p-1 rounded-full text-[#808080] hover:text-white transition-colors\"\n            aria-label=\"Toggle section menu\"\n          >\n            <ChevronRight className={cn('w-3.5 h-3.5 transition-transform', isExpanded && 'rotate-90')} />\n          </button>\n        </div>\n\n        {/* Full navigation buttons (Desktop / Expanded) */}\n        <div className={cn('hidden md:flex items-center gap-0.5', isExpanded ? '!flex flex-col md:flex-row absolute top-12 left-0 right-0 p-2 rounded-2xl bg-[#0E0E0E] border border-[#222222] md:relative md:top-auto md:p-0 md:bg-transparent md:border-none' : '')}>\n          {sections.map((section, idx) => {\n            const isActive = activeSection === section.id;\n            const indexStr = section.index || `0${idx + 1}`;\n\n            return (\n              <button\n                key={section.id}\n                type=\"button\"\n                onClick={() => scrollToSection(section.id)}\n                className={cn(\n                  'relative px-3 py-1.5 rounded-full text-xs font-medium transition-colors focus-ring inline-flex items-center gap-1.5 whitespace-nowrap',\n                  isActive ? 'text-white' : 'text-[#808080] hover:text-[#D4D4D4]'\n                )}\n              >\n                {isActive && (\n                  <motion.div\n                    layoutId=\"active-scroll-pill\"\n                    transition={motionTransitions.springMorph}\n                    className=\"absolute inset-0 rounded-full bg-[#202020] border border-[#333333] z-0\"\n                  />\n                )}\n                <span className={cn('text-[10px] font-mono relative z-10', isActive ? 'text-white/80' : 'text-[#555555]')}>\n                  {indexStr}\n                </span>\n                <span className=\"relative z-10\">{section.label}</span>\n              </button>\n            );\n          })}\n        </div>\n\n        {/* Scroll To Top Action */}\n        {isFloating && (\n          <button\n            type=\"button\"\n            onClick={scrollToTop}\n            className=\"w-7 h-7 rounded-full bg-[#181818] hover:bg-[#222222] border border-[#282828] flex items-center justify-center text-[#A1A1A1] hover:text-white transition-colors focus-ring shrink-0 ml-1\"\n            title=\"Scroll to top\"\n            aria-label=\"Scroll back to top\"\n          >\n            <ArrowUp className=\"w-3.5 h-3.5\" />\n          </button>\n        )}\n      </motion.nav>\n    </div>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/ScrollProgressNav.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/scroll-progress-nav.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "selection-basket",
+    "name": "Selection Basket",
+    "tagline": "Floating bulk-action toolbar for multi-item batch operations and export flows",
+    "description": "A floating bulk-action toolbar that smoothly rises from the bottom of the screen when multiple dataset items are selected, supporting batch operations, horizontal scrolling, and clear triggers.",
+    "category": "Overlays",
+    "badges": [
+      "Bulk Actions",
+      "Toolbars",
+      "Overlays"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/selection-basket",
+    "features": [
+      "Appears naturally with spring rise physics as soon as selected count > 0",
+      "Responsive horizontal scrolling action container preventing mobile cutoff",
+      "Integrated batch action buttons (Delete, Move, Export, Share)",
+      "Dynamic select all / clear all selection toggle synchronization",
+      "Accessible role=\"toolbar\" keyboard navigation and focus rings"
+    ],
+    "props": [
+      {
+        "name": "selectedCount",
+        "type": "number",
+        "default": "0",
+        "description": "Current number of selected items"
+      },
+      {
+        "name": "totalCount",
+        "type": "number",
+        "default": "undefined",
+        "description": "Total item universe count"
+      },
+      {
+        "name": "actions",
+        "type": "SelectionActionItem[]",
+        "default": "[...]",
+        "description": "List of bulk action definitions"
+      },
+      {
+        "name": "onClearSelection",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when user clears selection"
+      },
+      {
+        "name": "onSelectAll",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when user selects all"
+      }
+    ],
+    "accessibility": [
+      "ARIA role=\"toolbar\" and aria-label=\"Bulk actions toolbar\"",
+      "Keyboard navigable action items with tab and arrow keys"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { SelectionBasket } from \"@/components/ui/selection-basket\";\n\nexport function Demo() {\n  const [selected, setSelected] = useState<string[]>(['item-1', 'item-2']);\n\n  return (\n    <SelectionBasket\n      selectedCount={selected.length}\n      totalCount={10}\n      onClearSelection={() => setSelected([])}\n      actions={[\n        { id: 'export', label: 'Export', onClick: () => console.log('Exporting') },\n        { id: 'delete', label: 'Delete', variant: 'danger', onClick: () => console.log('Deleting') }\n      ]}\n    />\n  );\n}",
+    "sourceCode": "import React from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport {\n  Trash2,\n  Share2,\n  Download,\n  FolderInput,\n  X\n} from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport interface SelectionActionItem {\n  id: string;\n  label: string;\n  icon?: React.ReactNode;\n  variant?: 'default' | 'danger' | 'primary';\n  onClick?: () => void;\n}\n\nexport interface SelectionBasketProps {\n  /** Count of selected items */\n  selectedCount: number;\n  /** Total count of all items (for select all calculation) */\n  totalCount?: number;\n  /** Custom actions list */\n  actions?: SelectionActionItem[];\n  /** Callback to clear all selections */\n  onClearSelection?: () => void;\n  /** Callback to select all items */\n  onSelectAll?: () => void;\n  /** Custom class name */\n  className?: string;\n}\n\nconst defaultActions: SelectionActionItem[] = [\n  { id: 'export', label: 'Export', icon: <Download className=\"w-3.5 h-3.5\" /> },\n  { id: 'move', label: 'Move to Folder', icon: <FolderInput className=\"w-3.5 h-3.5\" /> },\n  { id: 'share', label: 'Share', icon: <Share2 className=\"w-3.5 h-3.5\" /> },\n  { id: 'delete', label: 'Delete', icon: <Trash2 className=\"w-3.5 h-3.5\" />, variant: 'danger' },\n];\n\nexport const SelectionBasket: React.FC<SelectionBasketProps> = ({\n  selectedCount,\n  totalCount,\n  actions = defaultActions,\n  onClearSelection,\n  onSelectAll,\n  className,\n}) => {\n  const isVisible = selectedCount > 0;\n  const isAllSelected = totalCount !== undefined && selectedCount === totalCount && totalCount > 0;\n\n  return (\n    <AnimatePresence>\n      {isVisible && (\n        <div className=\"fixed bottom-6 left-1/2 -translate-x-1/2 z-40 max-w-[95vw] pointer-events-none font-sans select-none\">\n          <motion.div\n            initial={{ opacity: 0, y: 24, scale: 0.95 }}\n            animate={{ opacity: 1, y: 0, scale: 1 }}\n            exit={{ opacity: 0, y: 16, scale: 0.95, transition: { duration: 0.15 } }}\n            transition={motionTransitions.springResponsive}\n            className={cn(\n              'pointer-events-auto flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-2xl border border-[#262626] bg-[#0E0E0E]/95 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.9)] overflow-x-auto max-w-full',\n              className\n            )}\n            role=\"toolbar\"\n            aria-label=\"Bulk actions toolbar\"\n          >\n            {/* Selected Count Indicator */}\n            <div className=\"flex items-center gap-2 pl-3 pr-2 py-1 border-r border-[#1C1C1C] shrink-0\">\n              <span className=\"w-5 h-5 rounded-full bg-white text-black text-[11px] font-bold font-mono flex items-center justify-center\">\n                {selectedCount}\n              </span>\n              <span className=\"text-xs font-medium text-[#F5F5F5] whitespace-nowrap\">\n                {selectedCount === 1 ? 'item selected' : 'items selected'}\n              </span>\n\n              {/* Select all toggle */}\n              {onSelectAll && totalCount && (\n                <button\n                  type=\"button\"\n                  onClick={onSelectAll}\n                  className=\"text-[11px] font-mono text-[#808080] hover:text-white transition-colors ml-1 underline underline-offset-2\"\n                >\n                  {isAllSelected ? 'Select none' : `All (${totalCount})`}\n                </button>\n              )}\n            </div>\n\n            {/* Action Buttons (Horizontally scrollable on narrow screens) */}\n            <div className=\"flex items-center gap-1.5 shrink-0 overflow-x-auto py-0.5\">\n              {actions.map((action) => {\n                const isDanger = action.variant === 'danger';\n                const isPrimary = action.variant === 'primary';\n\n                return (\n                  <button\n                    key={action.id}\n                    type=\"button\"\n                    onClick={action.onClick}\n                    className={cn(\n                      'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors focus-ring whitespace-nowrap',\n                      isDanger\n                        ? 'bg-[#1F1212] hover:bg-[#2A1818] border border-[#381B1B] text-rose-400 hover:text-rose-300'\n                        : isPrimary\n                        ? 'bg-white hover:bg-[#ECECEC] text-black'\n                        : 'bg-[#161616] hover:bg-[#202020] border border-[#222222] text-[#D4D4D4] hover:text-white'\n                    )}\n                  >\n                    {action.icon}\n                    <span>{action.label}</span>\n                  </button>\n                );\n              })}\n            </div>\n\n            {/* Clear selection close button */}\n            {onClearSelection && (\n              <button\n                type=\"button\"\n                onClick={onClearSelection}\n                className=\"w-7 h-7 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] flex items-center justify-center text-[#737373] hover:text-white transition-colors focus-ring shrink-0 ml-1\"\n                title=\"Clear selection\"\n                aria-label=\"Clear selection\"\n              >\n                <X className=\"w-3.5 h-3.5\" />\n              </button>\n            )}\n          </motion.div>\n        </div>\n      )}\n    </AnimatePresence>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/SelectionBasket.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/selection-basket.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
       }
     ]
   },
@@ -2089,6 +2988,204 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/utils.ts",
         "type": "registry:lib",
         "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
+    "id": "spotlight-search",
+    "name": "Spotlight Search",
+    "tagline": "Global ⌘K search overlay with moving highlight spring physics",
+    "description": "A global command palette and search overlay triggered by ⌘K featuring real-time fuzzy filtering, moving active highlight springs, kbd shortcuts, and full keyboard navigation.",
+    "category": "Overlays",
+    "badges": [
+      "Command Palette",
+      "Search",
+      "Overlays"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/spotlight-search",
+    "features": [
+      "Global keyboard listener for ⌘K / Ctrl+K and Escape dismissal",
+      "Animated active highlight tracking item selection with layoutId spring physics",
+      "Categorized search results with contextual icons and technical kbd badges",
+      "Dimmed backdrop with subtle blur preserving focus on command box",
+      "Full arrow key navigation and Enter selection execution"
+    ],
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "default": "false",
+        "description": "Controlled visibility state"
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "default": "undefined",
+        "description": "Callback fired when modal visibility toggles"
+      },
+      {
+        "name": "items",
+        "type": "SpotlightSearchItem[]",
+        "default": "[...]",
+        "description": "List of searchable actions and components"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "'Search components, actions...'",
+        "description": "Input placeholder text"
+      },
+      {
+        "name": "onSelect",
+        "type": "(item: SpotlightSearchItem) => void",
+        "default": "undefined",
+        "description": "Callback fired when item is chosen"
+      }
+    ],
+    "accessibility": [
+      "Aria-expanded and aria-autocomplete attributes on input",
+      "Complete keyboard control (Up/Down arrows, Enter, Escape)",
+      "Traps focus within dialog while active and restores focus on close"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { SpotlightSearch } from \"@/components/ui/spotlight-search\";\n\nexport function Demo() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <div>\n      <button onClick={() => setOpen(true)}>Press ⌘K to search</button>\n      <SpotlightSearch open={open} onOpenChange={setOpen} />\n    </div>\n  );\n}",
+    "sourceCode": "import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport {\n  Search,\n  FileCode,\n  Clock,\n  X,\n  CreditCard,\n  Sliders,\n  Shield,\n  Layers,\n  Layout\n} from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport interface SpotlightSearchItem {\n  id: string;\n  title: string;\n  category: string;\n  description?: string;\n  icon?: React.ReactNode;\n  shortcut?: string[];\n  action?: () => void;\n}\n\nexport interface SpotlightSearchProps {\n  /** Controlled open state */\n  open?: boolean;\n  /** Callback when open state changes */\n  onOpenChange?: (open: boolean) => void;\n  /** Searchable items database */\n  items?: SpotlightSearchItem[];\n  /** Search input placeholder */\n  placeholder?: string;\n  /** Recent searches list */\n  recentSearches?: string[];\n  /** Callback when an item is selected */\n  onSelect?: (item: SpotlightSearchItem) => void;\n  /** Custom class name */\n  className?: string;\n}\n\nconst defaultItems: SpotlightSearchItem[] = [\n  { id: 'btn', title: 'Magnetic Button', category: 'Buttons', description: 'Cursor magnetic pull and tactile spring physics', icon: <Sliders className=\"w-4 h-4\" />, shortcut: ['B'] },\n  { id: 'upload', title: 'Animated File Upload', category: 'Forms', description: 'Drag and drop with per-file progress tracking', icon: <Layers className=\"w-4 h-4\" />, shortcut: ['U'] },\n  { id: 'payment', title: 'Payment Status', category: 'Feedback', description: 'Self-drawing SVG checkmark and itemized receipt', icon: <CreditCard className=\"w-4 h-4\" />, shortcut: ['P'] },\n  { id: 'dock', title: 'Floating Action Dock', category: 'Navigation', description: 'Magnification dock with spring bounce physics', icon: <Layout className=\"w-4 h-4\" />, shortcut: ['D'] },\n  { id: 'toast', title: 'Undo Toast', category: 'Feedback', description: 'Time-window countdown progress and action restoration', icon: <Clock className=\"w-4 h-4\" />, shortcut: ['T'] },\n  { id: 'auth', title: 'Security & Auth', category: 'Auth', description: 'SAML SSO and passwordless biometrics', icon: <Shield className=\"w-4 h-4\" />, shortcut: ['S'] },\n];\n\nexport const SpotlightSearch: React.FC<SpotlightSearchProps> = ({\n  open = false,\n  onOpenChange,\n  items = defaultItems,\n  placeholder = 'Search components, actions, documentation...',\n  recentSearches = ['Animated File Upload', 'Payment Status', 'Dock'],\n  onSelect,\n  className,\n}) => {\n  const [isOpen, setIsOpen] = useState(open);\n  const [query, setQuery] = useState('');\n  const [selectedIndex, setSelectedIndex] = useState(0);\n  const inputRef = useRef<HTMLInputElement>(null);\n\n  useEffect(() => {\n    setIsOpen(open);\n  }, [open]);\n\n  const handleOpen = useCallback((val: boolean) => {\n    setIsOpen(val);\n    onOpenChange?.(val);\n    if (val) {\n      setQuery('');\n      setSelectedIndex(0);\n    }\n  }, [onOpenChange]);\n\n  // Keyboard shortcut listener (Cmd+K / Ctrl+K)\n  useEffect(() => {\n    const handleKeyDown = (e: KeyboardEvent) => {\n      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {\n        e.preventDefault();\n        handleOpen(!isOpen);\n      }\n      if (e.key === 'Escape' && isOpen) {\n        e.preventDefault();\n        handleOpen(false);\n      }\n    };\n\n    window.addEventListener('keydown', handleKeyDown);\n    return () => window.removeEventListener('keydown', handleKeyDown);\n  }, [isOpen, handleOpen]);\n\n  useEffect(() => {\n    if (isOpen) {\n      setTimeout(() => inputRef.current?.focus(), 50);\n    }\n  }, [isOpen]);\n\n  const filteredItems = useMemo(() => {\n    if (!query.trim()) return items;\n    const q = query.toLowerCase();\n    return items.filter(\n      (item) =>\n        item.title.toLowerCase().includes(q) ||\n        item.category.toLowerCase().includes(q) ||\n        item.description?.toLowerCase().includes(q)\n    );\n  }, [items, query]);\n\n  useEffect(() => {\n    setSelectedIndex(0);\n  }, [query]);\n\n  const handleInputKeyDown = (e: React.KeyboardEvent) => {\n    if (filteredItems.length === 0) return;\n\n    if (e.key === 'ArrowDown') {\n      e.preventDefault();\n      setSelectedIndex((prev) => (prev + 1) % filteredItems.length);\n    } else if (e.key === 'ArrowUp') {\n      e.preventDefault();\n      setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);\n    } else if (e.key === 'Enter') {\n      e.preventDefault();\n      const current = filteredItems[selectedIndex];\n      if (current) {\n        current.action?.();\n        onSelect?.(current);\n        handleOpen(false);\n      }\n    }\n  };\n\n  return (\n    <>\n      <AnimatePresence>\n        {isOpen && (\n          <div className=\"fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 font-sans select-none\">\n            {/* Backdrop */}\n            <motion.div\n              initial={{ opacity: 0 }}\n              animate={{ opacity: 1 }}\n              exit={{ opacity: 0 }}\n              transition={{ duration: 0.15 }}\n              onClick={() => handleOpen(false)}\n              className=\"fixed inset-0 bg-black/75 backdrop-blur-sm\"\n            />\n\n            {/* Spotlight Modal Box */}\n            <motion.div\n              initial={{ opacity: 0, scale: 0.97, y: -10 }}\n              animate={{ opacity: 1, scale: 1, y: 0 }}\n              exit={{ opacity: 0, scale: 0.97, y: -10 }}\n              transition={motionTransitions.springSnappy}\n              className={cn(\n                'relative w-full max-w-xl rounded-2xl border border-[#222222] bg-[#0C0C0C] shadow-[0_24px_60px_rgba(0,0,0,0.95)] overflow-hidden z-10',\n                className\n              )}\n            >\n              {/* Top Search Input Bar */}\n              <div className=\"flex items-center gap-3 px-4 py-3.5 border-b border-[#1A1A1A]\">\n                <Search className=\"w-4 h-4 text-[#808080] shrink-0\" />\n                <input\n                  ref={inputRef}\n                  value={query}\n                  onChange={(e) => setQuery(e.target.value)}\n                  onKeyDown={handleInputKeyDown}\n                  placeholder={placeholder}\n                  className=\"flex-1 bg-transparent text-sm text-[#F5F5F5] placeholder-[#606060] focus:outline-none\"\n                  aria-label=\"Search\"\n                />\n                {query ? (\n                  <button\n                    type=\"button\"\n                    onClick={() => setQuery('')}\n                    className=\"p-1 text-[#737373] hover:text-white transition-colors\"\n                  >\n                    <X className=\"w-3.5 h-3.5\" />\n                  </button>\n                ) : (\n                  <kbd className=\"hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono text-[#737373] bg-[#161616] border border-[#242424] rounded\">\n                    ESC\n                  </kbd>\n                )}\n              </div>\n\n              {/* Recent Searches Pills when query is empty */}\n              {!query.trim() && recentSearches.length > 0 && (\n                <div className=\"px-3 pt-2 pb-1.5 flex items-center gap-1.5 flex-wrap border-b border-[#161616]\">\n                  <span className=\"text-[10px] font-mono text-[#666666] mr-1 flex items-center gap-1\">\n                    <Clock className=\"w-3 h-3 text-[#666666]\" /> Recent:\n                  </span>\n                  {recentSearches.map((term) => (\n                    <button\n                      key={term}\n                      type=\"button\"\n                      onClick={() => setQuery(term)}\n                      className=\"px-2 py-0.5 rounded-md bg-[#141414] hover:bg-[#1C1C1C] border border-[#202020] text-[11px] text-[#A1A1A1] hover:text-white transition-colors\"\n                    >\n                      {term}\n                    </button>\n                  ))}\n                </div>\n              )}\n\n              {/* Search Results List */}\n              <div className=\"max-h-[340px] overflow-y-auto p-2 space-y-1\">\n                {filteredItems.length > 0 ? (\n                  filteredItems.map((item, index) => {\n                    const isSelected = index === selectedIndex;\n\n                    return (\n                      <div\n                        key={item.id}\n                        onClick={() => {\n                          item.action?.();\n                          onSelect?.(item);\n                          handleOpen(false);\n                        }}\n                        onMouseEnter={() => setSelectedIndex(index)}\n                        className={cn(\n                          'relative flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors',\n                          isSelected ? 'text-[#F5F5F5]' : 'text-[#A1A1A1] hover:text-[#F5F5F5]'\n                        )}\n                      >\n                        {/* Moving Highlight Pill */}\n                        {isSelected && (\n                          <motion.div\n                            layoutId=\"spotlight-active-item\"\n                            transition={motionTransitions.springGentle}\n                            className=\"absolute inset-0 rounded-xl bg-[#181818] border border-[#282828] z-0\"\n                          />\n                        )}\n\n                        <div className=\"flex items-center gap-3 relative z-10 min-w-0\">\n                          <div className={cn(\n                            'w-7 h-7 rounded-lg border flex items-center justify-center shrink-0 transition-colors',\n                            isSelected ? 'bg-[#222222] border-[#383838] text-white' : 'bg-[#141414] border-[#202020] text-[#808080]'\n                          )}>\n                            {item.icon || <FileCode className=\"w-3.5 h-3.5\" />}\n                          </div>\n\n                          <div className=\"min-w-0\">\n                            <p className=\"text-xs font-medium text-[#F5F5F5] truncate\">{item.title}</p>\n                            {item.description && (\n                              <p className=\"text-[11px] text-[#737373] truncate\">{item.description}</p>\n                            )}\n                          </div>\n                        </div>\n\n                        <div className=\"flex items-center gap-2 relative z-10 shrink-0\">\n                          <span className=\"text-[10px] font-mono text-[#666666] uppercase\">{item.category}</span>\n                          {item.shortcut && (\n                            <kbd className=\"hidden sm:inline-flex items-center px-1.5 py-0.5 text-[9px] font-mono text-[#808080] bg-[#141414] border border-[#222222] rounded\">\n                              {item.shortcut.join('')}\n                            </kbd>\n                          )}\n                        </div>\n                      </div>\n                    );\n                  })\n                ) : (\n                  <div className=\"py-10 text-center text-xs text-[#737373]\">\n                    No results found for <span className=\"text-white\">\"{query}\"</span>\n                  </div>\n                )}\n              </div>\n\n              {/* Bottom Command Hint Footer */}\n              <div className=\"px-4 py-2.5 bg-[#090909] border-t border-[#161616] flex items-center justify-between text-[11px] font-mono text-[#606060]\">\n                <div className=\"flex items-center gap-3\">\n                  <span className=\"flex items-center gap-1\">\n                    <kbd className=\"px-1 bg-[#141414] border border-[#222222] rounded text-[9px]\">↑↓</kbd> Navigate\n                  </span>\n                  <span className=\"flex items-center gap-1\">\n                    <kbd className=\"px-1 bg-[#141414] border border-[#222222] rounded text-[9px]\">↵</kbd> Select\n                  </span>\n                </div>\n                <span>EasyUI Command</span>\n              </div>\n            </motion.div>\n          </div>\n        )}\n      </AnimatePresence>\n    </>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/SpotlightSearch.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/spotlight-search.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "undo-toast",
+    "name": "Undo Toast",
+    "tagline": "Refined undo notification with real-time countdown progress and reversal animation",
+    "description": "An advanced undo notification toast featuring an interactive progress countdown, pause-on-hover mechanics, action reversal animation, and versatile position anchoring.",
+    "category": "Feedback",
+    "badges": [
+      "Notification",
+      "Feedback",
+      "Timer Physics"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/undo-toast",
+    "features": [
+      "Real-time smooth countdown progress bar illustrating time window remaining",
+      "Intelligent pause-on-hover physics so users never miss undo deadlines",
+      "Visual state morphing upon clicking Undo before gentle dismissal",
+      "Configurable multi-corner positioning (top, bottom, center, corners)",
+      "Multiple semantically tinted variants: Default, Success, Warning, Error, and Info"
+    ],
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "default": "true",
+        "description": "Visibility state of the undo toast"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "'Project archived'",
+        "description": "Primary notification message title"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "'Changes will be permanent in a few seconds'",
+        "description": "Optional descriptive subtitle"
+      },
+      {
+        "name": "undoLabel",
+        "type": "string",
+        "default": "'Undo'",
+        "description": "Label for undo action trigger"
+      },
+      {
+        "name": "restoredMessage",
+        "type": "string",
+        "default": "'Restored successfully'",
+        "description": "Title displayed when action has been reversed"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "5000",
+        "description": "Duration in milliseconds before auto-dismissal"
+      },
+      {
+        "name": "variant",
+        "type": "'default' | 'success' | 'warning' | 'error' | 'info'",
+        "default": "'default'",
+        "description": "Semantic visual tone"
+      },
+      {
+        "name": "position",
+        "type": "'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'",
+        "default": "'bottom-center'",
+        "description": "Screen placement"
+      },
+      {
+        "name": "onUndo",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when user clicks Undo"
+      },
+      {
+        "name": "onDismiss",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when toast closes or expires"
+      },
+      {
+        "name": "showProgress",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to show the countdown bar"
+      }
+    ],
+    "accessibility": [
+      "ARIA live role=\"status\" announcements for screen readers",
+      "Full keyboard accessibility for Undo and Close buttons",
+      "Respects reduced motion preferences by bypassing entry translations"
+    ],
+    "createdAt": "2026-08-21",
+    "usageCode": "import { UndoToast } from \"@/components/ui/undo-toast\";\n\nexport function Demo() {\n  const [show, setShow] = useState(true);\n\n  return (\n    <UndoToast\n      open={show}\n      title=\"File deleted\"\n      description=\"Item moved to trash\"\n      duration={5000}\n      onUndo={() => console.log('Action reversed')}\n      onDismiss={() => setShow(false)}\n    />\n  );\n}",
+    "sourceCode": "import React, { useState, useEffect, useRef, useCallback } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport {\n  Check,\n  X,\n  AlertTriangle,\n  AlertCircle,\n  Info,\n  Trash2,\n  Undo2\n} from 'lucide-react';\nimport { cn } from '../../lib/utils';\nimport { motionTransitions } from '../../lib/motion-tokens';\n\nexport type UndoToastVariant = 'default' | 'success' | 'warning' | 'error' | 'info';\nexport type UndoToastPosition =\n  | 'top-left'\n  | 'top-center'\n  | 'top-right'\n  | 'bottom-left'\n  | 'bottom-center'\n  | 'bottom-right';\n\nexport interface UndoToastProps {\n  /** Visibility state */\n  open?: boolean;\n  /** Toast message title (e.g. \"File deleted\") */\n  title?: string;\n  /** Secondary description or metadata */\n  description?: string;\n  /** Undo action button label */\n  undoLabel?: string;\n  /** Restored state message when Undo is triggered */\n  restoredMessage?: string;\n  /** Duration in milliseconds before automatic dismissal */\n  duration?: number;\n  /** Toast variant visual tone */\n  variant?: UndoToastVariant;\n  /** Toast screen placement */\n  position?: UndoToastPosition;\n  /** Callback fired when user clicks Undo */\n  onUndo?: () => void;\n  /** Callback fired when toast finishes timer or is closed */\n  onDismiss?: () => void;\n  /** Whether to show the countdown bar */\n  showProgress?: boolean;\n  /** Custom icon */\n  icon?: React.ReactNode;\n  /** Custom class name */\n  className?: string;\n}\n\nexport const UndoToast: React.FC<UndoToastProps> = ({\n  open = true,\n  title = 'Project archived',\n  description = 'Changes will be permanent in a few seconds',\n  undoLabel = 'Undo',\n  restoredMessage = 'Restored successfully',\n  duration = 5000,\n  variant = 'default',\n  position = 'bottom-center',\n  onUndo,\n  onDismiss,\n  showProgress = true,\n  icon,\n  className,\n}) => {\n  const [isVisible, setIsVisible] = useState(open);\n  const [isRestored, setIsRestored] = useState(false);\n  const [isPaused, setIsPaused] = useState(false);\n  const [progress, setProgress] = useState(100);\n\n  const startTimeRef = useRef<number>(Date.now());\n  const remainingTimeRef = useRef<number>(duration);\n  const requestRef = useRef<number | null>(null);\n\n  useEffect(() => {\n    setIsVisible(open);\n    if (open) {\n      setIsRestored(false);\n      setProgress(100);\n      startTimeRef.current = Date.now();\n      remainingTimeRef.current = duration;\n    }\n  }, [open, duration]);\n\n  const handleDismiss = useCallback(() => {\n    setIsVisible(false);\n    onDismiss?.();\n  }, [onDismiss]);\n\n  const handleUndoClick = () => {\n    if (isRestored) return;\n    setIsRestored(true);\n    if (requestRef.current) cancelAnimationFrame(requestRef.current);\n    onUndo?.();\n    setTimeout(() => {\n      handleDismiss();\n    }, 1400);\n  };\n\n  useEffect(() => {\n    if (!isVisible || isRestored || duration <= 0) return;\n\n    let localStartTime = Date.now();\n    const totalDuration = remainingTimeRef.current;\n\n    const animate = () => {\n      if (isPaused) {\n        requestRef.current = requestAnimationFrame(animate);\n        return;\n      }\n\n      const elapsed = Date.now() - localStartTime;\n      const fraction = Math.max(0, 1 - elapsed / totalDuration);\n      setProgress(fraction * 100);\n\n      if (elapsed >= totalDuration) {\n        handleDismiss();\n      } else {\n        requestRef.current = requestAnimationFrame(animate);\n      }\n    };\n\n    requestRef.current = requestAnimationFrame(animate);\n\n    return () => {\n      if (requestRef.current) cancelAnimationFrame(requestRef.current);\n    };\n  }, [isVisible, isPaused, isRestored, duration, handleDismiss]);\n\n  const positionClasses: Record<UndoToastPosition, string> = {\n    'top-left': 'top-5 left-5 items-start',\n    'top-center': 'top-5 left-1/2 -translate-x-1/2 items-center',\n    'top-right': 'top-5 right-5 items-end',\n    'bottom-left': 'bottom-5 left-5 items-start',\n    'bottom-center': 'bottom-5 left-1/2 -translate-x-1/2 items-center',\n    'bottom-right': 'bottom-5 right-5 items-end',\n  };\n\n  const getVariantIcon = () => {\n    if (icon) return icon;\n    switch (variant) {\n      case 'success':\n        return <Check className=\"w-4 h-4 text-emerald-400\" />;\n      case 'warning':\n        return <AlertTriangle className=\"w-4 h-4 text-amber-400\" />;\n      case 'error':\n        return <AlertCircle className=\"w-4 h-4 text-rose-400\" />;\n      case 'info':\n        return <Info className=\"w-4 h-4 text-sky-400\" />;\n      default:\n        return <Trash2 className=\"w-4 h-4 text-[#A1A1A1]\" />;\n    }\n  };\n\n  return (\n    <div\n      className={cn(\n        'fixed z-50 pointer-events-none flex flex-col',\n        positionClasses[position]\n      )}\n    >\n      <AnimatePresence>\n        {isVisible && (\n          <motion.div\n            layout\n            initial={{ opacity: 0, y: position.startsWith('top') ? -16 : 16, scale: 0.96 }}\n            animate={{ opacity: 1, y: 0, scale: 1 }}\n            exit={{ opacity: 0, scale: 0.94, y: position.startsWith('top') ? -10 : 10 }}\n            transition={motionTransitions.springSnappy}\n            onMouseEnter={() => setIsPaused(true)}\n            onMouseLeave={() => {\n              setIsPaused(false);\n              startTimeRef.current = Date.now();\n              remainingTimeRef.current = (progress / 100) * duration;\n            }}\n            className={cn(\n              'pointer-events-auto relative overflow-hidden rounded-xl border border-[#222222] bg-[#0E0E0E] text-[#F5F5F5] shadow-[0_12px_32px_rgba(0,0,0,0.85)] p-3.5 sm:p-4 min-w-[280px] sm:min-w-[340px] max-w-md font-sans select-none',\n              className\n            )}\n            role=\"status\"\n            aria-live=\"polite\"\n          >\n            <div className=\"flex items-center justify-between gap-3 relative z-10\">\n              {/* Icon / Status indicator */}\n              <div className=\"w-8 h-8 rounded-lg bg-[#161616] border border-[#252525] flex items-center justify-center shrink-0\">\n                {isRestored ? (\n                  <motion.div\n                    initial={{ scale: 0 }}\n                    animate={{ scale: 1 }}\n                    transition={motionTransitions.springSnappy}\n                  >\n                    <Check className=\"w-4 h-4 text-emerald-400\" />\n                  </motion.div>\n                ) : (\n                  getVariantIcon()\n                )}\n              </div>\n\n              {/* Text copy */}\n              <div className=\"flex-1 min-w-0 pr-1\">\n                <p className=\"text-xs font-semibold text-[#F5F5F5] truncate\">\n                  {isRestored ? restoredMessage : title}\n                </p>\n                {description && !isRestored && (\n                  <p className=\"text-[11px] text-[#808080] truncate mt-0.5\">\n                    {description}\n                  </p>\n                )}\n              </div>\n\n              {/* Actions */}\n              <div className=\"flex items-center gap-1.5 shrink-0\">\n                {!isRestored && (\n                  <button\n                    type=\"button\"\n                    onClick={handleUndoClick}\n                    className=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#1F1F1F] hover:bg-[#2A2A2A] border border-[#303030] text-xs font-medium text-white hover:text-white transition-colors focus-ring\"\n                  >\n                    <Undo2 className=\"w-3 h-3 text-[#A1A1A1]\" />\n                    <span>{undoLabel}</span>\n                  </button>\n                )}\n\n                <button\n                  type=\"button\"\n                  onClick={handleDismiss}\n                  className=\"p-1 rounded-md text-[#737373] hover:text-[#F5F5F5] hover:bg-[#1A1A1A] transition-colors focus-ring\"\n                  aria-label=\"Close notification\"\n                >\n                  <X className=\"w-3.5 h-3.5\" />\n                </button>\n              </div>\n            </div>\n\n            {/* Live Progress Bar countdown indicator */}\n            {showProgress && !isRestored && (\n              <div className=\"absolute bottom-0 left-0 right-0 h-[2px] bg-[#1A1A1A]\">\n                <div\n                  className=\"h-full bg-white/70 transition-all\"\n                  style={{ width: `${progress}%`, transition: isPaused ? 'none' : 'width 50ms linear' }}\n                />\n              </div>\n            )}\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  );\n};\n",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/UndoToast.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/undo-toast.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
       }
     ]
   }

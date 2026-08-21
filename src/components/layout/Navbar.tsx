@@ -9,7 +9,7 @@ export interface NavbarProps {
   onNavigateComponents: () => void;
   onNavigateDocs: () => void;
   onNavigateHome?: () => void;
-  activeView?: 'showcase' | 'components' | 'docs';
+  activeView?: 'showcase' | 'components' | 'docs' | 'component-detail';
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -88,7 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onNavigateComponents}
             className={`text-xs font-medium transition-colors cursor-pointer ${
-              activeView === 'components'
+              activeView === 'components' || activeView === 'component-detail'
                 ? 'text-white'
                 : 'text-[#808080] hover:text-[#F5F5F5]'
             }`}

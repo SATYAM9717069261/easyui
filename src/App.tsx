@@ -6,8 +6,8 @@ import { ComponentDirectory } from './components/sections/ComponentDirectory';
 import { AllComponentsPage } from './components/sections/AllComponentsPage';
 import { DevExperience } from './components/sections/DevExperience';
 import { FinalCta } from './components/sections/FinalCta';
-import { CommandMenu } from './components/ui/CommandMenu';
-import { ComponentDetailModal } from './components/docs/ComponentDetailModal';
+import { SpotlightSearch } from './components/ui/SpotlightSearch';
+import { ComponentDetailPage } from './components/docs/ComponentDetailPage';
 import { DocsPage } from './components/docs/DocsPage';
 import { EASY_COMPONENTS } from './components/registry/components-data';
 import type { EasyComponentMeta } from './types/component';
@@ -18,8 +18,8 @@ import { useSEO } from './lib/seo';
 
 export function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [selectedModalComponent, setSelectedModalComponent] = useState<EasyComponentMeta | null>(null);
-  const [activeView, setActiveView] = useState<'showcase' | 'components' | 'docs'>('showcase');
+  const [selectedComponent, setSelectedComponent] = useState<EasyComponentMeta | null>(null);
+  const [activeView, setActiveView] = useState<'showcase' | 'components' | 'docs' | 'component-detail'>('showcase');
   const [activeDocTopic, setActiveDocTopic] = useState<string>('introduction');
   const [componentPage, setComponentPage] = useState<number>(1);
 
@@ -31,7 +31,7 @@ export function App() {
     activeView,
     componentPage,
     activeDocTopic,
-    selectedModalComponent,
+    selectedComponent,
   });
 
   // Sync state from URL pathname and search params (with legacy hash migration support)
@@ -62,19 +62,20 @@ export function App() {
 
     const cleanPath = pathname.replace(/^\/+|\/+$/g, '');
 
-    // 1. Direct deep-link to component: /components/:slug
+    // 1. Dedicated component page route: /components/:slug
     if (cleanPath.startsWith('components/')) {
       const compSlug = cleanPath.replace(/^components\//, '').split('/')[0];
       const found = EASY_COMPONENTS.find((c) => c.id === compSlug);
       if (found) {
-        setSelectedModalComponent(found);
+        setSelectedComponent(found);
+        setActiveView('component-detail');
         return;
       }
     }
 
     // 2. All components catalog view: /components or /all-components
     if (cleanPath === 'components' || cleanPath === 'all-components') {
-      setSelectedModalComponent(null);
+      setSelectedComponent(null);
       setActiveView('components');
       setComponentPage(pageFromUrl);
       return;
@@ -82,7 +83,7 @@ export function App() {
 
     // 3. Documentation topics: /docs or /docs/:topic
     if (cleanPath === 'docs' || cleanPath.startsWith('docs/')) {
-      setSelectedModalComponent(null);
+      setSelectedComponent(null);
       setActiveView('docs');
       const parts = cleanPath.split('/');
       if (parts.length === 1 || !parts[1]) {
@@ -94,7 +95,7 @@ export function App() {
     }
 
     // 4. Default: showcase / homepage (/)
-    setSelectedModalComponent(null);
+    setSelectedComponent(null);
     setActiveView('showcase');
   }, []);
 
@@ -140,18 +141,12 @@ export function App() {
   const handleSelectComponentById = (id: string) => {
     const found = EASY_COMPONENTS.find((c) => c.id === id);
     if (found) {
+      setSelectedComponent(found);
+      setActiveView('component-detail');
       navigate(`/components/${found.id}`);
-    }
-  };
-
-  const handleCloseModal = () => {
-    setSelectedModalComponent(null);
-    if (activeView === 'components') {
-      navigate(componentPage > 1 ? `/components?page=${componentPage}` : '/components');
-    } else if (activeView === 'docs') {
-      navigate(`/docs/${activeDocTopic}`);
-    } else {
-      navigate('/');
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     }
   };
 
@@ -160,7 +155,7 @@ export function App() {
   };
 
   const handleNavigateAllComponents = (page = 1) => {
-    setSelectedModalComponent(null);
+    setSelectedComponent(null);
     navigate(page > 1 ? `/components?page=${page}` : '/components');
     setActiveView('components');
     setComponentPage(page);
@@ -178,6 +173,7 @@ export function App() {
   };
 
   const handleNavigateHome = () => {
+    setSelectedComponent(null);
     navigate('/');
     setActiveView('showcase');
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -186,6 +182,7 @@ export function App() {
   };
 
   const handleNavigateDocs = (topicId?: string) => {
+    setSelectedComponent(null);
     const topic = topicId || 'introduction';
     navigate(`/docs/${topic}`);
     setActiveView('docs');
@@ -219,7 +216,15 @@ export function App() {
       />
 
       {/* Main View Router */}
-      {activeView === 'docs' ? (
+      {activeView === 'component-detail' && selectedComponent ? (
+        <ComponentDetailPage
+          component={selectedComponent}
+          onSelectComponent={handleSelectComponentById}
+          onNavigateHome={handleNavigateHome}
+          onNavigateComponents={handleNavigateComponents}
+          onNavigateDocs={handleNavigateDocs}
+        />
+      ) : activeView === 'docs' ? (
         <DocsPage
           activeTopic={activeDocTopic}
           onSelectTopic={handleSelectDocTopic}
@@ -262,23 +267,15 @@ export function App() {
         onNavigateDocs={() => handleNavigateDocs('introduction')}
       />
 
-      {/* Global Command Palette (⌘K) */}
-      <CommandMenu
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
+      {/* Global Spotlight Search (⌘K) */}
+      <SpotlightSearch
+        open={isSearchOpen}
+        onOpenChange={setIsSearchOpen}
         onSelectComponent={handleSelectComponentById}
         onNavigateDocs={handleNavigateDocs}
-      />
-
-      {/* Component Detail Modal (Preview, Install, Usage, Source, Props API, Accessibility, Related) */}
-      <ComponentDetailModal
-        component={selectedModalComponent}
-        onClose={handleCloseModal}
-        onSelectComponent={handleSelectComponentById}
       />
     </div>
   );
 }
 
 export default App;
-
