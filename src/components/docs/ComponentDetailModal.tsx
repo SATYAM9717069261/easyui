@@ -861,25 +861,17 @@ func main() {
         {/* Minimalist Header */}
         <div className="px-5 sm:px-6 py-4 border-b border-[#1A1A1A] flex items-start justify-between gap-4 bg-[#0A0A0A] shrink-0">
           <div className="min-w-0">
-            {/* Category / Breadcrumb */}
+            {/* Breadcrumb */}
             <div className="flex items-center gap-1.5 mb-1 text-[11px] font-mono text-[#666666]">
               <span>easyui</span>
               <span>/</span>
               <span className="text-[#A1A1A1] font-medium truncate">{component.id}</span>
-              <span className="ml-1.5 px-1.5 py-0.5 rounded text-[10px] bg-[#141414] border border-[#222222] text-[#888888]">
-                {component.category}
-              </span>
             </div>
 
             {/* Component Title */}
             <h2 className="text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight truncate">
               {component.name}
             </h2>
-
-            {/* One-line Description */}
-            <p className="text-xs text-[#808080] mt-0.5 leading-relaxed line-clamp-1 max-w-2xl">
-              {component.description}
-            </p>
           </div>
 
           {/* Quick Header Actions (Copy Link & Close) */}
@@ -895,7 +887,7 @@ func main() {
               aria-label="Copy component link"
             >
               {copiedCode === 'compUrl' ? (
-                <Check className="w-4 h-4 text-emerald-400" />
+                <Check className="w-4 h-4 text-white" />
               ) : (
                 <Copy className="w-4 h-4" />
               )}
@@ -998,7 +990,7 @@ func main() {
                     className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                   >
                     {copiedCode === 'import' ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <Check className="w-3.5 h-3.5 text-white" />
                     ) : (
                       <Copy className="w-3.5 h-3.5" />
                     )}
@@ -1020,7 +1012,7 @@ func main() {
                     className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                   >
                     {copiedCode === 'usage' ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <Check className="w-3.5 h-3.5 text-white" />
                     ) : (
                       <Copy className="w-3.5 h-3.5" />
                     )}
@@ -1103,7 +1095,7 @@ func main() {
                       aria-label="Copy CLI command"
                     >
                       {copiedCode === 'cli' ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <Check className="w-3.5 h-3.5 text-white" />
                       ) : (
                         <Copy className="w-3.5 h-3.5" />
                       )}
@@ -1149,7 +1141,7 @@ func main() {
                           className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                         >
                           {copiedCode === 'deps' ? (
-                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            <Check className="w-3.5 h-3.5 text-white" />
                           ) : (
                             <Copy className="w-3.5 h-3.5" />
                           )}
@@ -1175,7 +1167,7 @@ func main() {
                         className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                       >
                         {copiedCode === 'source-manual' ? (
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <Check className="w-3.5 h-3.5 text-white" />
                         ) : (
                           <Copy className="w-3.5 h-3.5" />
                         )}
@@ -1204,7 +1196,7 @@ func main() {
                   className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
                 >
                   {copiedCode === 'source' ? (
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <Check className="w-3.5 h-3.5 text-white" />
                   ) : (
                     <Copy className="w-3.5 h-3.5" />
                   )}
@@ -1253,7 +1245,7 @@ func main() {
               <div className="rounded-xl border border-[#1E1E1E] bg-[#070707] divide-y divide-[#161616]">
                 {component.accessibility.map((item, i) => (
                   <div key={i} className="p-3.5 text-xs text-[#A1A1A1] flex items-start gap-3">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-white mt-0.5 shrink-0" />
                     <span className="leading-relaxed">{item}</span>
                   </div>
                 ))}
@@ -1289,7 +1281,7 @@ func main() {
             {/* Top Sticky Bar */}
             <div className="sticky top-0 inset-x-0 z-[110] bg-[#070707]/95 border-b border-[#1A1A1A] backdrop-blur-md px-4 sm:px-8 py-3 flex items-center justify-between gap-3 shadow-lg shrink-0">
               <div className="flex items-center gap-2 min-w-0">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-white/80 shrink-0" />
                 <span className="text-xs sm:text-sm font-semibold text-white truncate max-w-[180px] sm:max-w-none">
                   {component.name}
                 </span>
