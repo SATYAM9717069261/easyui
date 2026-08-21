@@ -60,41 +60,47 @@ export const DocsPage: React.FC<DocsPageProps> = ({
     <div className="min-h-screen bg-[#050505] text-[#F5F5F5] pt-2 pb-24">
       <Container size="xl">
         {/* Top Header & Breadcrumbs */}
-        <div className="flex items-center justify-between gap-4 py-3 mb-8 border-b border-[#161616]">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-sans text-[#777777]">
+        <div className="flex items-center justify-between gap-3 py-3 mb-6 sm:mb-8 border-b border-[#161616]">
+          <div className="flex items-center gap-2.5 min-w-0">
+            {/* Mobile Sidebar Trigger (Placed on Left with Icon and Text) */}
             <button
-              onClick={onNavigateHome}
-              className="hover:text-white transition-colors"
+              type="button"
+              onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+              aria-label="Open documentation menu"
+              className="lg:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#101010] hover:bg-[#181818] border border-[#222222] text-xs font-medium text-[#A1A1A1] hover:text-white transition-colors shrink-0 focus-ring cursor-pointer"
             >
-              EasyUI
+              <Menu className="w-3.5 h-3.5 text-[#CCCCCC]" />
+              <span>Menu</span>
             </button>
-            <span className="text-[#383838]">/</span>
-            <button
-              onClick={() => handleSelectTopicWithMobileClose('introduction')}
-              className="hover:text-white transition-colors"
-            >
-              Docs
-            </button>
-            <span className="text-[#383838]">/</span>
-            <span className="text-white font-medium">{getBreadcrumbLabel()}</span>
-          </nav>
 
-          <div className="flex items-center gap-2">
+            {/* Breadcrumbs */}
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-sans text-[#777777] truncate">
+              <button
+                onClick={onNavigateHome}
+                className="hover:text-white transition-colors shrink-0"
+              >
+                EasyUI
+              </button>
+              <span className="text-[#383838]">/</span>
+              <button
+                onClick={() => handleSelectTopicWithMobileClose('introduction')}
+                className="hover:text-white transition-colors shrink-0"
+              >
+                Docs
+              </button>
+              <span className="text-[#383838]">/</span>
+              <span className="text-white font-medium truncate">{getBreadcrumbLabel()}</span>
+            </nav>
+          </div>
+
+          {/* Right Action */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={onNavigateComponents}
               aria-label="Back to Components"
-              className="p-1.5 rounded-lg text-[#888888] hover:text-white hover:bg-[#141414] transition-all focus-ring"
+              className="p-1.5 rounded-lg text-[#888888] hover:text-white hover:bg-[#141414] transition-all focus-ring cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
-            </button>
-
-            {/* Mobile Sidebar Trigger */}
-            <button
-              onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-              className="lg:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#141414] border border-[#242424] text-xs text-white"
-            >
-              <Menu className="w-4 h-4" />
-              <span>Menu</span>
             </button>
           </div>
         </div>

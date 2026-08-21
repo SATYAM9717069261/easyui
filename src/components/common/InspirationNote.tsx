@@ -64,7 +64,7 @@ export const InspirationNote: React.FC = () => {
         A note on inspiration
       </button>
 
-      {/* Apple-Style Smooth Dialog Popover (Opens Downward) */}
+      {/* Apple-Style Smooth Dialog Popover (Opens Downward, Mobile Safe) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -79,9 +79,9 @@ export const InspirationNote: React.FC = () => {
             }}
             role="dialog"
             aria-label="A note on inspiration"
-            className="absolute top-full right-0 mt-2 z-50 w-[92vw] max-w-lg origin-top-right"
+            className="absolute top-full left-0 sm:left-auto sm:right-0 mt-2 z-50 w-[90vw] sm:w-[440px] max-w-lg origin-top-left sm:origin-top-right"
           >
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0E0E0E]/95 backdrop-blur-2xl p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.85)] text-[#A3A3A3] space-y-3">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0E0E0E]/95 backdrop-blur-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.85)] text-[#A3A3A3] space-y-3">
               {/* Subtle glass reflection highlight */}
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
 
@@ -100,7 +100,7 @@ export const InspirationNote: React.FC = () => {
                 </button>
               </div>
 
-              {/* Inspiration & Attribution Body */}
+              {/* Full Inspiration & Attribution Note */}
               <p className="text-xs leading-relaxed text-[#8E8E8E]">
                 The components on EasyUI are built from scratch and are inspired by designs, interactions, and ideas found across the internet. They are created for learning, experimentation, and the UI community, and are not intended to intentionally copy or claim ownership of anyone else’s work.
               </p>
@@ -121,8 +121,8 @@ export const InspirationNote: React.FC = () => {
                 .
               </p>
 
-              {/* Footer Note */}
-              <p className="text-[11px] leading-relaxed text-[#666666] pt-1">
+              {/* Respect Footer Note */}
+              <p className="text-[11px] leading-relaxed text-[#666666] pt-0.5">
                 We respect the work of designers and developers and want EasyUI to be a place for sharing and building, not taking credit for someone else’s work.
               </p>
             </div>
