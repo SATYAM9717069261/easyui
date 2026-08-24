@@ -14,6 +14,14 @@ export const motionTransitions = {
     mass: 0.8,
   } as Transition,
 
+  // Smooth standard motion
+  springSmooth: {
+    type: "spring",
+    stiffness: 300,
+    damping: 30,
+    mass: 0.8,
+  } as Transition,
+
   // Snappy responsive feedback (for buttons, hover indicators, dock icons)
   springSnappy: {
     type: "spring",

@@ -143,13 +143,13 @@ export const FAQ: React.FC<FAQProps> = ({
       {/* Optional Search Bar */}
       {searchable && (
         <div className="relative">
-          <Search className="w-4 h-4 text-[#6F6F6F] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Search className="w-4 h-4 text-[#8A8A8A] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full h-10 pl-10 pr-4 text-xs text-[#F5F5F5] placeholder:text-[#6F6F6F] bg-[#0A0A0A] border border-[#1D1D1D] rounded-xl focus:border-[#2A2A2A] focus:bg-[#111111] focus:outline-none focus-ring transition-colors"
+            className="w-full h-10 pl-10 pr-4 text-xs text-[#F5F5F5] placeholder:text-[#737373] bg-[#242424] border border-[#363636] rounded-xl focus:border-[#4A4A4A] focus:outline-none focus-ring transition-colors"
           />
         </div>
       )}
@@ -163,10 +163,10 @@ export const FAQ: React.FC<FAQProps> = ({
               type="button"
               onClick={() => setSelectedCategory(cat)}
               className={cn(
-                'px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors focus-ring',
+                'px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors focus-ring cursor-pointer',
                 selectedCategory === cat
-                  ? 'bg-[#181818] text-[#F5F5F5] border border-[#282828]'
-                  : 'text-[#808080] hover:text-[#F5F5F5] hover:bg-[#101010]'
+                  ? 'bg-[#242424] text-[#F5F5F5] border border-[#363636]'
+                  : 'text-[#737373] hover:text-[#F5F5F5] hover:bg-[#202020]'
               )}
             >
               {cat}
@@ -177,9 +177,9 @@ export const FAQ: React.FC<FAQProps> = ({
 
       {/* FAQ Items List */}
       {filteredItems.length === 0 ? (
-        <div className="p-8 text-center rounded-xl border border-[#1D1D1D] bg-[#0A0A0A]">
-          <HelpCircle className="w-6 h-6 text-[#6F6F6F] mx-auto mb-2 opacity-60" />
-          <p className="text-xs text-[#808080]">No matching questions found.</p>
+        <div className="p-8 text-center rounded-xl border border-[#363636] bg-[#202020]">
+          <HelpCircle className="w-6 h-6 text-[#737373] mx-auto mb-2 opacity-60" />
+          <p className="text-xs text-[#737373]">No matching questions found.</p>
         </div>
       ) : variant === 'separated' ? (
         /* Separated Cards Mode */
@@ -195,8 +195,8 @@ export const FAQ: React.FC<FAQProps> = ({
                 className={cn(
                   'rounded-xl border transition-all duration-200 overflow-hidden',
                   isOpen
-                    ? 'border-[#2A2A2A] bg-[#0C0C0C] shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
-                    : 'border-[#1D1D1D] bg-[#0A0A0A] hover:border-[#262626]'
+                    ? 'border-[#4A4A4A] bg-[#242424] shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
+                    : 'border-[#363636] bg-[#202020] hover:border-[#4A4A4A]'
                 )}
               >
                 <button
@@ -205,11 +205,11 @@ export const FAQ: React.FC<FAQProps> = ({
                   onClick={() => toggleItem(item.id)}
                   aria-expanded={isOpen}
                   aria-controls={contentId}
-                  className="group flex w-full items-center justify-between p-4 sm:p-5 text-left transition-colors focus-ring"
+                  className="group flex w-full items-center justify-between p-4 sm:p-5 text-left transition-colors focus-ring cursor-pointer"
                 >
                   <div className="flex items-center gap-3 pr-4">
                     {item.icon && (
-                      <span className="text-[#808080] group-hover:text-[#F5F5F5] transition-colors shrink-0">
+                      <span className="text-[#8A8A8A] group-hover:text-[#F5F5F5] transition-colors shrink-0">
                         {item.icon}
                       </span>
                     )}
@@ -218,7 +218,7 @@ export const FAQ: React.FC<FAQProps> = ({
                         {item.question}
                       </div>
                       {item.badge && (
-                        <span className="inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-mono leading-none bg-[#1A1A1A] border border-[#2A2A2A] text-[#A1A1A1]">
+                        <span className="inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-mono leading-none bg-[#242424] border border-[#363636] text-[#A3A3A3]">
                           {item.badge}
                         </span>
                       )}
@@ -239,7 +239,7 @@ export const FAQ: React.FC<FAQProps> = ({
                       transition={motionTransitions.springGentle}
                       className="overflow-hidden"
                     >
-                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0 text-xs sm:text-sm text-[#A1A1A1] leading-relaxed border-t border-[#161616]/60 pt-3">
+                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-[#A3A3A3] leading-relaxed border-t border-[#363636] pt-3">
                         {item.answer}
                       </div>
                     </motion.div>
@@ -251,7 +251,7 @@ export const FAQ: React.FC<FAQProps> = ({
         </div>
       ) : (
         /* Unified Accordion Card Mode */
-        <div className="flex flex-col divide-y divide-[#1D1D1D] rounded-xl border border-[#1D1D1D] bg-[#0A0A0A] overflow-hidden">
+        <div className="flex flex-col divide-y divide-[#363636] rounded-xl border border-[#363636] bg-[#202020] overflow-hidden">
           {filteredItems.map((item) => {
             const isOpen = activeOpenIds.includes(item.id);
             const contentId = `${baseId}-content-${item.id}`;
@@ -265,11 +265,11 @@ export const FAQ: React.FC<FAQProps> = ({
                   onClick={() => toggleItem(item.id)}
                   aria-expanded={isOpen}
                   aria-controls={contentId}
-                  className="group flex w-full items-center justify-between p-4 sm:p-5 text-left text-[#F5F5F5] hover:bg-[#101010] transition-colors focus-ring"
+                  className="group flex w-full items-center justify-between p-4 sm:p-5 text-left text-[#F5F5F5] hover:bg-[#242424] transition-colors focus-ring cursor-pointer"
                 >
                   <div className="flex items-center gap-3 pr-4">
                     {item.icon && (
-                      <span className="text-[#808080] group-hover:text-[#F5F5F5] transition-colors shrink-0">
+                      <span className="text-[#8A8A8A] group-hover:text-[#F5F5F5] transition-colors shrink-0">
                         {item.icon}
                       </span>
                     )}
@@ -278,7 +278,7 @@ export const FAQ: React.FC<FAQProps> = ({
                         {item.question}
                       </div>
                       {item.badge && (
-                        <span className="inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-mono leading-none bg-[#1A1A1A] border border-[#2A2A2A] text-[#A1A1A1]">
+                        <span className="inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-mono leading-none bg-[#242424] border border-[#363636] text-[#A3A3A3]">
                           {item.badge}
                         </span>
                       )}
@@ -299,7 +299,7 @@ export const FAQ: React.FC<FAQProps> = ({
                       transition={motionTransitions.springGentle}
                       className="overflow-hidden"
                     >
-                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-1 text-xs sm:text-sm text-[#A1A1A1] leading-relaxed">
+                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-1 text-xs sm:text-sm text-[#A3A3A3] leading-relaxed">
                         {item.answer}
                       </div>
                     </motion.div>

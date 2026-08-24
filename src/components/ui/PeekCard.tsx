@@ -153,7 +153,7 @@ export const PeekCard: React.FC<PeekCardProps> = ({
             }}
             transition={motionTransitions.springSnappy}
             className={cn(
-              'absolute left-1/2 -translate-x-1/2 z-50 w-72 sm:w-80 rounded-xl border border-[#222222] bg-[#0C0C0C] p-4 text-left shadow-[0_16px_40px_rgba(0,0,0,0.9)] cursor-default',
+              'absolute left-1/2 -translate-x-1/2 z-50 w-72 sm:w-80 rounded-xl border border-[#363636] bg-[#202020] p-4 text-left shadow-[0_16px_40px_rgba(0,0,0,0.6)] cursor-default',
               calculatedPlacement === 'top' ? 'bottom-full mb-2' : 'top-full mt-2'
             )}
             onClick={(e) => e.stopPropagation()}
@@ -162,20 +162,20 @@ export const PeekCard: React.FC<PeekCardProps> = ({
               renderContent()
             ) : isLoading ? (
               <div className="space-y-2.5 animate-pulse">
-                <div className="h-4 bg-[#1C1C1C] rounded w-2/3" />
-                <div className="h-10 bg-[#161616] rounded" />
-                <div className="h-4 bg-[#1C1C1C] rounded w-1/2" />
+                <div className="h-4 bg-[#242424] rounded w-2/3" />
+                <div className="h-10 bg-[#242424] rounded" />
+                <div className="h-4 bg-[#242424] rounded w-1/2" />
               </div>
             ) : (
               <div className="space-y-3 text-xs">
                 {/* Header */}
-                <div className="flex items-start justify-between gap-2 border-b border-[#1A1A1A] pb-2.5">
+                <div className="flex items-start justify-between gap-2 border-b border-[#363636] pb-2.5">
                   <div>
                     <p className="font-semibold text-sm text-[#F5F5F5]">{data.title}</p>
                     {data.subtitle && <p className="text-[11px] text-[#737373]">{data.subtitle}</p>}
                   </div>
                   {data.amount && (
-                    <span className="font-mono text-sm font-semibold text-white bg-[#141414] px-2 py-0.5 rounded border border-[#222222]">
+                    <span className="font-mono text-sm font-semibold text-[#F5F5F5] bg-[#242424] px-2 py-0.5 rounded border border-[#363636]">
                       {data.amount}
                     </span>
                   )}
@@ -183,13 +183,13 @@ export const PeekCard: React.FC<PeekCardProps> = ({
 
                 {/* Customer / Actor Profile */}
                 {data.customer && (
-                  <div className="flex items-center justify-between p-2 rounded-lg bg-[#080808] border border-[#181818]">
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-[#242424] border border-[#363636]">
                     <div className="flex items-center gap-2 min-w-0">
-                      <div className="w-6 h-6 rounded-full bg-[#181818] border border-[#282828] flex items-center justify-center text-[10px] text-white">
+                      <div className="w-6 h-6 rounded-full bg-[#202020] border border-[#363636] flex items-center justify-center text-[10px] text-[#F5F5F5]">
                         {data.customer.name.slice(0, 2).toUpperCase()}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[11px] font-medium text-[#D4D4D4] truncate">{data.customer.name}</p>
+                        <p className="text-[11px] font-medium text-[#F5F5F5] truncate">{data.customer.name}</p>
                         <p className="text-[10px] text-[#737373] truncate">{data.customer.email}</p>
                       </div>
                     </div>
@@ -197,7 +197,7 @@ export const PeekCard: React.FC<PeekCardProps> = ({
                     <button
                       type="button"
                       onClick={() => handleCopyEmail(data.customer?.email)}
-                      className="p-1 rounded text-[#737373] hover:text-white hover:bg-[#181818] transition-colors"
+                      className="p-1 rounded text-[#8A8A8A] hover:text-white hover:bg-[#202020] transition-colors cursor-pointer"
                       title="Copy customer email"
                     >
                       {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
@@ -209,9 +209,9 @@ export const PeekCard: React.FC<PeekCardProps> = ({
                 {data.metadata && (
                   <div className="space-y-1.5 text-[11px]">
                     {data.metadata.map((item, idx) => (
-                      <div key={idx} className="flex justify-between text-[#808080]">
+                      <div key={idx} className="flex justify-between text-[#A3A3A3]">
                         <span>{item.label}</span>
-                        <span className="font-mono text-[#D4D4D4]">{item.value}</span>
+                        <span className="font-mono text-[#F5F5F5]">{item.value}</span>
                       </div>
                     ))}
                   </div>
@@ -219,7 +219,7 @@ export const PeekCard: React.FC<PeekCardProps> = ({
 
                 {/* Footer Timestamp */}
                 {data.timestamp && (
-                  <div className="pt-2 border-t border-[#161616] flex justify-between items-center text-[10px] text-[#606060] font-mono">
+                  <div className="pt-2 border-t border-[#363636] flex justify-between items-center text-[10px] text-[#737373] font-mono">
                     <span>{data.timestamp}</span>
                     <span className="text-emerald-400 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />

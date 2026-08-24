@@ -99,23 +99,23 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
         return 'bg-rose-500/10 text-rose-300 border-rose-500/30';
       case 'pending':
       default:
-        return 'bg-[#121212] text-[#737373] border-[#222222]';
+        return 'bg-[#242424] text-[#737373] border-[#363636]';
     }
   };
 
   const getStatusNodeStyle = (status: TimelineStatus, isSelected: boolean) => {
     switch (status) {
       case 'completed':
-        return 'bg-[#1A1A1A] border-white/60 text-white ring-1 ring-white/20';
+        return 'bg-[#242424] border-[#3B82F6] text-[#3B82F6] ring-1 ring-[#3B82F6]/20';
       case 'in-progress':
-        return 'bg-[#181818] border-white text-white shadow-[0_0_15px_rgba(255,255,255,0.25)] ring-2 ring-white/30';
+        return 'bg-[#242424] border-[#3B82F6] text-[#3B82F6] shadow-xs ring-2 ring-[#3B82F6]/30';
       case 'failed':
-        return 'bg-[#181012] border-rose-500 text-rose-400 ring-1 ring-rose-500/30';
+        return 'bg-rose-500/10 border-rose-500 text-rose-400 ring-1 ring-rose-500/30';
       case 'pending':
       default:
         return isSelected
-          ? 'bg-[#141414] border-[#404040] text-[#A1A1A1]'
-          : 'bg-[#0E0E0E] border-[#252525] text-[#606060]';
+          ? 'bg-[#242424] border-[#4A4A4A] text-[#A3A3A3]'
+          : 'bg-[#202020] border-[#363636] text-[#737373]';
     }
   };
 
@@ -134,18 +134,18 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
       role="region"
       aria-label="Interactive timeline"
       className={cn(
-        'w-full rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] p-3.5 sm:p-5 text-[#F5F5F5]',
+        'w-full rounded-xl border border-[#363636] bg-[#202020] p-3.5 sm:p-5 text-[#F5F5F5]',
         className
       )}
       {...props}
     >
       <div className="relative">
         {/* Continuous Background Track Line */}
-        <div className="absolute left-[17px] top-6 bottom-6 w-[2px] bg-[#161616]" />
+        <div className="absolute left-[17px] top-6 bottom-6 w-[2px] bg-[#363636]" />
 
         {/* Animated Progress Filled Line */}
         <motion.div
-          className="absolute left-[17px] top-6 w-[2px] bg-gradient-to-b from-white via-white/80 to-white/20 origin-top"
+          className="absolute left-[17px] top-6 w-[2px] bg-gradient-to-b from-[#3B82F6] via-[#3B82F6]/80 to-transparent origin-top"
           initial={{ height: 0 }}
           animate={{ height: `${progressPercent}%` }}
           transition={motionTransitions.springGentle}
@@ -178,7 +178,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                 >
                   {getStatusIcon(item.status)}
                   {item.status === 'in-progress' && (
-                    <span className="absolute inset-0 rounded-full animate-ping bg-white/20 -z-10" />
+                    <span className="absolute inset-0 rounded-full animate-ping bg-[#3B82F6]/20 -z-10" />
                   )}
                 </button>
 
@@ -188,8 +188,8 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                   className={cn(
                     'flex-1 rounded-xl border transition-all duration-200 cursor-pointer overflow-hidden p-3.5 sm:p-4',
                     isSelected
-                      ? 'bg-[#111111] border-[#2A2A2A] shadow-lg shadow-black/40'
-                      : 'bg-[#0E0E0E] border-[#181818] hover:border-[#242424] hover:bg-[#101010]'
+                      ? 'bg-[#242424] border-[#4A4A4A] shadow-xs'
+                      : 'bg-[#202020] border-[#363636] hover:border-[#4A4A4A] hover:bg-[#242424]'
                   )}
                 >
                   {/* Item Header */}
@@ -200,7 +200,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                           {item.title}
                         </span>
                         {item.tag && (
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#161616] border border-[#252525] text-[#A1A1A1]">
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#242424] border border-[#363636] text-[#A3A3A3]">
                             {item.tag}
                           </span>
                         )}
@@ -214,7 +214,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                         </span>
                       </div>
 
-                      <span className="text-[11px] font-mono text-[#6F6F6F] block">
+                      <span className="text-[11px] font-mono text-[#737373] block">
                         {item.timestamp}
                       </span>
                     </div>
@@ -224,7 +224,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                         <motion.div
                           animate={{ rotate: isExpanded ? 180 : 0 }}
                           transition={{ duration: 0.2 }}
-                          className="text-[#737373] group-hover:text-white p-1"
+                          className="text-[#737373] group-hover:text-[#F5F5F5] p-1"
                         >
                           <ChevronDown className="w-4 h-4" />
                         </motion.div>
@@ -243,9 +243,9 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                         transition={motionTransitions.springGentle}
                         className="overflow-hidden"
                       >
-                        <div className="pt-3 mt-3 border-t border-[#1C1C1C] space-y-3">
+                        <div className="pt-3 mt-3 border-t border-[#363636] space-y-3">
                           {item.description && (
-                            <p className="text-xs text-[#A1A1A1] leading-relaxed">
+                            <p className="text-xs text-[#A3A3A3] leading-relaxed">
                               {item.description}
                             </p>
                           )}
@@ -256,12 +256,12 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                               {item.metrics.map((m, i) => (
                                 <div
                                   key={i}
-                                  className="p-2.5 rounded-lg bg-[#080808] border border-[#1C1C1C]"
+                                  className="p-2.5 rounded-lg bg-[#202020] border border-[#363636]"
                                 >
-                                  <span className="text-[10px] font-mono text-[#6F6F6F] block uppercase">
+                                  <span className="text-[10px] font-mono text-[#737373] block uppercase">
                                     {m.label}
                                   </span>
-                                  <span className="text-xs font-mono font-medium text-white">
+                                  <span className="text-xs font-mono font-medium text-[#F5F5F5]">
                                     {m.value}
                                   </span>
                                 </div>
@@ -270,13 +270,13 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                           )}
 
                           {/* Footer Meta: Commit + Author */}
-                          <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-[11px] font-mono text-[#6F6F6F]">
+                          <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-[11px] font-mono text-[#737373]">
                             {item.author && (
                               <div className="flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
-                                <span className="text-[#A1A1A1]">{item.author.name}</span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#737373]" />
+                                <span className="text-[#A3A3A3]">{item.author.name}</span>
                                 {item.author.role && (
-                                  <span className="text-[#555555]">({item.author.role})</span>
+                                  <span className="text-[#737373]">({item.author.role})</span>
                                 )}
                               </div>
                             )}
@@ -285,7 +285,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                               <button
                                 type="button"
                                 onClick={(e) => handleCopyHash(e, item.commitHash!)}
-                                className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-[#0A0A0A] hover:bg-[#141414] border border-[#202020] hover:border-[#303030] text-[#A1A1A1] hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white cursor-pointer"
+                                className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white cursor-pointer"
                                 title="Copy commit hash"
                               >
                                 <GitCommit className="w-3 h-3" />
@@ -293,7 +293,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                                 {copiedHash === item.commitHash ? (
                                   <CheckCheck className="w-3 h-3 text-white" />
                                 ) : (
-                                  <Copy className="w-3 h-3 text-[#606060]" />
+                                  <Copy className="w-3 h-3 text-[#737373]" />
                                 )}
                               </button>
                             )}

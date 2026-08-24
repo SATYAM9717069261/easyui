@@ -136,4 +136,41 @@ export type { SelectionBasketProps, SelectionActionItem } from './SelectionBaske
 export { FocusMode } from './FocusMode';
 export type { FocusModeProps, FocusModeItem } from './FocusMode';
 
+export { Loader } from './Loader';
+export type { LoaderProps } from './Loader';
 
+export { SmallFloatingDock } from './SmallFloatingDock';
+export type { SmallFloatingDockProps, DockItem as SmallFloatingDockItem } from './SmallFloatingDock';
+
+export { HamburgerMenu } from './HamburgerMenu';
+export type { HamburgerMenuProps } from './HamburgerMenu';
+
+export { NotificationBell } from './NotificationBell';
+export type { NotificationBellProps, Notification as NotificationBellItem } from './NotificationBell';
+
+export { IOSSearchBar } from './IOSSearchBar';
+export type { IOSSearchBarProps } from './IOSSearchBar';
+
+export { TypewriterButton } from './TypewriterButton';
+export type { TypewriterButtonProps } from './TypewriterButton';
+
+export { DepthCorridor } from './DepthCorridor';
+export type { DepthCorridorProps, DepthLayer } from './DepthCorridor';
+
+export { DensityLens } from './DensityLens';
+export type { DensityLensProps } from './DensityLens';
+
+export { TorqueDial } from './TorqueDial';
+export type { TorqueDialProps } from './TorqueDial';
+
+export { StackUnfoldPanel } from './StackUnfoldPanel';
+export type { StackUnfoldPanelProps, StackCard } from './StackUnfoldPanel';
+
+export { DependencyTrace } from './DependencyTrace';
+export type { DependencyTraceProps, TraceNode, TraceConnection } from './DependencyTrace';
+
+export { BatchGestureTray } from './BatchGestureTray';
+export type { BatchGestureTrayProps, BatchAction, BatchItem } from './BatchGestureTray';
+
+export { RecoveryLedger } from './RecoveryLedger';
+export type { RecoveryLedgerProps, LedgerEntry } from './RecoveryLedger';

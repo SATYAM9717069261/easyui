@@ -24,7 +24,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
   ];
 
   return (
-    <section className="py-20 bg-[#050505]">
+    <section className="py-20 bg-[#151515]">
       <Container size="xl">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
@@ -35,13 +35,13 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
             <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
               Start with something beautiful.
             </h2>
-            <p className="text-sm text-[#808080] mt-1.5 max-w-lg">
+            <p className="text-sm text-[#A3A3A3] mt-1.5 max-w-lg">
               Explore a curated collection of tactile components designed for effortless drop-in integration.
             </p>
           </div>
           <button
             onClick={onNavigateAllComponents || (() => onSelectComponent('spotlight-card'))}
-            className="text-xs font-mono text-[#808080] hover:text-[#F5F5F5] transition-colors flex items-center gap-1.5 self-start md:self-auto py-1 cursor-pointer focus-ring rounded"
+            className="text-xs font-mono text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors flex items-center gap-1.5 self-start md:self-auto py-1 cursor-pointer focus-ring rounded"
           >
             <span>All {EASY_COMPONENTS.length} components</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -52,16 +52,16 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
           {/* Item 1: Large Featured Spotlight Card (8 cols) */}
           <div className="md:col-span-8">
-            <SpotlightCard className="h-full flex flex-col justify-between p-7 bg-[#080808]">
+            <SpotlightCard className="h-full flex flex-col justify-between p-7 bg-[#202020] border-[#363636]">
               <div>
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                    <span className="text-xs font-mono uppercase tracking-wider text-[#A1A1A1]">
+                    <span className="text-xs font-mono uppercase tracking-wider text-[#A3A3A3]">
                       Spotlight Card
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-[#737373] px-2 py-0.5 rounded bg-[#101010] border border-[#1C1C1C]">
+                  <span className="text-[10px] font-mono text-[#737373] px-2 py-0.5 rounded bg-[#242424] border border-[#363636]">
                     Pointer Physics
                   </span>
                 </div>
@@ -69,29 +69,29 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
                 <h3 className="text-xl sm:text-2xl font-semibold text-[#F5F5F5] tracking-tight mb-2">
                   Fluid illumination that tracks your cursor.
                 </h3>
-                <p className="text-xs sm:text-sm text-[#808080] max-w-xl leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-[#A3A3A3] max-w-xl leading-relaxed mb-6">
                   Dynamic micro-radial masks calculate Euclidean distance in real-time, subtly illuminating layered borders without gradient clutter.
                 </p>
 
                 {/* Interactive Inner Surface */}
-                <div className="p-4 rounded-xl bg-[#0C0C0C] border border-[#1A1A1A] grid grid-cols-3 gap-3">
+                <div className="p-4 rounded-xl bg-[#242424] border border-[#363636] grid grid-cols-3 gap-3">
                   <div>
-                    <span className="text-[10px] text-[#606060] uppercase font-mono">Frame Rate</span>
+                    <span className="text-[10px] text-[#737373] uppercase font-mono">Frame Rate</span>
                     <p className="text-sm font-semibold font-mono text-[#F5F5F5] mt-0.5">120 FPS</p>
                   </div>
                   <div>
-                    <span className="text-[10px] text-[#606060] uppercase font-mono">Mask Radius</span>
+                    <span className="text-[10px] text-[#737373] uppercase font-mono">Mask Radius</span>
                     <p className="text-sm font-semibold font-mono text-white mt-0.5">350px</p>
                   </div>
                   <div>
-                    <span className="text-[10px] text-[#606060] uppercase font-mono">Surface Alpha</span>
+                    <span className="text-[10px] text-[#737373] uppercase font-mono">Surface Alpha</span>
                     <p className="text-sm font-semibold font-mono text-[#F5F5F5] mt-0.5">0.08</p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#141414] flex items-center justify-between">
-                <span className="text-xs text-[#606060]">Hover anywhere across the card</span>
+              <div className="mt-6 pt-4 border-t border-[#363636] flex items-center justify-between">
+                <span className="text-xs text-[#737373]">Hover anywhere across the card</span>
                 <MagneticButton
                   size="sm"
                   variant="outline"
@@ -104,10 +104,10 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
           </div>
 
           {/* Item 2: Magnetic Button Showcase (4 cols) */}
-          <div className="md:col-span-4 flex flex-col justify-between p-6 rounded-xl border border-[#161616] bg-[#080808] hover:border-[#222222] transition-colors">
+          <div className="md:col-span-4 flex flex-col justify-between p-6 rounded-xl border border-[#363636] bg-[#202020] hover:border-[#4A4A4A] transition-colors">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#A1A1A1]">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#A3A3A3]">
                   Magnetic Button
                 </span>
                 <span className="text-[10px] font-mono text-[#737373]">0.35x Pull</span>
@@ -115,7 +115,7 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
               <h4 className="text-sm font-semibold text-[#F5F5F5] mb-1">
                 Physical Attraction
               </h4>
-              <p className="text-xs text-[#808080] leading-relaxed mb-6">
+              <p className="text-xs text-[#A3A3A3] leading-relaxed mb-6">
                 Applies spring displacement relative to cursor proximity.
               </p>
 
@@ -142,11 +142,11 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-[#141414] flex items-center justify-between text-xs">
-              <span className="text-[#606060]">Framer Spring</span>
+            <div className="mt-6 pt-4 border-t border-[#363636] flex items-center justify-between text-xs">
+              <span className="text-[#737373]">Framer Spring</span>
               <button
                 onClick={() => onSelectComponent('magnetic-button')}
-                className="text-[#D4D4D4] hover:text-white transition-colors text-xs"
+                className="text-[#A3A3A3] hover:text-white transition-colors text-xs"
               >
                 Docs →
               </button>
@@ -154,20 +154,20 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
           </div>
 
           {/* Item 3: Morphing Dialog (4 cols) */}
-          <div className="md:col-span-4 p-6 rounded-xl border border-[#161616] bg-[#080808] hover:border-[#222222] transition-colors flex flex-col justify-between">
+          <div className="md:col-span-4 p-6 rounded-xl border border-[#363636] bg-[#202020] hover:border-[#4A4A4A] transition-colors flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#A1A1A1]">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#A3A3A3]">
                   Morphing Dialog
                 </span>
-                <span className="text-[10px] font-mono text-[#D4D4D4] bg-[#121212] border border-[#202020] px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-mono text-[#A3A3A3] bg-[#242424] border border-[#363636] px-1.5 py-0.5 rounded">
                   layoutId
                 </span>
               </div>
               <h4 className="text-sm font-semibold text-[#F5F5F5] mb-1">
                 Shared Surface Expansion
               </h4>
-              <p className="text-xs text-[#808080] leading-relaxed mb-6">
+              <p className="text-xs text-[#A3A3A3] leading-relaxed mb-6">
                 Smooth continuous expansion from any trigger element into full modal view.
               </p>
 
@@ -178,23 +178,23 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
                 trigger={(open) => (
                   <button
                     onClick={open}
-                    className="w-full py-2.5 px-3.5 rounded-lg bg-[#111111] border border-[#202020] hover:border-[#303030] text-xs font-medium text-[#F5F5F5] flex items-center justify-between transition-colors group"
+                    className="w-full py-2.5 px-3.5 rounded-lg bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#F5F5F5] flex items-center justify-between transition-colors group"
                   >
                     <span className="flex items-center gap-2">
-                      <Shield className="w-3.5 h-3.5 text-[#D4D4D4]" />
+                      <Shield className="w-3.5 h-3.5 text-[#8A8A8A]" />
                       <span>Open Security Dialog</span>
                     </span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#606060] group-hover:text-[#F5F5F5]" />
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#737373] group-hover:text-[#F5F5F5]" />
                   </button>
                 )}
               >
-                <div className="space-y-3 text-xs text-[#A1A1A1]">
-                  <div className="p-3 rounded-lg bg-[#111111] border border-[#1C1C1C]">
+                <div className="space-y-3 text-xs text-[#A3A3A3]">
+                  <div className="p-3 rounded-lg bg-[#242424] border border-[#363636]">
                     <span className="text-[#F5F5F5] font-semibold block mb-0.5">Mutual TLS 1.3 Active</span>
-                    <span className="text-[#808080]">All external requests pass through automated rate limiting clusters.</span>
+                    <span className="text-[#737373]">All external requests pass through automated rate limiting clusters.</span>
                   </div>
                   <div className="flex justify-end gap-2 pt-1">
-                    <button className="px-3 py-1.5 rounded-md bg-[#161616] text-[#A1A1A1] text-xs hover:text-white">
+                    <button className="px-3 py-1.5 rounded-md bg-[#242424] text-[#A3A3A3] text-xs hover:text-white">
                       Cancel
                     </button>
                     <button className="px-3 py-1.5 rounded-md bg-white text-black font-medium text-xs hover:bg-[#EAEAEA]">
@@ -205,11 +205,11 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
               </MorphingDialog>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-[#141414] flex items-center justify-between text-xs">
-              <span className="text-[#606060]">Zero layout shift</span>
+            <div className="mt-6 pt-4 border-t border-[#363636] flex items-center justify-between text-xs">
+              <span className="text-[#737373]">Zero layout shift</span>
               <button
                 onClick={() => onSelectComponent('morphing-dialog')}
-                className="text-[#D4D4D4] hover:text-white transition-colors"
+                className="text-[#A3A3A3] hover:text-white transition-colors"
               >
                 Docs →
               </button>
@@ -217,30 +217,30 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
           </div>
 
           {/* Item 4: Floating Action Dock (8 cols) */}
-          <div className="md:col-span-8 p-6 rounded-xl border border-[#161616] bg-[#080808] hover:border-[#222222] transition-colors flex flex-col justify-between">
+          <div className="md:col-span-8 p-6 rounded-xl border border-[#363636] bg-[#202020] hover:border-[#4A4A4A] transition-colors flex flex-col justify-between">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
-                <span className="text-xs font-mono uppercase tracking-wider text-[#A1A1A1]">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#A3A3A3]">
                   Floating Action Dock
                 </span>
                 <h4 className="text-sm font-semibold text-[#F5F5F5] mt-1">
                   Magnification Curve Physics
                 </h4>
               </div>
-              <span className="text-[10px] font-mono text-[#737373] px-2 py-0.5 rounded bg-[#101010] border border-[#1C1C1C] self-start">
+              <span className="text-[10px] font-mono text-[#737373] px-2 py-0.5 rounded bg-[#242424] border border-[#363636] self-start">
                 macOS Inspired
               </span>
             </div>
 
-            <div className="py-6 flex items-center justify-center bg-[#050505] rounded-xl border border-[#141414] bg-dot-subtle">
+            <div className="py-6 flex items-center justify-center bg-[#151515] rounded-xl border border-[#363636] bg-dot-subtle">
               <FloatingActionDock items={dockDemoItems} activeId="code" />
             </div>
 
-            <div className="mt-6 pt-4 border-t border-[#141414] flex items-center justify-between text-xs">
-              <span className="text-[#606060]">Interactive hover magnification</span>
+            <div className="mt-6 pt-4 border-t border-[#363636] flex items-center justify-between text-xs">
+              <span className="text-[#737373]">Interactive hover magnification</span>
               <button
                 onClick={() => onSelectComponent('floating-action-dock')}
-                className="text-[#D4D4D4] hover:text-white transition-colors"
+                className="text-[#A3A3A3] hover:text-white transition-colors"
               >
                 Inspect Dock →
               </button>

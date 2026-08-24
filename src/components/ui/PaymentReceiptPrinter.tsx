@@ -220,7 +220,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
   // Paper Theme Background & Text Colors
   const paperThemeStyles = {
     light: 'bg-[#F9F9F8] text-[#111111] border-[#E2E2E0] shadow-[0_15px_35px_rgba(0,0,0,0.4)]',
-    dark: 'bg-[#121212] text-[#F0F0F0] border-[#242424] shadow-[0_15px_35px_rgba(0,0,0,0.7)]',
+    dark: 'bg-[#202020] text-[#F5F5F5] border-[#363636] shadow-[0_15px_35px_rgba(0,0,0,0.6)]',
     cream: 'bg-[#FDFBF7] text-[#1F1C18] border-[#EAE3D9] shadow-[0_15px_35px_rgba(0,0,0,0.4)]',
   };
 
@@ -241,7 +241,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
           initial={shouldReduceMotion ? false : { opacity: 0, y: -10, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={defaultSpringSnappy}
-          className="w-full mb-3 p-3 rounded-xl bg-[#0A0A0A] border border-[#1E1E1E] flex items-center justify-between shadow-lg"
+          className="w-full mb-3 p-3 rounded-xl bg-[#202020] border border-[#363636] flex items-center justify-between shadow-md"
           aria-live="polite"
         >
           <div className="flex items-center gap-2.5 min-w-0">
@@ -250,7 +250,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
             </div>
             <div className="min-w-0">
               <h4 className="text-xs font-semibold text-[#F5F5F5] truncate">{statusTitle}</h4>
-              <p className="text-[10px] text-[#808080] truncate">{statusSubtitle}</p>
+              <p className="text-[10px] text-[#A3A3A3] truncate">{statusSubtitle}</p>
             </div>
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
@@ -264,7 +264,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
                   : 'bg-[#555555]'
               )}
             />
-            <span className="text-[10px] font-mono text-[#888888]">
+            <span className="text-[10px] font-mono text-[#8A8A8A]">
               {isPrinting ? 'Printing' : isCompleted ? 'Ready' : 'Idle'}
             </span>
           </div>
@@ -289,27 +289,27 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
             ease: 'easeInOut',
           }}
           className={cn(
-            'w-full z-20 relative rounded-2xl bg-gradient-to-b from-[#141414] via-[#0E0E0E] to-[#0A0A0A] border border-[#222222] p-3.5 shadow-[0_12px_28px_rgba(0,0,0,0.85)]',
+            'w-full z-20 relative rounded-2xl bg-gradient-to-b from-[#242424] via-[#202020] to-[#1C1C1C] border border-[#363636] p-3.5 shadow-[0_12px_28px_rgba(0,0,0,0.6)]',
             printerClassName
           )}
         >
           {/* Printer Bevel Top Highlight */}
-          <div className="absolute inset-x-3 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+          <div className="absolute inset-x-3 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
           {/* Printer Control Bar */}
-          <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#1A1A1A]">
+          <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#363636]">
             <div className="flex items-center gap-2">
-              <div className="w-5 h-5 rounded-md bg-[#181818] border border-[#262626] flex items-center justify-center text-[#A1A1A1]">
+              <div className="w-5 h-5 rounded-md bg-[#202020] border border-[#363636] flex items-center justify-center text-[#A3A3A3]">
                 <Printer className="w-3 h-3" />
               </div>
-              <span className="text-[11px] font-mono font-medium text-[#CCCCCC] tracking-tight">
+              <span className="text-[11px] font-mono font-medium text-[#F5F5F5] tracking-tight">
                 POS-8000
               </span>
             </div>
 
             {/* LED Status Light */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#070707] border border-[#1A1A1A]">
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#151515] border border-[#363636]">
                 <motion.span
                   animate={
                     isPrinting
@@ -326,7 +326,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
                       : 'bg-[#444444]'
                   )}
                 />
-                <span className="text-[9px] font-mono text-[#777777] uppercase">
+                <span className="text-[9px] font-mono text-[#737373] uppercase">
                   {isPrinting ? 'FEED' : isCompleted ? 'ONLINE' : 'STANDBY'}
                 </span>
               </div>
@@ -334,9 +334,9 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
           </div>
 
           {/* Printer Feed Mouth / Exit Slot */}
-          <div className="relative w-full h-3 rounded-full bg-[#050505] border border-[#1A1A1A] overflow-hidden shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center">
+          <div className="relative w-full h-3 rounded-full bg-[#151515] border border-[#363636] overflow-hidden shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] flex items-center justify-center">
             {/* Dark slot depth & roller guide */}
-            <div className="w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#252525] to-transparent" />
+            <div className="w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#363636] to-transparent" />
           </div>
         </motion.div>
 
@@ -370,7 +370,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
                 <svg
                   className={cn(
                     'w-full h-1.5',
-                    isDarkPaper ? 'text-[#121212]' : paperTheme === 'cream' ? 'text-[#FDFBF7]' : 'text-[#F9F9F8]'
+                    isDarkPaper ? 'text-[#202020]' : paperTheme === 'cream' ? 'text-[#FDFBF7]' : 'text-[#F9F9F8]'
                   )}
                   preserveAspectRatio="none"
                   viewBox="0 0 100 10"
@@ -384,8 +384,8 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
             )}
 
             {/* Side Perforation Ticket Notches */}
-            <div className="absolute -left-2 top-28 w-3.5 h-3.5 rounded-full bg-[#050505] border-r border-[#1D1D1D]" />
-            <div className="absolute -right-2 top-28 w-3.5 h-3.5 rounded-full bg-[#050505] border-l border-[#1D1D1D]" />
+            <div className="absolute -left-2 top-28 w-3.5 h-3.5 rounded-full bg-[#151515] border-r border-[#363636]" />
+            <div className="absolute -right-2 top-28 w-3.5 h-3.5 rounded-full bg-[#151515] border-l border-[#363636]" />
 
             {/* Header: Merchant & Star Icon */}
             <div className="text-center pb-3 border-b border-dashed border-current/25">
@@ -538,7 +538,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
                 <svg
                   className={cn(
                     'w-full h-1.5',
-                    isDarkPaper ? 'text-[#121212]' : paperTheme === 'cream' ? 'text-[#FDFBF7]' : 'text-[#F9F9F8]'
+                    isDarkPaper ? 'text-[#202020]' : paperTheme === 'cream' ? 'text-[#FDFBF7]' : 'text-[#F9F9F8]'
                   )}
                   preserveAspectRatio="none"
                   viewBox="0 0 100 10"
@@ -566,7 +566,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
             type="button"
             onClick={handleReplay}
             disabled={isPrinting}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0E0E0E] hover:bg-[#161616] border border-[#202020] hover:border-[#303030] text-xs font-medium text-[#CCCCCC] hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#A3A3A3] hover:text-[#F5F5F5] transition-all disabled:opacity-40 disabled:cursor-not-allowed focus-ring cursor-pointer"
             title="Replay printing animation"
           >
             <RotateCcw className={cn('w-3.5 h-3.5', isPrinting && 'animate-spin')} />
@@ -576,7 +576,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
           <button
             type="button"
             onClick={handleCopyOrder}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0E0E0E] hover:bg-[#161616] border border-[#202020] hover:border-[#303030] text-xs font-medium text-[#CCCCCC] hover:text-white transition-all focus-ring"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#A3A3A3] hover:text-[#F5F5F5] transition-all focus-ring cursor-pointer"
             title="Copy order number"
           >
             {copied ? (
@@ -586,7 +586,7 @@ export const PaymentReceiptPrinter: React.FC<PaymentReceiptPrinterProps> = ({
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5 text-[#888888]" />
+                <Copy className="w-3.5 h-3.5 text-[#8A8A8A]" />
                 <span>Copy Order</span>
               </>
             )}

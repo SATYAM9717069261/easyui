@@ -23,11 +23,13 @@ export default {
           primary: 'var(--text-primary)',
           secondary: 'var(--text-secondary)',
           muted: 'var(--text-muted)',
+          subtle: 'var(--text-subtle)',
         },
         accent: {
           DEFAULT: 'var(--accent)',
           subtle: 'var(--accent-subtle)',
           glow: 'var(--accent-glow)',
+          blue: 'var(--indicator-active)',
         }
       },
       fontFamily: {

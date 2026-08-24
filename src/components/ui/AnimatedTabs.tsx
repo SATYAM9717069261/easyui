@@ -61,8 +61,8 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
         className={cn(
           'flex items-center gap-1 self-start select-none',
           isGlass
-            ? 'p-1 rounded-full bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]'
-            : 'p-1 rounded-lg bg-[#0E0E0E] border border-[#1D1D1D]',
+            ? 'p-1 rounded-full bg-[#202020] backdrop-blur-xl border border-[#363636]'
+            : 'p-1 rounded-lg bg-[#202020] border border-[#363636]',
           tabsContainerClassName
         )}
       >
@@ -79,17 +79,17 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
                   : 'px-3.5 py-1.5 rounded-md',
                 isActive
                   ? 'text-[#F5F5F5] font-medium'
-                  : 'text-[#737373] hover:text-[#D4D4D4]'
+                  : 'text-[#737373] hover:text-[#A3A3A3]'
               )}
             >
               {isActive && (
                 <motion.div
                   layoutId={indicatorLayoutId}
                   className={cn(
-                    'absolute inset-0 shadow-sm',
+                    'absolute inset-0 shadow-xs',
                     isGlass
-                      ? 'rounded-full bg-[#181818] border border-[#2A2A2A]'
-                      : 'rounded-md bg-[#181818] border border-[#2A2A2A]'
+                      ? 'rounded-full bg-[#242424] border border-[#363636]'
+                      : 'rounded-md bg-[#242424] border border-[#363636]'
                   )}
                   transition={motionTransitions.springMorph}
                 />
@@ -98,7 +98,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
                 {tab.icon && <span>{tab.icon}</span>}
                 {tab.label}
                 {tab.badge && (
-                  <span className="px-1.5 py-0.5 text-[10px] font-mono rounded bg-[#252525] text-[#A1A1A1]">
+                  <span className="px-1.5 py-0.5 text-[10px] font-mono rounded bg-[#242424] border border-[#363636] text-[#A3A3A3]">
                     {tab.badge}
                   </span>
                 )}

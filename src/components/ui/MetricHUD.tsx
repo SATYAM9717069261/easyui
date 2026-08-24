@@ -165,20 +165,20 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
       role="region"
       aria-label="Developer telemetry and metrics HUD"
       className={cn(
-        'w-full rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] p-3.5 sm:p-5 text-[#F5F5F5] overflow-hidden',
+        'w-full rounded-xl border border-[#363636] bg-[#202020] p-3.5 sm:p-5 text-[#F5F5F5] overflow-hidden',
         className
       )}
       {...props}
     >
       {/* HUD Header Bar: Title + Status + Time Range Switcher */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-[#161616]">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-[#363636]">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-[#141414] border border-[#222222] flex items-center justify-center text-white shrink-0">
+          <div className="w-7 h-7 rounded-lg bg-[#242424] border border-[#363636] flex items-center justify-center text-[#F5F5F5] shrink-0">
             <Activity className="w-3.5 h-3.5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-xs sm:text-sm font-semibold text-white">System Telemetry HUD</h3>
+              <h3 className="text-xs sm:text-sm font-semibold text-[#F5F5F5]">System Telemetry HUD</h3>
               {getStatusIndicator(activeMetric?.status)}
             </div>
             <p className="text-[10px] sm:text-[11px] text-[#737373]">Live hardware-accelerated telemetry telemetry</p>
@@ -186,7 +186,7 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
         </div>
 
         {/* Time Range Selector */}
-        <div className="flex items-center p-0.5 bg-[#121212] rounded-lg border border-[#1E1E1E]">
+        <div className="flex items-center p-0.5 bg-[#242424] rounded-lg border border-[#363636]">
           {timeRanges.map((range) => {
             const isSelected = selectedTimeRange === range;
             return (
@@ -196,13 +196,13 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
                 onClick={() => setSelectedTimeRange(range)}
                 className={cn(
                   'relative py-1 px-2.5 text-[11px] font-mono rounded-md transition-colors cursor-pointer',
-                  isSelected ? 'text-white' : 'text-[#737373] hover:text-[#A1A1A1]'
+                  isSelected ? 'text-[#F5F5F5]' : 'text-[#737373] hover:text-[#A3A3A3]'
                 )}
               >
                 {isSelected && (
                   <motion.div
                     layoutId={`metricHudTimeTab-${hudId}`}
-                    className="absolute inset-0 bg-[#222222] border border-[#333333] rounded-md -z-10"
+                    className="absolute inset-0 bg-[#202020] border border-[#363636] rounded-md -z-10"
                     transition={motionTransitions.springSnappy}
                   />
                 )}
@@ -224,16 +224,16 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
               className={cn(
                 'p-3 rounded-lg border transition-all cursor-pointer relative flex flex-col justify-between',
                 isSelected
-                  ? 'bg-[#121212] border-white/40 shadow-md shadow-black/50 ring-1 ring-white/10'
-                  : 'bg-[#0E0E0E] border-[#181818] hover:border-[#262626] hover:bg-[#101010]'
+                  ? 'bg-[#242424] border-[#3B82F6]/60 shadow-xs ring-1 ring-[#3B82F6]/20'
+                  : 'bg-[#202020] border-[#363636] hover:border-[#4A4A4A] hover:bg-[#242424]'
               )}
             >
               <div className="flex items-center justify-between gap-2 mb-1.5">
-                <span className="text-[11px] text-[#A1A1A1] font-medium truncate">{m.label}</span>
+                <span className="text-[11px] text-[#A3A3A3] font-medium truncate">{m.label}</span>
                 <button
                   type="button"
                   onClick={(e) => handleCopyStat(e, `${m.value} ${m.unit || ''}`, m.id)}
-                  className="text-[#606060] hover:text-white p-0.5"
+                  className="text-[#8A8A8A] hover:text-white p-0.5 cursor-pointer"
                   title="Copy value"
                 >
                   {copiedId === m.id ? (
@@ -246,7 +246,7 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
 
               <div className="flex items-baseline justify-between gap-2">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-lg sm:text-xl font-bold font-mono text-white">{m.value}</span>
+                  <span className="text-lg sm:text-xl font-bold font-mono text-[#F5F5F5]">{m.value}</span>
                   {m.unit && <span className="text-[10px] font-mono text-[#737373]">{m.unit}</span>}
                 </div>
 
@@ -267,21 +267,21 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
 
       {/* Main Interactive SVG Sparkline HUD Surface */}
       {activeMetric && (
-        <div className="rounded-lg border border-[#181818] bg-[#070707] p-3 sm:p-3.5 relative">
+        <div className="rounded-lg border border-[#363636] bg-[#151515] p-3 sm:p-3.5 relative">
           {/* Sparkline Header & Scrub value display */}
           <div className="flex items-center justify-between mb-2 text-xs">
             <div className="flex items-center gap-1.5">
-              <span className="font-mono text-white text-xs font-semibold">{activeMetric.label}</span>
-              <span className="text-[#606060] text-[11px] font-mono">({selectedTimeRange})</span>
+              <span className="font-mono text-[#F5F5F5] text-xs font-semibold">{activeMetric.label}</span>
+              <span className="text-[#737373] text-[11px] font-mono">({selectedTimeRange})</span>
             </div>
 
             <div className="text-right font-mono">
               {hoveredPoint ? (
-                <span className="text-white text-[11px] font-semibold bg-[#141414] px-2 py-0.5 rounded border border-[#222222]">
+                <span className="text-[#F5F5F5] text-[11px] font-semibold bg-[#242424] px-2 py-0.5 rounded border border-[#363636]">
                   Indexed: {hoveredPoint.val.toFixed(1)} {activeMetric.unit || ''}
                 </span>
               ) : (
-                <span className="text-[10px] text-[#6F6F6F]">
+                <span className="text-[10px] text-[#737373]">
                   Hover canvas to inspect timeline values
                 </span>
               )}
@@ -300,8 +300,8 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
             >
               <defs>
                 <linearGradient id={`grad-${hudId}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.18" />
-                  <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.0" />
+                  <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.18" />
+                  <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.0" />
                 </linearGradient>
               </defs>
 
@@ -313,7 +313,7 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
                 <motion.path
                   d={pathD}
                   fill="none"
-                  stroke="#FFFFFF"
+                  stroke="#3B82F6"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -332,7 +332,7 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
                     y1="0"
                     x2={hoveredPoint.x}
                     y2="120"
-                    stroke="#555555"
+                    stroke="#4A4A4A"
                     strokeWidth="1"
                     strokeDasharray="3 3"
                   />
@@ -341,15 +341,15 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
                     cx={hoveredPoint.x}
                     cy={hoveredPoint.y}
                     r="6"
-                    fill="rgba(255, 255, 255, 0.2)"
+                    fill="rgba(59, 130, 246, 0.2)"
                   />
                   {/* Core White Dot */}
                   <circle
                     cx={hoveredPoint.x}
                     cy={hoveredPoint.y}
                     r="3.5"
-                    fill="#FFFFFF"
-                    stroke="#000000"
+                    fill="#3B82F6"
+                    stroke="#151515"
                     strokeWidth="1.5"
                   />
                 </g>
@@ -358,7 +358,7 @@ export const MetricHUD: React.FC<MetricHUDProps> = ({
           </div>
 
           {/* Min & Max Labels */}
-          <div className="flex items-center justify-between pt-2 border-t border-[#141414] text-[10px] font-mono text-[#555555]">
+          <div className="flex items-center justify-between pt-2 border-t border-[#363636] text-[10px] font-mono text-[#737373]">
             <span>Min: {minVal.toFixed(1)}</span>
             <span>Max: {maxVal.toFixed(1)}</span>
           </div>

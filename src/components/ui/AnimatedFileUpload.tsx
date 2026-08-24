@@ -344,11 +344,11 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
         tabIndex={disabled ? -1 : 0}
         role="button"
         aria-disabled={disabled}
-        whileHover={disabled ? undefined : { borderColor: '#2A2A2A' }}
+        whileHover={disabled ? undefined : { borderColor: '#4A4A4A' }}
         animate={{
           scale: isDragOver ? 1.01 : 1,
-          borderColor: isDragOver ? '#383838' : '#1D1D1D',
-          backgroundColor: isDragOver ? '#0E0E0E' : '#0A0A0A',
+          borderColor: isDragOver ? '#4A4A4A' : '#363636',
+          backgroundColor: isDragOver ? '#242424' : '#202020',
         }}
         transition={motionTransitions.springSnappy}
         className={cn(
@@ -363,17 +363,17 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
             scale: isDragOver ? 1.08 : 1,
           }}
           transition={motionTransitions.springSnappy}
-          className="w-10 h-10 rounded-lg bg-[#141414] border border-[#222222] flex items-center justify-center text-[#A1A1A1] mb-3 group-hover:text-white"
+          className="w-10 h-10 rounded-lg bg-[#242424] border border-[#363636] flex items-center justify-center text-[#A3A3A3] mb-3 group-hover:text-white"
         >
-          <Upload className={cn('w-5 h-5 transition-colors', isDragOver ? 'text-white' : 'text-[#808080]')} />
+          <Upload className={cn('w-5 h-5 transition-colors', isDragOver ? 'text-white' : 'text-[#8A8A8A]')} />
         </motion.div>
 
         <div className="space-y-1">
           <p className="text-sm font-medium text-[#F5F5F5]">{dropTitle}</p>
-          <p className="text-xs text-[#808080]">
+          <p className="text-xs text-[#A3A3A3]">
             {dropSubtitle}{' '}
             {maxSize && (
-              <span className="text-[#555555]">
+              <span className="text-[#737373]">
                 (up to {formatFileSize(maxSize)})
               </span>
             )}
@@ -397,7 +397,7 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
                 <button
                   type="button"
                   onClick={() => setFiles((prev) => prev.filter((f) => f.status !== 'complete'))}
-                  className="hover:text-[#A1A1A1] transition-colors focus-ring rounded"
+                  className="hover:text-[#A3A3A3] transition-colors focus-ring rounded cursor-pointer"
                 >
                   Clear Completed
                 </button>
@@ -421,12 +421,12 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
                     exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
                     transition={motionTransitions.springGentle}
                     className={cn(
-                      'relative overflow-hidden rounded-xl border p-3 sm:p-3.5 bg-[#0A0A0A] transition-colors',
+                      'relative overflow-hidden rounded-xl border p-3 sm:p-3.5 bg-[#202020] transition-colors',
                       isError
-                        ? 'border-[#381B1B] bg-[#0E0909]'
+                        ? 'border-rose-500/30 bg-rose-500/5'
                         : isComplete
-                        ? 'border-[#1E251E] bg-[#0A0D0A]'
-                        : 'border-[#1C1C1C]'
+                        ? 'border-emerald-500/30 bg-emerald-500/5'
+                        : 'border-[#363636]'
                     )}
                   >
                     <div className="flex items-center gap-3 relative z-10">
@@ -435,10 +435,10 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
                         className={cn(
                           'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border',
                           isError
-                            ? 'bg-[#1F1212] border-[#381B1B] text-rose-400'
+                            ? 'bg-rose-500/10 border-rose-500/30 text-rose-400'
                             : isComplete
-                            ? 'bg-[#121A12] border-[#223522] text-emerald-400'
-                            : 'bg-[#141414] border-[#222222] text-[#A1A1A1]'
+                            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                            : 'bg-[#242424] border-[#363636] text-[#A3A3A3]'
                         )}
                       >
                         <IconComponent className="w-4 h-4" />
@@ -458,22 +458,22 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
                         {/* Status line */}
                         <div className="flex items-center justify-between text-[11px] mt-1">
                           {isError ? (
-                            <span className="text-rose-400/90 flex items-center gap-1">
+                            <span className="text-rose-400 flex items-center gap-1">
                               <AlertCircle className="w-3 h-3 shrink-0" />
                               <span className="truncate">{file.errorMessage || 'Upload failed'}</span>
                             </span>
                           ) : isComplete ? (
-                            <span className="text-emerald-400/90 flex items-center gap-1">
+                            <span className="text-emerald-400 flex items-center gap-1">
                               <Check className="w-3 h-3 shrink-0" />
                               <span>Ready</span>
                             </span>
                           ) : isProcessing ? (
-                            <span className="text-[#A1A1A1] flex items-center gap-1.5 font-mono text-[10px]">
+                            <span className="text-[#A3A3A3] flex items-center gap-1.5 font-mono text-[10px]">
                               <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
                               Processing...
                             </span>
                           ) : (
-                            <span className="text-[#808080] font-mono text-[10px]">
+                            <span className="text-[#737373] font-mono text-[10px]">
                               Uploading {file.progress}%
                             </span>
                           )}
@@ -486,7 +486,7 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
                           <button
                             type="button"
                             onClick={() => handleRetryFile(file)}
-                            className="p-1 rounded-md text-[#808080] hover:text-white hover:bg-[#1C1C1C] transition-colors focus-ring"
+                            className="p-1 rounded-md text-[#8A8A8A] hover:text-white hover:bg-[#242424] transition-colors focus-ring cursor-pointer"
                             title="Retry upload"
                             aria-label={`Retry uploading ${file.name}`}
                           >
@@ -496,7 +496,7 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
                         <button
                           type="button"
                           onClick={() => handleRemoveFile(file.id)}
-                          className="p-1 rounded-md text-[#666666] hover:text-[#F5F5F5] hover:bg-[#1C1C1C] transition-colors focus-ring"
+                          className="p-1 rounded-md text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] transition-colors focus-ring cursor-pointer"
                           title="Remove file"
                           aria-label={`Remove ${file.name}`}
                         >
@@ -507,9 +507,9 @@ export const AnimatedFileUpload: React.FC<AnimatedFileUploadProps> = ({
 
                     {/* Progress Bar (at the bottom) */}
                     {(isUploading || isProcessing) && (
-                      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#161616]">
+                      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#242424]">
                         <motion.div
-                          className="h-full bg-white"
+                          className="h-full bg-[#F5F5F5]"
                           initial={{ width: '0%' }}
                           animate={{ width: `${file.progress}%` }}
                           transition={{ duration: 0.15, ease: 'easeOut' }}

@@ -63,7 +63,7 @@ export const RevealCard: React.FC<RevealCardProps> = ({
           transformStyle: 'preserve-3d',
         }}
         className={cn(
-          'relative rounded-xl border border-[#1D1D1D] bg-[#0A0A0A] p-6 transition-colors duration-200 hover:border-[#2A2A2A] overflow-hidden',
+          'relative rounded-xl border border-[#363636] bg-[#202020] p-6 transition-colors duration-200 hover:border-[#4A4A4A] overflow-hidden',
           className
         )}
       >
@@ -86,7 +86,7 @@ export const RevealCard: React.FC<RevealCardProps> = ({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
             transition={{ duration: 0.2 }}
-            className="relative z-10 mt-4 pt-4 border-t border-[#1D1D1D]"
+            className="relative z-10 mt-4 pt-4 border-t border-[#363636]"
           >
             {revealContent}
           </motion.div>

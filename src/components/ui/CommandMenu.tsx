@@ -183,7 +183,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
           />
 
           {/* Palette Container */}
@@ -192,11 +192,11 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: -8 }}
             transition={motionTransitions.springSnappy}
-            className="relative w-full max-w-xl rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] shadow-[0_24px_60px_rgba(0,0,0,0.9)] overflow-hidden z-10"
+            className="relative w-full max-w-xl rounded-xl border border-[#363636] bg-[#242424] shadow-[0_24px_60px_rgba(0,0,0,0.6)] overflow-hidden z-10"
           >
             {/* Search Input Bar */}
-            <div className="flex items-center px-4 py-3 border-b border-[#161616]">
-              <Search className="w-4 h-4 text-[#606060] mr-2.5 shrink-0" />
+            <div className="flex items-center px-4 py-3 border-b border-[#363636]">
+              <Search className="w-4 h-4 text-[#8A8A8A] mr-2.5 shrink-0" />
               <input
                 autoFocus
                 type="text"
@@ -206,9 +206,9 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                   setSelectedIndex(0);
                 }}
                 placeholder="Type a command or search components, docs..."
-                className="w-full bg-transparent text-xs text-[#F5F5F5] placeholder-[#606060] focus:outline-none"
+                className="w-full bg-transparent text-[16px] text-[#F5F5F5] placeholder-[#737373] focus:outline-none"
               />
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#121212] border border-[#1E1E1E] text-[#606060]">
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#202020] border border-[#363636] text-[#737373]">
                 ESC
               </span>
             </div>
@@ -216,7 +216,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             {/* Results List */}
             <div className="max-h-80 overflow-y-auto p-1.5" role="listbox">
               {filteredItems.length === 0 ? (
-                <div className="py-8 text-center text-xs text-[#606060]">
+                <div className="py-8 text-center text-xs text-[#737373]">
                   No commands or documentation matching "{query}"
                 </div>
               ) : (
@@ -233,8 +233,8 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                         className={cn(
                           'flex w-full items-center justify-between px-3 py-2 rounded-md text-xs transition-colors text-left',
                           isSelected
-                            ? 'bg-[#161616] text-[#F5F5F5]'
-                            : 'text-[#808080] hover:bg-[#101010]'
+                            ? 'bg-[#363636] text-[#F5F5F5]'
+                            : 'text-[#A3A3A3] hover:bg-[#202020]'
                         )}
                       >
                         <div className="flex items-center gap-2.5">
@@ -249,7 +249,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                             <CornerDownLeft className="w-3 h-3 text-white" />
                           )}
                           {item.shortcut && (
-                            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#1A1A1A] text-[#606060]">
+                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#242424] border border-[#363636] text-[#606060]">
                               {item.shortcut}
                             </span>
                           )}
@@ -262,16 +262,16 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             </div>
 
             {/* Footer status */}
-            <div className="flex items-center justify-between px-4 py-2 bg-[#080808] border-t border-[#141414] text-[11px] text-[#555555]">
+            <div className="flex items-center justify-between px-4 py-2 bg-[#242424] border-t border-[#363636] text-[11px] text-[#737373]">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
-                  <span className="font-mono bg-[#121212] px-1 rounded text-[10px]">↑↓</span> navigate
+                  <span className="font-mono bg-[#202020] border border-[#363636] px-1 rounded text-[10px] text-[#A3A3A3]">↑↓</span> navigate
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="font-mono bg-[#121212] px-1 rounded text-[10px]">↵</span> select
+                  <span className="font-mono bg-[#202020] border border-[#363636] px-1 rounded text-[10px] text-[#A3A3A3]">↵</span> select
                 </span>
               </div>
-              <span>EasyUI</span>
+              <span className="text-[#737373]">EasyUI</span>
             </div>
           </motion.div>
         </div>

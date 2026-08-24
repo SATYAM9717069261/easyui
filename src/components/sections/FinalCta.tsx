@@ -11,7 +11,7 @@ export interface FinalCtaProps {
 
 export const FinalCta: React.FC<FinalCtaProps> = ({ onBrowse }) => {
   return (
-    <section className="py-24 bg-[#050505] border-t border-[#141414] relative overflow-hidden text-center">
+    <section className="py-24 bg-[#151515] border-t border-[#363636] relative overflow-hidden text-center">
       {/* Subtle bottom ambient neutral glow */}
       <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] opacity-10 blur-[80px] bg-gradient-to-t from-white/15 to-transparent" />
 
@@ -21,7 +21,7 @@ export const FinalCta: React.FC<FinalCtaProps> = ({ onBrowse }) => {
             Build something beautiful.
           </h2>
 
-          <p className="text-sm text-[#808080] max-w-sm mx-auto leading-relaxed">
+          <p className="text-sm text-[#A3A3A3] max-w-sm mx-auto leading-relaxed">
             EasyUI gives you the pieces. You decide what to build.
           </p>
 

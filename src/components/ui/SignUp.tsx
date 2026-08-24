@@ -47,8 +47,8 @@ export const SignUp: React.FC<SignUpProps> = ({
   title = 'Create an account',
   description = 'Join EasyUI to access components and templates',
   logo = (
-    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#141414] to-[#242424] border border-[#2A2A2A] flex items-center justify-center text-white shadow-[0_0_20px_rgba(255,255,255,0.06)]">
-      <Sparkles className="w-5 h-5 text-white" />
+    <div className="w-10 h-10 rounded-xl bg-[#242424] border border-[#363636] flex items-center justify-center text-[#F5F5F5] shadow-xs">
+      <Sparkles className="w-5 h-5 text-[#F5F5F5]" />
     </div>
   ),
   error,
@@ -140,7 +140,7 @@ export const SignUp: React.FC<SignUpProps> = ({
   return (
     <div
       className={cn(
-        'w-full max-w-md mx-auto rounded-2xl border border-[#1D1D1D] bg-[#0A0A0A] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden transition-all duration-300',
+        'w-full max-w-md mx-auto rounded-2xl border border-[#363636] bg-[#202020] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative overflow-hidden transition-all duration-300',
         className
       )}
     >
@@ -157,7 +157,7 @@ export const SignUp: React.FC<SignUpProps> = ({
           {title}
         </h2>
         {description && (
-          <p className="text-xs sm:text-sm text-[#808080] mt-1.5 leading-relaxed max-w-xs">
+          <p className="text-xs sm:text-sm text-[#A3A3A3] mt-1.5 leading-relaxed max-w-xs">
             {description}
           </p>
         )}
@@ -173,7 +173,7 @@ export const SignUp: React.FC<SignUpProps> = ({
             transition={motionTransitions.springSnappy}
             className="mb-5 overflow-hidden"
           >
-            <div className="p-3 rounded-lg bg-[#1A0A0A] border border-[#3A1414] text-xs text-[#FF7A7A] flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-xs text-rose-400 flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -216,8 +216,8 @@ export const SignUp: React.FC<SignUpProps> = ({
           </div>
 
           <div className="relative flex items-center justify-center my-4">
-            <div className="border-t border-[#1D1D1D] w-full" />
-            <span className="bg-[#0A0A0A] px-3 text-[10px] uppercase font-mono tracking-widest text-[#6F6F6F] absolute">
+            <div className="border-t border-[#363636] w-full" />
+            <span className="bg-[#202020] px-3 text-[10px] uppercase font-mono tracking-widest text-[#737373] absolute">
               Or sign up with email
             </span>
           </div>
@@ -308,14 +308,14 @@ export const SignUp: React.FC<SignUpProps> = ({
                           : step === 3
                           ? 'bg-[#38BDF8]'
                           : 'bg-[#6EE7B7]'
-                        : 'bg-[#1D1D1D]'
+                        : 'bg-[#363636]'
                     )}
                   />
                 ))}
               </div>
-              <div className="flex justify-between items-center text-[10px] font-mono text-[#6F6F6F]">
+              <div className="flex justify-between items-center text-[10px] font-mono text-[#737373]">
                 <span>Strength</span>
-                <span className="text-[#A1A1A1]">{strengthLabels[strength - 1] || 'Weak'}</span>
+                <span className="text-[#A3A3A3]">{strengthLabels[strength - 1] || 'Weak'}</span>
               </div>
             </div>
           )}
@@ -379,11 +379,11 @@ export const SignUp: React.FC<SignUpProps> = ({
 
       {/* Secondary Action */}
       {onSignInClick && (
-        <div className="mt-6 text-center pt-4 border-t border-[#141414]">
+        <div className="mt-6 text-center pt-4 border-t border-[#363636]">
           <button
             type="button"
             onClick={onSignInClick}
-            className="text-xs text-[#808080] hover:text-[#F5F5F5] transition-colors focus-ring rounded"
+            className="text-xs text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring rounded cursor-pointer"
           >
             {signInText}
           </button>

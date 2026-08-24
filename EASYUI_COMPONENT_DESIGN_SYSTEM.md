@@ -30,112 +30,59 @@
 
 # 1. EXACT COLOR SYSTEM
 
-EasyUI uses a strict **monochrome dark slate palette**. Grayscale steps establish surface elevation and depth.
+EasyUI uses a refined **dark neutral palette** matching the Claude interface aesthetic. Grayscale and dark charcoal surface steps establish surface elevation, visual hierarchy, and calm contrast without deep pitch blacks.
 
-### 1.1 Backgrounds
+### 1.1 Backgrounds & Surfaces
 
 #### Main Background (Page Canvas)
-- **Color name:** `bg` / Main Background
-- **Exact HEX:** `#050505`
-- **RGB:** `rgb(5, 5, 5)`
-- **HSL:** `hsl(0, 0%, 2%)`
-- **CSS variable:** `var(--bg)`
-- **Tailwind class:** `bg-background` or `bg-[#050505]`
-- **Where it is used:** `body`, `html`, main layout wrapper, App root, section backgrounds, footer
-- **Example component:** `src/App.tsx` (line 148), `src/components/layout/Navbar.tsx` (line 26: `bg-[#050505]/90`), `src/components/layout/Footer.tsx` (line 12)
-- **Source:** `src/styles/tokens.css` (line 3), `tailwind.config.js` (line 11)
-
-#### Surface Background (Default Cards & Components)
-- **Color name:** `surface`
-- **Exact HEX:** `#0A0A0A`
-- **RGB:** `rgb(10, 10, 10)`
-- **HSL:** `hsl(0, 0%, 3.9%)`
-- **CSS variable:** `var(--surface)`
-- **Tailwind class:** `bg-surface` or `bg-[#0A0A0A]`
-- **Where it is used:** Default card surfaces, command menu container, search bar base, SpotlightCard, SmoothAccordion, Philosophy cards
-- **Example component:** `src/components/ui/SpotlightCard.tsx` (line 42), `src/components/ui/SmoothAccordion.tsx` (line 40), `src/components/ui/CommandMenu.tsx` (line 195)
-- **Source:** `src/styles/tokens.css` (line 4), `tailwind.config.js` (line 13)
-
-#### Surface Hover (Interactive Hover Target)
-- **Color name:** `surface-hover`
-- **Exact HEX:** `#101010`
-- **RGB:** `rgb(16, 16, 16)`
-- **HSL:** `hsl(0, 0%, 6.3%)`
-- **CSS variable:** `var(--surface-hover)`
-- **Tailwind class:** `bg-surface-hover` or `hover:bg-[#101010]`
-- **Where it is used:** Hover background on buttons, accordion headers, dropdown items, ghost buttons, command list rows
-- **Example component:** `src/components/layout/Navbar.tsx` (line 81, 95), `src/components/ui/SmoothAccordion.tsx` (line 47)
-- **Source:** `src/styles/tokens.css` (line 5), `tailwind.config.js` (line 14)
-
-#### Surface Raised (Elevated Elements & Controls)
-- **Color name:** `surface-raised`
+- **Color name:** `bg` / Main Canvas
 - **Exact HEX:** `#151515`
 - **RGB:** `rgb(21, 21, 21)`
 - **HSL:** `hsl(0, 0%, 8.2%)`
+- **CSS variable:** `var(--bg)`
+- **Tailwind class:** `bg-background` or `bg-[#151515]`
+- **Where it is used:** `body`, `html`, main layout wrapper, App root, section canvas backgrounds, fullscreen preview stage, footer
+- **Example component:** `src/App.tsx`, `src/styles/tokens.css` (line 3), `src/components/layout/Navbar.tsx` (`bg-[#151515]/90`), `src/components/layout/Footer.tsx`
+- **Source:** `src/styles/tokens.css` (line 3), `tailwind.config.js` (line 11)
+
+#### Surface Background (Default Cards & Containers)
+- **Color name:** `surface` / Component Surface
+- **Exact HEX:** `#202020`
+- **RGB:** `rgb(32, 32, 32)`
+- **HSL:** `hsl(0, 0%, 12.5%)`
+- **CSS variable:** `var(--surface)`
+- **Tailwind class:** `bg-surface` or `bg-[#202020]`
+- **Where it is used:** Component preview cards, catalog cards, showcase boxes, modal surface, CommandMenu container, SmoothAccordion, Philosophy cards
+- **Example component:** `src/components/common/ComponentCard.tsx`, `src/components/ui/SpotlightCard.tsx`, `src/components/docs/ComponentDetailPage.tsx`
+- **Source:** `src/styles/tokens.css` (line 4), `tailwind.config.js` (line 13)
+
+#### Surface Raised (Elevated Elements, Controls & Inputs)
+- **Color name:** `surface-raised` / Elevated Surface
+- **Exact HEX:** `#242424`
+- **RGB:** `rgb(36, 36, 36)`
+- **HSL:** `hsl(0, 0%, 14.1%)`
 - **CSS variable:** `var(--surface-raised)`
-- **Tailwind class:** `bg-surface-raised` or `bg-[#151515]`
-- **Where it is used:** Secondary buttons, raised control states
-- **Example component:** `src/components/ui/MagneticButton.tsx` (line 55: `variant === 'secondary'`)
+- **Tailwind class:** `bg-surface-raised` or `bg-[#242424]`
+- **Where it is used:** Secondary buttons, raised control states, input fields, active tabs, floating docks, badges, table headers, toolbar containers
+- **Example component:** `src/components/ui/BatchGestureTray.tsx`, `src/components/ui/NotificationBell.tsx`, `src/components/ui/ExpandableDataRow.tsx`
 - **Source:** `src/styles/tokens.css` (line 6), `tailwind.config.js` (line 15)
 
-#### Secondary Card Background (Showroom & Grid Cards)
-- **Color name:** Card Surface
-- **Exact HEX:** `#080808`
-- **RGB:** `rgb(8, 8, 8)`
-- **HSL:** `hsl(0, 0%, 3.1%)`
-- **CSS variable:** `NOT FOUND IN CODEBASE` (applied as raw hex in utility classes)
-- **Tailwind class:** `bg-[#080808]`
-- **Where it is used:** Showroom cards, ComponentCard wrapper, DevExperience cards, CodePhilosophy containers
-- **Example component:** `src/components/common/ComponentCard.tsx` (line 277), `src/components/sections/FeaturedShowcase.tsx` (line 55, 107)
-
-#### Elevated Dialog Background
-- **Color name:** Dialog Surface
-- **Exact HEX:** `#0C0C0C`
-- **RGB:** `rgb(12, 12, 12)`
-- **HSL:** `hsl(0, 0%, 4.7%)`
-- **CSS variable:** `NOT FOUND IN CODEBASE`
-- **Tailwind class:** `bg-[#0C0C0C]`
-- **Where it is used:** Expanded MorphingDialog modal surface, code header sub-panels
-- **Example component:** `src/components/ui/MorphingDialog.tsx` (line 66)
-
-#### Tab Bar & Notification Background
-- **Color name:** Elevated Pill Surface
-- **Exact HEX:** `#0E0E0E`
-- **RGB:** `rgb(14, 14, 14)`
-- **HSL:** `hsl(0, 0%, 5.5%)`
-- **CSS variable:** `NOT FOUND IN CODEBASE`
-- **Tailwind class:** `bg-[#0E0E0E]`
-- **Where it is used:** AnimatedTabs outer wrapper, NotificationStack cards, Terminal window titlebar
-- **Example component:** `src/components/ui/AnimatedTabs.tsx` (line 55), `src/components/ui/NotificationStack.tsx` (line 144)
-
-#### Active Tab / Selected Button Background
-- **Color name:** Active Pill / Selected Tab Indicator
-- **Exact HEX:** `#181818`
-- **RGB:** `rgb(24, 24, 24)`
-- **HSL:** `hsl(0, 0%, 9.4%)`
-- **CSS variable:** `NOT FOUND IN CODEBASE`
-- **Tailwind class:** `bg-[#181818]`
-- **Where it is used:** Active tab indicator (`motion.div`), selected category pills in catalog
-- **Example component:** `src/components/ui/AnimatedTabs.tsx` (line 70), `src/components/sections/AllComponentsPage.tsx` (line 153)
-
-#### Input Background
-- **Color name:** Input Field Base
-- **Exact HEX:** `#0A0A0A` (unfocused/collapsed) / `#111111` (focused/expanded)
-- **RGB:** `rgb(10, 10, 10)` / `rgb(17, 17, 17)`
-- **HSL:** `hsl(0, 0%, 3.9%)` / `hsl(0, 0%, 6.7%)`
-- **CSS variable:** `NOT FOUND IN CODEBASE`
-- **Tailwind class:** `bg-[#0A0A0A]`, `bg-[#111111]`
-- **Where it is used:** Text input elements, ExpandableSearch input box
-- **Example component:** `src/components/ui/ExpandableSearch.tsx` (line 44), `src/components/sections/AllComponentsPage.tsx` (line 139)
+#### Surface Hover (Interactive Hover Target)
+- **Color name:** `surface-hover`
+- **Exact HEX:** `#262626` / `#2C2C2C`
+- **RGB:** `rgb(38, 38, 38)`
+- **HSL:** `hsl(0, 0%, 14.9%)`
+- **CSS variable:** `var(--surface-hover)`
+- **Tailwind class:** `bg-surface-hover` or `hover:bg-[#262626]`
+- **Where it is used:** Hover background on buttons, accordion headers, dropdown rows, ghost buttons, command list rows
+- **Source:** `src/styles/tokens.css` (line 5), `tailwind.config.js` (line 14)
 
 #### Code Block Background
 - **Color name:** Code Body Background
-- **Exact HEX:** `#080808` / `#0C0C0C` / `#090909`
-- **RGB:** `rgb(8, 8, 8)` / `rgb(12, 12, 12)` / `rgb(9, 9, 9)`
-- **HSL:** `hsl(0, 0%, 3.1%)` / `hsl(0, 0%, 4.7%)` / `hsl(0, 0%, 3.5%)`
-- **Tailwind class:** `bg-[#080808]`, `bg-[#0C0C0C]`, `bg-[#090909]`
-- **Where it is used:** `<pre>` and `<code>` blocks in documentation and showroom
-- **Example component:** `src/components/sections/CodePhilosophy.tsx` (line 133, 134), `src/components/sections/DevExperience.tsx` (line 88)
+- **Exact HEX:** `#151515` (inner pre) / `#202020` (wrapper deck) / `#242424` (titlebar)
+- **Tailwind class:** `bg-[#151515]`, `bg-[#202020]`, `bg-[#242424]`
+- **Where it is used:** `<pre>` and `<code>` blocks in documentation and CodeSnippetDeck
+- **Example component:** `src/components/ui/CodeSnippetDeck.tsx`
 
 ---
 
@@ -148,70 +95,44 @@ EasyUI uses a strict **monochrome dark slate palette**. Grayscale steps establis
 - **HSL:** `hsl(0, 0%, 96.1%)`
 - **CSS variable:** `var(--text-primary)`
 - **Tailwind class:** `text-text-primary` or `text-[#F5F5F5]`
-- **Where it is used:** `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, primary button text, active tabs, dialog titles, card titles
-- **Example component:** `src/styles/index.css` (lines 17, 29), `src/components/ui/MorphingDialog.tsx` (line 77), `src/components/ui/MagneticButton.tsx` (line 54)
+- **Where it is used:** `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, primary headings, modal titles, card titles, active indicators
 - **Source:** `src/styles/tokens.css` (line 24), `tailwind.config.js` (line 23)
 
 #### Secondary Text
 - **Color name:** `text-secondary`
-- **Exact HEX:** `#A1A1A1`
-- **RGB:** `rgb(161, 161, 161)`
-- **HSL:** `hsl(0, 0%, 63.1%)`
+- **Exact HEX:** `#A3A3A3`
+- **RGB:** `rgb(163, 163, 163)`
+- **HSL:** `hsl(0, 0%, 63.9%)`
 - **CSS variable:** `var(--text-secondary)`
-- **Tailwind class:** `text-text-secondary` or `text-[#A1A1A1]`
-- **Where it is used:** Subtitles, accordion descriptions, tab icons, notification text, ghost button default
-- **Example component:** `src/components/ui/MorphingDialog.tsx` (line 86), `src/components/ui/SmoothAccordion.tsx` (line 75), `src/components/ui/AnimatedTabs.tsx` (line 75)
+- **Tailwind class:** `text-text-secondary` or `text-[#A3A3A3]`
+- **Where it is used:** Subtitles, body descriptions, key labels, accordion descriptions, ghost button default
 - **Source:** `src/styles/tokens.css` (line 25), `tailwind.config.js` (line 24)
 
 #### Muted Text
 - **Color name:** `text-muted`
-- **Exact HEX:** `#6F6F6F`
-- **RGB:** `rgb(111, 111, 111)`
-- **HSL:** `hsl(0, 0%, 43.5%)`
-- **CSS variable:** `var(--text-muted)`
-- **Tailwind class:** `text-text-muted` or `text-[#6F6F6F]`
-- **Where it is used:** Inactive tab text, chevron indicators, input placeholders, notification timestamps
-- **Example component:** `src/components/ui/AnimatedTabs.tsx` (line 64), `src/components/ui/SmoothAccordion.tsx` (line 53, 59), `src/components/ui/ExpandableSearch.tsx` (line 50, 59)
-- **Source:** `src/styles/tokens.css` (line 26), `tailwind.config.js` (line 25)
-
-#### Body Paragraph Text
-- **Color name:** Body Paragraph Gray
-- **Exact HEX:** `#808080` (also `#8E8E8E` in Hero)
-- **RGB:** `rgb(128, 128, 128)`
-- **HSL:** `hsl(0, 0%, 50.2%)`
-- **CSS variable:** `NOT FOUND IN CODEBASE`
-- **Tailwind class:** `text-[#808080]`, `text-[#8E8E8E]`
-- **Where it is used:** Section description paragraphs, nav inactive links, footer links, card descriptions
-- **Example component:** `src/components/sections/PhilosophySection.tsx` (line 55), `src/components/sections/FeaturedShowcase.tsx` (line 38, 72), `src/components/layout/Navbar.tsx` (line 51, 61, 70)
-
-#### Eyebrow & Badge Text
-- **Color name:** Eyebrow / Tag Muted
 - **Exact HEX:** `#737373`
 - **RGB:** `rgb(115, 115, 115)`
 - **HSL:** `hsl(0, 0%, 45.1%)`
-- **CSS variable:** `NOT FOUND IN CODEBASE`
-- **Tailwind class:** `text-[#737373]`
-- **Where it is used:** Section eyebrow uppercase labels, category badges, empty state text
-- **Example component:** `src/components/sections/FeaturedShowcase.tsx` (line 32), `src/components/sections/PhilosophySection.tsx` (line 34), `src/components/common/ComponentCard.tsx` (line 311)
+- **CSS variable:** `var(--text-muted)`
+- **Tailwind class:** `text-text-muted` or `text-[#737373]`
+- **Where it is used:** Eyebrow uppercase tags, inactive tab text, input placeholders, notification timestamps, footer metadata
+- **Source:** `src/styles/tokens.css` (line 26), `tailwind.config.js` (line 25)
 
-#### Sub-meta & Code Line Numbers
-- **Color name:** Dim Meta Text
-- **Exact HEX:** `#555555` / `#606060`
-- **RGB:** `rgb(85, 85, 85)` / `rgb(96, 96, 96)`
-- **HSL:** `hsl(0, 0%, 33.3%)` / `hsl(0, 0%, 37.6%)`
-- **CSS variable:** `NOT FOUND IN CODEBASE`
-- **Tailwind class:** `text-[#555555]`, `text-[#606060]`
-- **Where it is used:** Terminal line numbers, motion parameter indicators, footer sub-labels, command menu footer
-- **Example component:** `src/components/sections/HeroSection.tsx` (line 234), `src/components/sections/MotionShowcase.tsx` (line 53), `src/components/ui/CommandMenu.tsx` (line 265)
+#### Subtle Icon / Text
+- **Color name:** `text-subtle`
+- **Exact HEX:** `#8A8A8A`
+- **RGB:** `rgb(138, 138, 138)`
+- **HSL:** `hsl(0, 0%, 54.1%)`
+- **CSS variable:** `var(--text-subtle)`
+- **Tailwind class:** `text-text-subtle` or `text-[#8A8A8A]`
+- **Where it is used:** Default icons, chevron indicators, search icons, tooltips
+- **Source:** `src/styles/tokens.css` (line 27), `tailwind.config.js` (line 26)
 
 #### Pure White
 - **Color name:** White
 - **Exact HEX:** `#FFFFFF`
-- **RGB:** `rgb(255, 255, 255)`
-- **HSL:** `hsl(0, 0%, 100%)`
 - **Tailwind class:** `text-white`
-- **Where it is used:** Active navigation item, hovered logo text, checkmark icons, primary button hover, active dock dot
-- **Example component:** `src/components/layout/Navbar.tsx` (line 40, 50), `src/components/ui/FloatingActionDock.tsx` (line 64)
+- **Where it is used:** High-contrast active tags, hover states, logo emphasis
 
 ---
 
@@ -219,85 +140,55 @@ EasyUI uses a strict **monochrome dark slate palette**. Grayscale steps establis
 
 #### Default Border (Token)
 - **Color name:** `border`
-- **Exact HEX:** `#1D1D1D`
-- **RGB:** `rgb(29, 29, 29)`
-- **HSL:** `hsl(0, 0%, 11.4%)`
+- **Exact HEX:** `#363636`
+- **RGB:** `rgb(54, 54, 54)`
+- **HSL:** `hsl(0, 0%, 21.2%)`
 - **CSS variable:** `var(--border)`
-- **Tailwind class:** `border-border` or `border-[#1D1D1D]`
-- **Where it is used:** Universal element border default (`* { border-color: var(--border); }`), AnimatedTabs container, SmoothAccordion container, SpotlightCard, RevealCard
-- **Example component:** `src/styles/index.css` (line 7), `src/components/ui/SpotlightCard.tsx` (line 42), `src/components/ui/SmoothAccordion.tsx` (line 40)
+- **Tailwind class:** `border-border` or `border-[#363636]`
+- **Where it is used:** All component cards, panels, modal borders, code blocks, dividers, buttons
 - **Source:** `src/styles/tokens.css` (line 9), `tailwind.config.js` (line 18)
 
 #### Border Hover (Token)
 - **Color name:** `border-hover`
-- **Exact HEX:** `#2A2A2A`
-- **RGB:** `rgb(42, 42, 42)`
-- **HSL:** `hsl(0, 0%, 16.5%)`
+- **Exact HEX:** `#484848` / `#4A4A4A`
+- **RGB:** `rgb(72, 72, 72)`
+- **HSL:** `hsl(0, 0%, 28.2%)`
 - **CSS variable:** `var(--border-hover)`
-- **Tailwind class:** `border-border-hover` or `hover:border-[#2A2A2A]`
-- **Where it is used:** SpotlightCard hover, RevealCard hover, AnimatedTabs active tab border, scrollbar thumb hover
-- **Example component:** `src/components/ui/SpotlightCard.tsx` (line 42), `src/components/ui/AnimatedTabs.tsx` (line 70), `src/styles/tokens.css` (line 63)
+- **Tailwind class:** `border-border-hover` or `hover:border-[#484848]` / `hover:border-[#4A4A4A]`
+- **Where it is used:** Interactive card hover states, focused inputs, active pill border
 - **Source:** `src/styles/tokens.css` (line 10), `tailwind.config.js` (line 19)
 
 #### Border Subtle (Token)
 - **Color name:** `border-subtle`
-- **Exact HEX:** `rgba(255, 255, 255, 0.04)` (8-digit HEX: `#FFFFFF0A`)
-- **RGB:** `rgba(255, 255, 255, 0.04)`
-- **HSL:** `hsla(0, 0%, 100%, 0.04)`
+- **Exact HEX:** `#2C2C2C`
 - **CSS variable:** `var(--border-subtle)`
-- **Tailwind class:** `border-border-subtle`
-- **Where it is used:** Glass surfaces, subtle component separators
+- **Tailwind class:** `border-border-subtle` or `border-[#2C2C2C]`
+- **Where it is used:** Inner card separators, subtle grid lines
 - **Source:** `src/styles/tokens.css` (line 11), `tailwind.config.js` (line 20)
-
-#### Dark Divider / Component Border
-- **Exact HEX:** `#141414` / `#161616`
-- **Tailwind class:** `border-[#141414]`, `border-[#161616]`
-- **Where it is used:** Section top/bottom border dividers, Navbar bottom border, ComponentCard base border
-- **Example component:** `src/components/sections/PhilosophySection.tsx` (line 30), `src/components/layout/Navbar.tsx` (line 26), `src/components/common/ComponentCard.tsx` (line 277)
-
-#### Panel / Control Border
-- **Exact HEX:** `#1C1C1C` / `#202020` / `#222222` / `#252525`
-- **Tailwind class:** `border-[#1C1C1C]`, `border-[#202020]`, `border-[#222222]`, `border-[#252525]`
-- **Where it is used:** CommandMenu container (`#1C1C1C`), Notification cards (`#222222`), MorphingDialog (`#252525`), Hero terminal window (`#222222`)
-- **Example component:** `src/components/ui/CommandMenu.tsx` (line 195), `src/components/ui/MorphingDialog.tsx` (line 66), `src/components/sections/HeroSection.tsx` (line 190)
 
 ---
 
-### 1.4 Accent Colors
+### 1.4 Accent & Indicators
 
 #### Primary Accent (Monochrome Light Neutral)
 - **Color name:** `accent`
-- **Exact HEX:** `#E5E5E5`
-- **RGB:** `rgb(229, 229, 229)`
-- **HSL:** `hsl(0, 0%, 89.8%)`
+- **Exact HEX:** `#F5F5F5`
 - **CSS variable:** `var(--accent)`
 - **Tailwind class:** `bg-accent` or `text-accent`
-- **Where it is used:** Monochrome highlights, high-contrast states
-- **Source:** `src/styles/tokens.css` (line 29), `tailwind.config.js` (line 28)
+- **Where it is used:** Primary buttons, active tabs, checked state pills
+- **Source:** `src/styles/tokens.css` (line 30), `tailwind.config.js` (line 28)
 
-#### Accent Subtle
-- **Color name:** `accent-subtle`
-- **Exact Value:** `rgba(255, 255, 255, 0.08)`
-- **CSS variable:** `var(--accent-subtle)`
-- **Tailwind class:** `bg-accent-subtle`
-- **Source:** `src/styles/tokens.css` (line 30), `tailwind.config.js` (line 29)
+#### Accent Subtle & Glow
+- **`accent-subtle`:** `rgba(255, 255, 255, 0.06)`
+- **`accent-glow`:** `rgba(255, 255, 255, 0.08)`
+- **`accent-ring`:** `rgba(255, 255, 255, 0.2)`
 
-#### Accent Glow
-- **Color name:** `accent-glow`
-- **Exact Value:** `rgba(255, 255, 255, 0.12)`
-- **CSS variable:** `var(--accent-glow)`
-- **Tailwind class:** `bg-accent-glow`
-- **Source:** `src/styles/tokens.css` (line 31), `tailwind.config.js` (line 30)
-
-#### Accent Ring
-- **Color name:** `accent-ring`
-- **Exact Value:** `rgba(255, 255, 255, 0.25)`
-- **CSS variable:** `var(--accent-ring)`
-- **Source:** `src/styles/tokens.css` (line 32)
-
-#### Sky Blue (Focus Ring & Interactive Sensor)
-- **Exact Color:** `rgba(56, 189, 248, 0.5)` (Focus Outline), `rgba(56, 189, 248, 0.08)` (Spotlight Sensor default), `#38bdf8` (Selection highlight)
-- **Where it is used:** Keyboard `:focus-visible` focus ring, default spotlight sensor beam in SpotlightCard, body text selection
+#### Active Indicator Blue (Telemetry & Highlights)
+- **Exact HEX:** `#3B82F6`
+- **CSS variable:** `var(--indicator-active)`
+- **Tailwind class:** `text-accent-blue` or `bg-[#3B82F6]`
+- **Where it is used:** Optional telemetry indicators and live charts
+- **Source:** `src/styles/tokens.css` (line 34), `tailwind.config.js` (line 32)
 - **CRITICAL NOTE:** This is the *only* chromatic hue used in EasyUI, reserved strictly for accessibility focus states and subtle sensor illumination.
 - **Source:** `src/styles/index.css` (line 79), `src/components/ui/SpotlightCard.tsx` (line 14), `index.html` (line 37)
 
@@ -789,48 +680,35 @@ EasyUI adheres to Tailwind's mobile-first responsive breakpoints:
 # 16. MACHINE-READABLE TOKEN TABLE
 
 ```text
-EASYUI DESIGN TOKENS
+EASYUI DESIGN TOKENS (CLAUDE DARK NEUTRAL SYSTEM)
 
-Background:
-- main: #050505
-- secondary: #080808
-- surface: #0A0A0A
-- surface-hover: #101010
-- surface-raised: #151515
-- dialog: #0C0C0C
-- tab-bar: #0E0E0E
-- tab-active: #181818
-- input: #0A0A0A
-- input-focused: #111111
-- code: #0C0C0C
+Background & Surfaces:
+- main-canvas (bg): #151515
+- component-surface: #202020
+- surface-raised: #242424
+- surface-hover: #262626
+- code-inner: #151515
+- code-deck: #202020
+- code-titlebar: #242424
 
-Foreground:
-- primary: #F5F5F5
-- secondary: #A1A1A1
-- muted: #6F6F6F
-- body: #808080
-- eyebrow: #737373
-- meta: #606060
-- line-numbers: #555555
-- white: #FFFFFF
+Foreground / Typography:
+- primary (text-primary): #F5F5F5
+- secondary (text-secondary): #A3A3A3
+- muted (text-muted): #737373
+- subtle-icon (text-subtle): #8A8A8A
+- pure-white: #FFFFFF
 
-Accent:
-- primary: #E5E5E5
-- subtle: rgba(255, 255, 255, 0.08)
-- glow: rgba(255, 255, 255, 0.12)
-- ring: rgba(255, 255, 255, 0.25)
-- focus-ring: rgba(56, 189, 248, 0.5)
-- spotlight-sensor: rgba(56, 189, 248, 0.08)
+Accent & Indicators:
+- primary-accent: #F5F5F5
+- accent-subtle: rgba(255, 255, 255, 0.06)
+- accent-glow: rgba(255, 255, 255, 0.08)
+- accent-ring: rgba(255, 255, 255, 0.20)
+- indicator-blue: #3B82F6
 
-Border:
-- default: #1D1D1D
-- divider: #141414
-- card-base: #161616
-- modal: #252525
-- hover: #2A2A2A
-- active-tab: #282828
-- dock-hover: #383838
-- subtle: rgba(255, 255, 255, 0.04)
+Borders:
+- default (border): #363636
+- hover (border-hover): #484848 / #4A4A4A
+- subtle (border-subtle): #2C2C2C
 
 Radius:
 - small: 6px (rounded-md)
@@ -846,8 +724,8 @@ Typography:
 - heading-h2: text-3xl sm:text-4xl font-semibold tracking-tight
 - heading-h3: text-xl sm:text-2xl font-semibold tracking-tight
 - card-title: text-sm font-semibold tracking-tight
-- body: text-sm font-normal leading-relaxed text-[#808080]
-- small: text-xs text-[#808080]
+- body: text-sm font-normal leading-relaxed text-[#A3A3A3]
+- small: text-xs text-[#A3A3A3]
 - eyebrow: text-[11px] font-mono uppercase tracking-widest text-[#737373]
 - tag: text-[10px] font-mono
 
@@ -866,37 +744,33 @@ Animation Springs:
 
 | Token / Asset | Exact Value | Source File & Line Number |
 | :--- | :--- | :--- |
-| `var(--bg)` | `#050505` | `src/styles/tokens.css:3`, `tailwind.config.js:11` |
-| `var(--surface)` | `#0A0A0A` | `src/styles/tokens.css:4`, `tailwind.config.js:13` |
-| `var(--surface-hover)` | `#101010` | `src/styles/tokens.css:5`, `tailwind.config.js:14` |
-| `var(--surface-raised)` | `#151515` | `src/styles/tokens.css:6`, `tailwind.config.js:15` |
-| `var(--border)` | `#1D1D1D` | `src/styles/tokens.css:9`, `tailwind.config.js:18` |
-| `var(--border-hover)` | `#2A2A2A` | `src/styles/tokens.css:10`, `tailwind.config.js:19` |
-| `var(--border-subtle)` | `rgba(255, 255, 255, 0.04)` | `src/styles/tokens.css:11`, `tailwind.config.js:20` |
-| `var(--font-sans)` | `'Geist', 'Geist Sans', 'Inter', ...` | `src/styles/tokens.css:14`, `tailwind.config.js:34` |
-| `var(--font-mono)` | `'JetBrains Mono', 'Fira Code', monospace` | `src/styles/tokens.css:17`, `tailwind.config.js:38` |
+| `var(--bg)` | `#151515` | `src/styles/tokens.css:3`, `tailwind.config.js:11` |
+| `var(--surface)` | `#202020` | `src/styles/tokens.css:4`, `tailwind.config.js:13` |
+| `var(--surface-hover)` | `#262626` | `src/styles/tokens.css:5`, `tailwind.config.js:14` |
+| `var(--surface-raised)` | `#242424` | `src/styles/tokens.css:6`, `tailwind.config.js:15` |
+| `var(--border)` | `#363636` | `src/styles/tokens.css:9`, `tailwind.config.js:18` |
+| `var(--border-hover)` | `#484848` | `src/styles/tokens.css:10`, `tailwind.config.js:19` |
+| `var(--border-subtle)` | `#2C2C2C` | `src/styles/tokens.css:11`, `tailwind.config.js:20` |
+| `var(--font-sans)` | `'Geist', 'Geist Sans', 'Inter', ...` | `src/styles/tokens.css:14`, `tailwind.config.js:36` |
+| `var(--font-mono)` | `'JetBrains Mono', 'Fira Code', monospace` | `src/styles/tokens.css:17`, `tailwind.config.js:40` |
 | `var(--text-primary)` | `#F5F5F5` | `src/styles/tokens.css:24`, `tailwind.config.js:23` |
-| `var(--text-secondary)` | `#A1A1A1` | `src/styles/tokens.css:25`, `tailwind.config.js:24` |
-| `var(--text-muted)` | `#6F6F6F` | `src/styles/tokens.css:26`, `tailwind.config.js:25` |
-| `var(--accent)` | `#E5E5E5` | `src/styles/tokens.css:29`, `tailwind.config.js:28` |
-| `var(--radius-sm)` | `6px` | `src/styles/tokens.css:35` |
-| `var(--radius-md)` | `10px` | `src/styles/tokens.css:36` |
-| `var(--radius-lg)` | `14px` | `src/styles/tokens.css:37` |
-| `var(--radius-xl)` | `20px` | `src/styles/tokens.css:38` |
-| `var(--radius-full)` | `9999px` | `src/styles/tokens.css:39` |
-| `var(--shadow-subtle)` | `0 1px 2px 0 rgba(0,0,0,0.4)...` | `src/styles/tokens.css:42` |
-| `var(--shadow-elevated)` | `0 12px 30px -10px rgba(0,0,0,0.8)...` | `src/styles/tokens.css:43` |
-| `var(--shadow-glow)` | `0 0 20px -5px rgba(255,255,255,0.15)` | `src/styles/tokens.css:44` |
-| Focus Ring Class | `outline: 2px solid rgba(56, 189, 248, 0.5)` | `src/styles/index.css:75–81` |
-| Glass Surface Class | `rgba(10, 10, 10, 0.75)`, `blur(12px)` | `src/styles/index.css:84–89` |
-| Grid Mesh Pattern | `radial-gradient(circle, rgba(255,255,255,0.05)...` | `src/styles/index.css:64–67` |
+| `var(--text-secondary)` | `#A3A3A3` | `src/styles/tokens.css:25`, `tailwind.config.js:24` |
+| `var(--text-muted)` | `#737373` | `src/styles/tokens.css:26`, `tailwind.config.js:25` |
+| `var(--text-subtle)` | `#8A8A8A` | `src/styles/tokens.css:27`, `tailwind.config.js:26` |
+| `var(--accent)` | `#F5F5F5` | `src/styles/tokens.css:30`, `tailwind.config.js:29` |
+| `var(--indicator-active)`| `#3B82F6` | `src/styles/tokens.css:34`, `tailwind.config.js:32` |
+| `var(--radius-sm)` | `6px` | `src/styles/tokens.css:37` |
+| `var(--radius-md)` | `10px` | `src/styles/tokens.css:38` |
+| `var(--radius-lg)` | `14px` | `src/styles/tokens.css:39` |
+| `var(--radius-xl)` | `20px` | `src/styles/tokens.css:40` |
+| `var(--radius-full)` | `9999px` | `src/styles/tokens.css:41` |
+| `var(--shadow-subtle)` | `0 1px 2px 0 rgba(0,0,0,0.25)...` | `src/styles/tokens.css:44` |
+| `var(--shadow-elevated)` | `0 10px 25px -8px rgba(0,0,0,0.4)...` | `src/styles/tokens.css:45` |
+| `var(--shadow-glow)` | `0 0 15px -3px rgba(255,255,255,0.08)` | `src/styles/tokens.css:46` |
 | `springGentle` | `{ stiffness: 280, damping: 30, mass: 0.8 }` | `src/lib/motion-tokens.ts:10–15` |
 | `springSnappy` | `{ stiffness: 400, damping: 25, mass: 0.5 }` | `src/lib/motion-tokens.ts:17–22` |
 | `springMorph` | `{ stiffness: 320, damping: 28, mass: 0.9 }` | `src/lib/motion-tokens.ts:24–31` |
 | `springResponsive` | `{ stiffness: 350, damping: 22, mass: 0.6 }` | `src/lib/motion-tokens.ts:33–39` |
 | `easeSoft` | `{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }` | `src/lib/motion-tokens.ts:42–45` |
 | `easeFast` | `{ duration: 0.15, ease: [0.2, 0, 0, 1] }` | `src/lib/motion-tokens.ts:47–50` |
-| MagneticButton Variants | `primary`, `secondary`, `outline`, `ghost` | `src/components/ui/MagneticButton.tsx:53–58` |
-| SpotlightCard Default Beam | `rgba(56, 189, 248, 0.08)` | `src/components/ui/SpotlightCard.tsx:14` |
-| Container Width Map | `sm: 768px`, `md: 1024px`, `lg: 1280px`, `xl: 1400px` | `src/components/layout/Container.tsx:16–22` |
-| App Main Background | `bg-[#050505] text-[#F5F5F5]` | `src/App.tsx:148` |\n
+| App Main Background | `bg-[#151515] text-[#F5F5F5]` | `src/App.tsx` |\n

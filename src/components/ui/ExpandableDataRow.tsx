@@ -203,18 +203,18 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
 
   if (isLoading) {
     return (
-      <div className={cn('w-full rounded-xl border border-[#1D1D1D] bg-[#0A0A0A] p-4 space-y-3', className)}>
+      <div className={cn('w-full rounded-xl border border-[#363636] bg-[#202020] p-4 space-y-3', className)}>
         {[1, 2, 3].map((n) => (
-          <div key={n} className="h-12 rounded-lg bg-[#141414] animate-pulse" />
+          <div key={n} className="h-12 rounded-lg bg-[#242424] animate-pulse" />
         ))}
       </div>
     );
   }
 
   return (
-    <div className={cn('w-full rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] overflow-hidden select-none font-sans', className)}>
+    <div className={cn('w-full rounded-xl border border-[#363636] bg-[#202020] overflow-hidden select-none font-sans', className)}>
       {/* Desktop Table Header (hidden on mobile) */}
-      <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 border-b border-[#161616] text-[11px] font-mono text-[#666666] bg-[#070707]">
+      <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 border-b border-[#363636] text-[11px] font-mono text-[#737373] bg-[#242424]">
         <div className="col-span-5">User & Account</div>
         <div className="col-span-2">Status</div>
         <div className="col-span-2">Revenue</div>
@@ -223,17 +223,17 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
       </div>
 
       {/* Row Items */}
-      <div className="divide-y divide-[#141414]">
+      <div className="divide-y divide-[#363636]">
         {items.map((item) => {
           const isExpanded = expandedIds.includes(item.id);
 
           return (
-            <div key={item.id} className="transition-colors hover:bg-[#0E0E0E]/70">
+            <div key={item.id} className="transition-colors hover:bg-[#242424]/60">
               {/* Row Header Target */}
               <button
                 type="button"
                 onClick={() => toggleRow(item.id)}
-                className="w-full text-left p-3.5 sm:px-5 sm:py-3.5 focus-ring block"
+                className="w-full text-left p-3.5 sm:px-5 sm:py-3.5 focus-ring block cursor-pointer"
                 aria-expanded={isExpanded}
               >
                 {/* Desktop layout */}
@@ -242,24 +242,24 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
                     <motion.div
                       animate={{ rotate: isExpanded ? 90 : 0 }}
                       transition={motionTransitions.springSnappy}
-                      className="text-[#666666]"
+                      className="text-[#8A8A8A]"
                     >
                       <ChevronRight className="w-3.5 h-3.5" />
                     </motion.div>
 
-                    <div className="w-7 h-7 rounded-full bg-[#141414] border border-[#222222] flex items-center justify-center text-[11px] font-medium text-[#E5E5E5] shrink-0">
+                    <div className="w-7 h-7 rounded-full bg-[#242424] border border-[#363636] flex items-center justify-center text-[11px] font-medium text-[#F5F5F5] shrink-0">
                       {item.user.name.slice(0, 2).toUpperCase()}
                     </div>
 
                     <div className="min-w-0">
                       <p className="text-xs font-medium text-[#F5F5F5] truncate">{item.user.name}</p>
-                      <p className="text-[11px] text-[#666666] truncate font-mono">{item.user.email}</p>
+                      <p className="text-[11px] text-[#737373] truncate font-mono">{item.user.email}</p>
                     </div>
                   </div>
 
                   <div className="col-span-2">{getStatusBadge(item.status)}</div>
 
-                  <div className="col-span-2 text-xs font-mono text-[#D4D4D4] font-medium">
+                  <div className="col-span-2 text-xs font-mono text-[#F5F5F5] font-medium">
                     {item.revenue}
                   </div>
 
@@ -268,7 +268,7 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
                   </div>
 
                   <div className="col-span-1 flex justify-end">
-                    <span className="text-[11px] font-mono text-[#666666] hover:text-[#E5E5E5] transition-colors">
+                    <span className="text-[11px] font-mono text-[#8A8A8A] hover:text-white transition-colors">
                       {isExpanded ? 'Hide' : 'View'}
                     </span>
                   </div>
@@ -277,7 +277,7 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
                 {/* Mobile Responsive Card layout */}
                 <div className="md:hidden flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-8 h-8 rounded-full bg-[#141414] border border-[#222222] flex items-center justify-center text-xs font-medium text-[#E5E5E5] shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-[#242424] border border-[#363636] flex items-center justify-center text-xs font-medium text-[#F5F5F5] shrink-0">
                       {item.user.name.slice(0, 2).toUpperCase()}
                     </div>
                     <div className="min-w-0">
@@ -286,7 +286,7 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
                         {getStatusBadge(item.status)}
                       </div>
                       <div className="flex items-center gap-1.5 mt-0.5 text-[11px] font-mono text-[#737373]">
-                        <span className="text-[#D4D4D4] font-medium">{item.revenue}</span>
+                        <span className="text-[#F5F5F5] font-medium">{item.revenue}</span>
                         <span>·</span>
                         <span className="truncate">{item.user.email}</span>
                       </div>
@@ -296,7 +296,7 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
                   <motion.div
                     animate={{ rotate: isExpanded ? 90 : 0 }}
                     transition={motionTransitions.springSnappy}
-                    className="text-[#666666] shrink-0 p-1"
+                    className="text-[#8A8A8A] shrink-0 p-1"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </motion.div>
@@ -311,48 +311,48 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={motionTransitions.springGentle}
-                    className="overflow-hidden bg-[#070707] border-t border-[#141414]"
+                    className="overflow-hidden bg-[#242424]/40 border-t border-[#363636]"
                   >
                     <div className="p-4 sm:p-5 sm:pl-12 space-y-5">
                       {/* 3-Column Minimal Grid on Desktop, Clean Stack on Mobile */}
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
                         {/* Section 1: Account Specs (Clean Key-Value Pairs) */}
                         <div className="md:col-span-5 space-y-3">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-[#666666] block">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-[#737373] block">
                             Account Metadata
                           </span>
                           <div className="space-y-2 text-xs">
-                            <div className="flex items-center justify-between py-1 border-b border-[#141414]">
+                            <div className="flex items-center justify-between py-1 border-b border-[#363636]/60">
                               <span className="text-[#737373]">Plan Tier</span>
-                              <span className="text-[#E5E5E5] font-medium">{item.metadata?.plan || 'Standard'}</span>
+                              <span className="text-[#F5F5F5] font-medium">{item.metadata?.plan || 'Standard'}</span>
                             </div>
-                            <div className="flex items-center justify-between py-1 border-b border-[#141414]">
+                            <div className="flex items-center justify-between py-1 border-b border-[#363636]/60">
                               <span className="text-[#737373]">Location</span>
-                              <span className="text-[#C4C4C4]">{item.metadata?.location || 'Unknown'}</span>
+                              <span className="text-[#A3A3A3]">{item.metadata?.location || 'Unknown'}</span>
                             </div>
-                            <div className="flex items-center justify-between py-1 border-b border-[#141414]">
+                            <div className="flex items-center justify-between py-1 border-b border-[#363636]/60">
                               <span className="text-[#737373]">Payment Method</span>
-                              <span className="text-[#C4C4C4] font-mono text-[11px]">{item.metadata?.billingMethod || 'Card'}</span>
+                              <span className="text-[#A3A3A3] font-mono text-[11px]">{item.metadata?.billingMethod || 'Card'}</span>
                             </div>
-                            <div className="flex items-center justify-between py-1 border-b border-[#141414]">
+                            <div className="flex items-center justify-between py-1 border-b border-[#363636]/60">
                               <span className="text-[#737373]">Last Active</span>
-                              <span className="text-[#999999] font-mono text-[11px]">{item.metadata?.lastActive || 'Recently'}</span>
+                              <span className="text-[#A3A3A3] font-mono text-[11px]">{item.metadata?.lastActive || 'Recently'}</span>
                             </div>
                           </div>
                         </div>
 
                         {/* Section 2: Recent Activity (Subtle Timeline) */}
                         <div className="md:col-span-4 space-y-3">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-[#666666] block">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-[#737373] block">
                             Recent Activity
                           </span>
                           <div className="space-y-2.5">
                             {item.recentActivity?.map((act, i) => (
                               <div key={i} className="flex items-start gap-2.5 text-xs">
-                                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-1.5 shrink-0" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#737373] mt-1.5 shrink-0" />
                                 <div className="min-w-0 space-y-0.5">
-                                  <p className="text-[#D4D4D4] text-[11px] leading-relaxed">{act.action}</p>
-                                  <span className="text-[10px] font-mono text-[#666666] block">{act.timestamp}</span>
+                                  <p className="text-[#F5F5F5] text-[11px] leading-relaxed">{act.action}</p>
+                                  <span className="text-[10px] font-mono text-[#737373] block">{act.timestamp}</span>
                                 </div>
                               </div>
                             ))}
@@ -362,44 +362,44 @@ export const ExpandableDataRow: React.FC<ExpandableDataRowProps> = ({
                         {/* Section 3: Actions & ID */}
                         <div className="md:col-span-3 flex flex-col justify-between space-y-4">
                           <div className="space-y-2">
-                            <span className="text-[10px] font-mono uppercase tracking-wider text-[#666666] block">
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-[#737373] block">
                               Actions
                             </span>
                             <div className="space-y-1.5">
                               <button
                                 type="button"
                                 onClick={(e) => handleCopyEmail(item.user.email, item.id, e)}
-                                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#202020] text-xs text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors focus-ring"
+                                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#242424] hover:bg-[#2C2C2C] border border-[#363636] text-xs text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring cursor-pointer"
                               >
                                 <span>Copy Email</span>
                                 {copiedId === item.id ? (
                                   <Check className="w-3 h-3 text-emerald-400" />
                                 ) : (
-                                  <Copy className="w-3 h-3 text-[#666666]" />
+                                  <Copy className="w-3 h-3 text-[#737373]" />
                                 )}
                               </button>
 
                               <button
                                 type="button"
                                 onClick={() => onRowAction?.('manage-billing', item)}
-                                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#202020] text-xs text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors focus-ring"
+                                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#242424] hover:bg-[#2C2C2C] border border-[#363636] text-xs text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring cursor-pointer"
                               >
                                 <span>Manage Billing</span>
-                                <CreditCard className="w-3 h-3 text-[#666666]" />
+                                <CreditCard className="w-3 h-3 text-[#737373]" />
                               </button>
 
                               <button
                                 type="button"
                                 onClick={() => onRowAction?.('view-profile', item)}
-                                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#202020] text-xs text-[#A1A1A1] hover:text-[#F5F5F5] transition-colors focus-ring"
+                                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#242424] hover:bg-[#2C2C2C] border border-[#363636] text-xs text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring cursor-pointer"
                               >
                                 <span>User Profile</span>
-                                <ArrowUpRight className="w-3 h-3 text-[#666666]" />
+                                <ArrowUpRight className="w-3 h-3 text-[#737373]" />
                               </button>
                             </div>
                           </div>
 
-                          <div className="text-[10px] font-mono text-[#555555] pt-2 border-t border-[#141414]">
+                          <div className="text-[10px] font-mono text-[#737373] pt-2 border-t border-[#363636]/60">
                             Ref: {item.id}
                           </div>
                         </div>

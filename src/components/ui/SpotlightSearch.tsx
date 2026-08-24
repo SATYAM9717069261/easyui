@@ -245,7 +245,7 @@ export const SpotlightSearch: React.FC<SpotlightSearchProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
             onClick={handleClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
           />
 
           {/* Ultra-minimal Spotlight Container */}
@@ -258,25 +258,25 @@ export const SpotlightSearch: React.FC<SpotlightSearchProps> = ({
             exit={{ opacity: 0, scale: 0.98, y: -6 }}
             transition={motionTransitions.springSnappy}
             className={cn(
-              'relative w-full max-w-lg rounded-2xl border border-[#1E1E1E] bg-[#0A0A0A] shadow-[0_24px_60px_rgba(0,0,0,0.95)] overflow-hidden z-10',
+              'relative w-full max-w-lg rounded-2xl border border-[#363636] bg-[#242424] shadow-[0_24px_60px_rgba(0,0,0,0.6)] overflow-hidden z-10',
               className
             )}
           >
             {/* Top Search Input Bar with ESC */}
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-[#141414]">
-              <Search className="w-4 h-4 text-[#555555] shrink-0" />
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-[#363636]">
+              <Search className="w-4 h-4 text-[#8A8A8A] shrink-0" />
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleInputKeyDown}
                 placeholder={placeholder}
-                className="flex-1 bg-transparent text-sm text-[#F5F5F5] placeholder-[#555555] focus:outline-none"
+                className="flex-1 bg-transparent text-[16px] text-[#F5F5F5] placeholder-[#737373] focus:outline-none"
                 aria-label="Search"
               />
               <kbd
                 onClick={handleClose}
-                className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-[#666666] bg-[#121212] border border-[#202020] rounded cursor-pointer hover:text-white transition-colors shrink-0"
+                className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-[#737373] bg-[#202020] border border-[#363636] rounded cursor-pointer hover:text-white transition-colors shrink-0"
               >
                 ESC
               </kbd>
@@ -299,7 +299,7 @@ export const SpotlightSearch: React.FC<SpotlightSearchProps> = ({
                       onMouseEnter={() => setSelectedIndex(index)}
                       className={cn(
                         'relative flex items-center justify-between px-3.5 py-2.5 rounded-xl cursor-pointer transition-colors text-sm',
-                        isSelected ? 'text-white' : 'text-[#808080] hover:text-[#D4D4D4]'
+                        isSelected ? 'text-white' : 'text-[#A3A3A3] hover:text-[#F5F5F5]'
                       )}
                     >
                       {/* Smooth Active Highlight Pill */}
@@ -307,7 +307,7 @@ export const SpotlightSearch: React.FC<SpotlightSearchProps> = ({
                         <motion.div
                           layoutId={`spotlight-active-${uniqueId}`}
                           transition={motionTransitions.springGentle}
-                          className="absolute inset-0 rounded-xl bg-[#141414] border border-[#222222] z-0"
+                          className="absolute inset-0 rounded-xl bg-[#363636] border border-[#484848] z-0"
                         />
                       )}
 
@@ -318,8 +318,8 @@ export const SpotlightSearch: React.FC<SpotlightSearchProps> = ({
                   );
                 })
               ) : (
-                <div className="py-10 text-center text-xs text-[#666666]">
-                  No results found for <span className="text-[#E5E5E5]">"{query}"</span>
+                <div className="py-10 text-center text-xs text-[#737373]">
+                  No results found for <span className="text-[#F5F5F5]">"{query}"</span>
                 </div>
               )}
             </div>

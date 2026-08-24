@@ -48,10 +48,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           opacity: isScrolled ? 0 : 1,
         }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 h-13 w-full border-b border-[#161616] bg-[#050505]/90 backdrop-blur-md pointer-events-none -z-10"
+        className="absolute inset-0 h-13 w-full border-b border-[#363636] bg-[#151515]/90 backdrop-blur-md pointer-events-none -z-10"
       />
 
-      {/* Apple-grade Spring Morphing Capsule */}
+      {/* Spring Morphing Capsule */}
       <motion.div
         initial={false}
         animate={{
@@ -60,10 +60,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           maxWidth: isScrolled ? 860 : 1400,
           height: isScrolled ? 46 : 52,
           borderRadius: isScrolled ? 9999 : 0,
-          backgroundColor: isScrolled ? 'rgba(9, 9, 9, 0.88)' : 'rgba(5, 5, 5, 0)',
-          borderColor: isScrolled ? 'rgba(255, 255, 255, 0.12)' : 'rgba(22, 22, 22, 0)',
+          backgroundColor: isScrolled ? 'rgba(32, 32, 32, 0.92)' : 'rgba(21, 21, 21, 0)',
+          borderColor: isScrolled ? 'rgba(255, 255, 255, 0.12)' : 'rgba(54, 54, 54, 0)',
           boxShadow: isScrolled
-            ? '0 16px 36px -4px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)'
+            ? '0 16px 36px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)'
             : '0 0 0 0 rgba(0, 0, 0, 0)',
           paddingLeft: isScrolled ? 16 : 24,
           paddingRight: isScrolled ? 16 : 24,
@@ -103,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`text-xs font-medium transition-colors cursor-pointer ${
               activeView === 'components' || activeView === 'component-detail'
                 ? 'text-white'
-                : 'text-[#808080] hover:text-[#F5F5F5]'
+                : 'text-[#A3A3A3] hover:text-[#F5F5F5]'
             }`}
           >
             Components
@@ -114,7 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className={`text-xs font-medium transition-colors cursor-pointer ${
               activeView === 'docs'
                 ? 'text-white'
-                : 'text-[#808080] hover:text-[#F5F5F5]'
+                : 'text-[#A3A3A3] hover:text-[#F5F5F5]'
             }`}
           >
             Docs
@@ -123,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs font-medium text-[#808080] hover:text-[#F5F5F5] transition-colors"
+            className="text-xs font-medium text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors"
           >
             GitHub
           </a>
@@ -135,12 +135,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             type="button"
             onClick={onOpenSearch}
-            className="flex items-center gap-2 h-7 px-2.5 rounded-lg border border-[#1C1C1C] bg-[#0A0A0A] hover:border-[#282828] hover:bg-[#101010] text-xs text-[#737373] hover:text-[#A1A1A1] transition-colors focus-ring cursor-pointer"
+            className="flex items-center gap-2 h-7 px-2.5 rounded-lg border border-[#363636] bg-[#242424] hover:border-[#484848] hover:bg-[#2A2A2A] text-xs text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors focus-ring cursor-pointer"
             aria-label="Search components (Cmd+K)"
           >
             <Search className="w-3 h-3" />
             <span className="hidden sm:inline text-[11px]">Search...</span>
-            <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono px-1 rounded bg-[#141414] border border-[#202020] text-[#737373]">
+            <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono px-1 rounded bg-[#202020] border border-[#363636] text-[#737373]">
               ⌘K
             </kbd>
           </button>
@@ -150,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded-lg text-[#808080] hover:text-[#F5F5F5] hover:bg-[#101010] transition-colors focus-ring"
+            className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] transition-colors focus-ring"
             aria-label="GitHub Repository"
           >
             <GithubIcon className="w-4 h-4" />
@@ -163,7 +163,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"
             aria-label="Toggle navigation menu"
-            className="md:hidden p-1.5 rounded-lg text-[#808080] hover:text-[#F5F5F5] hover:bg-[#101010] focus-ring transition-colors cursor-pointer"
+            className="md:hidden p-1.5 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] focus-ring transition-colors cursor-pointer"
           >
             <motion.div
               initial={false}
@@ -185,7 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 16, scale: 1 }}
             exit={{ opacity: 0, y: 0, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-            className="md:hidden w-[calc(100%-24px)] max-w-[860px] rounded-2xl border border-[#242424] bg-[#0A0A0A]/95 backdrop-blur-2xl shadow-[0_20px_40px_rgba(0,0,0,0.9)] overflow-hidden pointer-events-auto p-2"
+            className="md:hidden w-[calc(100%-24px)] max-w-[860px] rounded-2xl border border-[#363636] bg-[#202020]/95 backdrop-blur-2xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden pointer-events-auto p-2"
           >
             <nav className="space-y-1" aria-label="Mobile Navigation">
               <a
@@ -193,8 +193,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={(e) => handleLinkClick(e, onNavigateComponents)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'components'
-                    ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
-                    : 'text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212]'
+                    ? 'bg-[#242424] text-[#F5F5F5] font-medium border border-[#363636]'
+                    : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424]'
                 }`}
               >
                 Components
@@ -204,8 +204,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={(e) => handleLinkClick(e, onNavigateDocs)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'docs'
-                    ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
-                    : 'text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212]'
+                    ? 'bg-[#242424] text-[#F5F5F5] font-medium border border-[#363636]'
+                    : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424]'
                 }`}
               >
                 Docs & Installation
@@ -214,7 +214,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-left px-3 py-2 text-xs text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] rounded-lg transition-colors"
+                className="block w-full text-left px-3 py-2 text-xs text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424] rounded-lg transition-colors"
               >
                 GitHub Repository
               </a>
@@ -232,7 +232,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -8, height: 0 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden absolute top-full left-0 right-0 border-b border-[#1A1A1A] bg-[#070707]/95 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.85)] overflow-hidden pointer-events-auto"
+            className="md:hidden absolute top-full left-0 right-0 border-b border-[#363636] bg-[#151515]/95 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden pointer-events-auto"
           >
             <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
               <nav className="py-3 space-y-1" aria-label="Mobile Navigation">
@@ -241,8 +241,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={(e) => handleLinkClick(e, onNavigateComponents)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'components'
-                      ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
-                      : 'text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212]'
+                      ? 'bg-[#242424] text-[#F5F5F5] font-medium border border-[#363636]'
+                      : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424]'
                   }`}
                 >
                   Components
@@ -252,8 +252,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={(e) => handleLinkClick(e, onNavigateDocs)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'docs'
-                      ? 'bg-[#181818] text-[#F5F5F5] font-medium border border-[#282828]'
-                      : 'text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212]'
+                      ? 'bg-[#242424] text-[#F5F5F5] font-medium border border-[#363636]'
+                      : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424]'
                   }`}
                 >
                   Docs & Installation
@@ -262,7 +262,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#121212] rounded-lg transition-colors"
+                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424] rounded-lg transition-colors"
                 >
                   GitHub Repository
                 </a>
