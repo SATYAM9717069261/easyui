@@ -1,6 +1,5 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { generatePaginationRange } from '../../lib/components';
 import { cn } from '../../lib/utils';
 
 export interface ComponentPaginationProps {
@@ -16,11 +15,6 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
   onPageChange,
   className,
 }) => {
-  // If there's only 1 page (or none), do not render pagination controls
-  if (totalPages <= 1) {
-    return null;
-  }
-
   // Sliding 2-page numbers window (e.g. [1, 2] -> [2, 3] -> [3, 4] ...)
   const pages = React.useMemo(() => {
     if (totalPages <= 1) return [1];
@@ -29,6 +23,11 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
     const start = Math.max(1, Math.min(currentPage, totalPages - 1));
     return [start, start + 1];
   }, [currentPage, totalPages]);
+
+  // If there's only 1 page (or none), do not render pagination controls
+  if (totalPages <= 1) {
+    return null;
+  }
 
   const isFirstPage = currentPage <= 1;
   const isLastPage = currentPage >= totalPages;
