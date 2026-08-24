@@ -88,7 +88,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
   };
 
   return (
-    <section id="components-directory" className="py-20 bg-[#050505] border-t border-[#141414]">
+    <section id="components-directory" className="py-20 bg-[#151515] border-t border-[#363636]">
       <Container size="xl">
         {/* Section Title */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
@@ -99,20 +99,20 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
             <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
               Components
             </h2>
-            <p className="text-sm text-[#808080] mt-1.5">
+            <p className="text-sm text-[#A3A3A3] mt-1.5">
               {EASY_COMPONENTS.length} polished components crafted for tactile feedback and copy-paste ownership.
             </p>
           </div>
 
           {/* Search bar */}
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 text-[#606060] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-[#8A8A8A] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
               placeholder="Search components, tags..."
-              className="w-full pl-9 pr-3 py-2 text-[16px] rounded-lg bg-[#0A0A0A] border border-[#181818] text-[#F5F5F5] placeholder-[#606060] focus:outline-none focus:border-[#383838] transition-colors"
+              className="w-full pl-9 pr-3 py-2 text-[16px] rounded-lg bg-[#242424] border border-[#363636] text-[#F5F5F5] placeholder-[#737373] focus:outline-none focus:border-[#4A4A4A] transition-colors"
             />
           </div>
         </div>
@@ -126,8 +126,8 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
               className={cn(
                 'px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap focus-ring cursor-pointer',
                 selectedCategory === cat
-                  ? 'bg-[#181818] text-[#F5F5F5] border border-[#282828]'
-                  : 'bg-[#0A0A0A] text-[#737373] border border-[#141414] hover:text-[#A1A1A1] hover:bg-[#101010]'
+                  ? 'bg-[#242424] text-[#F5F5F5] border border-[#363636]'
+                  : 'bg-[#202020] text-[#737373] border border-[#363636] hover:text-[#F5F5F5] hover:bg-[#242424]'
               )}
             >
               {cat}
@@ -137,10 +137,10 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
 
         {/* Components Grid */}
         {filteredComponents.length === 0 ? (
-          <div className="py-20 text-center rounded-xl border border-[#141414] bg-[#080808] px-4">
+          <div className="py-20 text-center rounded-xl border border-[#363636] bg-[#202020] px-4">
             {selectedCategory === 'Recent' ? (
               <div className="space-y-3 max-w-md mx-auto">
-                <p className="text-sm text-[#888888] leading-relaxed">
+                <p className="text-sm text-[#A3A3A3] leading-relaxed">
                   No recent components available at the moment. Check out all components on the components page.
                 </p>
                 <div className="flex items-center justify-center gap-3 pt-1">
@@ -193,7 +193,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
 
             {/* Pagination Controls */}
             {pagination.totalPages > 1 && (
-              <div className="mt-10 pt-4 border-t border-[#141414]">
+              <div className="mt-10 pt-4 border-t border-[#363636]">
                 <ComponentPagination
                   currentPage={pagination.currentPage}
                   totalPages={pagination.totalPages}
@@ -214,10 +214,10 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
                 <button
                   type="button"
                   onClick={onNavigateAllComponents}
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0D0D0D] hover:bg-[#141414] border border-[#1C1C1C] hover:border-[#2C2C2C] text-xs font-mono text-[#CCCCCC] hover:text-white transition-all shadow-sm focus-ring cursor-pointer"
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#A3A3A3] hover:text-white transition-all shadow-sm focus-ring cursor-pointer"
                 >
                   <span>View all components</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#808080] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#737373] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                 </button>
               </div>
             )}

@@ -98,7 +98,7 @@ export const SmallFloatingDock: React.FC<SmallFloatingDockProps> = ({
             setActiveTooltip(null);
           }}
           className={cn(
-            'fixed z-50 flex items-center rounded-full bg-[#0C0C0C]/85 backdrop-blur-xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.7)]',
+            'fixed z-50 flex items-center rounded-full bg-[#202020]/90 backdrop-blur-xl border border-[#363636] shadow-[0_12px_40px_rgba(0,0,0,0.6)]',
             sizeClasses[size],
             positionClasses[position],
             className
@@ -122,12 +122,12 @@ export const SmallFloatingDock: React.FC<SmallFloatingDockProps> = ({
                   whileTap={{ scale: 0.95 }}
                   transition={motionTransitions.springSnappy}
                   className={cn(
-                    'relative flex items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
+                    'relative flex items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer',
                     buttonSizeClasses[size],
                     item.disabled && 'opacity-40 cursor-not-allowed',
                     isActive
-                      ? 'bg-white text-black font-semibold shadow-[0_0_15px_rgba(255,255,255,0.25)]'
-                      : 'bg-[#181818]/80 text-[#D4D4D4] hover:text-white hover:bg-[#262626] border border-white/5'
+                      ? 'bg-[#F5F5F5] text-[#151515] font-semibold shadow-xs'
+                      : 'bg-[#242424] text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#202020] border border-[#363636]'
                   )}
                 >
                   <span className="w-4 h-4 flex items-center justify-center shrink-0">
@@ -143,7 +143,7 @@ export const SmallFloatingDock: React.FC<SmallFloatingDockProps> = ({
                     <motion.span
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full bg-rose-500 text-white font-mono text-[9px] font-bold flex items-center justify-center border-2 border-[#0C0C0C]"
+                      className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full bg-rose-500 text-white font-mono text-[9px] font-bold flex items-center justify-center border-2 border-[#202020]"
                     >
                       {item.badge > 99 ? '99+' : item.badge}
                     </motion.span>
@@ -157,7 +157,7 @@ export const SmallFloatingDock: React.FC<SmallFloatingDockProps> = ({
                     animate={{ opacity: 1, y: -36, scale: 1 }}
                     exit={{ opacity: 0, y: 4, scale: 0.9 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute left-1/2 -translate-x-1/2 px-2 py-1 rounded-md bg-[#161616] border border-white/10 text-[10px] font-medium text-white shadow-lg pointer-events-none whitespace-nowrap z-20"
+                    className="absolute left-1/2 -translate-x-1/2 px-2 py-1 rounded-md bg-[#242424] border border-[#363636] text-[10px] font-medium text-[#F5F5F5] shadow-md pointer-events-none whitespace-nowrap z-20"
                   >
                     {item.label}
                   </motion.div>

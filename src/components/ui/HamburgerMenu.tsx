@@ -42,7 +42,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
       aria-expanded={isOpen}
       aria-label={isOpen ? `Close ${label}` : `Open ${label}`}
       className={cn(
-        'relative inline-flex items-center justify-center rounded-xl p-2 text-[#E5E5E5] hover:text-white bg-transparent hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:opacity-40 disabled:cursor-not-allowed',
+        'relative inline-flex items-center justify-center rounded-xl p-2 text-[#F5F5F5] hover:text-white bg-transparent hover:bg-[#202020] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer',
         className
       )}
       {...props}

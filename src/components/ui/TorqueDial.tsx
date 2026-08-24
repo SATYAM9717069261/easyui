@@ -233,7 +233,7 @@ export const TorqueDial: React.FC<TorqueDialProps> = ({
             cy="50"
             r={radius}
             fill="none"
-            stroke="#1C1C1C"
+            stroke="#363636"
             strokeWidth="5"
             strokeDasharray={`${arcLength} ${circumference}`}
             strokeDashoffset="0"
@@ -246,7 +246,7 @@ export const TorqueDial: React.FC<TorqueDialProps> = ({
             cy="50"
             r={radius}
             fill="none"
-            stroke="#F5F5F5"
+            stroke="#3B82F6"
             strokeWidth="5"
             strokeDasharray={`${arcLength} ${circumference}`}
             strokeDashoffset={strokeOffset}
@@ -265,25 +265,25 @@ export const TorqueDial: React.FC<TorqueDialProps> = ({
           }}
           transition={isDragging ? { duration: 0 } : motionTransitions.springSnappy}
           className={cn(
-            'relative rounded-full bg-[#0E0E0E] border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.8)] flex items-center justify-center',
-            isDragging && 'border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.15)]'
+            'relative rounded-full bg-[#242424] border border-[#363636] shadow-xs flex items-center justify-center',
+            isDragging && 'border-[#3B82F6]/60 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
           )}
         >
           {/* Top Indicator Pip / Notch */}
-          <span className="absolute top-2 w-1.5 h-3 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+          <span className="absolute top-2 w-1.5 h-3 rounded-full bg-[#3B82F6] shadow-xs" />
           {/* Center tactile metallic ring */}
-          <div className="w-4 h-4 rounded-full bg-[#1A1A1A] border border-white/10" />
+          <div className="w-4 h-4 rounded-full bg-[#202020] border border-[#363636]" />
         </motion.div>
       </div>
 
       {/* Numeric Value Display */}
       {showValue && (
         <div className="mt-3 text-center">
-          <div className="text-sm font-mono font-semibold text-white tracking-tight">
+          <div className="text-sm font-mono font-semibold text-[#F5F5F5] tracking-tight">
             {value}
             {unit}
           </div>
-          <span className="text-[10px] font-mono text-[#666666]">{label}</span>
+          <span className="text-[10px] font-mono text-[#737373]">{label}</span>
         </div>
       )}
     </div>

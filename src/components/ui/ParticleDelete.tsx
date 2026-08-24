@@ -161,16 +161,16 @@ export const ParticleDelete: React.FC<ParticleDeleteProps> = ({
       role="region"
       aria-label="Particle Delete Items"
       className={cn(
-        'w-full max-w-lg mx-auto rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] p-3.5 sm:p-4 text-[#F5F5F5]',
+        'w-full max-w-lg mx-auto rounded-xl border border-[#363636] bg-[#202020] p-3.5 sm:p-4 text-[#F5F5F5]',
         className
       )}
       {...props}
     >
       {/* Minimal Header */}
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#161616]">
+      <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#363636]">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-white">Active Resources</span>
-          <span className="text-[10px] font-mono text-[#737373] bg-[#121212] px-1.5 py-0.5 rounded border border-[#1E1E1E]">
+          <span className="text-xs font-semibold text-[#F5F5F5]">Active Resources</span>
+          <span className="text-[10px] font-mono text-[#737373] bg-[#242424] px-1.5 py-0.5 rounded border border-[#363636]">
             {items.length}
           </span>
         </div>
@@ -179,7 +179,7 @@ export const ParticleDelete: React.FC<ParticleDeleteProps> = ({
           <button
             type="button"
             onClick={handleReset}
-            className="inline-flex items-center gap-1 text-[11px] font-mono text-[#A1A1A1] hover:text-white transition-colors cursor-pointer focus-ring rounded"
+            className="inline-flex items-center gap-1 text-[11px] font-mono text-[#A3A3A3] hover:text-white transition-colors cursor-pointer focus-ring rounded"
           >
             <RotateCcw className="w-3 h-3" />
             <span>Restore ({initialItems.length - items.length})</span>
@@ -190,13 +190,13 @@ export const ParticleDelete: React.FC<ParticleDeleteProps> = ({
       {/* Minimal Items List */}
       <div className="space-y-2">
         {items.length === 0 ? (
-          <div className="py-8 text-center rounded-lg border border-dashed border-[#1A1A1A] bg-[#070707] space-y-2">
-            <Sparkles className="w-4 h-4 text-[#606060] mx-auto" />
+          <div className="py-8 text-center rounded-lg border border-dashed border-[#363636] bg-[#151515] space-y-2">
+            <Sparkles className="w-4 h-4 text-[#737373] mx-auto" />
             <p className="text-xs text-[#737373]">All items dissolved into particles.</p>
             <button
               type="button"
               onClick={handleReset}
-              className="text-xs text-white underline underline-offset-4 hover:text-[#D4D4D4] transition-colors cursor-pointer focus-ring rounded"
+              className="text-xs text-[#F5F5F5] underline underline-offset-4 hover:text-white transition-colors cursor-pointer focus-ring rounded"
             >
               Reset resources
             </button>
@@ -213,26 +213,26 @@ export const ParticleDelete: React.FC<ParticleDeleteProps> = ({
                   else cardRefs.current.delete(item.id);
                 }}
                 className={cn(
-                  'group rounded-lg border border-[#181818] bg-[#0E0E0E] p-2.5 sm:p-3 hover:border-[#262626] transition-all flex items-center justify-between gap-3',
+                  'group rounded-lg border border-[#363636] bg-[#242424] p-2.5 sm:p-3 hover:border-[#4A4A4A] transition-all flex items-center justify-between gap-3',
                   isThisDeleting && 'pointer-events-none'
                 )}
               >
                 {/* Left: Icon + Text info */}
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-7 h-7 rounded-md bg-[#141414] border border-[#202020] flex items-center justify-center shrink-0">
+                  <div className="w-7 h-7 rounded-md bg-[#202020] border border-[#363636] flex items-center justify-center shrink-0">
                     {getItemIcon(item.icon)}
                   </div>
 
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-xs font-medium text-white truncate">
+                      <span className="text-xs font-medium text-[#F5F5F5] truncate">
                         {item.title}
                       </span>
-                      <span className="text-[9px] font-mono text-[#666666] px-1 py-0.2 rounded bg-[#121212] border border-[#1A1A1A]">
+                      <span className="text-[9px] font-mono text-[#737373] px-1 py-0.2 rounded bg-[#202020] border border-[#363636]">
                         {item.category}
                       </span>
                     </div>
-                    <p className="text-[11px] text-[#737373] truncate">
+                    <p className="text-[11px] text-[#A3A3A3] truncate">
                       {item.description}
                     </p>
                   </div>
@@ -247,7 +247,7 @@ export const ParticleDelete: React.FC<ParticleDeleteProps> = ({
                     'p-1.5 rounded-md transition-colors cursor-pointer shrink-0 focus-ring',
                     isThisDeleting
                       ? 'text-rose-400 bg-rose-500/10'
-                      : 'text-[#606060] hover:text-rose-400 hover:bg-rose-500/10'
+                      : 'text-[#8A8A8A] hover:text-rose-400 hover:bg-rose-500/10'
                   )}
                   title={`Delete ${item.title}`}
                   aria-label={`Delete ${item.title}`}

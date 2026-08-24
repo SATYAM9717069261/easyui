@@ -44,24 +44,24 @@ function DockIcon({
       whileTap={{ scale: 0.88 }}
       transition={motionTransitions.springSnappy}
       className={cn(
-        'group relative flex items-center justify-center rounded-xl bg-[#141414] border border-[#222222] hover:border-[#383838] hover:bg-[#1A1A1A] transition-colors focus-ring',
-        isActive && 'border-[#444444] bg-[#1A1A1A]'
+        'group relative flex items-center justify-center rounded-xl bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] hover:bg-[#2C2C2C] transition-colors focus-ring cursor-pointer',
+        isActive && 'border-[#4A4A4A] bg-[#2C2C2C]'
       )}
       aria-label={item.label}
     >
       {/* Tooltip */}
-      <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-[#1A1A1A] border border-[#2A2A2A] text-[11px] text-[#F5F5F5] font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-150 whitespace-nowrap shadow-md z-20">
+      <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-[#242424] border border-[#363636] text-[11px] text-[#F5F5F5] font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-150 whitespace-nowrap shadow-md z-20">
         {item.label}
       </div>
 
       {/* Icon */}
-      <span className="text-[#A1A1A1] group-hover:text-[#F5F5F5] transition-colors [&>svg]:w-5 [&>svg]:h-5">
+      <span className="text-[#8A8A8A] group-hover:text-[#F5F5F5] transition-colors [&>svg]:w-5 [&>svg]:h-5">
         {item.icon}
       </span>
 
       {/* Active Dot */}
       {isActive && (
-        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white" />
+        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#F5F5F5]" />
       )}
     </motion.button>
   );
@@ -79,7 +79,7 @@ export const FloatingActionDock: React.FC<FloatingActionDockProps> = ({
       onMouseMove={(e) => mouseX.set(e.clientX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        'inline-flex items-end gap-2.5 px-3 py-2.5 rounded-2xl bg-[#090909]/90 backdrop-blur-md border border-[#1D1D1D] shadow-[0_12px_32px_rgba(0,0,0,0.6)]',
+        'inline-flex items-end gap-2.5 px-3 py-2.5 rounded-2xl bg-[#202020]/90 backdrop-blur-md border border-[#363636] shadow-[0_12px_32px_rgba(0,0,0,0.5)]',
         className
       )}
     >

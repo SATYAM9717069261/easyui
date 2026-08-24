@@ -54,13 +54,13 @@ export const MorphingButton: React.FC<MorphingButtonProps> = ({
 
   const variantStyles: Record<MorphingButtonVariant, string> = {
     primary:
-      'bg-[#F5F5F5] text-[#050505] hover:bg-white border-transparent shadow-[0_0_20px_-3px_rgba(255,255,255,0.15)]',
+      'bg-[#F5F5F5] text-[#151515] hover:bg-white border-transparent shadow-xs cursor-pointer',
     secondary:
-      'bg-[#141414] text-[#F5F5F5] hover:bg-[#1C1C1C] border-[#222222] hover:border-[#333333]',
+      'bg-[#202020] text-[#F5F5F5] hover:bg-[#242424] border-[#363636] hover:border-[#4A4A4A] cursor-pointer',
     danger:
-      'bg-[#1C1212] text-rose-300 hover:bg-[#2A1818] border-[#381B1B] hover:border-rose-500/40',
+      'bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white border border-rose-500/30 cursor-pointer',
     ghost:
-      'bg-transparent text-[#A1A1A1] hover:text-[#F5F5F5] hover:bg-[#141414] border-transparent',
+      'bg-transparent text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#202020] border-transparent cursor-pointer',
   };
 
   return (

@@ -19,8 +19,8 @@ export interface DotFieldProps extends React.HTMLAttributes<HTMLDivElement> {
 export const DotField: React.FC<DotFieldProps> = memo(({
   dotRadius = 1.5,
   dotSpacing = 14,
-  gradientFrom = 'rgba(56, 189, 248, 0.35)',
-  gradientTo = 'rgba(168, 85, 247, 0.25)',
+  gradientFrom = 'rgba(255, 255, 255, 0.12)',
+  gradientTo = 'rgba(255, 255, 255, 0.04)',
   className = '',
   style,
   ...rest

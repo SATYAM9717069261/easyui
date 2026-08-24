@@ -55,7 +55,7 @@ export function Hero() {
   };
 
   return (
-    <section id="how-it-works" className="py-20 bg-[#050505] border-t border-[#141414] scroll-mt-12">
+    <section id="how-it-works" className="py-20 bg-[#151515] border-t border-[#363636] scroll-mt-12">
       {/* Anchor alias for backwards compatibility */}
       <span id="workflow" className="sr-only" />
       <span id="dev-experience" className="sr-only" />
@@ -69,7 +69,7 @@ export function Hero() {
             <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
               How to use EasyUI in 3 easy steps.
             </h2>
-            <p className="text-sm text-[#808080] mt-1.5 leading-relaxed">
+            <p className="text-sm text-[#A3A3A3] mt-1.5 leading-relaxed">
               No complex setup or heavy npm packages. Drop beautiful, production-ready components straight into your React & Next.js codebase.
             </p>
           </div>
@@ -77,9 +77,9 @@ export function Hero() {
           {onExploreDocs && (
             <button
               onClick={onExploreDocs}
-              className="self-start md:self-auto flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#0E0E0E] hover:bg-[#141414] border border-[#1E1E1E] hover:border-[#2C2C2C] text-xs font-medium text-[#F5F5F5] transition-colors group shadow-sm"
+              className="self-start md:self-auto flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#484848] text-xs font-medium text-[#F5F5F5] transition-colors group shadow-sm"
             >
-              <BookOpen className="w-3.5 h-3.5 text-[#D4D4D4]" />
+              <BookOpen className="w-3.5 h-3.5 text-[#8A8A8A]" />
               <span>Read Full Docs</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#737373] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
             </button>
@@ -91,12 +91,12 @@ export function Hero() {
           {steps.map((item, idx) => (
             <div
               key={idx}
-              className="flex flex-col justify-between h-full p-6 rounded-xl border border-[#161616] bg-[#090909] hover:border-[#262626] transition-all group"
+              className="flex flex-col justify-between h-full p-6 rounded-xl border border-[#363636] bg-[#202020] hover:border-[#4A4A4A] transition-all group"
             >
               <div className="flex-1 flex flex-col">
                 {/* Step Top Header */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#121212] border border-[#1C1C1C] text-[#888888]">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#242424] border border-[#363636] text-[#A3A3A3]">
                     {item.badge}
                   </span>
                 </div>
@@ -104,20 +104,20 @@ export function Hero() {
                 <h3 className="text-base font-semibold text-[#F5F5F5] mb-2 tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-xs text-[#808080] leading-relaxed mb-6 flex-1 min-h-[48px]">
+                <p className="text-xs text-[#A3A3A3] leading-relaxed mb-6 flex-1 min-h-[48px]">
                   {item.description}
                 </p>
               </div>
 
               {/* Code Snippet Box (Uniform Fixed Height & Clean Scroll) */}
-              <div className="h-[110px] flex flex-col rounded-lg border border-[#181818] bg-[#050505] overflow-hidden shrink-0">
-                <div className="flex items-center justify-between px-3 py-1.5 bg-[#0D0D0D] border-b border-[#161616] text-[11px] shrink-0">
-                  <span className="font-mono text-[#666666] text-[10px] uppercase tracking-wider">
+              <div className="h-[110px] flex flex-col rounded-lg border border-[#363636] bg-[#151515] overflow-hidden shrink-0">
+                <div className="flex items-center justify-between px-3 py-1.5 bg-[#1C1C1C] border-b border-[#363636] text-[11px] shrink-0">
+                  <span className="font-mono text-[#737373] text-[10px] uppercase tracking-wider">
                     {item.label}
                   </span>
                   <button
                     onClick={() => handleCopy(item.code, idx)}
-                    className="flex items-center gap-1 text-[11px] text-[#737373] hover:text-[#F5F5F5] transition-colors py-0.5 px-1 rounded hover:bg-[#161616]"
+                    className="flex items-center gap-1 text-[11px] text-[#737373] hover:text-[#F5F5F5] transition-colors py-0.5 px-1 rounded hover:bg-[#242424]"
                     title="Copy snippet"
                   >
                     {copiedIndex === idx ? (
@@ -134,7 +134,7 @@ export function Hero() {
                   </button>
                 </div>
                 <div className="flex-1 p-3 text-xs font-mono overflow-auto scrollbar-none flex items-center">
-                  <pre className="text-[#B0B0B0] whitespace-pre leading-relaxed selection:bg-white/20 w-full">
+                  <pre className="text-[#A3A3A3] whitespace-pre leading-relaxed selection:bg-white/20 w-full">
                     <code>{item.code}</code>
                   </pre>
                 </div>

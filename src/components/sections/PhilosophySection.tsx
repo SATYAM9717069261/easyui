@@ -27,7 +27,7 @@ export const PhilosophySection: React.FC = () => {
   ];
 
   return (
-    <section id="philosophy" className="py-20 border-t border-b border-[#141414] bg-[#070707]">
+    <section id="philosophy" className="py-20 border-t border-b border-[#363636] bg-[#151515]">
       <Container size="xl">
         {/* Main Philosophy Header */}
         <div className="max-w-2xl mx-auto text-center mb-12">
@@ -44,15 +44,15 @@ export const PhilosophySection: React.FC = () => {
           {principles.map((item, idx) => (
             <div
               key={idx}
-              className="p-5 rounded-xl border border-[#161616] bg-[#0A0A0A] hover:border-[#262626] transition-colors group"
+              className="p-5 rounded-xl border border-[#363636] bg-[#202020] hover:border-[#4A4A4A] transition-colors group shadow-xs"
             >
-              <div className="w-8 h-8 rounded-lg bg-[#111111] border border-[#1F1F1F] flex items-center justify-center mb-4 group-hover:border-[#303030] transition-colors">
+              <div className="w-8 h-8 rounded-lg bg-[#242424] border border-[#363636] flex items-center justify-center mb-4 group-hover:border-[#4A4A4A] transition-colors">
                 {item.icon}
               </div>
               <h3 className="text-sm font-semibold text-[#F5F5F5] tracking-tight mb-1.5">
                 {item.title}
               </h3>
-              <p className="text-xs text-[#808080] leading-relaxed">
+              <p className="text-xs text-[#A3A3A3] leading-relaxed">
                 {item.description}
               </p>
             </div>

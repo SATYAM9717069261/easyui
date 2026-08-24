@@ -87,21 +87,21 @@ const AnimatedNumberShowcase: React.FC = () => {
   return (
     <div className="py-6 w-full max-w-lg mx-auto space-y-4 select-none px-2">
       {/* Top Main Hero Metric */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-[#0A0A0A] border border-[#1E1E1E] text-center space-y-3 shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-[#666666]">Live Production ARR</span>
-        <div className="text-4xl sm:text-5xl font-bold font-mono tracking-tight text-white flex items-center justify-center">
+      <div className="p-6 sm:p-8 rounded-2xl bg-[#202020] border border-[#363636] text-center space-y-3 shadow-xs">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-[#737373]">Live Production ARR</span>
+        <div className="text-4xl sm:text-5xl font-bold font-mono tracking-tight text-[#F5F5F5] flex items-center justify-center">
           <AnimatedNumber value={revenue} prefix="$" useGrouping />
         </div>
         <div className="flex items-center justify-center gap-2 text-xs font-mono text-emerald-400">
           <span>+</span>
           <AnimatedNumber value={growth} suffix="%" decimals={1} />
-          <span className="text-[#666666]">annualized expansion</span>
+          <span className="text-[#737373]">annualized expansion</span>
         </div>
       </div>
 
       {/* Interactive Controls Bar */}
-      <div className="p-3.5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-3">
-        <div className="text-xs font-medium text-[#D4D4D4] flex items-center justify-between">
+      <div className="p-3.5 rounded-xl bg-[#242424] border border-[#363636] space-y-3">
+        <div className="text-xs font-medium text-[#F5F5F5] flex items-center justify-between">
           <span className="text-[11px] font-mono text-[#737373]">Live Playground</span>
           <button
             type="button"
@@ -110,10 +110,10 @@ const AnimatedNumberShowcase: React.FC = () => {
               'px-2.5 py-1 rounded-md text-[10px] font-mono border transition-colors flex items-center gap-1.5 cursor-pointer',
               isLiveTicker
                 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-                : 'bg-[#141414] border-[#222222] text-[#808080] hover:text-white'
+                : 'bg-[#202020] border-[#363636] text-[#A3A3A3] hover:text-white'
             )}
           >
-            <span className={cn('w-1.5 h-1.5 rounded-full', isLiveTicker ? 'bg-emerald-400 animate-pulse' : 'bg-[#666666]')} />
+            <span className={cn('w-1.5 h-1.5 rounded-full', isLiveTicker ? 'bg-emerald-400 animate-pulse' : 'bg-[#737373]')} />
             {isLiveTicker ? 'Ticker Active' : 'Simulate Ticker'}
           </button>
         </div>
@@ -122,21 +122,21 @@ const AnimatedNumberShowcase: React.FC = () => {
           <button
             type="button"
             onClick={() => setRevenue((prev) => prev + 1000)}
-            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
           >
             +$1,000
           </button>
           <button
             type="button"
             onClick={() => setRevenue((prev) => Math.max(100, prev - 500))}
-            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
           >
             -$500
           </button>
           <button
             type="button"
             onClick={() => setRevenue(Math.floor(Math.random() * 88000) + 12000)}
-            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
           >
             Randomize
           </button>
@@ -146,7 +146,7 @@ const AnimatedNumberShowcase: React.FC = () => {
               setRevenue(12450);
               setGrowth(24.5);
             }}
-            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#737373] hover:text-white transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#737373] hover:text-white transition-colors text-center cursor-pointer"
           >
             Reset
           </button>
@@ -174,9 +174,9 @@ const ScrollProgressNavShowcase: React.FC = () => {
       </div>
 
       {/* Simulated Scrollable Container */}
-      <div className="relative rounded-2xl border border-[#202020] bg-[#070707] overflow-hidden shadow-2xl">
+      <div className="relative rounded-2xl border border-[#363636] bg-[#202020] overflow-hidden shadow-md">
         {/* Floating / Sticky Nav inside container */}
-        <div className="p-3 sticky top-0 z-30 bg-[#070707]/90 backdrop-blur-md border-b border-[#141414] flex justify-center">
+        <div className="p-3 sticky top-0 z-30 bg-[#202020]/90 backdrop-blur-md border-b border-[#363636] flex justify-center">
           <ScrollProgressNav
             mode="inline"
             sections={sections}
@@ -189,42 +189,42 @@ const ScrollProgressNavShowcase: React.FC = () => {
           ref={containerRef}
           className="h-[300px] overflow-y-auto p-5 space-y-6 scroll-smooth"
         >
-          <div id="sec-overview-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-overview-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">01 Overview</span>
-            <h4 className="text-sm font-semibold text-white">Edge First Motion Architecture</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">Edge First Motion Architecture</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
               EasyUI is engineered from the ground up for minimal latency, zero-jank spring physics, and Apple-grade micro interactions.
             </p>
           </div>
 
-          <div id="sec-architecture-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-architecture-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">02 Architecture</span>
-            <h4 className="text-sm font-semibold text-white">Monochrome Slate Design Tokens</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
-              Strict grayscale elevation hierarchy using #050505 canvas, #0A0A0A surface, and calibrated 1px borders.
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">Monochrome Slate Design Tokens</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
+              Strict grayscale elevation hierarchy using #151515 canvas, #202020 surface, and calibrated 1px #363636 borders.
             </p>
           </div>
 
-          <div id="sec-components-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-components-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">03 Components</span>
-            <h4 className="text-sm font-semibold text-white">36 Production UI Elements</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">44 Production UI Elements</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
               Every component supports keyboard shortcuts, touch gestures, screen-reader semantics, and prefers-reduced-motion.
             </p>
           </div>
 
-          <div id="sec-telemetry-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-telemetry-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">04 Telemetry</span>
-            <h4 className="text-sm font-semibold text-white">Real-Time Event Streams</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">Real-Time Event Streams</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
               Sub-millisecond latency tracking and automated canary deployments across 32 regional edge nodes worldwide.
             </p>
           </div>
 
-          <div id="sec-pricing-modal" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-pricing-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">05 Pricing</span>
-            <h4 className="text-sm font-semibold text-white">Open Source & Free Forever</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">Open Source & Free Forever</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
               Install any component with the CLI. No subscriptions, no lock-in, 100% copy-pasteable TypeScript code.
             </p>
           </div>
@@ -258,14 +258,14 @@ const SelectionBasketShowcase: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-xl mx-auto min-h-[340px] pb-16 p-4 rounded-2xl border border-[#202020] bg-[#070707] flex flex-col justify-between select-none">
+    <div className="relative w-full max-w-xl mx-auto min-h-[340px] pb-16 p-4 rounded-2xl border border-[#363636] bg-[#202020] flex flex-col justify-between select-none shadow-md">
       <div className="space-y-3">
         <div className="flex items-center justify-between px-1 text-xs text-[#737373] font-mono">
           <span>Select items to trigger bottom toolbar</span>
           <button
             type="button"
             onClick={handleSelectAll}
-            className="text-[11px] text-[#A1A1A1] hover:text-white transition-colors underline underline-offset-2"
+            className="text-[11px] text-[#A3A3A3] hover:text-white transition-colors underline underline-offset-2 cursor-pointer"
           >
             {selectedIds.length === items.length ? 'Deselect All' : 'Select All'}
           </button>
@@ -281,8 +281,8 @@ const SelectionBasketShowcase: React.FC = () => {
                 className={cn(
                   'flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer',
                   isChecked
-                    ? 'bg-[#121212] border-[#2A2A2A] text-white shadow-sm'
-                    : 'bg-[#0B0B0B] border-[#181818] text-[#808080] hover:bg-[#0E0E0E] hover:text-[#D4D4D4]'
+                    ? 'bg-[#242424] border-[#4A4A4A] text-white shadow-xs'
+                    : 'bg-[#202020] border-[#363636] text-[#A3A3A3] hover:bg-[#242424] hover:text-[#F5F5F5]'
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -290,15 +290,15 @@ const SelectionBasketShowcase: React.FC = () => {
                     className={cn(
                       'w-4 h-4 rounded border flex items-center justify-center transition-colors',
                       isChecked
-                        ? 'bg-white border-white text-black'
-                        : 'border-[#333333] bg-[#141414]'
+                        ? 'bg-[#F5F5F5] border-[#F5F5F5] text-[#151515]'
+                        : 'border-[#363636] bg-[#242424]'
                     )}
                   >
                     {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                   </div>
                   <span className="text-xs font-mono">{item.name}</span>
                 </div>
-                <div className="flex items-center gap-2 text-[10px] font-mono text-[#666666]">
+                <div className="flex items-center gap-2 text-[10px] font-mono text-[#737373]">
                   <span>{item.type}</span>
                   <span>·</span>
                   <span>{item.size}</span>
@@ -329,13 +329,13 @@ const SpotlightSearchShowcase: React.FC = () => {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="px-4 py-2.5 rounded-xl bg-[#111111] hover:bg-[#181818] border border-[#222222] text-xs font-mono text-[#D4D4D4] flex items-center gap-3 transition-colors hover:border-[#333333] shadow-lg"
+        className="px-4 py-2.5 rounded-xl bg-[#202020] hover:bg-[#242424] border border-[#363636] text-xs font-mono text-[#F5F5F5] flex items-center gap-3 transition-colors hover:border-[#4A4A4A] shadow-md cursor-pointer"
       >
         <span>Press</span>
-        <kbd className="px-1.5 py-0.5 rounded bg-[#1C1C1C] border border-[#2E2E2E] text-white">⌘K</kbd>
+        <kbd className="px-1.5 py-0.5 rounded bg-[#242424] border border-[#363636] text-white">⌘K</kbd>
         <span>or click to open Spotlight Search</span>
       </button>
-      <p className="text-xs text-[#666666] font-mono">Keyboard-driven overlay with instant fuzzy filter and smooth spring highlight</p>
+      <p className="text-xs text-[#737373] font-mono">Keyboard-driven overlay with instant fuzzy filter and smooth spring highlight</p>
       <SpotlightSearch
         open={isOpen}
         onOpenChange={setIsOpen}
@@ -785,15 +785,15 @@ func main() {
       case 'spotlight-card':
         return (
           <div className="py-8 flex justify-center">
-            <SpotlightCard className="max-w-md w-full p-6 bg-[#0E0E0E]">
+            <SpotlightCard className="max-w-md w-full p-6 bg-[#202020] border border-[#363636]">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-white" />
                 <h4 className="text-sm font-semibold text-[#F5F5F5]">Spotlight Shader</h4>
               </div>
-              <p className="text-xs text-[#808080] leading-relaxed mb-4">
+              <p className="text-xs text-[#A3A3A3] leading-relaxed mb-4">
                 Pointer-aware radial illumination calculating Euclidean coordinates in real time.
               </p>
-              <div className="p-3 rounded-lg bg-[#141414] border border-[#222222] text-xs font-mono text-[#A1A1A1]">
+              <div className="p-3 rounded-lg bg-[#242424] border border-[#363636] text-xs font-mono text-[#A3A3A3]">
                 Coordinates: Hardware Accelerated
               </div>
             </SpotlightCard>
@@ -803,7 +803,7 @@ func main() {
         return (
           <div className="py-12 flex flex-col items-center justify-center gap-4">
             <ExpandableSearch placeholder="Search components, tokens..." />
-            <p className="text-xs text-[#6F6F6F]">Click input or focus to test smooth width expansion</p>
+            <p className="text-xs text-[#737373]">Click input or focus to test smooth width expansion</p>
           </div>
         );
       case 'animated-tabs':
@@ -811,9 +811,9 @@ func main() {
           <div className="py-8 flex flex-col items-center justify-center">
             <AnimatedTabs
               tabs={[
-                { id: 'tab1', label: 'Overview', content: <div className="text-xs text-[#A1A1A1] p-4 bg-[#121212] rounded-xl border border-[#222222]">Overview metrics & telemetry</div> },
-                { id: 'tab2', label: 'Integration', content: <div className="text-xs text-[#A1A1A1] p-4 bg-[#121212] rounded-xl border border-[#222222]">Next.js App Router setup</div> },
-                { id: 'tab3', label: 'Security', content: <div className="text-xs text-[#A1A1A1] p-4 bg-[#121212] rounded-xl border border-[#222222]">Zero external runtime network dependencies</div> },
+                { id: 'tab1', label: 'Overview', content: <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">Overview metrics & telemetry</div> },
+                { id: 'tab2', label: 'Integration', content: <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">Next.js App Router setup</div> },
+                { id: 'tab3', label: 'Security', content: <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">Zero external runtime network dependencies</div> },
               ]}
               defaultTab="tab1"
             />
@@ -832,7 +832,7 @@ func main() {
               ]}
               activeId="1"
             />
-            <p className="text-xs text-[#6F6F6F]">Hover icons to test continuous magnification curve</p>
+            <p className="text-xs text-[#737373]">Hover icons to test continuous magnification curve</p>
           </div>
         );
       case 'reveal-card':
@@ -840,15 +840,15 @@ func main() {
           <div className="py-8 flex justify-center">
             <RevealCard
               revealContent={
-                <div className="text-xs text-white space-y-1">
+                <div className="text-xs text-[#F5F5F5] space-y-1">
                   <div>✓ Latency: 0.12ms</div>
                   <div>✓ Region: us-east-1</div>
                 </div>
               }
-              className="max-w-sm w-full p-6 bg-[#0E0E0E]"
+              className="max-w-sm w-full p-6 bg-[#202020] border border-[#363636]"
             >
               <h4 className="text-sm font-semibold text-[#F5F5F5] mb-1">Interactive 3D Tilt</h4>
-              <p className="text-xs text-[#808080]">Hover cursor to rotate perspective and reveal telemetry.</p>
+              <p className="text-xs text-[#A3A3A3]">Hover cursor to rotate perspective and reveal telemetry.</p>
             </RevealCard>
           </div>
         );
@@ -880,29 +880,29 @@ func main() {
               trigger={(open) => (
                 <button
                   onClick={open}
-                  className="px-5 py-2.5 rounded-xl bg-[#161616] border border-[#2A2A2A] hover:border-[#383838] text-xs font-medium text-[#F5F5F5] transition-all"
+                  className="px-5 py-2.5 rounded-xl bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#F5F5F5] transition-all cursor-pointer"
                 >
                   Open Morphing Dialog
                 </button>
               )}
             >
-              <div className="p-4 rounded-xl bg-[#141414] border border-[#222222] text-xs text-[#A1A1A1]">
+              <div className="p-4 rounded-xl bg-[#242424] border border-[#363636] text-xs text-[#A3A3A3]">
                 Continuous layoutId expansion without jarring modal popping.
               </div>
             </MorphingDialog>
-            <p className="text-xs text-[#6F6F6F]">Click trigger to see smooth shared layout transition</p>
+            <p className="text-xs text-[#737373]">Click trigger to see smooth shared layout transition</p>
           </div>
         );
       case 'command-menu':
         return (
           <div className="py-10 text-center">
-            <p className="text-xs text-[#A1A1A1] mb-3">Press <kbd className="px-1.5 py-0.5 rounded bg-[#181818] border border-[#262626] font-mono text-white">⌘K</kbd> anywhere on the page to open.</p>
+            <p className="text-xs text-[#A3A3A3] mb-3">Press <kbd className="px-1.5 py-0.5 rounded bg-[#242424] border border-[#363636] font-mono text-white">⌘K</kbd> anywhere on the page to open.</p>
           </div>
         );
       case 'glass-navbar':
         return (
           <div className="py-6 w-full space-y-4">
-            <div className="p-4 rounded-xl bg-[#070707] border border-[#1C1C1C] overflow-hidden">
+            <div className="p-4 rounded-xl bg-[#202020] border border-[#363636] overflow-hidden">
               <p className="text-[11px] font-mono text-[#737373] mb-3 uppercase tracking-wider">
                 Interactive Glass Navbar Demo (Responsive & Spring Physics)
               </p>
@@ -920,7 +920,7 @@ func main() {
                     <button
                       type="button"
                       onClick={() => alert('CTA clicked!')}
-                      className="px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#050505] text-xs font-medium hover:bg-white transition-colors shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+                      className="px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#151515] text-xs font-medium hover:bg-white transition-colors shadow-xs cursor-pointer"
                     >
                       Deploy Now
                     </button>
@@ -928,7 +928,7 @@ func main() {
                 />
               </div>
             </div>
-            <p className="text-xs text-center text-[#6F6F6F]">
+            <p className="text-xs text-center text-[#737373]">
               Hover items to test spotlight cursor pill. Resize screen or click hamburger on mobile to test spring drawer.
             </p>
           </div>
@@ -936,7 +936,7 @@ func main() {
       case 'button':
         return (
           <div className="py-6 w-full space-y-6 max-w-xl mx-auto">
-            <div className="p-5 rounded-xl bg-[#090909] border border-[#1D1D1D] space-y-4">
+            <div className="p-5 rounded-xl bg-[#202020] border border-[#363636] space-y-4">
               <div className="text-xs font-semibold text-[#F5F5F5]">Visual Variants</div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <Button variant="primary">Primary</Button>
@@ -949,7 +949,7 @@ func main() {
               </div>
             </div>
 
-            <div className="p-5 rounded-xl bg-[#090909] border border-[#1D1D1D] space-y-4">
+            <div className="p-5 rounded-xl bg-[#202020] border border-[#363636] space-y-4">
               <div className="text-xs font-semibold text-[#F5F5F5]">Sizes & Interactive Loading</div>
               <div className="flex flex-wrap items-center gap-3">
                 <Button size="sm" variant="primary">Small (sm)</Button>
@@ -972,7 +972,7 @@ func main() {
                 </Button>
               </div>
             </div>
-            <p className="text-xs text-center text-[#6F6F6F]">
+            <p className="text-xs text-center text-[#737373]">
               Click buttons to experience Framer Motion springSnappy tap feedback (0.97 scale).
             </p>
           </div>
@@ -980,8 +980,8 @@ func main() {
       case 'form':
         return (
           <div className="py-4 max-w-md mx-auto w-full">
-            <div className="p-6 rounded-2xl bg-[#0A0A0A] border border-[#1D1D1D] space-y-4">
-              <div className="text-sm font-semibold text-white">Interactive Form System</div>
+            <div className="p-6 rounded-2xl bg-[#202020] border border-[#363636] space-y-4">
+              <div className="text-sm font-semibold text-[#F5F5F5]">Interactive Form System</div>
               <Form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -1010,7 +1010,7 @@ func main() {
                   </FormControl>
                 </FormItem>
 
-                <div className="pt-1 space-y-3 border-t border-[#161616]">
+                <div className="pt-1 space-y-3 border-t border-[#363636]">
                   <Checkbox label="Enable Edge Caching" defaultChecked />
                   <Switch label="Automatic TLS Certificates" defaultChecked />
                 </div>
@@ -1102,9 +1102,9 @@ func main() {
         );
       case 'dot-field':
         return (
-          <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#222222] bg-[#0A0A0A]">
+          <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#363636] bg-[#202020]">
             <DotField dotRadius={1.2} dotSpacing={20} gradientFrom="#818cf8" gradientTo="#c084fc" className="w-full h-80 rounded-2xl" />
-            <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-[#050505]/70 border border-[#222222] text-[11px] font-mono text-[#A1A1A1] backdrop-blur-sm pointer-events-none">
+            <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-[#242424]/90 border border-[#363636] text-[11px] font-mono text-[#A3A3A3] backdrop-blur-sm pointer-events-none">
               Move cursor across canvas to test repulsion & glow
             </div>
           </div>
@@ -1172,7 +1172,7 @@ func main() {
               <MorphingButton status="success" successText="Saved ✓" />
               <MorphingButton status="error" errorText="Failed" variant="danger" />
             </div>
-            <p className="text-xs text-[#666666]">Maintains physical shape & size across asynchronous state morphs</p>
+            <p className="text-xs text-[#737373]">Maintains physical shape & size across asynchronous state morphs</p>
           </div>
         );
       case 'drag-to-confirm':
@@ -1184,7 +1184,7 @@ func main() {
               confirmedLabel="Pipeline Deleted ✓"
               onConfirm={() => console.log('Confirmed')}
             />
-            <p className="text-xs text-center text-[#666666]">Physical resistance spring handle with tactile snapback</p>
+            <p className="text-xs text-center text-[#737373]">Physical resistance spring handle with tactile snapback</p>
           </div>
         );
       case 'peek-card':
@@ -1208,11 +1208,11 @@ func main() {
                 ],
               }}
             >
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111111] hover:bg-[#181818] border border-[#222222] text-xs font-mono text-white cursor-pointer transition-colors">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] cursor-pointer transition-colors">
                 Hover over: Payment #3948
               </span>
             </PeekCard>
-            <p className="text-xs text-[#666666]">Contextual preview card emerging smoothly from trigger element</p>
+            <p className="text-xs text-[#737373]">Contextual preview card emerging smoothly from trigger element</p>
           </div>
         );
       case 'selection-basket':
@@ -1247,7 +1247,7 @@ func main() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 bg-black/75 backdrop-blur-xs"
+        className="fixed inset-0 bg-black/60 backdrop-blur-xs"
       />
 
       {/* Main Dialog Modal Surface */}
@@ -1256,16 +1256,16 @@ func main() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.98, y: 6 }}
         transition={motionTransitions.springSnappy}
-        className="relative w-full max-w-5xl h-[680px] sm:h-[740px] max-h-[90vh] rounded-2xl border border-[#202020] bg-[#0A0A0A] shadow-[0_25px_70px_rgba(0,0,0,0.95)] flex flex-col z-10 overflow-hidden my-auto"
+        className="relative w-full max-w-5xl h-[680px] sm:h-[740px] max-h-[90vh] rounded-2xl border border-[#363636] bg-[#202020] shadow-[0_25px_70px_rgba(0,0,0,0.6)] flex flex-col z-10 overflow-hidden my-auto"
       >
         {/* Minimalist Header */}
-        <div className="px-5 sm:px-6 py-4 border-b border-[#1A1A1A] flex items-start justify-between gap-4 bg-[#0A0A0A] shrink-0">
+        <div className="px-5 sm:px-6 py-4 border-b border-[#363636] flex items-start justify-between gap-4 bg-[#1C1C1C] shrink-0">
           <div className="min-w-0">
             {/* Breadcrumb */}
-            <div className="flex items-center gap-1.5 mb-1 text-[11px] font-mono text-[#666666]">
+            <div className="flex items-center gap-1.5 mb-1 text-[11px] font-mono text-[#737373]">
               <span>easyui</span>
               <span>/</span>
-              <span className="text-[#A1A1A1] font-medium truncate">{component.id}</span>
+              <span className="text-[#A3A3A3] font-medium truncate">{component.id}</span>
             </div>
 
             {/* Component Title */}
@@ -1282,7 +1282,7 @@ func main() {
                 const compUrl = `${window.location.origin}/components/${component.id}`;
                 handleCopy(compUrl, 'compUrl');
               }}
-              className="p-2 rounded-lg text-[#737373] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent hover:border-[#222222] transition-colors cursor-pointer focus-ring"
+              className="p-2 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer focus-ring"
               title="Copy component link"
               aria-label="Copy component link"
             >
@@ -1296,7 +1296,7 @@ func main() {
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg text-[#737373] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent hover:border-[#222222] transition-colors cursor-pointer focus-ring"
+              className="p-2 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer focus-ring"
               title="Close preview (Esc)"
               aria-label="Close dialog"
             >
@@ -1306,7 +1306,7 @@ func main() {
         </div>
 
         {/* Minimal Tab Bar */}
-        <div className="px-4 sm:px-6 bg-[#080808] border-b border-[#1A1A1A] flex items-center gap-1 overflow-x-auto scrollbar-none shrink-0">
+        <div className="px-4 sm:px-6 bg-[#1C1C1C] border-b border-[#363636] flex items-center gap-1 overflow-x-auto scrollbar-none shrink-0">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -1316,7 +1316,7 @@ func main() {
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
                   'relative px-3 sm:px-3.5 py-2.5 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap',
-                  isActive ? 'text-[#F5F5F5]' : 'text-[#6F6F6F] hover:text-[#A1A1A1]'
+                  isActive ? 'text-[#F5F5F5]' : 'text-[#737373] hover:text-[#A3A3A3]'
                 )}
               >
                 <span>{tab.label}</span>
@@ -1333,17 +1333,17 @@ func main() {
         </div>
 
         {/* Tab Body Viewport */}
-        <div className="p-5 sm:p-6 overflow-y-auto flex-1 text-xs space-y-6">
+        <div className="p-5 sm:p-6 overflow-y-auto flex-1 text-xs space-y-6 bg-[#202020]">
           {/* TAB 1: PREVIEW */}
           {activeTab === 'preview' && (
             <div className="space-y-5">
               {/* Preview Stage */}
-              <div className="relative rounded-xl border border-[#1C1C1C] bg-[#070707] min-h-[300px] sm:min-h-[360px] flex items-center justify-center p-4 sm:p-8 overflow-hidden">
+              <div className="relative rounded-xl border border-[#363636] bg-[#151515] min-h-[300px] sm:min-h-[360px] flex items-center justify-center p-4 sm:p-8 overflow-hidden">
                 {/* Fullscreen Button */}
                 <button
                   type="button"
                   onClick={() => setIsFullscreenPreview(true)}
-                  className="absolute top-3 right-3 p-1.5 rounded-md text-[#737373] hover:text-white bg-[#121212]/80 hover:bg-[#1C1C1C] border border-[#222222] transition-colors cursor-pointer focus-ring"
+                  className="absolute top-3 right-3 p-1.5 rounded-md text-[#8A8A8A] hover:text-white bg-[#242424]/80 hover:bg-[#2C2C2C] border border-[#363636] transition-colors cursor-pointer focus-ring"
                   title="Fullscreen preview"
                   aria-label="Fullscreen preview"
                 >
@@ -1358,14 +1358,14 @@ func main() {
               {/* Minimal Key Features List */}
               {component.features && component.features.length > 0 && (
                 <div className="pt-1">
-                  <h3 className="text-xs font-semibold text-[#808080] uppercase tracking-wider mb-2.5">
+                  <h3 className="text-xs font-semibold text-[#737373] uppercase tracking-wider mb-2.5">
                     Features
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#A1A1A1]">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#A3A3A3]">
                     {component.features.map((feat, i) => (
                       <div key={i} className="flex items-start gap-2 py-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#444444] mt-1.5 shrink-0" />
-                        <span className="leading-relaxed">{feat}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#737373] mt-1.5 shrink-0" />
+                        <span className="leading-relaxed text-[#F5F5F5]">{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -1380,14 +1380,14 @@ func main() {
               {/* Import Section */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[#888888] font-medium">Import component</span>
+                  <span className="text-[#A3A3A3] font-medium">Import component</span>
                   <button
                     type="button"
                     onClick={() => {
                       const importStmt = `import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`;
                       handleCopy(importStmt, 'import');
                     }}
-                    className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
                   >
                     {copiedCode === 'import' ? (
                       <Check className="w-3.5 h-3.5 text-white" />
@@ -1397,7 +1397,7 @@ func main() {
                     <span>{copiedCode === 'import' ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
-                <pre className="p-3.5 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#E5E5E5] overflow-x-auto">
+                <pre className="p-3.5 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#F5F5F5] overflow-x-auto">
                   <code>{`import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`}</code>
                 </pre>
               </div>
@@ -1405,11 +1405,11 @@ func main() {
               {/* Example Section */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[#888888] font-medium">Example</span>
+                  <span className="text-[#A3A3A3] font-medium">Example</span>
                   <button
                     type="button"
                     onClick={() => handleCopy(component.usageCode, 'usage')}
-                    className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
                   >
                     {copiedCode === 'usage' ? (
                       <Check className="w-3.5 h-3.5 text-white" />
@@ -1419,7 +1419,7 @@ func main() {
                     <span>{copiedCode === 'usage' ? 'Copied' : 'Copy Example'}</span>
                   </button>
                 </div>
-                <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[380px] leading-relaxed scrollbar-thin">
+                <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#A3A3A3] overflow-x-auto max-h-[380px] leading-relaxed scrollbar-thin">
                   <code>{component.usageCode}</code>
                 </pre>
               </div>
@@ -1431,15 +1431,15 @@ func main() {
             <div className="space-y-5">
               {/* CLI / Manual Toggle */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#111111] border border-[#202020]">
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#242424] border border-[#363636]">
                   <button
                     type="button"
                     onClick={() => setInstallMode('cli')}
                     className={cn(
                       'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
                       installMode === 'cli'
-                        ? 'bg-[#222222] text-white shadow-xs'
-                        : 'text-[#737373] hover:text-[#CCCCCC]'
+                        ? 'bg-[#363636] text-white shadow-xs'
+                        : 'text-[#737373] hover:text-white'
                     )}
                   >
                     CLI
@@ -1450,8 +1450,8 @@ func main() {
                     className={cn(
                       'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
                       installMode === 'manual'
-                        ? 'bg-[#222222] text-white shadow-xs'
-                        : 'text-[#737373] hover:text-[#CCCCCC]'
+                        ? 'bg-[#363636] text-white shadow-xs'
+                        : 'text-[#737373] hover:text-white'
                     )}
                   >
                     Manual
@@ -1468,8 +1468,8 @@ func main() {
                         className={cn(
                           'px-2 py-0.5 rounded transition-colors cursor-pointer',
                           pkgManager === pm
-                            ? 'bg-[#1E1E1E] text-white'
-                            : 'text-[#666666] hover:text-[#AAAAAA]'
+                            ? 'bg-[#363636] text-white'
+                            : 'text-[#737373] hover:text-[#A3A3A3]'
                         )}
                       >
                         {pm}
@@ -1482,15 +1482,15 @@ func main() {
               {/* CLI Mode View */}
               {installMode === 'cli' && (
                 <div className="space-y-4">
-                  <p className="text-xs text-[#888888]">
+                  <p className="text-xs text-[#A3A3A3]">
                     Add the component directly to your project using the shadcn CLI:
                   </p>
-                  <div className="rounded-xl border border-[#1E1E1E] bg-[#070707] p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-[#E5E5E5]">
+                  <div className="rounded-xl border border-[#363636] bg-[#1A1A1A] p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-[#F5F5F5]">
                     <span className="truncate">{component.cliCommand}</span>
                     <button
                       type="button"
                       onClick={() => handleCopy(component.cliCommand, 'cli')}
-                      className="p-1.5 rounded-md text-[#737373] hover:text-white bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] transition-colors cursor-pointer shrink-0"
+                      className="p-1.5 rounded-md text-[#8A8A8A] hover:text-white bg-[#242424] hover:bg-[#2C2C2C] border border-[#363636] transition-colors cursor-pointer shrink-0"
                       title="Copy CLI command"
                       aria-label="Copy CLI command"
                     >
@@ -1504,7 +1504,7 @@ func main() {
 
                   {/* Required Dependencies */}
                   <div className="pt-2">
-                    <h4 className="text-xs font-semibold text-[#808080] uppercase tracking-wider mb-2">
+                    <h4 className="text-xs font-semibold text-[#737373] uppercase tracking-wider mb-2">
                       Dependencies
                     </h4>
                     {component.dependencies && component.dependencies.length > 0 ? (
@@ -1512,14 +1512,14 @@ func main() {
                         {component.dependencies.map((dep) => (
                           <code
                             key={dep}
-                            className="px-2.5 py-1 rounded-md bg-[#111111] border border-[#1E1E1E] font-mono text-[11px] text-[#D4D4D4]"
+                            className="px-2.5 py-1 rounded-md bg-[#242424] border border-[#363636] font-mono text-[11px] text-[#F5F5F5]"
                           >
                             {dep}
                           </code>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-[#6F6F6F]">
+                      <p className="text-xs text-[#737373]">
                         No external npm dependencies required (standard Tailwind CSS only).
                       </p>
                     )}
@@ -1534,11 +1534,11 @@ func main() {
                   {component.dependencies && component.dependencies.length > 0 && (
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-[#888888] font-medium">1. Install dependencies</span>
+                        <span className="text-[#A3A3A3] font-medium">1. Install dependencies</span>
                         <button
                           type="button"
                           onClick={() => handleCopy(getInstallDepCommand(), 'deps')}
-                          className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                          className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
                         >
                           {copiedCode === 'deps' ? (
                             <Check className="w-3.5 h-3.5 text-white" />
@@ -1548,7 +1548,7 @@ func main() {
                           <span>{copiedCode === 'deps' ? 'Copied' : 'Copy'}</span>
                         </button>
                       </div>
-                      <pre className="p-3.5 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#E5E5E5] overflow-x-auto">
+                      <pre className="p-3.5 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#F5F5F5] overflow-x-auto">
                         <code>{getInstallDepCommand()}</code>
                       </pre>
                     </div>
@@ -1557,14 +1557,14 @@ func main() {
                   {/* Step 2: Component Code */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[#888888] font-medium">
+                      <span className="text-[#A3A3A3] font-medium">
                         {component.dependencies && component.dependencies.length > 0 ? '2. ' : '1. '}
-                        Copy component code to <code className="font-mono text-[#D4D4D4]">components/ui/{component.id}.tsx</code>
+                        Copy component code to <code className="font-mono text-[#F5F5F5]">components/ui/{component.id}.tsx</code>
                       </span>
                       <button
                         type="button"
                         onClick={() => handleCopy(effectiveSourceCode, 'source-manual')}
-                        className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                        className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
                       >
                         {copiedCode === 'source-manual' ? (
                           <Check className="w-3.5 h-3.5 text-white" />
@@ -1574,7 +1574,7 @@ func main() {
                         <span>{copiedCode === 'source-manual' ? 'Copied' : 'Copy Source'}</span>
                       </button>
                     </div>
-                    <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[260px] leading-relaxed scrollbar-thin">
+                    <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#A3A3A3] overflow-x-auto max-h-[260px] leading-relaxed scrollbar-thin">
                       <code>{effectiveSourceCode}</code>
                     </pre>
                   </div>
@@ -1587,13 +1587,13 @@ func main() {
           {activeTab === 'source' && (
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-mono text-[#888888] text-[11px]">
+                <span className="font-mono text-[#A3A3A3] text-[11px]">
                   components/ui/{component.id}.tsx
                 </span>
                 <button
                   type="button"
                   onClick={() => handleCopy(effectiveSourceCode, 'source')}
-                  className="flex items-center gap-1.5 text-[11px] text-[#737373] hover:text-[#E5E5E5] transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
                 >
                   {copiedCode === 'source' ? (
                     <Check className="w-3.5 h-3.5 text-white" />
@@ -1603,7 +1603,7 @@ func main() {
                   <span>{copiedCode === 'source' ? 'Copied' : 'Copy Source'}</span>
                 </button>
               </div>
-              <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-[#CCCCCC] overflow-x-auto max-h-[420px] leading-relaxed scrollbar-thin">
+              <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#A3A3A3] overflow-x-auto max-h-[420px] leading-relaxed scrollbar-thin">
                 <code>{effectiveSourceCode}</code>
               </pre>
             </div>
@@ -1612,10 +1612,10 @@ func main() {
           {/* TAB 5: PROPS API */}
           {activeTab === 'api' && (
             <div className="space-y-3">
-              <div className="rounded-xl border border-[#1E1E1E] overflow-hidden bg-[#070707]">
+              <div className="rounded-xl border border-[#363636] overflow-hidden bg-[#202020]">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-[#0D0D0D] text-[#808080] border-b border-[#1E1E1E]">
+                    <thead className="bg-[#1C1C1C] text-[#A3A3A3] border-b border-[#363636]">
                       <tr>
                         <th className="py-2.5 px-3.5 font-mono font-medium">Prop</th>
                         <th className="py-2.5 px-3.5 font-mono font-medium">Type</th>
@@ -1623,13 +1623,13 @@ func main() {
                         <th className="py-2.5 px-3.5 font-medium">Description</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#161616]">
+                    <tbody className="divide-y divide-[#363636]">
                       {component.props.map((p, i) => (
-                        <tr key={i} className="hover:bg-[#0E0E0E] transition-colors">
+                        <tr key={i} className="hover:bg-[#242424] transition-colors">
                           <td className="py-2.5 px-3.5 font-mono text-white font-medium">{p.name}</td>
-                          <td className="py-2.5 px-3.5 font-mono text-[#8E8E8E]">{p.type}</td>
-                          <td className="py-2.5 px-3.5 font-mono text-[#6F6F6F]">{p.default || '—'}</td>
-                          <td className="py-2.5 px-3.5 text-[#A1A1A1] leading-relaxed">{p.description}</td>
+                          <td className="py-2.5 px-3.5 font-mono text-[#A3A3A3]">{p.type}</td>
+                          <td className="py-2.5 px-3.5 font-mono text-[#737373]">{p.default || '—'}</td>
+                          <td className="py-2.5 px-3.5 text-[#A3A3A3] leading-relaxed">{p.description}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1642,9 +1642,9 @@ func main() {
           {/* TAB 6: ACCESSIBILITY */}
           {activeTab === 'a11y' && (
             <div className="space-y-3">
-              <div className="rounded-xl border border-[#1E1E1E] bg-[#070707] divide-y divide-[#161616]">
+              <div className="rounded-xl border border-[#363636] bg-[#202020] divide-y divide-[#363636]">
                 {component.accessibility.map((item, i) => (
-                  <div key={i} className="p-3.5 text-xs text-[#A1A1A1] flex items-start gap-3">
+                  <div key={i} className="p-3.5 text-xs text-[#A3A3A3] flex items-start gap-3">
                     <ShieldCheck className="w-4 h-4 text-white mt-0.5 shrink-0" />
                     <span className="leading-relaxed">{item}</span>
                   </div>
@@ -1655,13 +1655,13 @@ func main() {
         </div>
 
         {/* Minimal Footer */}
-        <div className="px-5 sm:px-6 py-3 bg-[#080808] border-t border-[#161616] flex items-center justify-between text-xs text-[#606060] shrink-0">
+        <div className="px-5 sm:px-6 py-3 bg-[#1C1C1C] border-t border-[#363636] flex items-center justify-between text-xs text-[#737373] shrink-0">
           <span className="hidden sm:inline">EasyUI Component Documentation</span>
           <span className="sm:hidden font-mono text-[11px]">easyui/{component.id}</span>
           <button
             type="button"
             onClick={onClose}
-            className="px-3 py-1 rounded-md bg-[#141414] hover:bg-[#1E1E1E] text-[#E5E5E5] text-xs font-medium transition-colors cursor-pointer border border-[#222222]"
+            className="px-3 py-1 rounded-md bg-[#242424] hover:bg-[#2C2C2C] text-[#F5F5F5] text-xs font-medium transition-colors cursor-pointer border border-[#363636]"
           >
             Done
           </button>
@@ -1676,27 +1676,27 @@ func main() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[100] bg-[#070707] bg-dot-subtle flex flex-col overflow-y-auto"
+            className="fixed inset-0 z-[100] bg-[#151515] bg-dot-subtle flex flex-col overflow-y-auto"
           >
             {/* Minimal Fullscreen Header Bar */}
-            <div className="sticky top-0 inset-x-0 z-[110] bg-[#070707]/90 border-b border-[#141414] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
+            <div className="sticky top-0 inset-x-0 z-[110] bg-[#151515]/90 border-b border-[#363636] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
                 <span className="text-xs sm:text-sm font-medium text-white truncate max-w-[160px] sm:max-w-none">
                   {component.name}
                 </span>
-                <span className="text-[10px] font-mono text-[#555555] hidden sm:inline">Live Stage</span>
+                <span className="text-[10px] font-mono text-[#737373] hidden sm:inline">Live Stage</span>
               </div>
 
               <button
                 type="button"
                 onClick={() => setIsFullscreenPreview(false)}
-                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#111111] hover:bg-[#181818] border border-[#202020] hover:border-[#333333] text-xs font-mono text-[#A1A1A1] hover:text-white transition-colors shrink-0 cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#A3A3A3] hover:text-white transition-colors shrink-0 cursor-pointer"
                 title="Exit Fullscreen Preview (Esc)"
               >
                 <X className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline text-xs font-sans">Exit</span>
-                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#161616] border border-[#282828] text-[#737373]">ESC</kbd>
+                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#242424] border border-[#363636] text-[#737373]">ESC</kbd>
               </button>
             </div>
 

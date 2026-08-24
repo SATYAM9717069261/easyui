@@ -114,21 +114,21 @@ const AnimatedNumberShowcase: React.FC = () => {
   return (
     <div className="py-6 w-full max-w-lg mx-auto space-y-4 select-none px-2">
       {/* Top Main Hero Metric */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-[#0A0A0A] border border-[#1E1E1E] text-center space-y-3 shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-[#666666]">Live Production ARR</span>
-        <div className="text-4xl sm:text-5xl font-bold font-mono tracking-tight text-white flex items-center justify-center">
+      <div className="p-6 sm:p-8 rounded-2xl bg-[#202020] border border-[#363636] text-center space-y-3 shadow-xs">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-[#737373]">Live Production ARR</span>
+        <div className="text-4xl sm:text-5xl font-bold font-mono tracking-tight text-[#F5F5F5] flex items-center justify-center">
           <AnimatedNumber value={revenue} prefix="$" useGrouping />
         </div>
         <div className="flex items-center justify-center gap-2 text-xs font-mono text-emerald-400">
           <span>+</span>
           <AnimatedNumber value={growth} suffix="%" decimals={1} />
-          <span className="text-[#666666]">annualized expansion</span>
+          <span className="text-[#737373]">annualized expansion</span>
         </div>
       </div>
 
       {/* Interactive Controls Bar */}
-      <div className="p-3.5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-3">
-        <div className="text-xs font-medium text-[#D4D4D4] flex items-center justify-between">
+      <div className="p-3.5 rounded-xl bg-[#242424] border border-[#363636] space-y-3">
+        <div className="text-xs font-medium text-[#F5F5F5] flex items-center justify-between">
           <span className="text-[11px] font-mono text-[#737373]">Live Playground</span>
           <button
             type="button"
@@ -137,10 +137,10 @@ const AnimatedNumberShowcase: React.FC = () => {
               'px-2.5 py-1 rounded-md text-[10px] font-mono border transition-colors flex items-center gap-1.5 cursor-pointer',
               isLiveTicker
                 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-                : 'bg-[#141414] border-[#222222] text-[#808080] hover:text-white'
+                : 'bg-[#202020] border-[#363636] text-[#A3A3A3] hover:text-white'
             )}
           >
-            <span className={cn('w-1.5 h-1.5 rounded-full', isLiveTicker ? 'bg-emerald-400 animate-pulse' : 'bg-[#666666]')} />
+            <span className={cn('w-1.5 h-1.5 rounded-full', isLiveTicker ? 'bg-emerald-400 animate-pulse' : 'bg-[#737373]')} />
             {isLiveTicker ? 'Ticker Active' : 'Simulate Ticker'}
           </button>
         </div>
@@ -149,21 +149,21 @@ const AnimatedNumberShowcase: React.FC = () => {
           <button
             type="button"
             onClick={() => setRevenue((prev) => prev + 1000)}
-            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
           >
             +$1,000
           </button>
           <button
             type="button"
             onClick={() => setRevenue((prev) => Math.max(100, prev - 500))}
-            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
           >
             -$500
           </button>
           <button
             type="button"
             onClick={() => setRevenue(Math.floor(Math.random() * 88000) + 12000)}
-            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#E5E5E5] hover:border-[#2E2E2E] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
           >
             Randomize
           </button>
@@ -173,7 +173,7 @@ const AnimatedNumberShowcase: React.FC = () => {
               setRevenue(12450);
               setGrowth(24.5);
             }}
-            className="px-3 py-1.5 rounded-lg bg-[#121212] hover:bg-[#1A1A1A] border border-[#1E1E1E] text-xs font-mono text-[#737373] hover:text-white transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#737373] hover:text-white transition-colors text-center cursor-pointer"
           >
             Reset
           </button>
@@ -201,9 +201,9 @@ const ScrollProgressNavShowcase: React.FC = () => {
       </div>
 
       {/* Simulated Scrollable Container */}
-      <div className="relative rounded-2xl border border-[#202020] bg-[#070707] overflow-hidden shadow-2xl">
+      <div className="relative rounded-2xl border border-[#363636] bg-[#202020] overflow-hidden shadow-md">
         {/* Floating / Sticky Nav inside container */}
-        <div className="p-3 sticky top-0 z-30 bg-[#070707]/90 backdrop-blur-md border-b border-[#141414] flex justify-center">
+        <div className="p-3 sticky top-0 z-30 bg-[#202020]/90 backdrop-blur-md border-b border-[#363636] flex justify-center">
           <ScrollProgressNav
             mode="inline"
             sections={sections}
@@ -216,42 +216,42 @@ const ScrollProgressNavShowcase: React.FC = () => {
           ref={containerRef}
           className="h-[300px] overflow-y-auto p-5 space-y-6 scroll-smooth"
         >
-          <div id="sec-overview" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-overview" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">01 Overview</span>
-            <h4 className="text-sm font-semibold text-white">Edge First Motion Architecture</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">Edge First Motion Architecture</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
               EasyUI is engineered from the ground up for minimal latency, zero-jank spring physics, and Apple-grade micro interactions.
             </p>
           </div>
 
-          <div id="sec-architecture" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-architecture" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">02 Architecture</span>
-            <h4 className="text-sm font-semibold text-white">Monochrome Slate Design Tokens</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
-              Strict grayscale elevation hierarchy using #050505 canvas, #0A0A0A surface, and calibrated 1px borders.
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">Neutral Dark Design Tokens</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
+              Strict grayscale elevation hierarchy using #151515 canvas, #202020 surface, and calibrated 1px #363636 borders.
             </p>
           </div>
 
-          <div id="sec-components" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-components" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">03 Components</span>
-            <h4 className="text-sm font-semibold text-white">36 Production UI Elements</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">44 Production UI Elements</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
               Every component supports keyboard shortcuts, touch gestures, screen-reader semantics, and prefers-reduced-motion.
             </p>
           </div>
 
-          <div id="sec-telemetry" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-telemetry" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">04 Telemetry</span>
-            <h4 className="text-sm font-semibold text-white">Real-Time Event Streams</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">Real-Time Event Streams</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
               Sub-millisecond latency tracking and automated canary deployments across 32 regional edge nodes worldwide.
             </p>
           </div>
 
-          <div id="sec-pricing" className="p-5 rounded-xl bg-[#0C0C0C] border border-[#181818] space-y-2">
+          <div id="sec-pricing" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">05 Pricing</span>
-            <h4 className="text-sm font-semibold text-white">Open Source & Free Forever</h4>
-            <p className="text-xs text-[#808080] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#F5F5F5]">Open Source & Free Forever</h4>
+            <p className="text-xs text-[#A3A3A3] leading-relaxed">
               Install any component with the CLI. No subscriptions, no lock-in, 100% copy-pasteable TypeScript code.
             </p>
           </div>
@@ -285,14 +285,14 @@ const SelectionBasketShowcase: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-xl mx-auto min-h-[340px] pb-16 p-4 rounded-2xl border border-[#202020] bg-[#070707] flex flex-col justify-between select-none">
+    <div className="relative w-full max-w-xl mx-auto min-h-[340px] pb-16 p-4 rounded-2xl border border-[#363636] bg-[#202020] flex flex-col justify-between select-none shadow-md">
       <div className="space-y-3">
         <div className="flex items-center justify-between px-1 text-xs text-[#737373] font-mono">
           <span>Select items to trigger bottom toolbar</span>
           <button
             type="button"
             onClick={handleSelectAll}
-            className="text-[11px] text-[#A1A1A1] hover:text-white transition-colors underline underline-offset-2"
+            className="text-[11px] text-[#A3A3A3] hover:text-white transition-colors underline underline-offset-2 cursor-pointer"
           >
             {selectedIds.length === items.length ? 'Deselect All' : 'Select All'}
           </button>
@@ -308,8 +308,8 @@ const SelectionBasketShowcase: React.FC = () => {
                 className={cn(
                   'flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer',
                   isChecked
-                    ? 'bg-[#121212] border-[#2A2A2A] text-white shadow-sm'
-                    : 'bg-[#0B0B0B] border-[#181818] text-[#808080] hover:bg-[#0E0E0E] hover:text-[#D4D4D4]'
+                    ? 'bg-[#242424] border-[#4A4A4A] text-white shadow-xs'
+                    : 'bg-[#202020] border-[#363636] text-[#A3A3A3] hover:bg-[#242424] hover:text-[#F5F5F5]'
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -317,15 +317,15 @@ const SelectionBasketShowcase: React.FC = () => {
                     className={cn(
                       'w-4 h-4 rounded border flex items-center justify-center transition-colors',
                       isChecked
-                        ? 'bg-white border-white text-black'
-                        : 'border-[#333333] bg-[#141414]'
+                        ? 'bg-[#F5F5F5] border-[#F5F5F5] text-[#151515]'
+                        : 'border-[#363636] bg-[#242424]'
                     )}
                   >
                     {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                   </div>
                   <span className="text-xs font-mono">{item.name}</span>
                 </div>
-                <div className="flex items-center gap-2 text-[10px] font-mono text-[#666666]">
+                <div className="flex items-center gap-2 text-[10px] font-mono text-[#737373]">
                   <span>{item.type}</span>
                   <span>·</span>
                   <span>{item.size}</span>
@@ -356,13 +356,13 @@ const SpotlightSearchShowcase: React.FC = () => {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="px-4 py-2.5 rounded-xl bg-[#111111] hover:bg-[#181818] border border-[#222222] text-xs font-mono text-[#D4D4D4] flex items-center gap-3 transition-colors hover:border-[#333333] shadow-lg"
+        className="px-4 py-2.5 rounded-xl bg-[#202020] hover:bg-[#242424] border border-[#363636] text-xs font-mono text-[#F5F5F5] flex items-center gap-3 transition-colors hover:border-[#4A4A4A] shadow-md cursor-pointer"
       >
         <span>Press</span>
-        <kbd className="px-1.5 py-0.5 rounded bg-[#1C1C1C] border border-[#2E2E2E] text-white">⌘K</kbd>
+        <kbd className="px-1.5 py-0.5 rounded bg-[#242424] border border-[#363636] text-white">⌘K</kbd>
         <span>or click to open Spotlight Search</span>
       </button>
-      <p className="text-xs text-[#666666] font-mono">Keyboard-driven overlay with instant fuzzy filter and smooth spring highlight</p>
+      <p className="text-xs text-[#737373] font-mono">Keyboard-driven overlay with instant fuzzy filter and smooth spring highlight</p>
       <SpotlightSearch
         open={isOpen}
         onOpenChange={setIsOpen}
@@ -377,11 +377,11 @@ const LoaderShowcase: React.FC = () => {
 
   return (
     <div className="py-8 sm:py-12 flex flex-col items-center justify-center gap-6 max-w-full overflow-hidden">
-      <div className="p-4 sm:p-8 rounded-2xl bg-[#090909] border border-[#1C1C1C] flex flex-col items-center gap-6 max-w-full">
+      <div className="p-4 sm:p-8 rounded-2xl bg-[#202020] border border-[#363636] flex flex-col items-center gap-6 max-w-full shadow-md">
         <Loader variant={variant} size={size} />
         
         <div className="flex flex-col items-center gap-3">
-          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#121212] border border-[#222222]">
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#242424] border border-[#363636]">
             {(['arc', 'dots', 'line', 'rings'] as const).map((v) => (
               <button
                 key={v}
@@ -389,7 +389,7 @@ const LoaderShowcase: React.FC = () => {
                 onClick={() => setVariant(v)}
                 className={cn(
                   'px-2.5 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer',
-                  variant === v ? 'bg-white text-black font-semibold shadow' : 'text-[#888888] hover:text-white'
+                  variant === v ? 'bg-[#F5F5F5] text-[#151515] font-semibold shadow-xs' : 'text-[#8A8A8A] hover:text-white'
                 )}
               >
                 {v}
@@ -406,7 +406,7 @@ const LoaderShowcase: React.FC = () => {
                 onClick={() => setSize(s)}
                 className={cn(
                   'px-2 py-0.5 rounded border transition-colors cursor-pointer',
-                  size === s ? 'bg-white text-black border-white' : 'border-[#222222] text-[#888888] hover:text-white'
+                  size === s ? 'bg-[#F5F5F5] text-[#151515] border-[#F5F5F5]' : 'border-[#363636] bg-[#242424] text-[#8A8A8A] hover:text-white'
                 )}
               >
                 {s}px
@@ -415,7 +415,7 @@ const LoaderShowcase: React.FC = () => {
           </div>
         </div>
       </div>
-      <p className="text-xs text-[#666666]">Calm, continuous motion indicators with zero visual stress</p>
+      <p className="text-xs text-[#737373]">Calm, continuous motion indicators with zero visual stress</p>
     </div>
   );
 };
@@ -425,13 +425,13 @@ const HamburgerMenuShowcase: React.FC = () => {
 
   return (
     <div className="py-12 flex flex-col items-center justify-center gap-4">
-      <div className="p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex flex-col items-center gap-4">
+      <div className="p-8 rounded-2xl bg-[#202020] border border-[#363636] flex flex-col items-center gap-4 shadow-md">
         <HamburgerMenu
           isOpen={isOpen}
           onChange={setIsOpen}
           size={28}
         />
-        <span className="text-xs font-mono text-[#888888]">
+        <span className="text-xs font-mono text-[#A3A3A3]">
           Click to morph ({isOpen ? 'Open (✕)' : 'Closed (☰)'})
         </span>
       </div>
@@ -463,8 +463,8 @@ const NotificationBellShowcase: React.FC = () => {
   };
 
   return (
-    <div className="py-12 flex flex-col items-center justify-center gap-6">
-      <div className="p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex flex-col items-center gap-6">
+    <div className="py-8 sm:py-12 flex flex-col items-center justify-center gap-6 w-full px-2">
+      <div className="p-4 sm:p-8 rounded-2xl bg-[#202020] border border-[#363636] flex flex-col items-center gap-6 shadow-md w-full max-w-sm relative">
         <NotificationBell
           notifications={notifications}
           onMarkAsRead={handleMarkRead}
@@ -474,7 +474,7 @@ const NotificationBellShowcase: React.FC = () => {
           <button
             type="button"
             onClick={addNotification}
-            className="px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#262626] text-xs font-medium text-white transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-white transition-colors cursor-pointer"
           >
             + Trigger Alert (Shake Test)
           </button>
@@ -489,13 +489,13 @@ const IOSSearchBarShowcase: React.FC = () => {
 
   return (
     <div className="py-12 flex flex-col items-center justify-center gap-4">
-      <div className="p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex flex-col items-center gap-4">
+      <div className="p-8 rounded-2xl bg-[#202020] border border-[#363636] flex flex-col items-center gap-4 shadow-md">
         <IOSSearchBar
           value={query}
           onChange={setQuery}
           placeholder="Search telemetry..."
         />
-        <span className="text-xs font-mono text-[#666666]">
+        <span className="text-xs font-mono text-[#737373]">
           {query ? `Active query: "${query}"` : 'Focus pill to test spring expansion (or press ⌘K)'}
         </span>
       </div>
@@ -508,7 +508,7 @@ const TorqueDialShowcase: React.FC = () => {
 
   return (
     <div className="py-12 flex flex-col items-center justify-center gap-6">
-      <div className="p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex flex-col items-center gap-4">
+      <div className="p-8 rounded-2xl bg-[#202020] border border-[#363636] flex flex-col items-center gap-4 shadow-md">
         <TorqueDial
           value={value}
           onChange={setValue}
@@ -517,7 +517,7 @@ const TorqueDialShowcase: React.FC = () => {
           unit="%"
           label="Master Output Gain"
         />
-        <span className="text-xs text-[#666666]">Click and drag or use mouse wheel to rotate dial with physical momentum</span>
+        <span className="text-xs text-[#737373]">Click and drag or use mouse wheel to rotate dial with physical momentum</span>
       </div>
     </div>
   );
@@ -922,15 +922,15 @@ const completion = await client.completions.create({
       case 'spotlight-card':
         return (
           <div className="py-8 flex justify-center">
-            <SpotlightCard key={demoKey} className="max-w-md w-full p-6 bg-[#0E0E0E]">
+            <SpotlightCard key={demoKey} className="max-w-md w-full p-6 bg-[#202020] border border-[#363636]">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-white" />
                 <h4 className="text-sm font-semibold text-[#F5F5F5]">Spotlight Shader</h4>
               </div>
-              <p className="text-xs text-[#808080] leading-relaxed mb-4">
+              <p className="text-xs text-[#A3A3A3] leading-relaxed mb-4">
                 Pointer-aware radial illumination calculating Euclidean coordinates in real time.
               </p>
-              <div className="p-3 rounded-lg bg-[#141414] border border-[#222222] text-xs font-mono text-[#A1A1A1]">
+              <div className="p-3 rounded-lg bg-[#242424] border border-[#363636] text-xs font-mono text-[#A3A3A3]">
                 Coordinates: Hardware Accelerated
               </div>
             </SpotlightCard>
@@ -940,7 +940,7 @@ const completion = await client.completions.create({
         return (
           <div className="py-12 flex flex-col items-center justify-center gap-4">
             <ExpandableSearch key={demoKey} placeholder="Search components, tokens..." />
-            <p className="text-xs text-[#6F6F6F]">Click input or focus to test smooth width expansion</p>
+            <p className="text-xs text-[#737373]">Click input or focus to test smooth width expansion</p>
           </div>
         );
       case 'animated-tabs':
@@ -953,7 +953,7 @@ const completion = await client.completions.create({
                   id: 'tab1',
                   label: 'Overview',
                   content: (
-                    <div className="text-xs text-[#A1A1A1] p-4 bg-[#121212] rounded-xl border border-[#222222]">
+                    <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">
                       Overview metrics & telemetry
                     </div>
                   ),
@@ -962,7 +962,7 @@ const completion = await client.completions.create({
                   id: 'tab2',
                   label: 'Integration',
                   content: (
-                    <div className="text-xs text-[#A1A1A1] p-4 bg-[#121212] rounded-xl border border-[#222222]">
+                    <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">
                       Next.js App Router setup
                     </div>
                   ),
@@ -971,7 +971,7 @@ const completion = await client.completions.create({
                   id: 'tab3',
                   label: 'Security',
                   content: (
-                    <div className="text-xs text-[#A1A1A1] p-4 bg-[#121212] rounded-xl border border-[#222222]">
+                    <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">
                       Zero external runtime network dependencies
                     </div>
                   ),
@@ -995,7 +995,7 @@ const completion = await client.completions.create({
               ]}
               activeId="1"
             />
-            <p className="text-xs text-[#6F6F6F]">Hover icons to test magnification curve</p>
+            <p className="text-xs text-[#737373]">Hover icons to test magnification curve</p>
           </div>
         );
       case 'reveal-card':
@@ -1004,15 +1004,15 @@ const completion = await client.completions.create({
             <RevealCard
               key={demoKey}
               revealContent={
-                <div className="text-xs text-white space-y-1">
+                <div className="text-xs text-[#F5F5F5] space-y-1">
                   <div>✓ Latency: 0.12ms</div>
                   <div>✓ Region: us-east-1</div>
                 </div>
               }
-              className="max-w-sm w-full p-6 bg-[#0E0E0E]"
+              className="max-w-sm w-full p-6 bg-[#202020] border border-[#363636]"
             >
               <h4 className="text-sm font-semibold text-[#F5F5F5] mb-1">Interactive 3D Tilt</h4>
-              <p className="text-xs text-[#808080]">Hover cursor to rotate perspective and reveal telemetry.</p>
+              <p className="text-xs text-[#A3A3A3]">Hover cursor to rotate perspective and reveal telemetry.</p>
             </RevealCard>
           </div>
         );
@@ -1055,31 +1055,31 @@ const completion = await client.completions.create({
               trigger={(open) => (
                 <button
                   onClick={open}
-                  className="px-5 py-2.5 rounded-xl bg-[#161616] border border-[#2A2A2A] hover:border-[#383838] text-xs font-medium text-[#F5F5F5] transition-all cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#F5F5F5] transition-all cursor-pointer"
                 >
                   Open Morphing Dialog
                 </button>
               )}
             >
-              <div className="p-4 rounded-xl bg-[#141414] border border-[#222222] text-xs text-[#A1A1A1]">
+              <div className="p-4 rounded-xl bg-[#242424] border border-[#363636] text-xs text-[#A3A3A3]">
                 Continuous layoutId expansion without jarring modal popping.
               </div>
             </MorphingDialog>
-            <p className="text-xs text-[#6F6F6F]">Click trigger to see smooth shared layout transition</p>
+            <p className="text-xs text-[#737373]">Click trigger to see smooth shared layout transition</p>
           </div>
         );
       case 'command-menu':
         return (
           <div className="py-10 text-center">
-            <p className="text-xs text-[#A1A1A1] mb-3">
-              Press <kbd className="px-1.5 py-0.5 rounded bg-[#181818] border border-[#262626] font-mono text-white">⌘K</kbd> anywhere on the page to open.
+            <p className="text-xs text-[#A3A3A3] mb-3">
+              Press <kbd className="px-1.5 py-0.5 rounded bg-[#242424] border border-[#363636] font-mono text-white">⌘K</kbd> anywhere on the page to open.
             </p>
           </div>
         );
       case 'glass-navbar':
         return (
           <div className="py-6 w-full space-y-4">
-            <div className="p-4 rounded-xl bg-[#070707] border border-[#1C1C1C] overflow-hidden">
+            <div className="p-4 rounded-xl bg-[#202020] border border-[#363636] overflow-hidden">
               <div className="relative py-2">
                 <GlassNavbar
                   key={demoKey}
@@ -1094,7 +1094,7 @@ const completion = await client.completions.create({
                   cta={
                     <button
                       type="button"
-                      className="px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#050505] text-xs font-medium hover:bg-white transition-colors"
+                      className="px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#151515] text-xs font-medium hover:bg-white transition-colors cursor-pointer"
                     >
                       Deploy Now
                     </button>
@@ -1107,7 +1107,7 @@ const completion = await client.completions.create({
       case 'button':
         return (
           <div className="py-6 w-full space-y-6 max-w-xl mx-auto">
-            <div className="p-5 rounded-xl bg-[#090909] border border-[#1D1D1D] space-y-4">
+            <div className="p-5 rounded-xl bg-[#202020] border border-[#363636] space-y-4">
               <div className="text-xs font-semibold text-[#F5F5F5]">Visual Variants</div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <Button variant="primary">Primary</Button>
@@ -1120,7 +1120,7 @@ const completion = await client.completions.create({
               </div>
             </div>
 
-            <div className="p-5 rounded-xl bg-[#090909] border border-[#1D1D1D] space-y-4">
+            <div className="p-5 rounded-xl bg-[#202020] border border-[#363636] space-y-4">
               <div className="text-xs font-semibold text-[#F5F5F5]">Sizes & Interactive Loading</div>
               <div className="flex flex-wrap items-center gap-3">
                 <Button size="sm" variant="primary">Small (sm)</Button>
@@ -1136,8 +1136,8 @@ const completion = await client.completions.create({
       case 'form':
         return (
           <div className="py-4 max-w-md mx-auto w-full">
-            <div className="p-6 rounded-2xl bg-[#0A0A0A] border border-[#1D1D1D] space-y-4">
-              <div className="text-sm font-semibold text-white">Interactive Form System</div>
+            <div className="p-6 rounded-2xl bg-[#202020] border border-[#363636] space-y-4">
+              <div className="text-sm font-semibold text-[#F5F5F5]">Interactive Form System</div>
               <Form
                 key={demoKey}
                 onSubmit={(e) => {
@@ -1167,7 +1167,7 @@ const completion = await client.completions.create({
                   </FormControl>
                 </FormItem>
 
-                <div className="pt-1 space-y-3 border-t border-[#161616]">
+                <div className="pt-1 space-y-3 border-t border-[#363636]">
                   <Checkbox label="Enable Edge Caching" defaultChecked />
                   <Switch label="Automatic TLS Certificates" defaultChecked />
                 </div>
@@ -1255,7 +1255,7 @@ const completion = await client.completions.create({
         );
       case 'dot-field':
         return (
-          <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#222222] bg-[#0A0A0A]">
+          <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#363636] bg-[#202020]">
             <DotField dotRadius={1.2} dotSpacing={20} gradientFrom="#818cf8" gradientTo="#c084fc" className="w-full h-80 rounded-2xl" />
           </div>
         );
@@ -1325,7 +1325,7 @@ const completion = await client.completions.create({
               <MorphingButton key={`success-${demoKey}`} status="success" successText="Saved ✓" />
               <MorphingButton key={`error-${demoKey}`} status="error" errorText="Failed" variant="danger" />
             </div>
-            <p className="text-xs text-[#666666]">Maintains physical shape & size across asynchronous state morphs</p>
+            <p className="text-xs text-[#737373]">Maintains physical shape & size across asynchronous state morphs</p>
           </div>
         );
       case 'drag-to-confirm':
@@ -1338,7 +1338,7 @@ const completion = await client.completions.create({
               confirmedLabel="Pipeline Deleted ✓"
               onConfirm={() => console.log('Confirmed')}
             />
-            <p className="text-xs text-center text-[#666666]">Physical resistance spring handle with tactile snapback</p>
+            <p className="text-xs text-center text-[#737373]">Physical resistance spring handle with tactile snapback</p>
           </div>
         );
       case 'peek-card':
@@ -1363,11 +1363,11 @@ const completion = await client.completions.create({
                 ],
               }}
             >
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111111] hover:bg-[#181818] border border-[#222222] text-xs font-mono text-white cursor-pointer transition-colors">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] cursor-pointer transition-colors">
                 Hover over: Payment #3948
               </span>
             </PeekCard>
-            <p className="text-xs text-[#666666]">Contextual preview card emerging smoothly from trigger element</p>
+            <p className="text-xs text-[#737373]">Contextual preview card emerging smoothly from trigger element</p>
           </div>
         );
       case 'selection-basket':
@@ -1383,8 +1383,8 @@ const completion = await client.completions.create({
       case 'small-floating-dock':
         return (
           <div className="py-12 flex flex-col items-center justify-center gap-6">
-            <div className="relative w-full max-w-md h-36 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex items-center justify-center overflow-hidden">
-              <span className="text-xs text-[#555555]">Hover proximity to expand actions</span>
+            <div className="relative w-full max-w-md h-36 rounded-2xl bg-[#202020] border border-[#363636] flex items-center justify-center overflow-hidden shadow-md">
+              <span className="text-xs text-[#737373]">Hover proximity to expand actions</span>
               <SmallFloatingDock
                 key={demoKey}
                 position="bottom-center"
@@ -1407,7 +1407,7 @@ const completion = await client.completions.create({
       case 'typewriter-button':
         return (
           <div className="py-12 flex flex-col items-center justify-center gap-6">
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 p-4 sm:p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] max-w-full">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 p-4 sm:p-8 rounded-2xl bg-[#202020] border border-[#363636] max-w-full shadow-md">
               <TypewriterButton
                 key={demoKey}
                 soundEnabled
@@ -1425,7 +1425,7 @@ const completion = await client.completions.create({
                 git push origin main
               </TypewriterButton>
             </div>
-            <p className="text-xs text-[#666666]">Click buttons to test typewriter text reveal + Web Audio mechanical clicks</p>
+            <p className="text-xs text-[#737373]">Click buttons to test typewriter text reveal + Web Audio mechanical clicks</p>
           </div>
         );
       case 'depth-corridor':
@@ -1466,26 +1466,26 @@ const completion = await client.completions.create({
         return (
           <div className="py-4 sm:py-6 w-full max-w-xl mx-auto overflow-hidden">
             <DensityLens lensSize={140} zoomScale={2}>
-              <div className="p-4 sm:p-6 md:p-8 rounded-2xl bg-[#090909] border border-[#1F1F1F] space-y-3 sm:space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 border-b border-[#1A1A1A] pb-2.5">
-                  <h4 className="text-xs font-semibold text-white font-mono leading-tight">
+              <div className="p-4 sm:p-6 md:p-8 rounded-2xl bg-[#202020] border border-[#363636] space-y-3 sm:space-y-4 shadow-md">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 border-b border-[#363636] pb-2.5">
+                  <h4 className="text-xs font-semibold text-[#F5F5F5] font-mono leading-tight">
                     Microservice Cluster Topology
                   </h4>
                   <span className="text-[10px] font-mono text-emerald-400 shrink-0">
                     STATUS: HEALTHY
                   </span>
                 </div>
-                <p className="text-xs text-[#808080] leading-relaxed break-words">
+                <p className="text-xs text-[#A3A3A3] leading-relaxed break-words">
                   Hover your cursor across this surface to inspect sub-pixel details, high-density telemetry data, and underlying node architecture without expanding layout.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-[10px] font-mono text-[#666666]">
-                  <div className="p-2 rounded bg-[#111111] border border-[#1C1C1C] truncate" title="NODE_US_EAST_1">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-[10px] font-mono text-[#737373]">
+                  <div className="p-2 rounded bg-[#242424] border border-[#363636] truncate text-[#A3A3A3]" title="NODE_US_EAST_1">
                     NODE_US_EAST_1
                   </div>
-                  <div className="p-2 rounded bg-[#111111] border border-[#1C1C1C] truncate" title="NODE_EU_CENTRAL">
+                  <div className="p-2 rounded bg-[#242424] border border-[#363636] truncate text-[#A3A3A3]" title="NODE_EU_CENTRAL">
                     NODE_EU_CENTRAL
                   </div>
-                  <div className="p-2 rounded bg-[#111111] border border-[#1C1C1C] truncate" title="NODE_AP_SOUTH">
+                  <div className="p-2 rounded bg-[#242424] border border-[#363636] truncate text-[#A3A3A3]" title="NODE_AP_SOUTH">
                     NODE_AP_SOUTH
                   </div>
                 </div>
@@ -1611,15 +1611,15 @@ const completion = await client.completions.create({
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#F5F5F5] selection:bg-white/20 selection:text-white">
+    <div className="min-h-screen bg-[#151515] text-[#F5F5F5] selection:bg-[#3B82F6]/25 selection:text-white">
       {/* Documentation Container */}
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Mobile Header Bar */}
-        <div className="lg:hidden flex items-center justify-between gap-3 pb-4 mb-4 border-b border-[#1A1A1A]">
+        <div className="lg:hidden flex items-center justify-between gap-3 pb-4 mb-4 border-b border-[#363636]">
           <button
             type="button"
             onClick={() => setMobileSidebarOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0F0F0F] border border-[#222222] text-xs font-medium text-white hover:bg-[#161616] transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#242424] border border-[#363636] text-xs font-medium text-white hover:bg-[#2C2C2C] transition-colors"
           >
             <Menu className="w-4 h-4 text-zinc-400" />
             <span>Components Menu</span>
@@ -1629,7 +1629,7 @@ const completion = await client.completions.create({
             <button
               type="button"
               onClick={handleCopyCli}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0F0F0F] border border-[#222222] text-xs text-zinc-300 hover:text-white"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#242424] border border-[#363636] text-xs text-zinc-300 hover:text-white"
             >
               {isCopiedCli ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Terminal className="w-3.5 h-3.5" />}
               <span>{isCopiedCli ? 'Copied CLI' : 'Copy CLI'}</span>
@@ -1646,7 +1646,7 @@ const completion = await client.completions.create({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm"
                 onClick={() => setMobileSidebarOpen(false)}
               />
               <motion.div
@@ -1659,13 +1659,13 @@ const completion = await client.completions.create({
                   damping: 32,
                   mass: 0.8,
                 }}
-                className="relative w-80 max-w-[85vw] bg-[#0A0A0A] border-r border-[#1E1E1E] h-full p-5 overflow-y-auto z-10 flex flex-col gap-4 shadow-2xl"
+                className="relative w-80 max-w-[85vw] bg-[#1c1c1c] border-r border-[#2d2d2d] h-full p-5 overflow-y-auto z-10 flex flex-col gap-4 shadow-2xl"
               >
-                <div className="flex items-center justify-between border-b border-[#181818] pb-3">
+                <div className="flex items-center justify-between border-b border-[#2d2d2d] pb-3">
                   <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Components Catalog</span>
                   <button
                     onClick={() => setMobileSidebarOpen(false)}
-                    className="p-1.5 rounded-lg text-zinc-400 hover:text-white bg-[#111111] hover:bg-[#181818] border border-[#202020] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg text-zinc-400 hover:text-white bg-[#242424] hover:bg-[#2d2d2d] border border-[#2d2d2d] transition-colors cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -1679,7 +1679,7 @@ const completion = await client.completions.create({
                     value={sidebarFilter}
                     onChange={(e) => setSidebarFilter(e.target.value)}
                     placeholder="Filter components..."
-                    className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#111111] border border-[#222222] text-[16px] text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
+                    className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#242424] border border-[#2d2d2d] text-[16px] text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
                   />
                 </div>
                        {/* Items */}
@@ -1701,8 +1701,8 @@ const completion = await client.completions.create({
                           className={cn(
                             'w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-all text-left',
                             isActive
-                              ? 'bg-[#181818] text-white font-medium border border-[#282828]'
-                              : 'text-zinc-400 hover:text-white hover:bg-[#111111]'
+                              ? 'bg-[#242424] text-white font-medium border border-[#2d2d2d]'
+                              : 'text-zinc-400 hover:text-white hover:bg-[#242424]'
                           )}
                         >
                           <span className="truncate">{item.name}</span>
@@ -1731,7 +1731,7 @@ const completion = await client.completions.create({
                 value={sidebarFilter}
                 onChange={(e) => setSidebarFilter(e.target.value)}
                 placeholder="Search..."
-                className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#0A0A0A] border border-[#1C1C1C] text-[16px] text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+                className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#1c1c1c] border border-[#2d2d2d] text-[16px] text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
               />
               {sidebarFilter && (
                 <button
@@ -1747,56 +1747,56 @@ const completion = await client.completions.create({
             {/* INTRO Section */}
             <div className="space-y-6">
               <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest px-2.5 mb-1.5">
+                <h4 className="text-[11px] font-bold text-[#737373] uppercase tracking-widest px-2.5 mb-1.5">
                   Intro
                 </h4>
                 <button
                   onClick={onNavigateHome}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-white hover:bg-[#111111] transition-colors text-left"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors text-left cursor-pointer"
                 >
-                  <Home className="w-3.5 h-3.5 text-zinc-500" />
+                  <Home className="w-3.5 h-3.5 text-[#8A8A8A]" />
                   <span>Home</span>
                 </button>
                 <button
                   onClick={onNavigateComponents}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-white hover:bg-[#111111] transition-colors text-left"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors text-left cursor-pointer"
                 >
-                  <Grid className="w-3.5 h-3.5 text-zinc-500" />
+                  <Grid className="w-3.5 h-3.5 text-[#8A8A8A]" />
                   <span>Components</span>
                 </button>
               </div>
 
               {/* GUIDES Section */}
               <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest px-2.5 mb-1.5">
+                <h4 className="text-[11px] font-bold text-[#737373] uppercase tracking-widest px-2.5 mb-1.5">
                   Guides
                 </h4>
                 <button
                   onClick={() => onNavigateDocs('quick-start')}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-white hover:bg-[#111111] transition-colors text-left"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors text-left cursor-pointer"
                 >
-                  <Terminal className="w-3.5 h-3.5 text-zinc-500" />
+                  <Terminal className="w-3.5 h-3.5 text-[#8A8A8A]" />
                   <span>Quick Start</span>
                 </button>
                 <button
                   onClick={() => onNavigateDocs('motion')}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-white hover:bg-[#111111] transition-colors text-left"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors text-left cursor-pointer"
                 >
-                  <Sliders className="w-3.5 h-3.5 text-zinc-500" />
+                  <Sliders className="w-3.5 h-3.5 text-[#8A8A8A]" />
                   <span>Motion Tokens</span>
                 </button>
                 <button
                   onClick={() => onNavigateDocs('architecture')}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-white hover:bg-[#111111] transition-colors text-left"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors text-left cursor-pointer"
                 >
-                  <Cpu className="w-3.5 h-3.5 text-zinc-500" />
+                  <Cpu className="w-3.5 h-3.5 text-[#8A8A8A]" />
                   <span>Architecture</span>
                 </button>
               </div>
 
               {/* COMPONENTS Section */}
               <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest px-2.5 mb-1.5">
+                <h4 className="text-[11px] font-bold text-[#737373] uppercase tracking-widest px-2.5 mb-1.5">
                   Components
                 </h4>
                 <div className="space-y-0.5">
@@ -1810,8 +1810,8 @@ const completion = await client.completions.create({
                         className={cn(
                           'w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all text-left group cursor-pointer',
                           isActive
-                            ? 'bg-[#181818] text-white font-medium border border-[#282828] shadow-xs'
-                            : 'text-zinc-400 hover:text-zinc-200 hover:bg-[#0E0E0E]'
+                            ? 'bg-[#242424] text-white font-medium border border-[#363636] shadow-xs'
+                            : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#202020]'
                         )}
                       >
                         <span className="truncate">{item.name}</span>
@@ -1836,23 +1836,23 @@ const completion = await client.completions.create({
             {/* Breadcrumb & Header */}
             <div id="overview-section" className="space-y-3 pt-1">
               {/* Breadcrumb */}
-              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-zinc-500">
+              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#737373]">
                 <button
                   onClick={onNavigateComponents}
                   className="hover:text-white transition-colors"
                 >
                   Components
                 </button>
-                <ChevronRight className="w-3 h-3 text-zinc-600" />
-                <span className="text-zinc-400">{component.category || 'UI'}</span>
-                <ChevronRight className="w-3 h-3 text-zinc-600" />
+                <ChevronRight className="w-3 h-3 text-[#737373]" />
+                <span className="text-[#A3A3A3]">{component.category || 'UI'}</span>
+                <ChevronRight className="w-3 h-3 text-[#737373]" />
                 <span className="text-white font-medium">{component.name}</span>
               </nav>
 
               {/* Title and Action Buttons */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
                 <div className="space-y-1">
-                  <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                  <h1 className="text-3xl sm:text-4xl font-bold text-[#F5F5F5] tracking-tight">
                     {component.name}
                   </h1>
                 </div>
@@ -1862,13 +1862,13 @@ const completion = await client.completions.create({
                   <button
                     type="button"
                     onClick={handleCopyCli}
-                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] hover:bg-[#1A1A1A] border border-[#242424] hover:border-[#383838] text-xs font-medium text-zinc-200 hover:text-white transition-all shadow-sm cursor-pointer"
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#F5F5F5] hover:text-white transition-all shadow-sm cursor-pointer"
                     title="Copy CLI command"
                   >
                     {isCopiedCli ? (
                       <Check className="w-3.5 h-3.5 text-emerald-400" />
                     ) : (
-                      <Terminal className="w-3.5 h-3.5 text-zinc-400" />
+                      <Terminal className="w-3.5 h-3.5 text-[#8A8A8A]" />
                     )}
                     <span>{isCopiedCli ? 'Copied CLI' : 'Copy CLI'}</span>
                   </button>
@@ -1876,7 +1876,7 @@ const completion = await client.completions.create({
               </div>
 
               {/* Description Paragraph */}
-              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-3xl pt-1">
+              <p className="text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-3xl pt-1">
                 {component.description || component.tagline}
               </p>
             </div>
@@ -1905,12 +1905,12 @@ const completion = await client.completions.create({
             {activeTab === 'preview' && (
               <div id="preview-section" className="space-y-6">
                 {/* Main Interactive Stage Box */}
-                <div className="relative rounded-2xl border border-[#1E1E1E] bg-[#090909] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.6)] flex flex-col">
+                <div className="relative rounded-2xl border border-[#363636] bg-[#202020] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col">
                   {/* Top Bar inside the preview card */}
-                  <div className="px-4 py-3 border-b border-[#181818] bg-[#0C0C0C]/80 backdrop-blur-md flex items-center justify-between gap-3 text-xs">
+                  <div className="px-4 py-3 border-b border-[#363636] bg-[#1C1C1C]/90 backdrop-blur-md flex items-center justify-between gap-3 text-xs">
                     <div className="flex items-center gap-2.5">
-                      <FileCode className="w-3.5 h-3.5 text-zinc-400" />
-                      <span className="font-mono text-[11px] text-zinc-300 font-medium">
+                      <FileCode className="w-3.5 h-3.5 text-[#8A8A8A]" />
+                      <span className="font-mono text-[11px] text-[#F5F5F5] font-medium">
                         {component.id}.tsx
                       </span>
                     </div>
@@ -1922,7 +1922,7 @@ const completion = await client.completions.create({
                       <button
                         type="button"
                         onClick={() => setDemoKey((k) => k + 1)}
-                        className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-[#161616] border border-transparent hover:border-[#242424] transition-colors cursor-pointer"
+                        className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer"
                         title="Reset interactive demo"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
@@ -1932,7 +1932,7 @@ const completion = await client.completions.create({
                       <button
                         type="button"
                         onClick={() => handleCopy(component.cliCommand, 'cli-top')}
-                        className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-[#161616] border border-transparent hover:border-[#242424] transition-colors cursor-pointer"
+                        className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer"
                         title="Copy CLI command"
                       >
                         {copiedCode === 'cli-top' ? (
@@ -1946,7 +1946,7 @@ const completion = await client.completions.create({
                       <button
                         type="button"
                         onClick={() => setIsFullscreenPreview(true)}
-                        className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-[#161616] border border-transparent hover:border-[#242424] transition-colors cursor-pointer"
+                        className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer"
                         title="Fullscreen preview"
                       >
                         <Maximize2 className="w-3.5 h-3.5" />
@@ -1955,7 +1955,7 @@ const completion = await client.completions.create({
                   </div>
 
                   {/* Component Render Canvas */}
-                  <div className="relative min-h-[360px] sm:min-h-[420px] p-6 sm:p-10 flex items-center justify-center">
+                  <div className="relative min-h-[360px] sm:min-h-[420px] p-6 sm:p-10 flex items-center justify-center bg-[#151515]">
                     <div className="w-full flex items-center justify-center">
                       {renderInteractiveDemo()}
                     </div>
@@ -1971,14 +1971,14 @@ const completion = await client.completions.create({
               <div id="usage-section" className="space-y-6">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-zinc-400 font-medium">Import Component</span>
+                    <span className="text-[#A3A3A3] font-medium">Import Component</span>
                     <button
                       type="button"
                       onClick={() => {
                         const importStmt = `import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`;
                         handleCopy(importStmt, 'import');
                       }}
-                      className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                      className="flex items-center gap-1.5 text-xs text-[#A3A3A3] hover:text-white transition-colors cursor-pointer"
                     >
                       {copiedCode === 'import' ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -1988,18 +1988,18 @@ const completion = await client.completions.create({
                       <span>{copiedCode === 'import' ? 'Copied' : 'Copy'}</span>
                     </button>
                   </div>
-                  <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-white overflow-x-auto">
+                  <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#F5F5F5] overflow-x-auto">
                     <code>{`import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`}</code>
                   </pre>
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-zinc-400 font-medium">Example Code</span>
+                    <span className="text-[#A3A3A3] font-medium">Example Code</span>
                     <button
                       type="button"
                       onClick={() => handleCopy(component.usageCode, 'usage')}
-                      className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-[#161616] border border-transparent hover:border-[#242424] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer"
                       title={copiedCode === 'usage' ? 'Copied' : 'Copy Example Code'}
                       aria-label={copiedCode === 'usage' ? 'Copied example code' : 'Copy example code'}
                     >
@@ -2010,7 +2010,7 @@ const completion = await client.completions.create({
                       )}
                     </button>
                   </div>
-                  <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-zinc-300 overflow-x-auto max-h-[460px] leading-relaxed scrollbar-thin">
+                  <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#A3A3A3] overflow-x-auto max-h-[460px] leading-relaxed scrollbar-thin">
                     <code>{component.usageCode}</code>
                   </pre>
                 </div>
@@ -2023,13 +2023,13 @@ const completion = await client.completions.create({
             {activeTab === 'code' && (
               <div id="code-section" className="space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-zinc-400 font-medium font-mono">
+                  <span className="text-[#A3A3A3] font-medium font-mono">
                     src/components/ui/{component.id}.tsx
                   </span>
                   <button
                     type="button"
                     onClick={() => handleCopy(effectiveSourceCode, 'source')}
-                    className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-[#161616] border border-transparent hover:border-[#242424] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer"
                     title={copiedCode === 'source' ? 'Copied' : 'Copy Source Code'}
                     aria-label={copiedCode === 'source' ? 'Copied source code' : 'Copy source code'}
                   >
@@ -2040,7 +2040,7 @@ const completion = await client.completions.create({
                     )}
                   </button>
                 </div>
-                <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-zinc-300 overflow-x-auto max-h-[520px] leading-relaxed scrollbar-thin">
+                <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#A3A3A3] overflow-x-auto max-h-[520px] leading-relaxed scrollbar-thin">
                   <code>{effectiveSourceCode}</code>
                 </pre>
               </div>
@@ -2049,19 +2049,19 @@ const completion = await client.completions.create({
             {/* ========================================================================= */}
             {/* SECTION: INSTALLATION                                                     */}
             {/* ========================================================================= */}
-            <section id="install-section" className="space-y-4 pt-4 border-t border-[#181818]">
+            <section id="install-section" className="space-y-4 pt-4 border-t border-[#363636]">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-white tracking-tight">Installation</h2>
+                <h2 className="text-lg font-semibold text-[#F5F5F5] tracking-tight">Installation</h2>
                 {/* CLI vs Manual Toggle */}
-                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#111111] border border-[#202020]">
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#202020] border border-[#363636]">
                   <button
                     type="button"
                     onClick={() => setInstallMode('cli')}
                     className={cn(
                       'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
                       installMode === 'cli'
-                        ? 'bg-[#222222] text-white shadow-xs'
-                        : 'text-zinc-400 hover:text-white'
+                        ? 'bg-[#363636] text-white shadow-xs'
+                        : 'text-[#737373] hover:text-white'
                     )}
                   >
                     CLI
@@ -2072,8 +2072,8 @@ const completion = await client.completions.create({
                     className={cn(
                       'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
                       installMode === 'manual'
-                        ? 'bg-[#222222] text-white shadow-xs'
-                        : 'text-zinc-400 hover:text-white'
+                        ? 'bg-[#363636] text-white shadow-xs'
+                        : 'text-[#737373] hover:text-white'
                     )}
                   >
                     Manual
@@ -2083,15 +2083,15 @@ const completion = await client.completions.create({
 
               {installMode === 'cli' ? (
                 <div className="space-y-3">
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-[#A3A3A3]">
                     Add the component directly to your repository using shadcn CLI:
                   </p>
-                  <div className="rounded-xl border border-[#1E1E1E] bg-[#070707] p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-zinc-200">
+                  <div className="rounded-xl border border-[#363636] bg-[#1A1A1A] p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-[#F5F5F5]">
                     <span className="truncate">{component.cliCommand}</span>
                     <button
                       type="button"
                       onClick={() => handleCopy(component.cliCommand, 'cli')}
-                      className="p-1.5 rounded-md text-zinc-400 hover:text-white bg-[#141414] hover:bg-[#1E1E1E] border border-[#222222] transition-colors cursor-pointer shrink-0"
+                      className="p-1.5 rounded-md text-[#8A8A8A] hover:text-white bg-[#242424] hover:bg-[#2C2C2C] border border-[#363636] transition-colors cursor-pointer shrink-0"
                     >
                       {copiedCode === 'cli' ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -2105,7 +2105,7 @@ const completion = await client.completions.create({
                 <div className="space-y-4">
                   {/* Package Manager selector */}
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-zinc-400">1. Install dependencies</span>
+                    <span className="text-[#A3A3A3]">1. Install dependencies</span>
                     <div className="flex items-center gap-1 font-mono text-[11px]">
                       {(['pnpm', 'npm', 'yarn', 'bun'] as PkgManager[]).map((pm) => (
                         <button
@@ -2115,8 +2115,8 @@ const completion = await client.completions.create({
                           className={cn(
                             'px-2 py-0.5 rounded transition-colors cursor-pointer',
                             pkgManager === pm
-                              ? 'bg-[#1E1E1E] text-white'
-                              : 'text-zinc-500 hover:text-zinc-300'
+                              ? 'bg-[#363636] text-white'
+                              : 'text-[#737373] hover:text-[#A3A3A3]'
                           )}
                         >
                           {pm}
@@ -2125,12 +2125,12 @@ const completion = await client.completions.create({
                     </div>
                   </div>
 
-                  <div className="rounded-xl border border-[#1E1E1E] bg-[#070707] p-3.5 flex items-center justify-between gap-3 font-mono text-xs text-zinc-200">
+                  <div className="rounded-xl border border-[#363636] bg-[#1A1A1A] p-3.5 flex items-center justify-between gap-3 font-mono text-xs text-[#F5F5F5]">
                     <span className="truncate">{getInstallDepCommand()}</span>
                     <button
                       type="button"
                       onClick={() => handleCopy(getInstallDepCommand(), 'deps')}
-                      className="p-1.5 rounded-md text-zinc-400 hover:text-white bg-[#141414] border border-[#222222] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-md text-[#8A8A8A] hover:text-white bg-[#242424] border border-[#363636] transition-colors cursor-pointer"
                     >
                       {copiedCode === 'deps' ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -2140,7 +2140,7 @@ const completion = await client.completions.create({
                     </button>
                   </div>
 
-                  <p className="text-xs text-zinc-400 pt-1">
+                  <p className="text-xs text-[#A3A3A3] pt-1">
                     2. Copy the component source code from the{' '}
                     <button
                       onClick={() => setActiveTab('code')}
@@ -2157,13 +2157,13 @@ const completion = await client.completions.create({
             {/* ========================================================================= */}
             {/* SECTION: PROPS & API REFERENCE                                            */}
             {/* ========================================================================= */}
-            <section id="props-section" className="space-y-4 pt-4 border-t border-[#181818]">
-              <h2 className="text-lg font-semibold text-white tracking-tight">API Reference</h2>
+            <section id="props-section" className="space-y-4 pt-4 border-t border-[#363636]">
+              <h2 className="text-lg font-semibold text-[#F5F5F5] tracking-tight">API Reference</h2>
               {component.props && component.props.length > 0 ? (
-                <div className="rounded-xl border border-[#1E1E1E] overflow-hidden bg-[#070707]">
+                <div className="rounded-xl border border-[#363636] overflow-hidden bg-[#202020]">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
-                      <thead className="bg-[#0D0D0D] text-zinc-400 border-b border-[#1E1E1E]">
+                      <thead className="bg-[#1C1C1C] text-[#A3A3A3] border-b border-[#363636]">
                         <tr>
                           <th className="py-3 px-4 font-mono font-medium">Prop</th>
                           <th className="py-3 px-4 font-mono font-medium">Type</th>
@@ -2171,13 +2171,13 @@ const completion = await client.completions.create({
                           <th className="py-3 px-4 font-medium">Description</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#161616]">
+                      <tbody className="divide-y divide-[#363636]">
                         {component.props.map((p, i) => (
-                          <tr key={i} className="hover:bg-[#0E0E0E] transition-colors">
+                          <tr key={i} className="hover:bg-[#242424] transition-colors">
                             <td className="py-3 px-4 font-mono text-white font-medium">{p.name}</td>
-                            <td className="py-3 px-4 font-mono text-zinc-400">{p.type}</td>
-                            <td className="py-3 px-4 font-mono text-zinc-500">{p.default || '—'}</td>
-                            <td className="py-3 px-4 text-zinc-300 leading-relaxed">{p.description}</td>
+                            <td className="py-3 px-4 font-mono text-[#A3A3A3]">{p.type}</td>
+                            <td className="py-3 px-4 font-mono text-[#737373]">{p.default || '—'}</td>
+                            <td className="py-3 px-4 text-[#A3A3A3] leading-relaxed">{p.description}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -2185,27 +2185,27 @@ const completion = await client.completions.create({
                   </div>
                 </div>
               ) : (
-                <p className="text-xs text-zinc-500">Standard React HTML element attributes supported.</p>
+                <p className="text-xs text-[#737373]">Standard React HTML element attributes supported.</p>
               )}
             </section>
 
             {/* ========================================================================= */}
             {/* SECTION: FEATURES & ACCESSIBILITY                                         */}
             {/* ========================================================================= */}
-            <section id="features-section" className="space-y-4 pt-4 border-t border-[#181818]">
-              <h2 className="text-lg font-semibold text-white tracking-tight">Features & Accessibility</h2>
+            <section id="features-section" className="space-y-4 pt-4 border-t border-[#363636]">
+              <h2 className="text-lg font-semibold text-[#F5F5F5] tracking-tight">Features & Accessibility</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Features Card */}
                 {component.features && component.features.length > 0 && (
-                  <div className="p-4 rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] space-y-3">
-                    <div className="text-xs font-semibold text-zinc-300">
+                  <div className="p-4 rounded-xl border border-[#363636] bg-[#202020] space-y-3">
+                    <div className="text-xs font-semibold text-[#F5F5F5]">
                       Key Capabilities
                     </div>
-                    <ul className="space-y-2 text-xs text-zinc-400">
+                    <ul className="space-y-2 text-xs text-[#A3A3A3]">
                       {component.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
-                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-1.5 shrink-0" />
-                          <span className="text-zinc-300">{feat}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#737373] mt-1.5 shrink-0" />
+                          <span className="text-[#F5F5F5]">{feat}</span>
                         </li>
                       ))}
                     </ul>
@@ -2214,15 +2214,15 @@ const completion = await client.completions.create({
 
                 {/* Accessibility Card */}
                 {component.accessibility && component.accessibility.length > 0 && (
-                  <div className="p-4 rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] space-y-3">
-                    <div className="text-xs font-semibold text-zinc-300">
+                  <div className="p-4 rounded-xl border border-[#363636] bg-[#202020] space-y-3">
+                    <div className="text-xs font-semibold text-[#F5F5F5]">
                       Accessibility (WAI-ARIA)
                     </div>
-                    <ul className="space-y-2 text-xs text-zinc-400">
+                    <ul className="space-y-2 text-xs text-[#A3A3A3]">
                       {component.accessibility.map((acc, idx) => (
                         <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
-                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-1.5 shrink-0" />
-                          <span className="text-zinc-300">{acc}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#737373] mt-1.5 shrink-0" />
+                          <span className="text-[#F5F5F5]">{acc}</span>
                         </li>
                       ))}
                     </ul>
@@ -2235,22 +2235,22 @@ const completion = await client.completions.create({
             {/* SECTION: RELATED COMPONENTS                                               */}
             {/* ========================================================================= */}
             {relatedComponents.length > 0 && (
-              <section id="related-section" className="space-y-4 pt-4 border-t border-[#181818]">
-                <h2 className="text-lg font-semibold text-white tracking-tight">Related Components</h2>
+              <section id="related-section" className="space-y-4 pt-4 border-t border-[#363636]">
+                <h2 className="text-lg font-semibold text-[#F5F5F5] tracking-tight">Related Components</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {relatedComponents.map((rel) => (
                     <button
                       key={rel.id}
                       onClick={() => onSelectComponent(rel.id)}
-                      className="p-4 rounded-xl border border-[#1C1C1C] bg-[#0A0A0A] hover:border-[#333333] hover:bg-[#0E0E0E] transition-all text-left group cursor-pointer"
+                      className="p-4 rounded-xl border border-[#363636] bg-[#202020] hover:border-[#4A4A4A] hover:bg-[#242424] transition-all text-left group cursor-pointer"
                     >
-                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block mb-1">
+                      <span className="text-[10px] font-mono text-[#737373] uppercase tracking-wider block mb-1">
                         {rel.category}
                       </span>
                       <h4 className="text-xs font-semibold text-white group-hover:text-zinc-200 truncate mb-1">
                         {rel.name}
                       </h4>
-                      <p className="text-[11px] text-zinc-500 line-clamp-2 leading-relaxed">
+                      <p className="text-[11px] text-[#A3A3A3] line-clamp-2 leading-relaxed">
                         {rel.tagline || rel.description}
                       </p>
                     </button>
@@ -2268,37 +2268,38 @@ const completion = await client.completions.create({
       <AnimatePresence>
         {isFullscreenPreview && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-[100] bg-[#060606] flex flex-col overflow-y-auto"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+            className="fixed inset-0 z-[100] bg-[#151515] flex flex-col overflow-y-auto"
           >
-            {/* Minimal Fullscreen Header Bar */}
-            <div className="sticky top-0 inset-x-0 z-[110] bg-[#070707]/90 border-b border-[#141414] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-white truncate max-w-[160px] sm:max-w-none">
+            {/* Header */}
+            <div className="sticky top-0 inset-x-0 z-[110] bg-[#202020]/90 border-b border-[#363636] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs text-white font-medium">
                   {component.name}
                 </span>
-                <span className="text-[10px] font-mono text-[#555555] hidden sm:inline">Live Stage</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#242424] border border-[#363636] text-[#A3A3A3]">
+                  Fullscreen Preview
+                </span>
               </div>
 
               <button
                 type="button"
                 onClick={() => setIsFullscreenPreview(false)}
-                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#111111] hover:bg-[#181818] border border-[#202020] hover:border-[#333333] text-xs font-mono text-[#A1A1A1] hover:text-white transition-colors shrink-0 cursor-pointer"
-                title="Exit Fullscreen (Esc)"
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#A3A3A3] hover:text-white transition-colors shrink-0 cursor-pointer"
               >
-                <X className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline text-xs font-sans">Exit</span>
-                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#161616] border border-[#282828] text-[#737373]">ESC</kbd>
+                <span>Close</span>
+                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#242424] border border-[#363636] text-[#737373]">ESC</kbd>
               </button>
             </div>
 
-            {/* Centered Fullscreen Content */}
-            <div className="w-full max-w-4xl mx-auto px-4 py-8 sm:py-16 my-auto flex items-center justify-center">
-              {renderInteractiveDemo()}
+            {/* Canvas Body */}
+            <div className="flex-1 flex items-center justify-center p-6 sm:p-12 overflow-y-auto">
+              <div className="w-full max-w-4xl mx-auto flex items-center justify-center">
+                {renderInteractiveDemo()}
+              </div>
             </div>
           </motion.div>
         )}

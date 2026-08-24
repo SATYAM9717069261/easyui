@@ -100,10 +100,10 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
             : 'Notifications'
         }
         className={cn(
-          'relative p-2.5 rounded-xl border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
+          'relative p-2.5 rounded-xl border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer',
           isPanelOpen
-            ? 'bg-[#1C1C1C] border-[#333333] text-white'
-            : 'bg-[#0E0E0E] border-[#222222] text-[#A1A1A1] hover:text-white hover:border-[#333333]'
+            ? 'bg-[#242424] border-[#4A4A4A] text-[#F5F5F5]'
+            : 'bg-[#202020] border-[#363636] text-[#8A8A8A] hover:text-[#F5F5F5] hover:border-[#4A4A4A]'
         )}
       >
         <Bell className="w-5 h-5" />
@@ -117,7 +117,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
               exit={{ scale: 0, opacity: 0 }}
               transition={motionTransitions.springSnappy}
               className={cn(
-                'absolute -top-1 -right-1 flex items-center justify-center rounded-full bg-rose-500 text-white font-mono font-bold border-2 border-[#0A0A0A]',
+                'absolute -top-1 -right-1 flex items-center justify-center rounded-full bg-rose-500 text-white font-mono font-bold border-2 border-[#202020]',
                 showCount
                   ? 'min-w-[18px] h-[18px] px-1 text-[9px]'
                   : 'w-2.5 h-2.5'
@@ -137,12 +137,12 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={motionTransitions.springSnappy}
-            className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-[#0E0E0E]/95 backdrop-blur-xl border border-[#222222] shadow-[0_16px_40px_rgba(0,0,0,0.8)] z-50 overflow-hidden"
+            className="absolute left-1/2 -translate-x-1/2 sm:left-auto sm:right-0 sm:translate-x-0 mt-2 w-[calc(100vw-4rem)] max-w-[320px] sm:max-w-none sm:w-96 rounded-2xl bg-[#202020]/95 backdrop-blur-xl border border-[#363636] shadow-[0_16px_40px_rgba(0,0,0,0.6)] z-50 overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#1A1A1A] bg-[#0A0A0A]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[#363636] bg-[#242424]">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-white">Notifications</span>
+                <span className="text-xs font-semibold text-[#F5F5F5]">Notifications</span>
                 {unreadCount > 0 && (
                   <span className="px-1.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-mono">
                     {unreadCount} new
@@ -155,7 +155,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
                   <button
                     type="button"
                     onClick={onMarkAllAsRead}
-                    className="p-1 rounded-lg text-[10px] text-[#888888] hover:text-white hover:bg-white/5 transition-colors flex items-center gap-1"
+                    className="p-1 rounded-lg text-[10px] text-[#8A8A8A] hover:text-white hover:bg-[#242424] transition-colors flex items-center gap-1 cursor-pointer"
                     title="Mark all as read"
                   >
                     <CheckCheck className="w-3.5 h-3.5" />
@@ -165,7 +165,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
                 <button
                   type="button"
                   onClick={() => setPanelOpen(false)}
-                  className="p-1 rounded-lg text-[#888888] hover:text-white hover:bg-white/5 transition-colors"
+                  className="p-1 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] transition-colors cursor-pointer"
                   aria-label="Close notifications"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -174,10 +174,10 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
             </div>
 
             {/* List */}
-            <div className="max-h-80 overflow-y-auto divide-y divide-[#181818]">
+            <div className="max-h-80 overflow-y-auto divide-y divide-[#363636]">
               {notifications.length === 0 ? (
                 <div className="py-8 px-4 text-center">
-                  <Bell className="w-6 h-6 text-[#404040] mx-auto mb-2" />
+                  <Bell className="w-6 h-6 text-[#737373] mx-auto mb-2" />
                   <p className="text-xs text-[#737373]">No notifications right now</p>
                 </div>
               ) : (
@@ -194,7 +194,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
                       animate={{ opacity: 1 }}
                       className={cn(
                         'p-3 flex items-start gap-3 transition-colors hover:bg-white/[0.02]',
-                        !item.read && 'bg-[#121212]'
+                        !item.read && 'bg-[#242424]'
                       )}
                     >
                       <span
@@ -205,10 +205,10 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
                       />
 
                       <div className="flex-1 min-w-0">
-                        <p className={cn('text-xs text-[#E5E5E5] leading-relaxed', !item.read && 'font-medium text-white')}>
+                        <p className={cn('text-xs text-[#A3A3A3] leading-relaxed', !item.read && 'font-medium text-[#F5F5F5]')}>
                           {item.message}
                         </p>
-                        <span className="text-[10px] font-mono text-[#666666] mt-1 block">
+                        <span className="text-[10px] font-mono text-[#737373] mt-1 block">
                           {dateString}
                         </span>
                       </div>
@@ -217,7 +217,7 @@ export const NotificationBell: React.FC<NotificationBellProps> = ({
                         <button
                           type="button"
                           onClick={() => onMarkAsRead(item.id)}
-                          className="p-1 rounded text-[#737373] hover:text-white hover:bg-white/10 transition-colors shrink-0"
+                          className="p-1 rounded text-[#8A8A8A] hover:text-white hover:bg-[#202020] transition-colors shrink-0 cursor-pointer"
                           title="Mark as read"
                           aria-label="Mark notification as read"
                         >

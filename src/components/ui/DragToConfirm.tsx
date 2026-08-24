@@ -119,8 +119,8 @@ export const DragToConfirm: React.FC<DragToConfirmProps> = ({
         className={cn(
           'relative h-[52px] rounded-full border p-1 flex items-center overflow-hidden transition-colors',
           isConfirmed
-            ? 'bg-[#111A11] border-[#223822]'
-            : 'bg-[#0E0E0E] border-[#222222]',
+            ? 'bg-emerald-500/10 border-emerald-500/30'
+            : 'bg-[#202020] border-[#363636]',
           disabled && 'opacity-30 cursor-not-allowed'
         )}
       >
@@ -130,15 +130,15 @@ export const DragToConfirm: React.FC<DragToConfirmProps> = ({
           className={cn(
             'absolute inset-0 z-0 transition-opacity',
             actionType === 'delete'
-              ? 'bg-rose-950/30'
-              : 'bg-[#181818]'
+              ? 'bg-rose-950/20'
+              : 'bg-[#242424]'
           )}
         />
 
         {/* Track Label */}
         <motion.div
           style={{ opacity: textOpacity }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none text-xs font-medium tracking-wide text-[#808080] z-10"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none text-xs font-medium tracking-wide text-[#A3A3A3] z-10"
         >
           {isConfirmed ? '' : label}
         </motion.div>
@@ -164,12 +164,12 @@ export const DragToConfirm: React.FC<DragToConfirmProps> = ({
           onDragEnd={handleDragEnd}
           whileTap={disabled ? undefined : { scale: 0.96 }}
           className={cn(
-            'w-[44px] h-[44px] rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-20 shadow-md relative focus-ring',
+            'w-[44px] h-[44px] rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-20 shadow-xs relative focus-ring',
             isConfirmed
-              ? 'bg-emerald-500 text-black border-transparent'
+              ? 'bg-emerald-500 text-white border-transparent'
               : actionType === 'delete'
-              ? 'bg-[#1C1212] border border-[#381B1B] text-rose-300'
-              : 'bg-[#222222] border border-[#333333] text-white hover:bg-[#2A2A2A]'
+              ? 'bg-rose-500/20 border border-rose-500/40 text-rose-300'
+              : 'bg-[#242424] border border-[#363636] text-[#F5F5F5] hover:bg-[#2C2C2C]'
           )}
           tabIndex={disabled ? -1 : 0}
           role="slider"

@@ -79,7 +79,7 @@ export const DepthCorridor: React.FC<DepthCorridorProps> = ({
       role="region"
       aria-label="3D Depth Corridor Carousel"
       className={cn(
-        'relative w-full h-80 sm:h-96 rounded-2xl bg-[#060606] border border-[#181818] overflow-hidden flex flex-col items-center justify-center select-none focus:outline-none focus:ring-2 focus:ring-white/20',
+        'relative w-full h-80 sm:h-96 rounded-2xl bg-[#151515] border border-[#363636] overflow-hidden flex flex-col items-center justify-center select-none focus:outline-none focus:ring-2 focus:ring-white/20',
         className
       )}
       style={{ perspective: `${perspectiveDepth}px` }}
@@ -118,33 +118,33 @@ export const DepthCorridor: React.FC<DepthCorridorProps> = ({
               className={cn(
                 'absolute w-72 sm:w-80 p-5 rounded-2xl border transition-colors cursor-pointer',
                 isCurrent
-                  ? 'bg-[#0E0E0E] border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.9)] z-30'
-                  : 'bg-[#080808]/90 border-white/5 shadow-md hover:border-white/20'
+                  ? 'bg-[#242424] border-[#363636] shadow-[0_20px_50px_rgba(0,0,0,0.6)] z-30'
+                  : 'bg-[#202020]/90 border-[#363636]/60 shadow-md hover:border-[#4A4A4A]'
               )}
             >
               {layer.title && (
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs font-semibold text-white tracking-tight">{layer.title}</h4>
-                  <span className="text-[9px] font-mono text-[#666666]">0{idx + 1}</span>
+                  <h4 className="text-xs font-semibold text-[#F5F5F5] tracking-tight">{layer.title}</h4>
+                  <span className="text-[9px] font-mono text-[#737373]">0{idx + 1}</span>
                 </div>
               )}
               {layer.subtitle && (
-                <p className="text-[11px] text-[#808080] mb-3">{layer.subtitle}</p>
+                <p className="text-[11px] text-[#A3A3A3] mb-3">{layer.subtitle}</p>
               )}
-              <div className="text-xs text-[#D4D4D4]">{layer.content}</div>
+              <div className="text-xs text-[#F5F5F5]">{layer.content}</div>
             </motion.div>
           );
         })}
       </div>
 
       {/* Navigation Controls */}
-      <div className="absolute bottom-4 flex items-center gap-3 z-40 bg-[#0C0C0C]/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+      <div className="absolute bottom-4 flex items-center gap-3 z-40 bg-[#202020]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#363636]">
         <button
           type="button"
           onClick={() => setActiveIndex(activeIndex - 1)}
           disabled={activeIndex === 0}
           aria-label="Previous layer"
-          className="p-1 rounded-full text-[#A1A1A1] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="p-1 rounded-full text-[#8A8A8A] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
@@ -156,7 +156,7 @@ export const DepthCorridor: React.FC<DepthCorridorProps> = ({
               onClick={() => setActiveIndex(i)}
               className={cn(
                 'w-1.5 h-1.5 rounded-full transition-all cursor-pointer',
-                i === activeIndex ? 'w-4 bg-white' : 'bg-[#333333] hover:bg-[#666666]'
+                i === activeIndex ? 'w-4 bg-[#F5F5F5]' : 'bg-[#363636] hover:bg-[#4A4A4A]'
               )}
             />
           ))}
@@ -167,7 +167,7 @@ export const DepthCorridor: React.FC<DepthCorridorProps> = ({
           onClick={() => setActiveIndex(activeIndex + 1)}
           disabled={activeIndex === layers.length - 1}
           aria-label="Next layer"
-          className="p-1 rounded-full text-[#A1A1A1] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="p-1 rounded-full text-[#8A8A8A] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
         >
           <ChevronRight className="w-4 h-4" />
         </button>

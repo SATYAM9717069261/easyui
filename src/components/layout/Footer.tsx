@@ -9,7 +9,7 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigateDocs }) => {
   return (
-    <footer className="border-t border-[#141414] bg-[#050505] py-10 text-xs text-[#606060]">
+    <footer className="border-t border-[#363636] bg-[#151515] py-10 text-xs text-[#737373]">
       <Container size="xl">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
@@ -26,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-5 text-xs text-[#808080]">
+          <div className="flex flex-wrap items-center gap-5 text-xs text-[#A3A3A3]">
             <button
               onClick={onNavigateComponents}
               className="hover:text-[#F5F5F5] transition-colors"
@@ -64,10 +64,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
           </div>
         </div>
 
-        <div className="mt-8 pt-5 border-t border-[#101010] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2 text-[11px] text-[#555555]">
+        <div className="mt-8 pt-5 border-t border-[#363636] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2 text-[11px] text-[#737373]">
           <div>
-            <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="text-[#808080] hover:text-white transition-colors">Suraj Maurya</a>.</span>
-            <span className="block sm:inline sm:ml-1 text-[#606060] sm:text-inherit">Open source & copy-paste friendly.</span>
+            <span>© {new Date().getFullYear()} EasyUI. Created by <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="text-[#A3A3A3] hover:text-white transition-colors">Suraj Maurya</a>.</span>
+            <span className="block sm:inline sm:ml-1 text-[#737373] sm:text-inherit">Open source & copy-paste friendly.</span>
           </div>
           <span>React · TypeScript · Motion</span>
         </div>

@@ -39,7 +39,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
         mouseY.set(-1000);
       }}
       className={cn(
-        'group relative rounded-xl border border-[#1D1D1D] bg-[#0A0A0A] p-6 transition-colors duration-300 hover:border-[#2A2A2A] overflow-hidden',
+        'group relative rounded-xl border border-[#363636] bg-[#202020] p-6 transition-colors duration-300 hover:border-[#4A4A4A] overflow-hidden',
         className
       )}
       {...props}

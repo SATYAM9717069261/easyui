@@ -93,8 +93,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           className="w-full h-full"
         />
         {/* Soft atmospheric gradients matching deep dark theme */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/60 via-transparent to-[#050505]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#050505_90%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#151515]/60 via-transparent to-[#151515]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#151515_90%)]" />
       </div>
 
       {/* Subtle top ambient neutral glow */}
@@ -111,17 +111,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 sm:gap-2.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#0D0D0D] border border-[#222222] text-[11px] sm:text-[12px] font-sans text-[#A1A1A1] shadow-sm mb-5 sm:mb-6 backdrop-blur-md hover:border-[#383838] transition-all cursor-pointer group whitespace-nowrap max-w-full"
+              className="inline-flex items-center gap-2 sm:gap-2.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#202020] border border-[#363636] text-[11px] sm:text-[12px] font-sans text-[#A3A3A3] shadow-sm mb-5 sm:mb-6 backdrop-blur-md hover:border-[#484848] transition-all cursor-pointer group whitespace-nowrap max-w-full"
               onClick={onExplore}
             >
-              <span className="px-2 py-0.5 rounded-full bg-[#181818] text-[#ECECEC] text-[9px] sm:text-[10px] font-semibold tracking-wide border border-[#282828] shrink-0">
+              <span className="px-2 py-0.5 rounded-full bg-[#242424] text-[#F5F5F5] text-[9px] sm:text-[10px] font-semibold tracking-wide border border-[#363636] shrink-0">
                 Open Source
               </span>
-              <span className="text-[#D4D4D4] group-hover:text-white transition-colors truncate">
+              <span className="text-[#A3A3A3] group-hover:text-white transition-colors truncate">
                 <span className="inline sm:hidden">Copy-Paste Components</span>
                 <span className="hidden sm:inline">Open Source & Copy-Paste Components</span>
               </span>
-              <ChevronRight className="w-3.5 h-3.5 text-[#6F6F6F] group-hover:translate-x-0.5 transition-transform shrink-0" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#737373] group-hover:translate-x-0.5 transition-transform shrink-0" />
             </motion.div>
 
             {/* Main Headline - Single prominent centered statement */}
@@ -139,7 +139,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xs sm:text-base text-[#8E8E8E] max-w-2xl mt-4 sm:mt-5 font-normal leading-relaxed px-1 sm:px-0"
+              className="text-xs sm:text-base text-[#A3A3A3] max-w-2xl mt-4 sm:mt-5 font-normal leading-relaxed px-1 sm:px-0"
             >
               Integrate EasyUI into your project with simple, ready-to-use components. Clean design, smooth interactions, and full control over the source code. Get started in seconds.
 
@@ -154,7 +154,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             >
               <button
                 onClick={onExplore}
-                className="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#F5F5F5] hover:bg-white text-[#0A0A0A] text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-[0_0_25px_rgba(255,255,255,0.1)] hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
+                className="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#F5F5F5] hover:bg-white text-[#151515] text-xs sm:text-sm font-semibold tracking-tight transition-all shadow-[0_0_25px_rgba(255,255,255,0.1)] hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
               >
                 <span>Try EasyUI</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -165,7 +165,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   const elem = document.getElementById('how-it-works') || document.getElementById('workflow') || document.getElementById('dev-experience');
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-4.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#111111] hover:bg-[#181818] text-[#A1A1A1] hover:text-white border border-[#242424] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#333333]"
+                className="px-4.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#202020] hover:bg-[#242424] text-[#A3A3A3] hover:text-white border border-[#363636] text-xs sm:text-sm font-medium tracking-tight transition-all backdrop-blur-sm hover:border-[#4A4A4A]"
               >
                 How it works
               </button>
@@ -180,25 +180,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             className="relative max-w-3xl mx-auto"
           >
             {/* Ambient neutral reflection underneath the card */}
-            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-b from-white/10 to-transparent blur-xl opacity-40" />
+            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-b from-white/10 to-transparent blur-xl opacity-30" />
 
             {/* Main Terminal Window Card */}
-            <div className="relative rounded-2xl border border-[#222222] bg-[#0A0A0A]/95 backdrop-blur-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] overflow-hidden">
+            <div className="relative rounded-2xl border border-[#363636] bg-[#202020]/95 backdrop-blur-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] overflow-hidden">
               {/* Terminal Title Bar */}
-              <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 border-b border-[#1A1A1A] bg-[#0E0E0E]">
+              <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 border-b border-[#363636] bg-[#1C1C1C]">
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#262626]" />
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#262626]" />
-                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#262626]" />
-                  <span className="hidden sm:inline-block ml-3 font-mono text-[11px] text-[#6F6F6F]">easyui-terminal ~ zsh</span>
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#363636]" />
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#363636]" />
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#363636]" />
+                  <span className="hidden sm:inline-block ml-3 font-mono text-[11px] text-[#737373]">easyui-terminal ~ zsh</span>
                 </div>
 
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <div className="flex bg-[#141414] p-0.5 rounded-lg border border-[#222222]">
+                  <div className="flex bg-[#242424] p-0.5 rounded-lg border border-[#363636]">
                     <button
                       onClick={() => setActiveTab('cli')}
                       className={`px-2 sm:px-2.5 py-0.5 rounded-md text-[10px] sm:text-[11px] font-mono transition-all ${
-                        activeTab === 'cli' ? 'bg-[#242424] text-white font-medium' : 'text-[#717171] hover:text-[#A1A1A1]'
+                        activeTab === 'cli' ? 'bg-[#363636] text-white font-medium' : 'text-[#8A8A8A] hover:text-[#F5F5F5]'
                       }`}
                     >
                       Terminal
@@ -206,7 +206,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     <button
                       onClick={() => setActiveTab('react')}
                       className={`px-2 sm:px-2.5 py-0.5 rounded-md text-[10px] sm:text-[11px] font-mono transition-all ${
-                        activeTab === 'react' ? 'bg-[#242424] text-white font-medium' : 'text-[#717171] hover:text-[#A1A1A1]'
+                        activeTab === 'react' ? 'bg-[#363636] text-white font-medium' : 'text-[#8A8A8A] hover:text-[#F5F5F5]'
                       }`}
                     >
                       React JSX
@@ -215,7 +215,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                   <button
                     onClick={copyInstallCommand}
-                    className="p-1 sm:p-1.5 rounded-lg bg-[#141414] border border-[#222222] hover:border-[#383838] text-[#888888] hover:text-white transition-all flex items-center gap-1 text-[11px] font-mono"
+                    className="p-1 sm:p-1.5 rounded-lg bg-[#242424] border border-[#363636] hover:border-[#484848] text-[#8A8A8A] hover:text-white transition-all flex items-center gap-1 text-[11px] font-mono"
                     title="Copy command"
                   >
                     {copied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
@@ -380,25 +380,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Bottom Card Footer Glow & Status Bar */}
-              <div className="px-3 sm:px-4 py-2 sm:py-2.5 bg-[#0C0C0C] border-t border-[#181818] flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#737373]">
+              <div className="px-3 sm:px-4 py-2 sm:py-2.5 bg-[#1C1C1C] border-t border-[#363636] flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#737373]">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulse" />
-                  <span className="text-[#A1A1A1]">Ready to copy & paste</span>
+                  <span className="text-[#A3A3A3]">Ready to copy & paste</span>
                 </div>
-                <div className="text-[#606060] hidden xs:block">
+                <div className="text-[#737373] hidden xs:block">
                   UTF-8 • TypeScript 5.0
                 </div>
               </div>
             </div>
 
             {/* Bottom Tech Ecosystem */}
-            <div className="mt-8 sm:mt-12 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4 px-2 sm:px-4 text-[#6F6F6F]">
+            <div className="mt-8 sm:mt-12 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4 px-2 sm:px-4 text-[#737373]">
               {logos.map((logo) => (
                 <div
                   key={logo.name}
                   className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium hover:text-[#F5F5F5] transition-colors opacity-70 hover:opacity-100 cursor-default"
                 >
-                  <span className="text-[#808080] scale-90 sm:scale-100">{logo.icon}</span>
+                  <span className="text-[#8A8A8A] scale-90 sm:scale-100">{logo.icon}</span>
                   <span className="font-mono tracking-tight">{logo.name}</span>
                 </div>
               ))}

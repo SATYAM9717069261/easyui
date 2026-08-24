@@ -37,26 +37,26 @@ export const SmoothAccordion: React.FC<SmoothAccordionProps> = ({
   };
 
   return (
-    <div className={cn('flex flex-col divide-y divide-[#1D1D1D] rounded-xl border border-[#1D1D1D] bg-[#0A0A0A] overflow-hidden', className)}>
+    <div className={cn('flex flex-col divide-y divide-[#363636] rounded-xl border border-[#363636] bg-[#202020] overflow-hidden', className)}>
       {items.map((item) => {
         const isOpen = openIds.includes(item.id);
         return (
           <div key={item.id} className="transition-colors">
             <button
               onClick={() => toggle(item.id)}
-              className="flex w-full items-center justify-between p-4 text-left font-medium text-[#F5F5F5] hover:bg-[#101010] transition-colors focus-ring"
+              className="flex w-full items-center justify-between p-4 text-left font-medium text-[#F5F5F5] hover:bg-[#242424] transition-colors focus-ring cursor-pointer"
               aria-expanded={isOpen}
             >
               <div>
                 <div className="text-sm font-medium text-[#F5F5F5]">{item.title}</div>
                 {item.subtitle && (
-                  <div className="text-xs text-[#6F6F6F] mt-0.5">{item.subtitle}</div>
+                  <div className="text-xs text-[#737373] mt-0.5">{item.subtitle}</div>
                 )}
               </div>
               <motion.div
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={motionTransitions.springSnappy}
-                className="text-[#6F6F6F] ml-2 shrink-0"
+                className="text-[#8A8A8A] ml-2 shrink-0"
               >
                 <ChevronDown className="w-4 h-4" />
               </motion.div>
@@ -72,7 +72,7 @@ export const SmoothAccordion: React.FC<SmoothAccordionProps> = ({
                   transition={motionTransitions.springGentle}
                   className="overflow-hidden"
                 >
-                  <div className="px-4 pb-4 pt-1 text-xs sm:text-sm text-[#A1A1A1] leading-relaxed">
+                  <div className="px-4 pb-4 pt-1 text-xs sm:text-sm text-[#A3A3A3] leading-relaxed">
                     {item.content}
                   </div>
                 </motion.div>

@@ -108,18 +108,18 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#F5F5F5] pt-2 pb-24">
+    <div className="min-h-screen bg-[#151515] text-[#F5F5F5] pt-2 pb-24">
       <Container size="xl">
         {/* Top Header & Breadcrumbs */}
-        <div className="flex flex-wrap items-center justify-between gap-3 py-3 mb-4 sm:mb-6 border-b border-[#161616]">
-          <div className="flex items-center gap-1.5 text-xs font-sans text-[#808080]">
+        <div className="flex flex-wrap items-center justify-between gap-3 py-3 mb-4 sm:mb-6 border-b border-[#363636]">
+          <div className="flex items-center gap-1.5 text-xs font-sans text-[#A3A3A3]">
             <button
               onClick={onNavigateHome}
               className="hover:text-white transition-colors focus-ring rounded cursor-pointer"
             >
               EasyUI
             </button>
-            <span className="text-[#444444]">/</span>
+            <span className="text-[#737373]">/</span>
             <span className="text-white font-medium">All Components</span>
           </div>
 
@@ -127,7 +127,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
             <button
               onClick={onNavigateHome}
               aria-label="Back to Home"
-              className="p-1.5 rounded-lg text-[#888888] hover:text-white hover:bg-[#141414] transition-all focus-ring cursor-pointer"
+              className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] transition-all focus-ring cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -140,7 +140,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#F5F5F5] tracking-tight">
               All Components
             </h1>
-            <p className="text-xs sm:text-sm text-[#808080] mt-1 max-w-xl">
+            <p className="text-xs sm:text-sm text-[#A3A3A3] mt-1 max-w-xl">
               Explore all {allSortedComponents.length} components. Crafted with spring physics, copy-paste ownership, and zero configuration.
             </p>
           </div>
@@ -149,13 +149,13 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
           <div className="flex flex-col items-start md:items-end gap-1.5 w-full md:w-auto">
             <InspirationNote />
             <div className="relative w-full md:w-72">
-              <Search className="w-3.5 h-3.5 text-[#606060] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-3.5 h-3.5 text-[#8A8A8A] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="Search components..."
-                className="w-full pl-8 pr-3 py-1.5 text-[16px] rounded-lg bg-[#0C0C0C] border border-[#1E1E1E] focus:border-[#383838] text-[#F5F5F5] placeholder-[#606060] focus:outline-none transition-colors"
+                className="w-full pl-8 pr-3 py-1.5 text-[16px] rounded-lg bg-[#242424] border border-[#363636] focus:border-[#4A4A4A] text-[#F5F5F5] placeholder-[#737373] focus:outline-none transition-colors"
               />
             </div>
           </div>
@@ -170,8 +170,8 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
               className={cn(
                 'px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap focus-ring cursor-pointer',
                 selectedCategory === cat
-                  ? 'bg-[#181818] text-[#F5F5F5] border border-[#282828]'
-                  : 'bg-[#0A0A0A] text-[#737373] border border-[#141414] hover:text-[#A1A1A1] hover:bg-[#101010]'
+                  ? 'bg-[#242424] text-[#F5F5F5] border border-[#363636]'
+                  : 'bg-[#202020] text-[#737373] border border-[#363636] hover:text-[#F5F5F5] hover:bg-[#242424]'
               )}
             >
               {cat}
@@ -181,10 +181,10 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
 
         {/* Components Grid */}
         {filteredComponents.length === 0 ? (
-          <div className="py-20 text-center rounded-xl border border-[#141414] bg-[#080808] px-4">
+          <div className="py-20 text-center rounded-xl border border-[#363636] bg-[#202020] px-4">
             {selectedCategory === 'Recent' ? (
               <div className="space-y-3 max-w-md mx-auto">
-                <p className="text-sm text-[#888888] leading-relaxed">
+                <p className="text-sm text-[#A3A3A3] leading-relaxed">
                   No recent components available at the moment. Check out all components on the components page.
                 </p>
                 <div className="flex items-center justify-center gap-3 pt-1">
@@ -232,7 +232,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
             </div>
 
             {/* Pagination Controls */}
-            <div className="mt-8 pt-4 border-t border-[#141414]">
+            <div className="mt-8 pt-4 border-t border-[#363636]">
               <ComponentPagination
                 currentPage={pagination.currentPage}
                 totalPages={pagination.totalPages}

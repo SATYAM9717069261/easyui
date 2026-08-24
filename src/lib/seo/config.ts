@@ -20,7 +20,7 @@ export const SEO_CONFIG = {
   author: 'Suraj Maurya',
   repository: 'https://github.com/Surajmaurya1/easyui',
   locale: 'en_US',
-  themeColor: '#050505',
+  themeColor: '#151515',
   keywords: [
     'React components',
     'UI library',

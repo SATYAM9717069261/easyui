@@ -90,7 +90,7 @@ export const DependencyTrace: React.FC<DependencyTraceProps> = ({
       role="region"
       aria-label="Dependency Relationship Graph"
       className={cn(
-        'relative w-full h-80 rounded-2xl bg-[#060606] border border-[#181818] overflow-hidden select-none flex items-center justify-center',
+        'relative w-full h-80 rounded-2xl bg-[#151515] border border-[#363636] overflow-hidden select-none flex items-center justify-center',
         className
       )}
     >
@@ -123,7 +123,7 @@ export const DependencyTrace: React.FC<DependencyTraceProps> = ({
                 <motion.path
                   d={pathD}
                   fill="none"
-                  stroke="rgba(255, 255, 255, 0.4)"
+                  stroke="rgba(59, 130, 246, 0.3)"
                   strokeWidth="6"
                   strokeLinecap="round"
                   initial={{ opacity: 0 }}
@@ -136,12 +136,12 @@ export const DependencyTrace: React.FC<DependencyTraceProps> = ({
               <motion.path
                 d={pathD}
                 fill="none"
-                stroke={isConnected ? '#FFFFFF' : '#2A2A2A'}
+                stroke={isConnected ? '#3B82F6' : '#363636'}
                 strokeWidth={isConnected ? '2.5' : '1.5'}
                 strokeDasharray={isConnected ? 'none' : '4 4'}
                 strokeLinecap="round"
                 animate={{
-                  opacity: isDimmed ? 0.15 : isConnected ? 1 : 0.6,
+                  opacity: isDimmed ? 0.2 : isConnected ? 1 : 0.7,
                 }}
                 transition={motionTransitions.springSnappy}
               />
@@ -170,7 +170,7 @@ export const DependencyTrace: React.FC<DependencyTraceProps> = ({
                 <motion.circle
                   r={nodeSize / 2 + 6}
                   fill="none"
-                  stroke="rgba(255, 255, 255, 0.3)"
+                  stroke="rgba(59, 130, 246, 0.4)"
                   strokeWidth="2"
                   animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0.2, 0.6] }}
                   transition={{ repeat: Infinity, duration: 2 }}
@@ -180,8 +180,8 @@ export const DependencyTrace: React.FC<DependencyTraceProps> = ({
               {/* Node Circle Background */}
               <motion.circle
                 r={nodeSize / 2}
-                fill={isCurrentActive ? '#1F1F1F' : '#0F0F0F'}
-                stroke={isCurrentActive ? '#FFFFFF' : isConnected && activeId ? '#A1A1A1' : '#262626'}
+                fill={isCurrentActive ? '#242424' : '#202020'}
+                stroke={isCurrentActive ? '#3B82F6' : isConnected && activeId ? '#A3A3A3' : '#363636'}
                 strokeWidth="1.5"
                 animate={{
                   scale: isCurrentActive ? 1.15 : 1,
@@ -194,7 +194,7 @@ export const DependencyTrace: React.FC<DependencyTraceProps> = ({
               <motion.text
                 textAnchor="middle"
                 dy="3.5"
-                className="text-[9px] font-mono font-medium pointer-events-none fill-white"
+                className="text-[9px] font-mono font-medium pointer-events-none fill-[#F5F5F5]"
                 animate={{
                   opacity: isDimmed ? 0.25 : 1,
                   fontWeight: isCurrentActive ? 700 : 500,
@@ -208,7 +208,7 @@ export const DependencyTrace: React.FC<DependencyTraceProps> = ({
       </svg>
 
       {/* Floating Status Bar */}
-      <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[10px] font-mono text-[#666666] bg-[#0A0A0A]/80 backdrop-blur px-3 py-1.5 rounded-lg border border-white/5 pointer-events-none">
+      <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[10px] font-mono text-[#A3A3A3] bg-[#202020]/90 backdrop-blur px-3 py-1.5 rounded-lg border border-[#363636] pointer-events-none">
         <span>{activeId ? `Selected: ${activeId}` : 'Hover node to trace dependencies'}</span>
         <span>{connections.length} connections</span>
       </div>
