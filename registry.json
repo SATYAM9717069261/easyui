@@ -105,6 +105,33 @@
       ]
     },
     {
+      "name": "batch-gesture-tray",
+      "type": "registry:ui",
+      "title": "Batch Gesture Tray",
+      "description": "A touch-ready contextual tray that slides into view upon item selection, presenting bulk actions and real-time count telemetry.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/BatchGestureTray.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/batch-gesture-tray.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
@@ -192,6 +219,80 @@
           "path": "src/lib/constants.ts",
           "type": "registry:lib",
           "target": "lib/constants.ts"
+        }
+      ]
+    },
+    {
+      "name": "density-lens",
+      "type": "registry:ui",
+      "title": "Density Lens",
+      "description": "An interactive floating lens that tracks pointer movement to reveal high-density data, magnified details, or alternative views.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/DensityLens.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/density-lens.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "dependency-trace",
+      "type": "registry:ui",
+      "title": "Dependency Trace",
+      "description": "An interactive SVG node graph that maps and dynamically traces relationship connections with directional bezier curves.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/DependencyTrace.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dependency-trace.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "depth-corridor",
+      "type": "registry:ui",
+      "title": "Depth Corridor",
+      "description": "A 3D spatial layer stack with receding perspective depth, progressive focal blurs, and pointer parallax motion.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/DepthCorridor.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/depth-corridor.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
         }
       ]
     },
@@ -429,6 +530,32 @@
       ]
     },
     {
+      "name": "hamburger-menu",
+      "type": "registry:ui",
+      "title": "Hamburger Menu",
+      "description": "An iconic three-line menu toggle that transforms smoothly into a symmetrical close symbol.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/HamburgerMenu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/hamburger-menu.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "interactive-timeline",
       "type": "registry:ui",
       "title": "Interactive Timeline",
@@ -452,6 +579,54 @@
           "path": "src/lib/motion-tokens.ts",
           "type": "registry:lib",
           "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "ios-search-bar",
+      "type": "registry:ui",
+      "title": "iOS-style Search Bar",
+      "description": "A minimalist search pill that smoothly expands on focus and reveals quick-clear controls with spring animation.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/IOSSearchBar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/ios-search-bar.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "loader",
+      "type": "registry:ui",
+      "title": "Loader",
+      "description": "A minimal, purpose-driven loading indicator with 4 calm, non-anxious motion variants.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Loader.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/loader.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
         }
       ]
     },
@@ -576,6 +751,33 @@
           "path": "src/components/ui/MorphingDialog.tsx",
           "type": "registry:ui",
           "target": "components/ui/morphing-dialog.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "notification-bell",
+      "type": "registry:ui",
+      "title": "Notification Bell",
+      "description": "An interactive notification trigger with animated badge counter, arrival shake feedback, and dropdown panel.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NotificationBell.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/notification-bell.tsx"
         },
         {
           "path": "src/lib/utils.ts",
@@ -724,6 +926,33 @@
       ]
     },
     {
+      "name": "recovery-ledger",
+      "type": "registry:ui",
+      "title": "Recovery Ledger",
+      "description": "An archival audit timeline and state recovery ledger with chronological snapshot markers, diff inspection, and one-click rollback triggers.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/RecoveryLedger.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/recovery-ledger.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "reveal-card",
       "type": "registry:ui",
       "title": "Reveal Card",
@@ -812,6 +1041,32 @@
           "path": "src/components/ui/SignUp.tsx",
           "type": "registry:ui",
           "target": "components/ui/sign-up.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "small-floating-dock",
+      "type": "registry:ui",
+      "title": "Small Floating Dock",
+      "description": "A minimal, gesture-responsive floating dock for quick access to 3-5 primary actions.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/SmallFloatingDock.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/small-floating-dock.tsx"
         },
         {
           "path": "src/lib/utils.ts",
@@ -929,6 +1184,85 @@
           "path": "src/lib/constants.ts",
           "type": "registry:lib",
           "target": "lib/constants.ts"
+        }
+      ]
+    },
+    {
+      "name": "stack-unfold-panel",
+      "type": "registry:ui",
+      "title": "Stack Unfold Panel",
+      "description": "A vertically stacked card deck that unfolds progressively with spring physics, shifting adjacent panels with zero layout jank.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/StackUnfoldPanel.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/stack-unfold-panel.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "torque-dial",
+      "type": "registry:ui",
+      "title": "Torque Dial",
+      "description": "A rotational control dial with realistic physical angular momentum, velocity tracking, and exponential friction deceleration.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/TorqueDial.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/torque-dial.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "typewriter-button",
+      "type": "registry:ui",
+      "title": "Typewriter Button",
+      "description": "An interactive button that reveals its label character-by-character with optional synthesized mechanical audio feedback.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/TypewriterButton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/typewriter-button.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
         }
       ]
     },

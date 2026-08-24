@@ -72,6 +72,19 @@ import { DragToConfirm } from '../ui/DragToConfirm';
 import { PeekCard } from '../ui/PeekCard';
 import { SelectionBasket } from '../ui/SelectionBasket';
 import { FocusMode } from '../ui/FocusMode';
+import { Loader } from '../ui/Loader';
+import { SmallFloatingDock } from '../ui/SmallFloatingDock';
+import { HamburgerMenu } from '../ui/HamburgerMenu';
+import { NotificationBell } from '../ui/NotificationBell';
+import { IOSSearchBar } from '../ui/IOSSearchBar';
+import { TypewriterButton } from '../ui/TypewriterButton';
+import { DepthCorridor } from '../ui/DepthCorridor';
+import { DensityLens } from '../ui/DensityLens';
+import { TorqueDial } from '../ui/TorqueDial';
+import { StackUnfoldPanel } from '../ui/StackUnfoldPanel';
+import { DependencyTrace } from '../ui/DependencyTrace';
+import { BatchGestureTray } from '../ui/BatchGestureTray';
+import { RecoveryLedger } from '../ui/RecoveryLedger';
 
 export type MainTab = 'preview' | 'usage' | 'code' | 'props' | 'accessibility';
 export type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
@@ -354,6 +367,158 @@ const SpotlightSearchShowcase: React.FC = () => {
         open={isOpen}
         onOpenChange={setIsOpen}
       />
+    </div>
+  );
+};
+
+const LoaderShowcase: React.FC = () => {
+  const [variant, setVariant] = useState<'arc' | 'dots' | 'line' | 'rings'>('arc');
+  const [size, setSize] = useState(36);
+
+  return (
+    <div className="py-8 sm:py-12 flex flex-col items-center justify-center gap-6 max-w-full overflow-hidden">
+      <div className="p-4 sm:p-8 rounded-2xl bg-[#090909] border border-[#1C1C1C] flex flex-col items-center gap-6 max-w-full">
+        <Loader variant={variant} size={size} />
+        
+        <div className="flex flex-col items-center gap-3">
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#121212] border border-[#222222]">
+            {(['arc', 'dots', 'line', 'rings'] as const).map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => setVariant(v)}
+                className={cn(
+                  'px-2.5 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer',
+                  variant === v ? 'bg-white text-black font-semibold shadow' : 'text-[#888888] hover:text-white'
+                )}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 text-xs font-mono text-[#737373]">
+            <span>Size:</span>
+            {[24, 32, 40, 48].map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setSize(s)}
+                className={cn(
+                  'px-2 py-0.5 rounded border transition-colors cursor-pointer',
+                  size === s ? 'bg-white text-black border-white' : 'border-[#222222] text-[#888888] hover:text-white'
+                )}
+              >
+                {s}px
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+      <p className="text-xs text-[#666666]">Calm, continuous motion indicators with zero visual stress</p>
+    </div>
+  );
+};
+
+const HamburgerMenuShowcase: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="py-12 flex flex-col items-center justify-center gap-4">
+      <div className="p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex flex-col items-center gap-4">
+        <HamburgerMenu
+          isOpen={isOpen}
+          onChange={setIsOpen}
+          size={28}
+        />
+        <span className="text-xs font-mono text-[#888888]">
+          Click to morph ({isOpen ? 'Open (✕)' : 'Closed (☰)'})
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const NotificationBellShowcase: React.FC = () => {
+  const [notifications, setNotifications] = useState([
+    { id: '1', message: 'Edge worker deployed to global clusters.', timestamp: 'Just now', read: false },
+    { id: '2', message: 'Memory consumption decreased by 14.8%.', timestamp: '12m ago', read: false },
+    { id: '3', message: 'Database backup verified successfully.', timestamp: '1h ago', read: true },
+  ]);
+
+  const addNotification = () => {
+    const newId = String(Date.now());
+    setNotifications((prev) => [
+      { id: newId, message: `New telemetry event emitted (#${newId.slice(-4)})`, timestamp: 'Just now', read: false },
+      ...prev,
+    ]);
+  };
+
+  const handleMarkRead = (id: string) => {
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
+  };
+
+  const handleMarkAllRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
+
+  return (
+    <div className="py-12 flex flex-col items-center justify-center gap-6">
+      <div className="p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex flex-col items-center gap-6">
+        <NotificationBell
+          notifications={notifications}
+          onMarkAsRead={handleMarkRead}
+          onMarkAllAsRead={handleMarkAllRead}
+        />
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={addNotification}
+            className="px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#1E1E1E] border border-[#262626] text-xs font-medium text-white transition-colors cursor-pointer"
+          >
+            + Trigger Alert (Shake Test)
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const IOSSearchBarShowcase: React.FC = () => {
+  const [query, setQuery] = useState('');
+
+  return (
+    <div className="py-12 flex flex-col items-center justify-center gap-4">
+      <div className="p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex flex-col items-center gap-4">
+        <IOSSearchBar
+          value={query}
+          onChange={setQuery}
+          placeholder="Search telemetry..."
+        />
+        <span className="text-xs font-mono text-[#666666]">
+          {query ? `Active query: "${query}"` : 'Focus pill to test spring expansion (or press ⌘K)'}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const TorqueDialShowcase: React.FC = () => {
+  const [value, setValue] = useState(48);
+
+  return (
+    <div className="py-12 flex flex-col items-center justify-center gap-6">
+      <div className="p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex flex-col items-center gap-4">
+        <TorqueDial
+          value={value}
+          onChange={setValue}
+          min={0}
+          max={100}
+          unit="%"
+          label="Master Output Gain"
+        />
+        <span className="text-xs text-[#666666]">Click and drag or use mouse wheel to rotate dial with physical momentum</span>
+      </div>
     </div>
   );
 };
@@ -1213,6 +1378,228 @@ const completion = await client.completions.create({
             <FocusMode key={demoKey} />
           </div>
         );
+      case 'loader':
+        return <LoaderShowcase key={demoKey} />;
+      case 'small-floating-dock':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center gap-6">
+            <div className="relative w-full max-w-md h-36 rounded-2xl bg-[#080808] border border-[#1C1C1C] flex items-center justify-center overflow-hidden">
+              <span className="text-xs text-[#555555]">Hover proximity to expand actions</span>
+              <SmallFloatingDock
+                key={demoKey}
+                position="bottom-center"
+                items={[
+                  { id: '1', label: 'AI Pilot', icon: <Sparkles className="w-4 h-4" />, action: () => {} },
+                  { id: '2', label: 'Terminal', icon: <Terminal className="w-4 h-4" />, action: () => {} },
+                  { id: '3', label: 'Code', icon: <Code2 className="w-4 h-4" />, action: () => {} },
+                  { id: '4', label: 'Security', icon: <ShieldCheck className="w-4 h-4" />, action: () => {}, badge: 4 },
+                ]}
+              />
+            </div>
+          </div>
+        );
+      case 'hamburger-menu':
+        return <HamburgerMenuShowcase key={demoKey} />;
+      case 'notification-bell':
+        return <NotificationBellShowcase key={demoKey} />;
+      case 'ios-search-bar':
+        return <IOSSearchBarShowcase key={demoKey} />;
+      case 'typewriter-button':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 p-4 sm:p-8 rounded-2xl bg-[#080808] border border-[#1C1C1C] max-w-full">
+              <TypewriterButton
+                key={demoKey}
+                soundEnabled
+                variant="primary"
+                charDuration={65}
+              >
+                npx easyui add button
+              </TypewriterButton>
+              <TypewriterButton
+                key={`${demoKey}-sec`}
+                soundEnabled
+                variant="secondary"
+                charDuration={50}
+              >
+                git push origin main
+              </TypewriterButton>
+            </div>
+            <p className="text-xs text-[#666666]">Click buttons to test typewriter text reveal + Web Audio mechanical clicks</p>
+          </div>
+        );
+      case 'depth-corridor':
+        return (
+          <div className="py-6 w-full max-w-xl mx-auto">
+            <DepthCorridor
+              key={demoKey}
+              layers={[
+                {
+                  id: '1',
+                  title: 'Edge Telemetry Gateway',
+                  subtitle: 'Real-time routing engine',
+                  content: <div className="text-emerald-400 font-mono text-xs">● 12.4ms avg global latency</div>,
+                },
+                {
+                  id: '2',
+                  title: 'Serverless Worker Pool',
+                  subtitle: 'Autonomous scaling nodes',
+                  content: <div className="text-sky-400 font-mono text-xs">● 128 active clusters</div>,
+                },
+                {
+                  id: '3',
+                  title: 'Distributed State Cache',
+                  subtitle: 'In-memory key-value mesh',
+                  content: <div className="text-amber-400 font-mono text-xs">● 99.98% cache hit ratio</div>,
+                },
+                {
+                  id: '4',
+                  title: 'Cold Storage Archive',
+                  subtitle: 'S3-compatible immutable vault',
+                  content: <div className="text-zinc-400 font-mono text-xs">● 42.8 TB encrypted data</div>,
+                },
+              ]}
+            />
+          </div>
+        );
+      case 'density-lens':
+        return (
+          <div className="py-4 sm:py-6 w-full max-w-xl mx-auto overflow-hidden">
+            <DensityLens lensSize={140} zoomScale={2}>
+              <div className="p-4 sm:p-6 md:p-8 rounded-2xl bg-[#090909] border border-[#1F1F1F] space-y-3 sm:space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 border-b border-[#1A1A1A] pb-2.5">
+                  <h4 className="text-xs font-semibold text-white font-mono leading-tight">
+                    Microservice Cluster Topology
+                  </h4>
+                  <span className="text-[10px] font-mono text-emerald-400 shrink-0">
+                    STATUS: HEALTHY
+                  </span>
+                </div>
+                <p className="text-xs text-[#808080] leading-relaxed break-words">
+                  Hover your cursor across this surface to inspect sub-pixel details, high-density telemetry data, and underlying node architecture without expanding layout.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-[10px] font-mono text-[#666666]">
+                  <div className="p-2 rounded bg-[#111111] border border-[#1C1C1C] truncate" title="NODE_US_EAST_1">
+                    NODE_US_EAST_1
+                  </div>
+                  <div className="p-2 rounded bg-[#111111] border border-[#1C1C1C] truncate" title="NODE_EU_CENTRAL">
+                    NODE_EU_CENTRAL
+                  </div>
+                  <div className="p-2 rounded bg-[#111111] border border-[#1C1C1C] truncate" title="NODE_AP_SOUTH">
+                    NODE_AP_SOUTH
+                  </div>
+                </div>
+              </div>
+            </DensityLens>
+          </div>
+        );
+      case 'torque-dial':
+        return <TorqueDialShowcase key={demoKey} />;
+      case 'stack-unfold-panel':
+        return (
+          <div className="py-6 w-full max-w-lg mx-auto">
+            <StackUnfoldPanel
+              key={demoKey}
+              cards={[
+                {
+                  id: '1',
+                  title: 'Edge Compute Engine',
+                  subtitle: 'v2.4.0 High-throughput pipeline',
+                  content: 'Lightweight V8 isolates execute with zero cold-starts and under 5ms execution overhead globally.',
+                  badge: 'Core',
+                },
+                {
+                  id: '2',
+                  title: 'Zero-Allocation Parser',
+                  subtitle: 'Binary protocol serializer',
+                  content: 'Stream-based decoding without heap allocation penalty, optimizing CPU utilization during peak traffic.',
+                  badge: 'Protocol',
+                },
+                {
+                  id: '3',
+                  title: 'Cryptographic Attestation',
+                  subtitle: 'Hardware TPM integrity',
+                  content: 'Hardware-verified boot trust and per-request cryptographic telemetry verification.',
+                  badge: 'Security',
+                },
+              ]}
+            />
+          </div>
+        );
+      case 'dependency-trace':
+        return (
+          <div className="py-6 w-full max-w-xl mx-auto">
+            <DependencyTrace
+              key={demoKey}
+              nodes={[
+                { id: 'gateway', label: 'API Gateway', x: 200, y: 50 },
+                { id: 'auth', label: 'Auth Svc', x: 100, y: 140 },
+                { id: 'billing', label: 'Billing API', x: 300, y: 140 },
+                { id: 'postgres', label: 'Postgres DB', x: 100, y: 230 },
+                { id: 'stripe', label: 'Stripe Mesh', x: 300, y: 230 },
+              ]}
+              connections={[
+                { from: 'gateway', to: 'auth' },
+                { from: 'gateway', to: 'billing' },
+                { from: 'auth', to: 'postgres' },
+                { from: 'billing', to: 'stripe' },
+                { from: 'billing', to: 'postgres' },
+              ]}
+            />
+          </div>
+        );
+      case 'batch-gesture-tray':
+        return (
+          <div className="py-6 w-full max-w-lg mx-auto">
+            <BatchGestureTray
+              key={demoKey}
+              items={[
+                { id: '1', title: 'cluster-config.prod.yaml', subtitle: 'Modified 3m ago by alex' },
+                { id: '2', title: 'telemetry-collector.ts', subtitle: 'Modified 14m ago by sarah' },
+                { id: '3', title: 'database-migration.sql', subtitle: 'Modified 1h ago by system' },
+                { id: '4', title: 'docker-compose.edge.json', subtitle: 'Modified 3h ago by dev' },
+              ]}
+              actions={[
+                { id: 'export', label: 'Export', icon: <Terminal className="w-3.5 h-3.5" />, action: async () => {} },
+                { id: 'archive', label: 'Archive', icon: <Sparkles className="w-3.5 h-3.5" />, action: async () => {} },
+              ]}
+            />
+          </div>
+        );
+      case 'recovery-ledger':
+        return (
+          <div className="py-6 w-full max-w-lg mx-auto">
+            <RecoveryLedger
+              key={demoKey}
+              currentEntryId="v3"
+              entries={[
+                {
+                  id: 'v3',
+                  timestamp: 'Just now',
+                  action: 'Production Deploy v3.2.0',
+                  description: 'Upgraded Web Audio synthesizer engine and added spring tokens.',
+                  author: 'Suraj M.',
+                  details: { diff: '+ import { motionTransitions } from "@/lib/motion-tokens";' },
+                },
+                {
+                  id: 'v2',
+                  timestamp: '2 hours ago',
+                  action: 'Security Patch RS256',
+                  description: 'Rotated API signature keys and patched JWT verify route.',
+                  author: 'Alex W.',
+                  details: { diff: '- const alg = "HS256";\n+ const alg = "RS256";' },
+                },
+                {
+                  id: 'v1',
+                  timestamp: 'Yesterday',
+                  action: 'Initial Schema Release',
+                  description: 'Base database schema migration across primary regions.',
+                  author: 'DevOps',
+                },
+              ]}
+            />
+          </div>
+        );
       default:
         return (
           <div className="py-12 text-center text-xs text-[#808080]">
@@ -1292,7 +1679,7 @@ const completion = await client.completions.create({
                     value={sidebarFilter}
                     onChange={(e) => setSidebarFilter(e.target.value)}
                     placeholder="Filter components..."
-                    className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#111111] border border-[#222222] text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
+                    className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#111111] border border-[#222222] text-[16px] text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
                   />
                 </div>
                        {/* Items */}
@@ -1344,7 +1731,7 @@ const completion = await client.completions.create({
                 value={sidebarFilter}
                 onChange={(e) => setSidebarFilter(e.target.value)}
                 placeholder="Search..."
-                className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#0A0A0A] border border-[#1C1C1C] text-xs text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+                className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#0A0A0A] border border-[#1C1C1C] text-[16px] text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
               />
               {sidebarFilter && (
                 <button
@@ -1612,14 +1999,15 @@ const completion = await client.completions.create({
                     <button
                       type="button"
                       onClick={() => handleCopy(component.usageCode, 'usage')}
-                      className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-[#161616] border border-transparent hover:border-[#242424] transition-colors cursor-pointer"
+                      title={copiedCode === 'usage' ? 'Copied' : 'Copy Example Code'}
+                      aria-label={copiedCode === 'usage' ? 'Copied example code' : 'Copy example code'}
                     >
                       {copiedCode === 'usage' ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
                       ) : (
                         <Copy className="w-3.5 h-3.5" />
                       )}
-                      <span>{copiedCode === 'usage' ? 'Copied' : 'Copy Example'}</span>
                     </button>
                   </div>
                   <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-zinc-300 overflow-x-auto max-h-[460px] leading-relaxed scrollbar-thin">
@@ -1641,14 +2029,15 @@ const completion = await client.completions.create({
                   <button
                     type="button"
                     onClick={() => handleCopy(effectiveSourceCode, 'source')}
-                    className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-[#161616] border border-transparent hover:border-[#242424] transition-colors cursor-pointer"
+                    title={copiedCode === 'source' ? 'Copied' : 'Copy Source Code'}
+                    aria-label={copiedCode === 'source' ? 'Copied source code' : 'Copy source code'}
                   >
                     {copiedCode === 'source' ? (
                       <Check className="w-3.5 h-3.5 text-emerald-400" />
                     ) : (
                       <Copy className="w-3.5 h-3.5" />
                     )}
-                    <span>{copiedCode === 'source' ? 'Copied' : 'Copy Source Code'}</span>
                   </button>
                 </div>
                 <pre className="p-4 rounded-xl border border-[#1E1E1E] bg-[#070707] font-mono text-xs text-zinc-300 overflow-x-auto max-h-[520px] leading-relaxed scrollbar-thin">
@@ -1814,8 +2203,9 @@ const completion = await client.completions.create({
                     </div>
                     <ul className="space-y-2 text-xs text-zinc-400">
                       {component.features.map((feat, idx) => (
-                        <li key={idx} className="leading-relaxed">
-                          {feat}
+                        <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-1.5 shrink-0" />
+                          <span className="text-zinc-300">{feat}</span>
                         </li>
                       ))}
                     </ul>
@@ -1830,8 +2220,9 @@ const completion = await client.completions.create({
                     </div>
                     <ul className="space-y-2 text-xs text-zinc-400">
                       {component.accessibility.map((acc, idx) => (
-                        <li key={idx} className="leading-relaxed">
-                          {acc}
+                        <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-1.5 shrink-0" />
+                          <span className="text-zinc-300">{acc}</span>
                         </li>
                       ))}
                     </ul>

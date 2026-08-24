@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { EasyComponentMeta } from '../../types/component';
-import { Copy, Check, Sparkles, Code2, Terminal } from 'lucide-react';
+import { Copy, Check, Sparkles, Code2, Terminal, Bell, Search, X } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 import { SpotlightCard } from '../ui/SpotlightCard';
 import { ExpandableSearch } from '../ui/ExpandableSearch';
@@ -677,6 +677,237 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
             </motion.div>
           </div>
         );
+      case 'loader':
+        return (
+          <div className="h-40 flex items-center justify-center gap-4 p-4 pointer-events-none">
+            <motion.div
+              animate={{ rotate: hovered ? 360 : 0 }}
+              transition={{ repeat: Infinity, duration: 2, ease: 'linear' }}
+              className="w-8 h-8 rounded-full border-2 border-white/20 border-t-white"
+            />
+            <div className="flex items-center gap-1.5">
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  animate={{ scale: hovered ? [0.8, 1.3, 0.8] : 1, opacity: hovered ? [0.4, 1, 0.4] : 0.6 }}
+                  transition={{ repeat: Infinity, duration: 1.2, delay: i * 0.2 }}
+                  className="w-2 h-2 rounded-full bg-white"
+                />
+              ))}
+            </div>
+          </div>
+        );
+      case 'small-floating-dock':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <motion.div
+              animate={{ y: hovered ? -3 : 0, scale: hovered ? 1.05 : 1 }}
+              className="p-1.5 rounded-full bg-[#0E0E0E] border border-white/10 shadow-lg flex items-center gap-1.5 pointer-events-none scale-90 sm:scale-95"
+            >
+              <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-[10px] font-bold">⌘</span>
+              <span className="w-7 h-7 rounded-full bg-[#181818] text-[#A1A1A1] flex items-center justify-center text-[10px]">⌥</span>
+              <span className="w-7 h-7 rounded-full bg-[#181818] text-[#A1A1A1] flex items-center justify-center text-[10px]">⇧</span>
+              <span className="relative w-7 h-7 rounded-full bg-[#181818] text-white flex items-center justify-center text-[10px]">
+                ★
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-rose-500 rounded-full text-[8px] flex items-center justify-center text-white">3</span>
+              </span>
+            </motion.div>
+          </div>
+        );
+      case 'hamburger-menu':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <motion.div
+              animate={{ scale: hovered ? 1.1 : 1 }}
+              className="w-12 h-12 rounded-xl bg-[#121212] border border-[#262626] flex flex-col items-center justify-center gap-1.5 pointer-events-none"
+            >
+              <motion.span
+                animate={{ y: hovered ? 4 : 0, rotate: hovered ? 45 : 0 }}
+                className="w-5 h-0.5 bg-white rounded-full origin-center"
+              />
+              <motion.span
+                animate={{ opacity: hovered ? 0 : 1, scaleX: hovered ? 0.2 : 1 }}
+                className="w-5 h-0.5 bg-white rounded-full"
+              />
+              <motion.span
+                animate={{ y: hovered ? -4 : 0, rotate: hovered ? -45 : 0 }}
+                className="w-5 h-0.5 bg-white rounded-full origin-center"
+              />
+            </motion.div>
+          </div>
+        );
+      case 'notification-bell':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <motion.div
+              animate={hovered ? { rotate: [0, -14, 12, -8, 6, 0] } : {}}
+              transition={{ duration: 0.5 }}
+              className="relative p-2.5 rounded-full bg-[#111111] border border-[#262626] text-[#EDEDED] shadow-md pointer-events-none"
+            >
+              <Bell className="w-5 h-5 text-[#EDEDED]" />
+              <motion.span
+                animate={{ scale: hovered ? [1, 1.2, 1] : 1 }}
+                transition={{ repeat: hovered ? Infinity : 0, duration: 1 }}
+                className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white font-mono text-[9px] font-bold flex items-center justify-center border-2 border-[#0B0B0B]"
+              >
+                2
+              </motion.span>
+            </motion.div>
+          </div>
+        );
+      case 'ios-search-bar':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <motion.div
+              animate={{ width: hovered ? '220px' : '160px', borderColor: hovered ? '#404040' : '#222222' }}
+              className="h-8 px-3 rounded-full bg-[#0E0E0E] border flex items-center justify-between text-xs text-[#737373] pointer-events-none"
+            >
+              <Search className="w-3.5 h-3.5 text-[#888888] shrink-0" />
+              <span className="text-[11px] truncate mx-2 text-[#999999]">{hovered ? 'components...' : 'Search...'}</span>
+              <span className="w-4 h-4 rounded-full bg-[#222222] text-[#A1A1A1] flex items-center justify-center shrink-0">
+                <X className="w-2.5 h-2.5" />
+              </span>
+            </motion.div>
+          </div>
+        );
+      case 'typewriter-button':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <motion.div
+              animate={{ scale: hovered ? 1.05 : 1 }}
+              className="px-3.5 py-2 rounded-xl bg-[#F5F5F5] text-black font-mono text-xs font-semibold flex items-center gap-1 shadow pointer-events-none"
+            >
+              <span>{hovered ? 'npx easyui add' : 'easyui deploy'}</span>
+              <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{ repeat: Infinity, duration: 0.6 }}
+                className="w-1.5 h-3.5 bg-black"
+              />
+            </motion.div>
+          </div>
+        );
+      case 'depth-corridor':
+        return (
+          <div className="h-40 flex items-center justify-center p-4" style={{ perspective: '600px' }}>
+            <div className="relative w-40 h-24 flex items-center justify-center pointer-events-none" style={{ transformStyle: 'preserve-3d' }}>
+              <motion.div
+                animate={{ z: hovered ? -60 : -40, opacity: hovered ? 0.3 : 0.4 }}
+                className="absolute w-32 h-16 rounded-xl bg-[#141414] border border-white/5"
+              />
+              <motion.div
+                animate={{ z: hovered ? -30 : -20, opacity: hovered ? 0.6 : 0.7 }}
+                className="absolute w-36 h-18 rounded-xl bg-[#181818] border border-white/10"
+              />
+              <motion.div
+                animate={{ z: 0, rotateY: hovered ? 10 : 0 }}
+                className="absolute w-40 h-20 rounded-xl bg-[#0E0E0E] border border-white/20 shadow-xl p-2.5 flex flex-col justify-between"
+              >
+                <span className="text-[10px] font-semibold text-white">Spatial Layer</span>
+                <span className="text-[8px] font-mono text-emerald-400">translateZ depth</span>
+              </motion.div>
+            </div>
+          </div>
+        );
+      case 'density-lens':
+        return (
+          <div className="h-40 flex items-center justify-center p-4 relative overflow-hidden">
+            <div className="w-full max-w-[220px] p-3 rounded-xl bg-[#0A0A0A] border border-[#1E1E1E] text-center pointer-events-none">
+              <span className="text-xs text-[#A1A1A1]">Normal Resolution</span>
+              <motion.div
+                animate={{ x: hovered ? [0, 30, -30, 0] : 0 }}
+                transition={{ duration: 3, repeat: hovered ? Infinity : 0 }}
+                className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/30 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-[10px] font-bold text-white shadow-2xl"
+              >
+                2x Lens
+              </motion.div>
+            </div>
+          </div>
+        );
+      case 'torque-dial':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <motion.div
+              animate={{ rotate: hovered ? 180 : 45 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+              className="w-20 h-20 rounded-full bg-[#0E0E0E] border-2 border-[#282828] relative flex items-center justify-center shadow-lg pointer-events-none"
+            >
+              <span className="absolute top-1.5 w-1 h-3 rounded-full bg-white" />
+              <div className="w-4 h-4 rounded-full bg-[#202020] border border-white/10" />
+            </motion.div>
+          </div>
+        );
+      case 'stack-unfold-panel':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+              <motion.div
+                animate={{ y: hovered ? -2 : 0 }}
+                className="p-2 rounded-lg bg-[#0E0E0E] border border-white/20 flex justify-between text-[10px] text-white font-medium"
+              >
+                <span>Edge Runtime v2</span>
+                <span>▾</span>
+              </motion.div>
+              <motion.div
+                animate={{ y: hovered ? 2 : 0, opacity: hovered ? 0.8 : 0.4 }}
+                className="p-2 rounded-lg bg-[#0A0A0A] border border-white/5 flex justify-between text-[10px] text-[#888888]"
+              >
+                <span>Binary Protocol</span>
+                <span>▾</span>
+              </motion.div>
+            </div>
+          </div>
+        );
+      case 'dependency-trace':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="flex items-center gap-4 pointer-events-none scale-90 sm:scale-95">
+              <motion.div animate={{ scale: hovered ? 1.1 : 1 }} className="w-10 h-10 rounded-full bg-[#121212] border border-white text-[9px] font-mono text-white flex items-center justify-center shadow">
+                API
+              </motion.div>
+              <motion.div animate={{ opacity: hovered ? 1 : 0.3 }} className="w-8 h-0.5 bg-white border-t border-dashed" />
+              <motion.div animate={{ scale: hovered ? 1.1 : 1 }} className="w-10 h-10 rounded-full bg-[#121212] border border-emerald-400 text-[9px] font-mono text-emerald-400 flex items-center justify-center shadow">
+                DB
+              </motion.div>
+            </div>
+          </div>
+        );
+      case 'batch-gesture-tray':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] relative pointer-events-none scale-90 sm:scale-95">
+              <div className="p-2 rounded-lg bg-[#0A0A0A] border border-[#1C1C1C] flex items-center gap-2 mb-2">
+                <span className="w-3.5 h-3.5 rounded bg-white text-black text-[8px] flex items-center justify-center font-bold">✓</span>
+                <span className="text-[10px] text-white">3 items selected</span>
+              </div>
+              <motion.div
+                animate={{ y: hovered ? 0 : 4, opacity: hovered ? 1 : 0.7 }}
+                className="p-1.5 rounded-xl bg-[#141414] border border-white/10 flex justify-between text-[9px] text-white"
+              >
+                <span className="bg-white/10 px-2 py-0.5 rounded">Archive</span>
+                <span className="bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded">Delete</span>
+              </motion.div>
+            </div>
+          </div>
+        );
+      case 'recovery-ledger':
+        return (
+          <div className="h-40 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+              <motion.div animate={{ y: hovered ? -1 : 0 }} className="p-2 rounded-lg bg-[#0E0E0E] border border-emerald-500/30 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span className="text-[10px] text-white font-medium">Head v3</span>
+                </div>
+                <span className="text-[9px] font-mono text-[#666666]">Just now</span>
+              </motion.div>
+              <div className="p-2 rounded-lg bg-[#090909] border border-[#181818] flex items-center justify-between text-[#888888] text-[10px]">
+                <span>Snapshot v2</span>
+                <span className="text-[9px] text-white bg-white/10 px-1.5 py-0.5 rounded">Revert</span>
+              </div>
+            </div>
+          </div>
+        );
+
       default:
         return (
           <div className="h-40 flex flex-col items-center justify-center p-4 text-center">

@@ -92,7 +92,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search components, tags..."
-              className="w-full pl-9 pr-3 py-2 text-xs rounded-lg bg-[#0A0A0A] border border-[#181818] text-[#F5F5F5] placeholder-[#606060] focus-ring"
+              className="w-full pl-9 pr-3 py-2 text-[16px] rounded-lg bg-[#0A0A0A] border border-[#181818] text-[#F5F5F5] placeholder-[#606060] focus:outline-none focus:border-[#383838] transition-colors"
             />
           </div>
         </div>

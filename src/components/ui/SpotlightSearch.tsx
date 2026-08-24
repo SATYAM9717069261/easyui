@@ -271,7 +271,7 @@ export const SpotlightSearch: React.FC<SpotlightSearchProps> = ({
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleInputKeyDown}
                 placeholder={placeholder}
-                className="flex-1 bg-transparent text-sm text-[#F5F5F5] placeholder-[#555555] focus:outline-none"
+                className="flex-1 bg-transparent text-[16px] text-[#F5F5F5] placeholder-[#555555] focus:outline-none"
                 aria-label="Search"
               />
               <kbd

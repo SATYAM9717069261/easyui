@@ -145,7 +145,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="Search components..."
-                className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-[#0C0C0C] border border-[#1E1E1E] focus:border-[#333333] text-[#F5F5F5] placeholder-[#606060] focus-ring transition-colors"
+                className="w-full pl-8 pr-3 py-1.5 text-[16px] rounded-lg bg-[#0C0C0C] border border-[#1E1E1E] focus:border-[#383838] text-[#F5F5F5] placeholder-[#606060] focus:outline-none transition-colors"
               />
             </div>
           </div>

@@ -206,7 +206,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                   setSelectedIndex(0);
                 }}
                 placeholder="Type a command or search components, docs..."
-                className="w-full bg-transparent text-xs text-[#F5F5F5] placeholder-[#606060] focus:outline-none"
+                className="w-full bg-transparent text-[16px] text-[#F5F5F5] placeholder-[#606060] focus:outline-none"
               />
               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#121212] border border-[#1E1E1E] text-[#606060]">
                 ESC

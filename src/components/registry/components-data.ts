@@ -369,6 +369,84 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "batch-gesture-tray",
+    "name": "Batch Gesture Tray",
+    "tagline": "Spring floating tray with multi-select batch actions",
+    "description": "A touch-ready contextual tray that slides into view upon item selection, presenting bulk actions and real-time count telemetry.",
+    "category": "Feedback",
+    "badges": [
+      "Framer Motion",
+      "Spring Physics",
+      "Batch Actions",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/batch-gesture-tray",
+    "features": [
+      "Spring slide-up bottom tray appearing automatically when 1 or more items are selected",
+      "Integrated selection counter badge with Select-All / Deselect-All triggers",
+      "Async action loading indicators preventing double-submission",
+      "Dismissal via close button, escape key, or outside tap"
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "BatchItem[]",
+        "description": "Array of selectable list items (id, title, subtitle)"
+      },
+      {
+        "name": "actions",
+        "type": "BatchAction[]",
+        "description": "Array of batch action buttons (id, label, icon, action, color)"
+      },
+      {
+        "name": "selectedIds",
+        "type": "string[]",
+        "default": "undefined",
+        "description": "Controlled array of selected item IDs"
+      },
+      {
+        "name": "onSelectionChange",
+        "type": "(ids: string[]) => void",
+        "default": "undefined",
+        "description": "Selection state callback"
+      },
+      {
+        "name": "onActionComplete",
+        "type": "(actionId: string) => void",
+        "default": "undefined",
+        "description": "Callback fired on action finish"
+      }
+    ],
+    "accessibility": [
+      "Accessible checkbox toggle state and keyboard selection",
+      "aria-live announcements when item selection counter changes",
+      "Full keyboard tab access through tray action buttons"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { BatchGestureTray } from \"@/components/ui/batch-gesture-tray\";\nimport { Trash2, Archive, Download } from \"lucide-react\";\n\nexport function Demo() {\n  const items = [\n    { id: '1', title: 'serverless-edge-fn.ts', subtitle: 'Modified 4m ago' },\n    { id: '2', title: 'redis-cache-layer.ts', subtitle: 'Modified 1h ago' },\n    { id: '3', title: 'schema-validation.ts', subtitle: 'Modified 3h ago' },\n  ];\n\n  const actions = [\n    { id: 'download', label: 'Export', icon: <Download className=\"w-3.5 h-3.5\" />, action: async () => {} },\n    { id: 'archive', label: 'Archive', icon: <Archive className=\"w-3.5 h-3.5\" />, action: async () => {} },\n    { id: 'delete', label: 'Delete', color: 'danger' as const, icon: <Trash2 className=\"w-3.5 h-3.5\" />, action: async () => {} },\n  ];\n\n  return <BatchGestureTray items={items} actions={actions} />;\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/BatchGestureTray.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/batch-gesture-tray.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "button",
     "name": "Button",
     "tagline": "Multi-variant button system with tactile physics",
@@ -622,6 +700,241 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/constants.ts",
         "type": "registry:lib",
         "target": "lib/constants.ts"
+      }
+    ]
+  },
+  {
+    "id": "density-lens",
+    "name": "Density Lens",
+    "tagline": "Cursor-tracking magnification & detail inspection lens",
+    "description": "An interactive floating lens that tracks pointer movement to reveal high-density data, magnified details, or alternative views.",
+    "category": "Motion",
+    "badges": [
+      "Framer Motion",
+      "Spring Physics",
+      "Inspection",
+      "Interactive"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/density-lens",
+    "features": [
+      "Subtle spring lag cursor tracking for realistic tactile lens momentum",
+      "Automatic coordinate interpolation with 2x magnification or custom overlay renderers",
+      "Configurable lens geometry (circle, oval, rounded square), border glow, and zoom scale",
+      "Zero layout shifts and smooth GPU-accelerated backdrop blur"
+    ],
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "description": "Underlying background content being inspected"
+      },
+      {
+        "name": "renderLensContent",
+        "type": "(pos: { x: number, y: number, scale: number }) => ReactNode",
+        "default": "undefined",
+        "description": "Custom overlay rendered inside lens"
+      },
+      {
+        "name": "lensSize",
+        "type": "number",
+        "default": "150",
+        "description": "Diameter/width of lens in pixels"
+      },
+      {
+        "name": "lensShape",
+        "type": "'circle' | 'oval' | 'square'",
+        "default": "'circle'",
+        "description": "Geometric shape of lens"
+      },
+      {
+        "name": "zoomScale",
+        "type": "number",
+        "default": "2",
+        "description": "Magnification factor"
+      },
+      {
+        "name": "showBorder",
+        "type": "boolean",
+        "default": "true",
+        "description": "Renders border and glass glow around perimeter"
+      }
+    ],
+    "accessibility": [
+      "Non-destructive hover lens overlay preserves underlying semantic document tree",
+      "Includes crosshair pointer hints and smooth fade transitions",
+      "Touch fallbacks support direct inspection"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { DensityLens } from \"@/components/ui/density-lens\";\n\nexport function Demo() {\n  return (\n    <DensityLens lensSize={160} zoomScale={2}>\n      <div className=\"p-8 bg-[#0C0C0C] rounded-2xl border border-[#222222]\">\n        <h3 className=\"text-sm font-semibold text-white\">System Architecture</h3>\n        <p className=\"text-xs text-[#808080] mt-2\">\n          Hover pointer across surface to inspect high-resolution telemetry nodes.\n        </p>\n      </div>\n    </DensityLens>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/DensityLens.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/density-lens.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
+    "id": "dependency-trace",
+    "name": "Dependency Trace",
+    "tagline": "Interactive SVG node relationship & dependency tracer",
+    "description": "An interactive SVG node graph that maps and dynamically traces relationship connections with directional bezier curves.",
+    "category": "Motion",
+    "badges": [
+      "SVG",
+      "Framer Motion",
+      "Graph Visualization",
+      "Motion"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/dependency-trace",
+    "features": [
+      "Interactive bezier curve paths with animated glow pulses on hover",
+      "Automatic dimming of unrelated network branches and nodes",
+      "Configurable node placement or radial auto-layout geometry",
+      "Accessible region landmark with hover & click selection telemetry"
+    ],
+    "props": [
+      {
+        "name": "nodes",
+        "type": "TraceNode[]",
+        "description": "Array of graph nodes (id, label, type, x, y)"
+      },
+      {
+        "name": "connections",
+        "type": "TraceConnection[]",
+        "description": "Array of directional or undirected link connections (from, to, label)"
+      },
+      {
+        "name": "onNodeSelect",
+        "type": "(id: string) => void",
+        "default": "undefined",
+        "description": "Node click event callback"
+      },
+      {
+        "name": "onNodeHover",
+        "type": "(id: string | null) => void",
+        "default": "undefined",
+        "description": "Hover event callback"
+      },
+      {
+        "name": "nodeSize",
+        "type": "number",
+        "default": "36",
+        "description": "Node diameter in pixels"
+      }
+    ],
+    "accessibility": [
+      "Semantic role=\"region\" and descriptive aria-label",
+      "Full contrast ratio compliance across connected and dimmed states",
+      "Keyboard and touch-friendly target radius"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { DependencyTrace } from \"@/components/ui/dependency-trace\";\n\nexport function Demo() {\n  return (\n    <DependencyTrace\n      nodes={[\n        { id: 'gateway', label: 'Gateway' },\n        { id: 'auth', label: 'Auth Svc' },\n        { id: 'database', label: 'Postgres' },\n        { id: 'cache', label: 'Redis' },\n        { id: 'queue', label: 'Kafka' },\n      ]}\n      connections={[\n        { from: 'gateway', to: 'auth' },\n        { from: 'auth', to: 'database' },\n        { from: 'auth', to: 'cache' },\n        { from: 'gateway', to: 'queue' },\n      ]}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/DependencyTrace.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/dependency-trace.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "depth-corridor",
+    "name": "Depth Corridor",
+    "tagline": "CSS 3D perspective tunnel with progressive depth blur",
+    "description": "A 3D spatial layer stack with receding perspective depth, progressive focal blurs, and pointer parallax motion.",
+    "category": "Motion",
+    "badges": [
+      "Framer Motion",
+      "3D Perspective",
+      "Parallax",
+      "Motion"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/depth-corridor",
+    "features": [
+      "True 3D perspective translation (translateZ) and multi-layered receding depth geometry",
+      "Progressive depth-of-field focal blurring and subtle mouse tracking parallax",
+      "Keyboard arrow navigation (Left/Right/Up/Down) with smooth spring transitions",
+      "Tactile indicator pills and interactive layer selection"
+    ],
+    "props": [
+      {
+        "name": "layers",
+        "type": "DepthLayer[]",
+        "description": "Array of layer objects (id, title, subtitle, content, blurAmount)"
+      },
+      {
+        "name": "activeLayerIndex",
+        "type": "number",
+        "default": "0",
+        "description": "Controlled active foreground layer index"
+      },
+      {
+        "name": "onLayerChange",
+        "type": "(index: number) => void",
+        "default": "undefined",
+        "description": "Layer change event callback"
+      },
+      {
+        "name": "perspectiveDepth",
+        "type": "number",
+        "default": "1000",
+        "description": "CSS 3D perspective container depth in pixels"
+      },
+      {
+        "name": "enableParallax",
+        "type": "boolean",
+        "default": "true",
+        "description": "Enables mouse coordinate responsive 3D tilt"
+      }
+    ],
+    "accessibility": [
+      "Focusable region with role=\"region\" and aria-label",
+      "Arrow key support for rapid layer switching",
+      "Respects reduced motion by calming perspective tilt and blur values"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { DepthCorridor } from \"@/components/ui/depth-corridor\";\n\nexport function Demo() {\n  return (\n    <DepthCorridor\n      layers={[\n        { id: '1', title: 'Edge Telemetry', subtitle: 'Real-time p99 latency', content: <div>12.4ms global response</div> },\n        { id: '2', title: 'Cluster Workers', subtitle: 'Serverless nodes', content: <div>64 active workers</div> },\n        { id: '3', title: 'Cache Invalidation', subtitle: 'Instant purge API', content: <div>0.4s TTL sync</div> },\n      ]}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/DepthCorridor.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/depth-corridor.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
       }
     ]
   },
@@ -1356,6 +1669,89 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "hamburger-menu",
+    "name": "Hamburger Menu",
+    "tagline": "Architectural line morphing & symmetrical spring motion",
+    "description": "An iconic three-line menu toggle that transforms smoothly into a symmetrical close symbol.",
+    "category": "Navigation",
+    "badges": [
+      "Framer Motion",
+      "Spring Physics",
+      "Micro-interaction",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/hamburger-menu",
+    "features": [
+      "Symmetric line rotation and middle line dissolution with zero layout shift",
+      "Customizable size, stroke thickness, and color tokens",
+      "Keyboard accessible with Space and Enter triggers and Escape close support",
+      "Integrated aria-expanded and dynamic aria-label status updates"
+    ],
+    "props": [
+      {
+        "name": "isOpen",
+        "type": "boolean",
+        "description": "Active open/closed toggle state"
+      },
+      {
+        "name": "onChange",
+        "type": "(isOpen: boolean) => void",
+        "description": "Callback fired on user interaction"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "default": "24",
+        "description": "Width and height of the icon bounding box in pixels"
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "'currentColor'",
+        "description": "Color of the SVG/CSS line strokes"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "'Menu'",
+        "description": "Accessible name announced to assistive tech"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables button interactions"
+      }
+    ],
+    "accessibility": [
+      "Proper <button> element with type=\"button\"",
+      "Dynamic aria-expanded=\"true|false\" and aria-label updates",
+      "Visible focus-visible ring for full keyboard accessibility"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { useState } from \"react\";\nimport { HamburgerMenu } from \"@/components/ui/hamburger-menu\";\n\nexport function Demo() {\n  const [isOpen, setIsOpen] = useState(false);\n\n  return (\n    <HamburgerMenu\n      isOpen={isOpen}\n      onChange={setIsOpen}\n      size={24}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/HamburgerMenu.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/hamburger-menu.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "interactive-timeline",
     "name": "Interactive Timeline",
     "tagline": "Milestone & pipeline tracker with spring progress physics",
@@ -1433,6 +1829,176 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/motion-tokens.ts",
         "type": "registry:lib",
         "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "ios-search-bar",
+    "name": "iOS-style Search Bar",
+    "tagline": "Spring expanding search pill & tactile clear button",
+    "description": "A minimalist search pill that smoothly expands on focus and reveals quick-clear controls with spring animation.",
+    "category": "Navigation",
+    "badges": [
+      "Framer Motion",
+      "Spring Physics",
+      "Search",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/ios-search-bar",
+    "features": [
+      "Smooth spring width expansion on input focus and auto-collapse on blur",
+      "Conditional quick-clear button with spring scale entrance and exit",
+      "Built-in keyboard hotkey indicator (⌘K) and Escape key blur support",
+      "Semantic search input type with full WCAG AA accessibility"
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Current search query string"
+      },
+      {
+        "name": "onChange",
+        "type": "(value: string) => void",
+        "description": "Input change handler"
+      },
+      {
+        "name": "onSubmit",
+        "type": "(value: string) => void",
+        "default": "undefined",
+        "description": "Fired when Enter is pressed"
+      },
+      {
+        "name": "onClear",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback when clear button is clicked"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "'Search...'",
+        "description": "Placeholder label"
+      },
+      {
+        "name": "collapsedWidth",
+        "type": "number | string",
+        "default": "'220px'",
+        "description": "Width before focus"
+      },
+      {
+        "name": "expandedWidth",
+        "type": "number | string",
+        "default": "'340px'",
+        "description": "Width after focus"
+      }
+    ],
+    "accessibility": [
+      "Standard <input type=\"search\"> with clear descriptive aria-label",
+      "Interactive clear button with accessible aria-label=\"Clear search\"",
+      "Supports Escape key to blur and Enter key to submit"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { useState } from \"react\";\nimport { IOSSearchBar } from \"@/components/ui/ios-search-bar\";\n\nexport function Demo() {\n  const [query, setQuery] = useState(\"\");\n\n  return (\n    <IOSSearchBar\n      value={query}\n      onChange={setQuery}\n      placeholder=\"Search documentation...\"\n      onSubmit={(q) => console.log(\"Searching:\", q)}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/IOSSearchBar.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/ios-search-bar.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "loader",
+    "name": "Loader",
+    "tagline": "Calm, continuous feedback states with zero visual stress",
+    "description": "A minimal, purpose-driven loading indicator with 4 calm, non-anxious motion variants.",
+    "category": "Feedback",
+    "badges": [
+      "CSS & SVG",
+      "Calm Motion",
+      "Zero Deps",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/loader",
+    "features": [
+      "4 refined motion variants: rotating arc, breathing dots, sliding line, and expanding concentric rings",
+      "Configurable dimensions and stroke colors with seamless dark mode support",
+      "Accessible role=\"status\" and aria-busy telemetry without screen reader interruption",
+      "Automatic reduced-motion adaptation for sensitive viewers"
+    ],
+    "props": [
+      {
+        "name": "size",
+        "type": "number",
+        "default": "32",
+        "description": "Diameter or width scale in pixels"
+      },
+      {
+        "name": "variant",
+        "type": "'arc' | 'dots' | 'line' | 'rings'",
+        "default": "'arc'",
+        "description": "Visual animation mode"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "'Loading...'",
+        "description": "Accessible screen reader text label"
+      },
+      {
+        "name": "reduceMotion",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables high-velocity continuous spins"
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "'currentColor'",
+        "description": "CSS color string for indicator strokes"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "undefined",
+        "description": "Additional CSS class names"
+      }
+    ],
+    "accessibility": [
+      "Includes role=\"status\" and aria-busy=\"true\" on container",
+      "Screen reader-only label announcement prevents repetitive speech spam",
+      "Full prefers-reduced-motion compatibility with gentle opacity pulsing"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { Loader } from \"@/components/ui/loader\";\n\nexport function Demo() {\n  return (\n    <div className=\"flex items-center gap-6 p-8 bg-[#0A0A0A] rounded-2xl border border-[#222222]\">\n      <Loader variant=\"arc\" size={32} />\n      <Loader variant=\"dots\" size={28} />\n      <Loader variant=\"line\" size={36} />\n      <Loader variant=\"rings\" size={32} />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/Loader.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/loader.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
       }
     ]
   },
@@ -1834,6 +2400,90 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/components/ui/MorphingDialog.tsx",
         "type": "registry:ui",
         "target": "components/ui/morphing-dialog.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "notification-bell",
+    "name": "Notification Bell",
+    "tagline": "Adaptive notification badge & animated alert drawer",
+    "description": "An interactive notification trigger with animated badge counter, arrival shake feedback, and dropdown panel.",
+    "category": "Feedback",
+    "badges": [
+      "Framer Motion",
+      "Spring Physics",
+      "Feedback",
+      "Overlays"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/notification-bell",
+    "features": [
+      "Subtle rotational bell shake when new unread notifications arrive",
+      "Spring-animated counter badge with overflow truncation (99+)",
+      "Floating backdrop-blur panel with individual mark-as-read and mark-all-read controls",
+      "Click-outside dismissal and accessible keyboard escape handling"
+    ],
+    "props": [
+      {
+        "name": "notifications",
+        "type": "Notification[]",
+        "description": "Array of notification objects (id, message, timestamp, read)"
+      },
+      {
+        "name": "onMarkAsRead",
+        "type": "(id: string) => void",
+        "description": "Handler fired when an individual notification is marked read"
+      },
+      {
+        "name": "onMarkAllAsRead",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Handler to clear all active badges"
+      },
+      {
+        "name": "isOpen",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled open state of notification drawer"
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(isOpen: boolean) => void",
+        "default": "undefined",
+        "description": "Callback on panel open/close"
+      },
+      {
+        "name": "showCount",
+        "type": "boolean",
+        "default": "true",
+        "description": "Displays numeric badge instead of minimal red dot"
+      }
+    ],
+    "accessibility": [
+      "Dynamic aria-expanded and descriptive aria-label with unread count",
+      "Full keyboard navigation with Tab, Enter, and Escape shortcuts",
+      "Contrast compliant with WCAG AA standards"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { useState } from \"react\";\nimport { NotificationBell } from \"@/components/ui/notification-bell\";\n\nexport function Demo() {\n  const [items, setItems] = useState([\n    { id: '1', message: 'Edge build deployment finished in 38s.', timestamp: 'Just now', read: false },\n    { id: '2', message: 'New API token generated for production.', timestamp: '12m ago', read: false },\n  ]);\n\n  const handleMarkRead = (id: string) => {\n    setItems((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));\n  };\n\n  return (\n    <NotificationBell\n      notifications={items}\n      onMarkAsRead={handleMarkRead}\n      onMarkAllAsRead={() => setItems((prev) => prev.map((n) => ({ ...n, read: true })))}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/NotificationBell.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/notification-bell.tsx"
       },
       {
         "path": "src/lib/utils.ts",
@@ -2410,6 +3060,85 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "recovery-ledger",
+    "name": "Recovery Ledger",
+    "tagline": "Version history timeline & state recovery ledger",
+    "description": "An archival audit timeline and state recovery ledger with chronological snapshot markers, diff inspection, and one-click rollback triggers.",
+    "category": "Feedback",
+    "badges": [
+      "Framer Motion",
+      "Timeline",
+      "Audit Log",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/recovery-ledger",
+    "features": [
+      "Chronological version ledger with vertical timeline rail and active head marker",
+      "One-click state rollback action with loading animation feedback",
+      "Expandable code diff viewer and snapshot metadata inspection drawer",
+      "Full keyboard tab access and screen reader timestamp announcements"
+    ],
+    "props": [
+      {
+        "name": "entries",
+        "type": "LedgerEntry[]",
+        "description": "Array of version history records (id, timestamp, action, description, author, details, restorable)"
+      },
+      {
+        "name": "currentEntryId",
+        "type": "string",
+        "default": "undefined",
+        "description": "Active head snapshot identifier"
+      },
+      {
+        "name": "onRestore",
+        "type": "(id: string) => Promise<void> | void",
+        "default": "undefined",
+        "description": "Callback fired on version revert action"
+      },
+      {
+        "name": "onSelect",
+        "type": "(id: string) => void",
+        "default": "undefined",
+        "description": "Callback when an entry is clicked"
+      },
+      {
+        "name": "variant",
+        "type": "'timeline' | 'compact'",
+        "default": "'timeline'",
+        "description": "Display format"
+      }
+    ],
+    "accessibility": [
+      "Accessible timestamps formatted for clear assistive technology reading",
+      "Proper <button> elements with clear action labels",
+      "Contrast compliant with WCAG AA standards"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { useState } from \"react\";\nimport { RecoveryLedger } from \"@/components/ui/recovery-ledger\";\n\nexport function Demo() {\n  const [currentId, setCurrentId] = useState('v3');\n  const entries = [\n    { id: 'v3', timestamp: '2m ago', action: 'Schema Migration', description: 'Added tenant_id column to organization tables.', author: 'Alex W.', details: { diff: '+ ALTER TABLE org ADD COLUMN tenant_id UUID;' } },\n    { id: 'v2', timestamp: '1h ago', action: 'API Auth Refactor', description: 'Upgraded JWT verification to RS256 algorithm.', author: 'Sarah K.', details: { diff: '- alg: HS256\n+ alg: RS256' } },\n    { id: 'v1', timestamp: 'Yesterday', action: 'Initial Release', description: 'Base schema initialized in primary region.', author: 'Alex W.' },\n  ];\n\n  return (\n    <RecoveryLedger\n      entries={entries}\n      currentEntryId={currentId}\n      onRestore={async (id) => setCurrentId(id)}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/RecoveryLedger.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/recovery-ledger.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "reveal-card",
     "name": "Reveal Card",
     "tagline": "3D cursor physics tilt with interactive glare reveal",
@@ -2736,6 +3465,92 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "small-floating-dock",
+    "name": "Small Floating Dock",
+    "tagline": "Hover proximity scale & tactile action pills",
+    "description": "A minimal, gesture-responsive floating dock for quick access to 3-5 primary actions.",
+    "category": "Navigation",
+    "badges": [
+      "Framer Motion",
+      "Spring Physics",
+      "Navigation",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/small-floating-dock",
+    "features": [
+      "Proximity-aware hover scale with elastic spring snap-back physics",
+      "Supports 3 to 5 actions with numeric unread badges and contextual tooltips",
+      "Configurable screen positioning (bottom-right, bottom-center, bottom-left)",
+      "Optional hide-on-scroll behavior with smooth viewport transitions",
+      "Full keyboard tab navigation and WCAG AA focus rings"
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "DockItem[]",
+        "default": "[]",
+        "description": "Array of 3 to 5 action items with icon, label, action, and badge"
+      },
+      {
+        "name": "position",
+        "type": "'bottom-right' | 'bottom-center' | 'bottom-left'",
+        "default": "'bottom-right'",
+        "description": "Screen placement"
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "default": "'md'",
+        "description": "Button sizing scale"
+      },
+      {
+        "name": "hideOnScroll",
+        "type": "boolean",
+        "default": "false",
+        "description": "Auto-hides dock during downward scroll"
+      },
+      {
+        "name": "variant",
+        "type": "'icon-only' | 'icon-label'",
+        "default": "'icon-only'",
+        "description": "Icon only with tooltips or labeled buttons"
+      },
+      {
+        "name": "activeId",
+        "type": "string",
+        "default": "undefined",
+        "description": "Selected active item ID"
+      }
+    ],
+    "accessibility": [
+      "Semantic <nav> landmark with role=\"navigation\"",
+      "aria-label on all action buttons and aria-current=\"page\" on active item",
+      "Keyboard focus and tooltip synchronization on Tab / Escape"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { SmallFloatingDock } from \"@/components/ui/small-floating-dock\";\nimport { Sparkles, Terminal, Code2, Bell } from \"lucide-react\";\n\nexport function Demo() {\n  return (\n    <SmallFloatingDock\n      position=\"bottom-right\"\n      items={[\n        { id: '1', label: 'AI Assistant', icon: <Sparkles className=\"w-4 h-4\" />, action: () => {} },\n        { id: '2', label: 'Terminal', icon: <Terminal className=\"w-4 h-4\" />, action: () => {} },\n        { id: '3', label: 'Editor', icon: <Code2 className=\"w-4 h-4\" />, action: () => {} },\n        { id: '4', label: 'Notifications', icon: <Bell className=\"w-4 h-4\" />, action: () => {}, badge: 3 },\n      ]}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/SmallFloatingDock.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/small-floating-dock.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "smart-comparison",
     "name": "Smart Comparison",
     "tagline": "Interactive tier comparison matrix with difference filtering",
@@ -3021,6 +3836,270 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/constants.ts",
         "type": "registry:lib",
         "target": "lib/constants.ts"
+      }
+    ]
+  },
+  {
+    "id": "stack-unfold-panel",
+    "name": "Stack Unfold Panel",
+    "tagline": "Progressive disclosure card stack with spring height animation",
+    "description": "A vertically stacked card deck that unfolds progressively with spring physics, shifting adjacent panels with zero layout jank.",
+    "category": "Feedback",
+    "badges": [
+      "Framer Motion",
+      "Spring Physics",
+      "Accordion",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/stack-unfold-panel",
+    "features": [
+      "Progressive vertical expansion with GPU-accelerated height calculation",
+      "Automatic single-card accordion mode or multi-card unfolding",
+      "Rotating chevron indicators with smooth 180-degree spring flip",
+      "Full accessibility with aria-expanded, aria-controls, and keyboard triggers"
+    ],
+    "props": [
+      {
+        "name": "cards",
+        "type": "StackCard[]",
+        "description": "Array of card items (id, title, subtitle, content, badge)"
+      },
+      {
+        "name": "expandedIds",
+        "type": "string[]",
+        "default": "undefined",
+        "description": "Controlled array of opened card IDs"
+      },
+      {
+        "name": "onExpandedChange",
+        "type": "(ids: string[]) => void",
+        "default": "undefined",
+        "description": "Expansion event callback"
+      },
+      {
+        "name": "allowMultiple",
+        "type": "boolean",
+        "default": "false",
+        "description": "Allows simultaneous expansion of multiple cards"
+      },
+      {
+        "name": "variant",
+        "type": "'default' | 'minimal'",
+        "default": "'default'",
+        "description": "Bordered card or minimal underline layout"
+      }
+    ],
+    "accessibility": [
+      "Interactive header buttons with aria-expanded and aria-controls",
+      "Tab key navigable with Space and Enter expansion toggles",
+      "Compliant with WCAG AA contrast guidelines"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { StackUnfoldPanel } from \"@/components/ui/stack-unfold-panel\";\n\nexport function Demo() {\n  return (\n    <StackUnfoldPanel\n      cards={[\n        { id: '1', title: 'Global Edge Runtime', subtitle: 'v2.4.0 Engine', content: 'Distributed across 320+ edge point-of-presence regions with instant failover.' },\n        { id: '2', title: 'Zero-Copy Serialization', subtitle: 'Binary Protocol', content: 'High-speed Protobuf and FlatBuffers compression with minimal CPU overhead.' },\n        { id: '3', title: 'Automated CI Verification', subtitle: 'GitHub Actions', content: 'Continuous testing and schema verification on every pull request.' },\n      ]}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/StackUnfoldPanel.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/stack-unfold-panel.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "torque-dial",
+    "name": "Torque Dial",
+    "tagline": "Rotational control knob with physical spin momentum",
+    "description": "A rotational control dial with realistic physical angular momentum, velocity tracking, and exponential friction deceleration.",
+    "category": "Motion",
+    "badges": [
+      "Framer Motion",
+      "Physics Simulation",
+      "Precision Control",
+      "Forms"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/torque-dial",
+    "features": [
+      "Natural angular momentum release with exponential friction deceleration decay",
+      "Supports drag rotation, mouse wheel fine-tuning, keyboard arrow adjustments, and double-click centering",
+      "Dynamic SVG radial progress ring with continuous value telemetry",
+      "Full accessibility with role=\"slider\", aria-valuenow, and keyboard stepping"
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "description": "Current numeric value"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "default": "0",
+        "description": "Minimum dial threshold"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": "100",
+        "description": "Maximum dial threshold"
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "default": "1",
+        "description": "Step resolution increment"
+      },
+      {
+        "name": "onChange",
+        "type": "(val: number) => void",
+        "description": "Callback fired on rotation value updates"
+      },
+      {
+        "name": "momentum",
+        "type": "boolean",
+        "default": "true",
+        "description": "Enables velocity-based inertial spin after drag release"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "default": "120",
+        "description": "Diameter in pixels"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "default": "''",
+        "description": "Optional unit suffix (e.g. \"%\", \"dB\", \"°\")"
+      }
+    ],
+    "accessibility": [
+      "Semantic role=\"slider\" with aria-valuemin, aria-valuemax, and aria-valuenow",
+      "Arrow keys, Home, and End support for fine keyboard tuning",
+      "Visible focus outline around knob bounding perimeter"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { useState } from \"react\";\nimport { TorqueDial } from \"@/components/ui/torque-dial\";\n\nexport function Demo() {\n  const [gain, setGain] = useState(48);\n\n  return (\n    <div className=\"p-8 flex items-center justify-center bg-[#090909] rounded-2xl border border-[#1F1F1F]\">\n      <TorqueDial\n        value={gain}\n        onChange={setGain}\n        min={0}\n        max={100}\n        unit=\"%\"\n        label=\"Gain Level\"\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/TorqueDial.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/torque-dial.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "typewriter-button",
+    "name": "Typewriter Button",
+    "tagline": "Character-by-character reveal with mechanical sound feedback",
+    "description": "An interactive button that reveals its label character-by-character with optional synthesized mechanical audio feedback.",
+    "category": "Buttons",
+    "badges": [
+      "Web Audio API",
+      "Framer Motion",
+      "Tactile Audio",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/typewriter-button",
+    "features": [
+      "Progressive character-by-character typewriter reveal with blinking cursor",
+      "Synthesized mechanical click sound generated dynamically via Web Audio API (zero audio file assets)",
+      "Configurable typing speed, sound volume, variants, and auto-start mode",
+      "Full accessibility with complete aria-label announcement and keyboard triggers"
+    ],
+    "props": [
+      {
+        "name": "children",
+        "type": "string",
+        "description": "Label text to type out"
+      },
+      {
+        "name": "charDuration",
+        "type": "number",
+        "default": "75",
+        "description": "Milliseconds per character reveal"
+      },
+      {
+        "name": "soundEnabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Enables mechanical keystroke sound cues"
+      },
+      {
+        "name": "soundVolume",
+        "type": "number",
+        "default": "0.25",
+        "description": "Web Audio synthesizer output volume (0 to 1)"
+      },
+      {
+        "name": "variant",
+        "type": "'primary' | 'secondary' | 'outline'",
+        "default": "'primary'",
+        "description": "Styling appearance"
+      },
+      {
+        "name": "autoStart",
+        "type": "boolean",
+        "default": "false",
+        "description": "Begins typing immediately upon mounting"
+      },
+      {
+        "name": "onComplete",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback on typing completion"
+      }
+    ],
+    "accessibility": [
+      "Always contains full text in aria-label to prevent truncated screen reader speech",
+      "Respects reduced motion by immediately rendering full text if desired",
+      "Interactive <button> element with standard keyboard activation"
+    ],
+    "createdAt": "2026-08-24",
+    "usageCode": "import { TypewriterButton } from \"@/components/ui/typewriter-button\";\n\nexport function Demo() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <TypewriterButton soundEnabled variant=\"primary\">\n        npm install @easyui/react\n      </TypewriterButton>\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/TypewriterButton.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/typewriter-button.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
       }
     ]
   },
