@@ -21,7 +21,15 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
     return null;
   }
 
-  const paginationRange = generatePaginationRange(currentPage, totalPages, 1);
+  // Sliding 2-page numbers window (e.g. [1, 2] -> [2, 3] -> [3, 4] ...)
+  const pages = React.useMemo(() => {
+    if (totalPages <= 1) return [1];
+    if (totalPages === 2) return [1, 2];
+
+    const start = Math.max(1, Math.min(currentPage, totalPages - 1));
+    return [start, start + 1];
+  }, [currentPage, totalPages]);
+
   const isFirstPage = currentPage <= 1;
   const isLastPage = currentPage >= totalPages;
 
@@ -29,7 +37,7 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
     <nav
       role="navigation"
       aria-label="Component pagination"
-      className={cn('flex items-center justify-center gap-4 sm:gap-6 py-4 select-none', className)}
+      className={cn('flex items-center justify-center gap-3 sm:gap-4 py-4 select-none', className)}
     >
       {/* Previous Page Link */}
       <button
@@ -38,32 +46,18 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
         disabled={isFirstPage}
         aria-label="Previous page"
         className={cn(
-          'inline-flex items-center gap-1 text-xs font-sans transition-colors focus-ring',
+          'w-7 h-7 flex items-center justify-center rounded-lg transition-colors focus-ring',
           isFirstPage
-            ? 'opacity-25 cursor-not-allowed text-[#555555]'
-            : 'text-[#888888] hover:text-white cursor-pointer'
+            ? 'opacity-20 cursor-not-allowed text-[#555555]'
+            : 'text-[#888888] hover:text-white hover:bg-[#121212] cursor-pointer'
         )}
       >
-        <ChevronLeft className="w-3.5 h-3.5" />
-        <span>Prev</span>
+        <ChevronLeft className="w-4 h-4" />
       </button>
 
-      {/* Page Numbers & Ellipsis */}
+      {/* Sliding 2-Page Numbers Window */}
       <div className="flex items-center gap-1.5">
-        {paginationRange.map((pageNumber, index) => {
-          if (pageNumber === '...') {
-            return (
-              <span
-                key={`ellipsis-${index}`}
-                aria-hidden="true"
-                className="w-7 h-7 flex items-center justify-center text-xs font-sans text-[#555555]"
-              >
-                …
-              </span>
-            );
-          }
-
-          const page = pageNumber as number;
+        {pages.map((page) => {
           const isActive = page === currentPage;
 
           return (
@@ -77,7 +71,7 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
                 'w-7 h-7 flex items-center justify-center text-xs font-sans transition-colors focus-ring rounded',
                 isActive
                   ? 'text-white font-semibold'
-                  : 'text-[#666666] hover:text-[#D4D4D4] cursor-pointer'
+                  : 'text-[#666666] hover:text-white cursor-pointer'
               )}
             >
               {page}
@@ -93,14 +87,13 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
         disabled={isLastPage}
         aria-label="Next page"
         className={cn(
-          'inline-flex items-center gap-1 text-xs font-sans transition-colors focus-ring',
+          'w-7 h-7 flex items-center justify-center rounded-lg transition-colors focus-ring',
           isLastPage
-            ? 'opacity-25 cursor-not-allowed text-[#555555]'
-            : 'text-[#888888] hover:text-white cursor-pointer'
+            ? 'opacity-20 cursor-not-allowed text-[#555555]'
+            : 'text-[#888888] hover:text-white hover:bg-[#121212] cursor-pointer'
         )}
       >
-        <span>Next</span>
-        <ChevronRight className="w-3.5 h-3.5" />
+        <ChevronRight className="w-4 h-4" />
       </button>
     </nav>
   );

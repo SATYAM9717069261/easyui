@@ -34,6 +34,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
 
   const categories: ComponentCategory[] = [
     'All',
+    'Recent',
     'Motion',
     'Buttons',
     'Navigation',
@@ -56,15 +57,24 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
   // 3. Filter by category & search query
   const filteredComponents = useMemo(() => {
     return allSortedComponents.filter((comp) => {
+      const isRecent =
+        isComponentNew(comp, newestComponent) ||
+        comp.badges?.some((b) => b.toLowerCase() === 'new');
+
       const matchCategory =
-        selectedCategory === 'All' || comp.category === selectedCategory;
+        selectedCategory === 'All'
+          ? true
+          : selectedCategory === 'Recent'
+          ? isRecent
+          : comp.category === selectedCategory;
+
       const matchSearch =
         comp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         comp.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         comp.badges.some((b) => b.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchCategory && matchSearch;
     });
-  }, [allSortedComponents, selectedCategory, searchQuery]);
+  }, [allSortedComponents, selectedCategory, searchQuery, newestComponent]);
 
   // 4. Calculate pagination
   const pagination = useMemo(() => {
@@ -105,7 +115,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
           <div className="flex items-center gap-1.5 text-xs font-sans text-[#808080]">
             <button
               onClick={onNavigateHome}
-              className="hover:text-white transition-colors focus-ring rounded"
+              className="hover:text-white transition-colors focus-ring rounded cursor-pointer"
             >
               EasyUI
             </button>
@@ -117,7 +127,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
             <button
               onClick={onNavigateHome}
               aria-label="Back to Home"
-              className="p-1.5 rounded-lg text-[#888888] hover:text-white hover:bg-[#141414] transition-all focus-ring"
+              className="p-1.5 rounded-lg text-[#888888] hover:text-white hover:bg-[#141414] transition-all focus-ring cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -158,7 +168,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
               key={cat}
               onClick={() => handleCategoryChange(cat)}
               className={cn(
-                'px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap focus-ring',
+                'px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap focus-ring cursor-pointer',
                 selectedCategory === cat
                   ? 'bg-[#181818] text-[#F5F5F5] border border-[#282828]'
                   : 'bg-[#0A0A0A] text-[#737373] border border-[#141414] hover:text-[#A1A1A1] hover:bg-[#101010]'
@@ -171,18 +181,42 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
 
         {/* Components Grid */}
         {filteredComponents.length === 0 ? (
-          <div className="py-20 text-center rounded-xl border border-[#141414] bg-[#080808]">
-            <p className="text-sm text-[#737373]">No components found matching your search.</p>
-            <button
-              onClick={() => {
-                setSelectedCategory('All');
-                setSearchQuery('');
-                onPageChange(1);
-              }}
-              className="mt-3 text-xs text-white hover:underline focus-ring rounded"
-            >
-              Reset filters
-            </button>
+          <div className="py-20 text-center rounded-xl border border-[#141414] bg-[#080808] px-4">
+            {selectedCategory === 'Recent' ? (
+              <div className="space-y-3 max-w-md mx-auto">
+                <p className="text-sm text-[#888888] leading-relaxed">
+                  No recent components available at the moment. Check out all components on the components page.
+                </p>
+                <div className="flex items-center justify-center gap-3 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedCategory('All');
+                      setSearchQuery('');
+                      onPageChange(1);
+                    }}
+                    className="px-4 py-2 text-xs rounded-xl bg-white text-black font-medium hover:bg-zinc-200 transition-colors cursor-pointer"
+                  >
+                    View All Components
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3 max-w-md mx-auto">
+                <p className="text-sm text-[#737373]">No components found matching your search.</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategory('All');
+                    setSearchQuery('');
+                    onPageChange(1);
+                  }}
+                  className="mt-2 text-xs text-white hover:underline focus-ring rounded cursor-pointer"
+                >
+                  Reset filters
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>
