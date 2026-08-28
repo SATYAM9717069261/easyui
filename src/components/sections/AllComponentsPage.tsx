@@ -29,7 +29,27 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
   onSelectComponent,
   onNavigateHome,
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<ComponentCategory>('All');
+  const [selectedCategory, setSelectedCategory] = useState<ComponentCategory>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('category');
+      const validCategories: ComponentCategory[] = [
+        'All',
+        'Recent',
+        'Motion',
+        'Buttons',
+        'Navigation',
+        'Feedback',
+        'Overlays',
+        'Forms',
+        'Auth',
+      ];
+      if (cat && validCategories.includes(cat as ComponentCategory)) {
+        return cat as ComponentCategory;
+      }
+    }
+    return 'All';
+  });
   const [searchQuery, setSearchQuery] = useState('');
 
   const categories: ComponentCategory[] = [
@@ -97,6 +117,16 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
 
   const handleCategoryChange = (cat: ComponentCategory) => {
     setSelectedCategory(cat);
+    const searchParams = new URLSearchParams(window.location.search);
+    if (cat === 'All') {
+      searchParams.delete('category');
+    } else {
+      searchParams.set('category', cat);
+    }
+    searchParams.delete('page');
+    const newQuery = searchParams.toString();
+    const newPath = newQuery ? `/components?${newQuery}` : '/components';
+    window.history.replaceState(null, '', newPath);
     onPageChange(1);
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };

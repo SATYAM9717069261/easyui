@@ -16,7 +16,6 @@ import {
   Cpu,
   Home,
   Grid,
-  FileCode,
   Menu,
 } from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
@@ -85,6 +84,16 @@ import { StackUnfoldPanel } from '../ui/StackUnfoldPanel';
 import { DependencyTrace } from '../ui/DependencyTrace';
 import { BatchGestureTray } from '../ui/BatchGestureTray';
 import { RecoveryLedger } from '../ui/RecoveryLedger';
+import { RocketPartyPopper } from '../ui/RocketPartyPopper';
+import { BranchingSubmenu } from '../ui/BranchingSubmenu';
+import { GravityParticleBurst } from '../ui/GravityParticleBurst';
+import { LiquidRippleButton } from '../ui/LiquidRippleButton';
+import { NeonEdgeButton } from '../ui/NeonEdgeButton';
+import { OrbitalLoadingRing } from '../ui/OrbitalLoadingRing';
+import { PillNavigation } from '../ui/PillNavigation';
+import { TextScrambleDecoder } from '../ui/TextScrambleDecoder';
+import { MacOSFolderCards } from '../ui/MacOSFolderCards';
+import { IntroLoader } from '../ui/IntroLoader';
 
 export type MainTab = 'preview' | 'usage' | 'code' | 'props' | 'accessibility';
 export type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
@@ -379,7 +388,7 @@ const LoaderShowcase: React.FC = () => {
     <div className="py-8 sm:py-12 flex flex-col items-center justify-center gap-6 max-w-full overflow-hidden">
       <div className="p-4 sm:p-8 rounded-2xl bg-[#202020] border border-[#363636] flex flex-col items-center gap-6 max-w-full shadow-md">
         <Loader variant={variant} size={size} />
-        
+
         <div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#242424] border border-[#363636]">
             {(['arc', 'dots', 'line', 'rings'] as const).map((v) => (
@@ -541,6 +550,14 @@ export const ComponentDetailPage: React.FC<ComponentDetailPageProps> = ({
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [demoKey, setDemoKey] = useState(0);
   const [isCopiedCli, setIsCopiedCli] = useState(false);
+
+  const handleBackToComponents = () => {
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      window.history.back();
+    } else {
+      onNavigateComponents();
+    }
+  };
 
   // Reset tab and scroll top on component change
   useEffect(() => {
@@ -1389,10 +1406,10 @@ const completion = await client.completions.create({
                 key={demoKey}
                 position="bottom-center"
                 items={[
-                  { id: '1', label: 'AI Pilot', icon: <Sparkles className="w-4 h-4" />, action: () => {} },
-                  { id: '2', label: 'Terminal', icon: <Terminal className="w-4 h-4" />, action: () => {} },
-                  { id: '3', label: 'Code', icon: <Code2 className="w-4 h-4" />, action: () => {} },
-                  { id: '4', label: 'Security', icon: <ShieldCheck className="w-4 h-4" />, action: () => {}, badge: 4 },
+                  { id: '1', label: 'AI Pilot', icon: <Sparkles className="w-4 h-4" />, action: () => { } },
+                  { id: '2', label: 'Terminal', icon: <Terminal className="w-4 h-4" />, action: () => { } },
+                  { id: '3', label: 'Code', icon: <Code2 className="w-4 h-4" />, action: () => { } },
+                  { id: '4', label: 'Security', icon: <ShieldCheck className="w-4 h-4" />, action: () => { }, badge: 4 },
                 ]}
               />
             </div>
@@ -1560,8 +1577,8 @@ const completion = await client.completions.create({
                 { id: '4', title: 'docker-compose.edge.json', subtitle: 'Modified 3h ago by dev' },
               ]}
               actions={[
-                { id: 'export', label: 'Export', icon: <Terminal className="w-3.5 h-3.5" />, action: async () => {} },
-                { id: 'archive', label: 'Archive', icon: <Sparkles className="w-3.5 h-3.5" />, action: async () => {} },
+                { id: 'export', label: 'Export', icon: <Terminal className="w-3.5 h-3.5" />, action: async () => { } },
+                { id: 'archive', label: 'Archive', icon: <Sparkles className="w-3.5 h-3.5" />, action: async () => { } },
               ]}
             />
           </div>
@@ -1597,6 +1614,84 @@ const completion = await client.completions.create({
                   author: 'DevOps',
                 },
               ]}
+            />
+          </div>
+        );
+      case 'text-scramble-decoder':
+        return (
+          <div className="py-12 flex flex-col items-center gap-4">
+            <TextScrambleDecoder key={demoKey} text="EASYUI.REGISTRY.SYNCED" trigger="manual" duration={1000} />
+            <p className="text-xs text-[#737373]">Replay the controlled decode sequence.</p>
+          </div>
+        );
+      case 'orbital-loading-ring':
+        return (
+          <div className="py-12 flex flex-col items-center gap-4">
+            <OrbitalLoadingRing key={demoKey} size={96} variant="dense" label="Syncing registry" />
+            <p className="text-xs text-[#737373]">Layered orbital loading with reduced-motion fallback.</p>
+          </div>
+        );
+      case 'gravity-particle-burst':
+        return (
+          <div className="py-12 flex flex-col items-center gap-4">
+            <GravityParticleBurst key={demoKey}>Commit release</GravityParticleBurst>
+            <p className="text-xs text-[#737373]">Click or tap to emit gravity-driven particles.</p>
+          </div>
+        );
+      case 'rocket-party-popper':
+      case 'achievement-reveal':
+        return (
+          <div className="py-8 flex justify-center">
+            <RocketPartyPopper
+              key={demoKey}
+              title="Mission Accomplished"
+              description="All registry sync, lint, and SEO checks passed."
+              metric="58 Components Live"
+            />
+          </div>
+        );
+      case 'mac-os-folder-cards':
+      case 'macos-folder-cards':
+      case 'velocity-aware-scroll-cards':
+        return (
+          <div className="py-8 w-full max-w-3xl mx-auto flex flex-col items-center justify-center">
+            <MacOSFolderCards key={demoKey} />
+          </div>
+        );
+      case 'liquid-ripple-button':
+        return (
+          <div className="py-12 flex items-center justify-center gap-3">
+            <LiquidRippleButton key={demoKey} variant="secondary">Generate preview</LiquidRippleButton>
+            <LiquidRippleButton variant="primary">Run sync</LiquidRippleButton>
+          </div>
+        );
+      case 'branching-submenu':
+        return (
+          <div className="py-8 flex justify-center w-full">
+            <BranchingSubmenu key={demoKey} />
+          </div>
+        );
+      case 'pill-navigation':
+        return (
+          <div className="py-12 flex justify-center">
+            <PillNavigation key={demoKey} />
+          </div>
+        );
+      case 'neon-edge-button':
+        return (
+          <div className="py-12 flex justify-center">
+            <NeonEdgeButton key={demoKey}>Deploy preview</NeonEdgeButton>
+          </div>
+        );
+      case 'intro-loader':
+        return (
+          <div className="py-6 w-full max-w-2xl mx-auto flex flex-col items-center justify-center">
+            <IntroLoader
+              key={demoKey}
+              fullScreen={false}
+              showLangBadge={true}
+              showProgress={true}
+              allowSkip={true}
             />
           </div>
         );
@@ -1682,7 +1777,7 @@ const completion = await client.completions.create({
                     className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#242424] border border-[#2d2d2d] text-[16px] text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
                   />
                 </div>
-                       {/* Items */}
+                {/* Items */}
                 <div className="space-y-1 overflow-y-auto">
                   <h4 className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest px-2 mb-1.5">
                     Components
@@ -1838,8 +1933,9 @@ const completion = await client.completions.create({
               {/* Breadcrumb */}
               <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#737373]">
                 <button
-                  onClick={onNavigateComponents}
-                  className="hover:text-white transition-colors"
+                  type="button"
+                  onClick={handleBackToComponents}
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   Components
                 </button>
@@ -1907,14 +2003,7 @@ const completion = await client.completions.create({
                 {/* Main Interactive Stage Box */}
                 <div className="relative rounded-2xl border border-[#363636] bg-[#202020] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col">
                   {/* Top Bar inside the preview card */}
-                  <div className="px-4 py-3 border-b border-[#363636] bg-[#1C1C1C]/90 backdrop-blur-md flex items-center justify-between gap-3 text-xs">
-                    <div className="flex items-center gap-2.5">
-                      <FileCode className="w-3.5 h-3.5 text-[#8A8A8A]" />
-                      <span className="font-mono text-[11px] text-[#F5F5F5] font-medium">
-                        {component.id}.tsx
-                      </span>
-                    </div>
-
+                  <div className="px-4 py-2.5 border-b border-[#363636] bg-[#1C1C1C]/90 backdrop-blur-md flex items-center justify-end gap-3 text-xs">
                     {/* Stage Controls */}
                     <div className="flex items-center gap-1.5">
 
@@ -1957,7 +2046,7 @@ const completion = await client.completions.create({
                   {/* Component Render Canvas */}
                   <div className="relative min-h-[360px] sm:min-h-[420px] p-6 sm:p-10 flex items-center justify-center bg-[#151515]">
                     <div className="w-full flex items-center justify-center">
-                      {renderInteractiveDemo()}
+                      {!isFullscreenPreview && renderInteractiveDemo()}
                     </div>
                   </div>
                 </div>
@@ -1978,14 +2067,15 @@ const completion = await client.completions.create({
                         const importStmt = `import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`;
                         handleCopy(importStmt, 'import');
                       }}
-                      className="flex items-center gap-1.5 text-xs text-[#A3A3A3] hover:text-white transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer"
+                      title={copiedCode === 'import' ? 'Copied' : 'Copy Import Statement'}
+                      aria-label={copiedCode === 'import' ? 'Copied import statement' : 'Copy import statement'}
                     >
                       {copiedCode === 'import' ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
                       ) : (
                         <Copy className="w-3.5 h-3.5" />
                       )}
-                      <span>{copiedCode === 'import' ? 'Copied' : 'Copy'}</span>
                     </button>
                   </div>
                   <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#F5F5F5] overflow-x-auto">
@@ -2276,22 +2366,18 @@ const completion = await client.completions.create({
           >
             {/* Header */}
             <div className="sticky top-0 inset-x-0 z-[110] bg-[#202020]/90 border-b border-[#363636] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-white font-medium">
-                  {component.name}
-                </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#242424] border border-[#363636] text-[#A3A3A3]">
-                  Fullscreen Preview
-                </span>
-              </div>
+              <span className="font-mono text-xs text-white font-medium">
+                {component.name}
+              </span>
 
               <button
                 type="button"
                 onClick={() => setIsFullscreenPreview(false)}
-                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#A3A3A3] hover:text-white transition-colors shrink-0 cursor-pointer"
+                className="p-1.5 rounded-lg bg-[#242424] hover:bg-[#2C2C2C] border border-[#363636] hover:border-[#4A4A4A] text-[#A3A3A3] hover:text-white transition-colors shrink-0 cursor-pointer"
+                title="Close fullscreen"
+                aria-label="Close fullscreen"
               >
-                <span>Close</span>
-                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#242424] border border-[#363636] text-[#737373]">ESC</kbd>
+                <X className="w-4 h-4 text-white" />
               </button>
             </div>
 

@@ -132,6 +132,33 @@
       ]
     },
     {
+      "name": "branching-submenu",
+      "type": "registry:ui",
+      "title": "Branching Submenu",
+      "description": "A spatial submenu that connects parent options to child actions with staged branch motion.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/BranchingSubmenu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/branching-submenu.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
@@ -530,6 +557,27 @@
       ]
     },
     {
+      "name": "gravity-particle-burst",
+      "type": "registry:ui",
+      "title": "Gravity Particle Burst",
+      "description": "A pointer-triggered canvas particle burst with velocity, gravity, friction, and short-lived physical follow-through.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/GravityParticleBurst.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gravity-particle-burst.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
       "name": "hamburger-menu",
       "type": "registry:ui",
       "title": "Hamburger Menu",
@@ -583,6 +631,33 @@
       ]
     },
     {
+      "name": "intro-loader",
+      "type": "registry:ui",
+      "title": "Intro Loader",
+      "description": "An Apple-inspired multilingual welcome splash and intro loader that rapidly cycles localized greetings with fluid blur transitions, progress tracking, and accessible skip controls.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/IntroLoader.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/intro-loader.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "ios-search-bar",
       "type": "registry:ui",
       "title": "iOS-style Search Bar",
@@ -596,6 +671,33 @@
           "path": "src/components/ui/IOSSearchBar.tsx",
           "type": "registry:ui",
           "target": "components/ui/ios-search-bar.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "liquid-ripple-button",
+      "type": "registry:ui",
+      "title": "Liquid Ripple Button",
+      "description": "A tactile button whose pointer-origin ripple and subtle wave layer make press feedback feel fluid.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/LiquidRippleButton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/liquid-ripple-button.tsx"
         },
         {
           "path": "src/lib/utils.ts",
@@ -644,6 +746,33 @@
           "path": "src/components/ui/Login.tsx",
           "type": "registry:ui",
           "target": "components/ui/login.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "mac-os-folder-cards",
+      "type": "registry:ui",
+      "title": "macOS Folder Cards",
+      "description": "An authentic porcelain-white macOS Finder folder icon that unrolls interactive cards with fluid Apple spring physics.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/MacOSFolderCards.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/mac-os-folder-cards.tsx"
         },
         {
           "path": "src/lib/utils.ts",
@@ -765,6 +894,27 @@
       ]
     },
     {
+      "name": "neon-edge-button",
+      "type": "registry:ui",
+      "title": "Neon Edge Button",
+      "description": "A button with a restrained light source travelling around the border while the label remains primary.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeonEdgeButton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/neon-edge-button.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
       "name": "notification-bell",
       "type": "registry:ui",
       "title": "Notification Bell",
@@ -815,6 +965,24 @@
           "path": "src/lib/motion-tokens.ts",
           "type": "registry:lib",
           "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "orbital-loading-ring",
+      "type": "registry:ui",
+      "title": "Orbital Loading Ring",
+      "description": "A lightweight loading indicator with layered rings and orbiting particles that communicate active processing.",
+      "files": [
+        {
+          "path": "src/components/ui/OrbitalLoadingRing.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/orbital-loading-ring.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
         }
       ]
     },
@@ -926,6 +1094,33 @@
       ]
     },
     {
+      "name": "pill-navigation",
+      "type": "registry:ui",
+      "title": "Pill Navigation",
+      "description": "A restrained segmented navigation control with shared pill layout morphing and nested submenu dropdown support.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/PillNavigation.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pill-navigation.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
       "name": "recovery-ledger",
       "type": "registry:ui",
       "title": "Recovery Ledger",
@@ -970,6 +1165,33 @@
           "path": "src/lib/utils.ts",
           "type": "registry:lib",
           "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "rocket-party-popper",
+      "type": "registry:ui",
+      "title": "Rocket Party Popper",
+      "description": "An interactive black rocket launch that blasts into a colorful party popper confetti shower to reveal celebratory milestones.",
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/RocketPartyPopper.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/rocket-party-popper.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/motion-tokens.ts",
+          "type": "registry:lib",
+          "target": "lib/motion-tokens.ts"
         }
       ]
     },
@@ -1211,6 +1433,27 @@
           "path": "src/lib/motion-tokens.ts",
           "type": "registry:lib",
           "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "text-scramble-decoder",
+      "type": "registry:ui",
+      "title": "Text Scramble Decoder",
+      "description": "A controlled text reveal that resolves scrambled glyphs into readable copy without changing the text semantics.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/TextScrambleDecoder.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/text-scramble-decoder.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
         }
       ]
     },

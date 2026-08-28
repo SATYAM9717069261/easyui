@@ -60,6 +60,16 @@ import { DragToConfirm } from '../ui/DragToConfirm';
 import { PeekCard } from '../ui/PeekCard';
 import { SelectionBasket } from '../ui/SelectionBasket';
 import { FocusMode } from '../ui/FocusMode';
+import { RocketPartyPopper } from '../ui/RocketPartyPopper';
+import { BranchingSubmenu } from '../ui/BranchingSubmenu';
+import { GravityParticleBurst } from '../ui/GravityParticleBurst';
+import { LiquidRippleButton } from '../ui/LiquidRippleButton';
+import { NeonEdgeButton } from '../ui/NeonEdgeButton';
+import { OrbitalLoadingRing } from '../ui/OrbitalLoadingRing';
+import { PillNavigation } from '../ui/PillNavigation';
+import { TextScrambleDecoder } from '../ui/TextScrambleDecoder';
+import { MacOSFolderCards } from '../ui/MacOSFolderCards';
+import { IntroLoader } from '../ui/IntroLoader';
 
 export interface ComponentDetailModalProps {
   component: EasyComponentMeta | null;
@@ -1221,6 +1231,77 @@ func main() {
         return (
           <div className="py-4 w-full max-w-2xl mx-auto">
             <FocusMode />
+          </div>
+        );
+      case 'text-scramble-decoder':
+        return (
+          <div className="py-12 flex flex-col items-center gap-4">
+            <TextScrambleDecoder text="EASYUI.REGISTRY.SYNCED" trigger="manual" duration={1000} />
+            <p className="text-xs text-[#737373]">Replay the controlled decode sequence.</p>
+          </div>
+        );
+      case 'orbital-loading-ring':
+        return (
+          <div className="py-12 flex flex-col items-center gap-4">
+            <OrbitalLoadingRing size={96} variant="dense" label="Syncing registry" />
+            <p className="text-xs text-[#737373]">Layered orbital loading with reduced-motion fallback.</p>
+          </div>
+        );
+      case 'gravity-particle-burst':
+        return (
+          <div className="py-12 flex flex-col items-center gap-4">
+            <GravityParticleBurst>Commit release</GravityParticleBurst>
+            <p className="text-xs text-[#737373]">Click or tap to emit gravity-driven particles.</p>
+          </div>
+        );
+      case 'rocket-party-popper':
+      case 'achievement-reveal':
+        return (
+          <div className="py-8 flex justify-center">
+            <RocketPartyPopper
+              title="Mission Accomplished"
+              description="All registry, lint, and type checks passed."
+              metric="58 Components Live"
+            />
+          </div>
+        );
+      case 'mac-os-folder-cards':
+      case 'macos-folder-cards':
+      case 'velocity-aware-scroll-cards':
+        return (
+          <div className="py-8 w-full max-w-3xl mx-auto flex flex-col items-center justify-center">
+            <MacOSFolderCards />
+          </div>
+        );
+      case 'branching-submenu':
+        return (
+          <div className="py-8 flex justify-center">
+            <BranchingSubmenu />
+          </div>
+        );
+      case 'liquid-ripple-button':
+        return (
+          <div className="py-12 flex flex-wrap items-center justify-center gap-3">
+            <LiquidRippleButton variant="secondary">Generate preview</LiquidRippleButton>
+            <LiquidRippleButton variant="primary">Run sync</LiquidRippleButton>
+          </div>
+        );
+      case 'pill-navigation':
+        return (
+          <div className="py-12 flex justify-center">
+            <PillNavigation />
+          </div>
+        );
+      case 'neon-edge-button':
+        return (
+          <div className="py-12 flex justify-center">
+            <NeonEdgeButton>Deploy preview</NeonEdgeButton>
+          </div>
+        );
+      case 'intro-loader':
+        return (
+          <div className="py-8 w-full max-w-xl mx-auto flex items-center justify-center">
+            <IntroLoader fullScreen={false} />
           </div>
         );
       default:

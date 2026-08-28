@@ -33,13 +33,13 @@ describe('App Routing and Navigation', () => {
   });
 
   it('renders valid component route when direct URL is accessed', async () => {
-    window.history.replaceState(null, '', '/components/dot-field');
+    window.history.replaceState(null, '', '/components/button');
 
     render(<App />);
 
     const heading = await screen.findByRole(
       'heading',
-      { name: /dot field/i },
+      { name: /button/i, level: 1 },
       { timeout: 10000 }
     );
     expect(heading).toBeInTheDocument();
