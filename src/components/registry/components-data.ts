@@ -447,6 +447,66 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "branching-submenu",
+    "name": "Branching Submenu",
+    "tagline": "Animated tree navigation with keyboard support",
+    "description": "A spatial submenu that connects parent options to child actions with staged branch motion.",
+    "category": "Navigation",
+    "badges": [
+      "Navigation",
+      "Keyboard Friendly",
+      "Reduced Motion"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/branching-submenu",
+    "features": [
+      "Parent and child panels communicate hierarchy through position and stagger",
+      "Arrow keys, Enter, and Escape support menu exploration",
+      "Responsive layout stacks cleanly on narrow screens"
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "BranchingSubmenuItem[]",
+        "default": "demo items",
+        "description": "Parent items and optional child branches"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "'Branching navigation'",
+        "description": "Accessible navigation label"
+      }
+    ],
+    "accessibility": [
+      "Uses a labeled navigation region and focus-visible rings",
+      "Supports Escape to close the branch panel and arrow-key parent navigation",
+      "Reduced motion replaces branch movement with a simple fade"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { BranchingSubmenu } from \"@/components/ui/branching-submenu\";\n\nexport function Demo() {\n  return <BranchingSubmenu />;\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/BranchingSubmenu.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/branching-submenu.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "button",
     "name": "Button",
     "tagline": "Multi-variant button system with tactile physics",
@@ -1669,6 +1729,65 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "gravity-particle-burst",
+    "name": "Gravity Particle Burst",
+    "tagline": "Pointer-driven gravity particle feedback",
+    "description": "A pointer-triggered canvas particle burst with velocity, gravity, friction, and short-lived physical follow-through.",
+    "category": "Motion",
+    "badges": [
+      "Canvas",
+      "Pointer Physics",
+      "Reduced Motion"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/gravity-particle-burst",
+    "features": [
+      "Particles inherit a shared origin from the pointer location",
+      "Canvas rendering keeps the effect performant without many DOM nodes",
+      "Gravity and friction make particles arc and settle naturally"
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "'Create particle burst'",
+        "description": "Default button label and accessible text"
+      },
+      {
+        "name": "particleCount",
+        "type": "number",
+        "default": "34",
+        "description": "Number of canvas particles emitted per burst"
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Custom button content"
+      }
+    ],
+    "accessibility": [
+      "The canvas overlay is aria-hidden and does not intercept pointer input",
+      "Reduced motion disables the particle burst while keeping the button usable"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { GravityParticleBurst } from \"@/components/ui/gravity-particle-burst\";\n\nexport function Demo() {\n  return <GravityParticleBurst>Commit release</GravityParticleBurst>;\n}",
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/GravityParticleBurst.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/gravity-particle-burst.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
     "id": "hamburger-menu",
     "name": "Hamburger Menu",
     "tagline": "Architectural line morphing & symmetrical spring motion",
@@ -1833,6 +1952,108 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "intro-loader",
+    "name": "Intro Loader",
+    "tagline": "Apple-style multilingual greeting welcome splash",
+    "description": "An Apple-inspired multilingual welcome splash and intro loader that rapidly cycles localized greetings with fluid blur transitions, progress tracking, and accessible skip controls.",
+    "category": "Overlays",
+    "badges": [
+      "Apple Welcome",
+      "Multilingual",
+      "Splash Screen",
+      "Fluid Blur",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/intro-loader",
+    "features": [
+      "Rapid multilingual greeting cycling inspired by Apple OS welcome splash",
+      "Fluid blur, scale, and opacity entry transitions calibrated with cubic-bezier curves",
+      "Apple-style hairline progress indicator tracking sequence completion",
+      "Keyboard and tactile skip mechanism (ESC key or dedicated discrete button)",
+      "Full accessibility support with aria-live announcements and reduced-motion fallbacks",
+      "Supports both full-screen initial overlay and inline documentation preview modes"
+    ],
+    "props": [
+      {
+        "name": "greetings",
+        "type": "(string | GreetingItem)[]",
+        "default": "['Hello', 'Hola', 'Bonjour', ...]",
+        "description": "Array of localized greeting strings or objects with text and lang to cycle through"
+      },
+      {
+        "name": "fullScreen",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to render as a fixed full-screen overlay or inline container"
+      },
+      {
+        "name": "intervalMs",
+        "type": "number",
+        "default": "240",
+        "description": "Milliseconds per greeting cycle"
+      },
+      {
+        "name": "showProgress",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to display the Apple-style hairline progress bar"
+      },
+      {
+        "name": "showLangBadge",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to display country language badges"
+      },
+      {
+        "name": "allowSkip",
+        "type": "boolean",
+        "default": "true",
+        "description": "Whether to enable ESC key and Skip button dismissals"
+      },
+      {
+        "name": "speedMultiplier",
+        "type": "number",
+        "default": "1",
+        "description": "Speed multiplier for the animation sequence"
+      },
+      {
+        "name": "onComplete",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when welcome sequence completes"
+      }
+    ],
+    "accessibility": [
+      "Screen reader live region (aria-live=\"polite\" and aria-atomic=\"true\") for real-time announcements",
+      "Full keyboard dismissibility with Escape key listener",
+      "Complete prefers-reduced-motion fallback jumping directly to finish",
+      "Dialog role with aria-label=\"Welcome intro screen\" and clean tree unmounting upon finish"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { IntroLoader } from \"@/components/ui/intro-loader\";\nimport { useState } from \"react\";\n\nexport function Demo() {\n  const [loading, setLoading] = useState(true);\n\n  if (loading) {\n    return (\n      <IntroLoader\n        allowSkip={true}\n        showProgress={true}\n        onComplete={() => setLoading(false)}\n      />\n    );\n  }\n\n  return (\n    <main className=\"min-h-screen bg-[#151515] text-[#F5F5F5] p-8\">\n      <h1>Welcome to the Application</h1>\n    </main>\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/IntroLoader.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/intro-loader.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "ios-search-bar",
     "name": "iOS-style Search Bar",
     "tagline": "Spring expanding search pill & tactile clear button",
@@ -1909,6 +2130,65 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/components/ui/IOSSearchBar.tsx",
         "type": "registry:ui",
         "target": "components/ui/ios-search-bar.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "liquid-ripple-button",
+    "name": "Liquid Ripple Button",
+    "tagline": "Pointer-origin liquid press feedback",
+    "description": "A tactile button whose pointer-origin ripple and subtle wave layer make press feedback feel fluid.",
+    "category": "Buttons",
+    "badges": [
+      "Button",
+      "Pointer Feedback",
+      "Reduced Motion"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/liquid-ripple-button",
+    "features": [
+      "Ripple originates from the actual press point",
+      "Slow secondary wave remains below the label and icon",
+      "Primary and secondary variants match EasyUI button surfaces"
+    ],
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "'Run interaction'",
+        "description": "Button content"
+      },
+      {
+        "name": "variant",
+        "type": "'primary' | 'secondary'",
+        "default": "'primary'",
+        "description": "Visual style variant"
+      }
+    ],
+    "accessibility": [
+      "Uses a semantic button and preserves native keyboard activation",
+      "Reduced motion removes ripple and wave animation while retaining press state"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { LiquidRippleButton } from \"@/components/ui/liquid-ripple-button\";\n\nexport function Demo() {\n  return <LiquidRippleButton variant=\"secondary\">Generate preview</LiquidRippleButton>;\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/LiquidRippleButton.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/liquid-ripple-button.tsx"
       },
       {
         "path": "src/lib/utils.ts",
@@ -2103,6 +2383,79 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/components/ui/Login.tsx",
         "type": "registry:ui",
         "target": "components/ui/login.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "mac-os-folder-cards",
+    "name": "macOS Folder Cards",
+    "tagline": "macOS folder icon with fluid spring card reveal",
+    "description": "An authentic porcelain-white macOS Finder folder icon that unrolls interactive cards with fluid Apple spring physics.",
+    "category": "Motion",
+    "badges": [
+      "macOS Folder",
+      "Spring Morphing",
+      "Expandable",
+      "Minimal"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/mac-os-folder-cards",
+    "features": [
+      "Porcelain-white macOS folder silhouette with 3D flap hinge and cards peeking from pocket",
+      "Interactive hover parallax lifts cards and tilts folder flap in 3D perspective",
+      "Opens into a minimal, seamless card grid with Apple fluid spring easing",
+      "Crisp pure white icons and EasyUI dark surface harmony"
+    ],
+    "props": [
+      {
+        "name": "folderTitle",
+        "type": "string",
+        "default": "'Components'",
+        "description": "Title label of the folder icon"
+      },
+      {
+        "name": "folderCategory",
+        "type": "string",
+        "default": "'Pipeline'",
+        "description": "Category breadcrumb for expanded header"
+      },
+      {
+        "name": "items",
+        "type": "MacOSFolderCardItem[]",
+        "default": "demo items",
+        "description": "Cards rendered in the expanded grid"
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial open/expanded state"
+      }
+    ],
+    "accessibility": [
+      "Uses aria-expanded state and keyboard activation (Enter/Space/Escape)",
+      "Reduced motion replaces 3D transforms with clean opacity transitions"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { MacOSFolderCards } from \"@/components/ui/macos-folder-cards\";\n\nexport function Demo() {\n  return (\n    <MacOSFolderCards\n      folderTitle=\"Components\"\n      folderCategory=\"Pipeline\"\n      items={[\n        { id: '1', title: 'Registry Sync', description: 'Catalog reacts to source changes.', meta: '01' },\n        { id: '2', title: 'SEO Audit', description: 'Metadata verified before release.', meta: '02' },\n      ]}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/MacOSFolderCards.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/mac-os-folder-cards.tsx"
       },
       {
         "path": "src/lib/utils.ts",
@@ -2414,6 +2767,65 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "neon-edge-button",
+    "name": "Neon Edge Button",
+    "tagline": "Precise travelling edge light button",
+    "description": "A button with a restrained light source travelling around the border while the label remains primary.",
+    "category": "Buttons",
+    "badges": [
+      "Button",
+      "CSS Motion",
+      "Reduced Motion"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/neon-edge-button",
+    "features": [
+      "Travelling light follows the button perimeter instead of animating border color",
+      "Neutral glow keeps the effect aligned with EasyUI surfaces",
+      "Still reads as a polished button when motion is disabled"
+    ],
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "'Deploy preview'",
+        "description": "Button content"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "1",
+        "description": "Multiplier for the edge-light travel speed"
+      },
+      {
+        "name": "glow",
+        "type": "boolean",
+        "default": "true",
+        "description": "Enables the subtle static button glow"
+      }
+    ],
+    "accessibility": [
+      "Uses a semantic button and focus-visible ring",
+      "Reduced motion stops the travelling light and keeps a static edge highlight"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { NeonEdgeButton } from \"@/components/ui/neon-edge-button\";\n\nexport function Demo() {\n  return <NeonEdgeButton>Deploy preview</NeonEdgeButton>;\n}",
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/NeonEdgeButton.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/neon-edge-button.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
     "id": "notification-bell",
     "name": "Notification Bell",
     "tagline": "Adaptive notification badge & animated alert drawer",
@@ -2553,6 +2965,69 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/motion-tokens.ts",
         "type": "registry:lib",
         "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "orbital-loading-ring",
+    "name": "Orbital Loading Ring",
+    "tagline": "Layered orbital processing indicator",
+    "description": "A lightweight loading indicator with layered rings and orbiting particles that communicate active processing.",
+    "category": "Feedback",
+    "badges": [
+      "CSS Motion",
+      "Accessible",
+      "Lightweight"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/orbital-loading-ring",
+    "features": [
+      "Two coordinated orbital rhythms with a subtle center pulse",
+      "Size, speed, and density variants",
+      "No external runtime beyond React"
+    ],
+    "props": [
+      {
+        "name": "size",
+        "type": "number",
+        "default": "72",
+        "description": "Rendered width and height in pixels"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "1",
+        "description": "Multiplier for orbital animation speed"
+      },
+      {
+        "name": "variant",
+        "type": "'default' | 'dense' | 'minimal'",
+        "default": "'default'",
+        "description": "Particle density around the secondary orbit"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "'Loading'",
+        "description": "Accessible status label"
+      }
+    ],
+    "accessibility": [
+      "Uses role=\"status\" with a screen-reader label",
+      "Reduced motion freezes the orbital movement while preserving the loading affordance"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { OrbitalLoadingRing } from \"@/components/ui/orbital-loading-ring\";\n\nexport function Demo() {\n  return <OrbitalLoadingRing size={84} variant=\"dense\" label=\"Syncing registry\" />;\n}",
+    "dependencies": [],
+    "files": [
+      {
+        "path": "src/components/ui/OrbitalLoadingRing.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/orbital-loading-ring.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
       }
     ]
   },
@@ -3060,6 +3535,79 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "pill-navigation",
+    "name": "Pill Navigation",
+    "tagline": "Minimal shared-pill navigation continuity with fluid submenus",
+    "description": "A restrained segmented navigation control with shared pill layout morphing and nested submenu dropdown support.",
+    "category": "Navigation",
+    "badges": [
+      "Layout Springs",
+      "Submenu Dropdown",
+      "Accessible",
+      "Minimal"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/pill-navigation",
+    "features": [
+      "Single shared indicator preserves spatial continuity",
+      "Interactive nested submenu with fluid spring entrance and layout morphing",
+      "Dual-tier keyboard navigation for parent tabs and sub-items"
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "PillNavigationItem[]",
+        "default": "demo items",
+        "description": "Navigation items with optional submenu children"
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "default": "first item id",
+        "description": "Initial selected item id"
+      },
+      {
+        "name": "defaultSubValue",
+        "type": "string",
+        "default": "undefined",
+        "description": "Initial selected submenu item id"
+      },
+      {
+        "name": "onChange",
+        "type": "(id: string, subId?: string) => void",
+        "default": "undefined",
+        "description": "Selection callback"
+      }
+    ],
+    "accessibility": [
+      "Uses tablist and tab roles with aria-selected and aria-expanded state",
+      "Supports ArrowLeft/ArrowRight for main tabs and ArrowUp/ArrowDown for sub-items",
+      "Reduced motion swaps the moving shared pill for an immediate selected background"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { PillNavigation } from \"@/components/ui/pill-navigation\";\n\nexport function Demo() {\n  return (\n    <PillNavigation\n      items={[\n        { id: 'overview', label: 'Overview' },\n        {\n          id: 'motion',\n          label: 'Motion',\n          children: [\n            { id: 'springs', label: 'Spring Physics' },\n            { id: 'caustics', label: 'Liquid Caustics' },\n          ],\n        },\n        { id: 'code', label: 'Code' },\n      ]}\n      onChange={(mainId, subId) => console.log(mainId, subId)}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/PillNavigation.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/pill-navigation.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "recovery-ledger",
     "name": "Recovery Ledger",
     "tagline": "Version history timeline & state recovery ledger",
@@ -3188,6 +3736,105 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/utils.ts",
         "type": "registry:lib",
         "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
+    "id": "rocket-party-popper",
+    "name": "Rocket Party Popper",
+    "tagline": "Lift-off milestone celebration with colorful confetti blast",
+    "description": "An interactive black rocket launch that blasts into a colorful party popper confetti shower to reveal celebratory milestones.",
+    "category": "Feedback",
+    "badges": [
+      "Party Popper",
+      "Confetti Blast",
+      "Interactive Motion",
+      "Milestones"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/rocket-party-popper",
+    "features": [
+      "Sleek matte black rocket capsule with thruster ember anticipation",
+      "Smooth lift-off acceleration trailing thruster flame and smoke",
+      "360° Colorful party popper confetti explosion with physics gravity and flutter",
+      "Apple-grade fluid spring reveal for celebratory milestone cards",
+      "Built-in replay and reset support for repeatable celebratory interactions"
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "default": "'Mission Accomplished'",
+        "description": "Primary celebration headline"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "'All checks passed and your release is ready to deploy.'",
+        "description": "Supporting celebration description"
+      },
+      {
+        "name": "metric",
+        "type": "string",
+        "default": "'100% Production Ready'",
+        "description": "Metadata badge shown on milestone card"
+      },
+      {
+        "name": "triggerLabel",
+        "type": "string",
+        "default": "'Launch celebration'",
+        "description": "Label for the launch button"
+      },
+      {
+        "name": "confettiCount",
+        "type": "number",
+        "default": "50",
+        "description": "Total confetti particles spawned on blast"
+      },
+      {
+        "name": "defaultLaunched",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial launched/revealed state"
+      },
+      {
+        "name": "onLaunch",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired on launch trigger"
+      },
+      {
+        "name": "onReset",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired on reset"
+      }
+    ],
+    "accessibility": [
+      "Revealed milestone card uses role=\"status\" and aria-live=\"polite\"",
+      "Supports prefers-reduced-motion with instant graceful celebration transition",
+      "Full keyboard interaction via Enter and Spacebar"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { RocketPartyPopper } from \"@/components/ui/rocket-party-popper\";\n\nexport function Demo() {\n  return (\n    <RocketPartyPopper\n      title=\"Release Shipped\"\n      description=\"All registry, lint, and SEO checks passed.\"\n      metric=\"v2.4.0 Live\"\n      onLaunch={() => console.log('Rocket Launched!')}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/RocketPartyPopper.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/rocket-party-popper.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
       }
     ]
   },
@@ -3915,6 +4562,70 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/motion-tokens.ts",
         "type": "registry:lib",
         "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "text-scramble-decoder",
+    "name": "Text Scramble Decoder",
+    "tagline": "Controlled technical typography reveal",
+    "description": "A controlled text reveal that resolves scrambled glyphs into readable copy without changing the text semantics.",
+    "category": "Motion",
+    "badges": [
+      "Typography",
+      "Reduced Motion",
+      "Interactive"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/text-scramble-decoder",
+    "features": [
+      "Position-staged character resolution with a stable final state",
+      "Mount, hover, and manual replay trigger modes",
+      "Configurable glyph set and duration"
+    ],
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "description": "Final readable text announced to assistive technology"
+      },
+      {
+        "name": "characters",
+        "type": "string",
+        "default": "A-Z, 0-9, symbols",
+        "description": "Characters used during the temporary scramble phase"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "900",
+        "description": "Decode duration in milliseconds"
+      },
+      {
+        "name": "trigger",
+        "type": "'mount' | 'hover' | 'manual'",
+        "default": "'mount'",
+        "description": "When the decode sequence should run"
+      }
+    ],
+    "accessibility": [
+      "The readable text is exposed through aria-label while animated glyphs are hidden from assistive technology",
+      "Reduced motion renders the final text immediately"
+    ],
+    "createdAt": "2026-08-28",
+    "usageCode": "import { TextScrambleDecoder } from \"@/components/ui/text-scramble-decoder\";\n\nexport function Demo() {\n  return (\n    <TextScrambleDecoder\n      text=\"EASYUI.REGISTRY.SYNCED\"\n      trigger=\"manual\"\n      duration={1000}\n    />\n  );\n}",
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/TextScrambleDecoder.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/text-scramble-decoder.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
       }
     ]
   },

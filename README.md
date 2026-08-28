@@ -53,17 +53,24 @@ npx shadcn@latest add Surajmaurya1/easyui/<component-name>
 # Buttons
 npx shadcn@latest add Surajmaurya1/easyui/button
 npx shadcn@latest add Surajmaurya1/easyui/magnetic-button
+npx shadcn@latest add Surajmaurya1/easyui/liquid-ripple-button
+npx shadcn@latest add Surajmaurya1/easyui/neon-edge-button
 
 # Surfaces & Motion
 npx shadcn@latest add Surajmaurya1/easyui/spotlight-card
 npx shadcn@latest add Surajmaurya1/easyui/reveal-card
 npx shadcn@latest add Surajmaurya1/easyui/dot-field
+npx shadcn@latest add Surajmaurya1/easyui/text-scramble-decoder
+npx shadcn@latest add Surajmaurya1/easyui/gravity-particle-burst
+npx shadcn@latest add Surajmaurya1/easyui/velocity-aware-scroll-cards
 
 # Navigation
 npx shadcn@latest add Surajmaurya1/easyui/glass-navbar
 npx shadcn@latest add Surajmaurya1/easyui/animated-tabs
 npx shadcn@latest add Surajmaurya1/easyui/floating-action-dock
 npx shadcn@latest add Surajmaurya1/easyui/expandable-search
+npx shadcn@latest add Surajmaurya1/easyui/branching-submenu
+npx shadcn@latest add Surajmaurya1/easyui/pill-navigation
 
 # Forms & Authentication
 npx shadcn@latest add Surajmaurya1/easyui/form
@@ -77,6 +84,8 @@ npx shadcn@latest add Surajmaurya1/easyui/notification-stack
 npx shadcn@latest add Surajmaurya1/easyui/morphing-dialog
 npx shadcn@latest add Surajmaurya1/easyui/smooth-accordion
 npx shadcn@latest add Surajmaurya1/easyui/command-menu
+npx shadcn@latest add Surajmaurya1/easyui/orbital-loading-ring
+npx shadcn@latest add Surajmaurya1/easyui/achievement-reveal
 ```
 
 #### What the CLI does automatically:
@@ -150,6 +159,15 @@ Visit `http://localhost:5173` to test the interactive preview showroom and copy 
 | **DotField** | `dot-field` | Motion | 60 FPS HTML5 Canvas particle matrix with cursor bulge & SVG radial glow | *(none — zero runtime deps)* |
 | **ExpandableSearch** | `expandable-search` | Navigation | Compact search pill with spring width expansion & keyboard hints | `framer-motion`, `lucide-react` |
 | **PaymentReceiptPrinter** | `payment-receipt-printer` | Feedback | Animated payment receipt printer with thermal paper extrusion motion & replay | `framer-motion`, `lucide-react` |
+| **TextScrambleDecoder** | `text-scramble-decoder` | Motion | Controlled technical typography reveal with staged character resolution and replay triggers | `lucide-react` |
+| **OrbitalLoadingRing** | `orbital-loading-ring` | Feedback | Layered orbital processing indicator with density variants and reduced-motion fallback | *(none — zero runtime deps)* |
+| **GravityParticleBurst** | `gravity-particle-burst` | Motion | Pointer-origin canvas particle burst with gravity, friction, and physical follow-through | `lucide-react` |
+| **AchievementReveal** | `achievement-reveal` | Feedback | Staged completion reveal with badge, supporting detail, and polite status announcement | `framer-motion`, `lucide-react` |
+| **VelocityAwareScrollCards** | `velocity-aware-scroll-cards` | Motion | Scroll-velocity cards with damped tilt and offset driven by measured page movement | `framer-motion` |
+| **LiquidRippleButton** | `liquid-ripple-button` | Buttons | Tactile button with pointer-origin ripple and restrained wave feedback | `framer-motion`, `lucide-react` |
+| **BranchingSubmenu** | `branching-submenu` | Navigation | Spatial parent-child submenu with staged branches, keyboard navigation, and Escape behavior | `framer-motion`, `lucide-react` |
+| **PillNavigation** | `pill-navigation` | Navigation | Minimal floating navigation with a shared pill indicator for selected-state continuity | `framer-motion` |
+| **NeonEdgeButton** | `neon-edge-button` | Buttons | Restrained edge-light button with a travelling perimeter highlight and static fallback | `lucide-react` |
 
 
 ---

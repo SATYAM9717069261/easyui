@@ -26,7 +26,14 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<ComponentCategory>('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('easyui_dir_page');
+      const p = saved ? parseInt(saved, 10) : 1;
+      return !isNaN(p) && p > 0 ? p : 1;
+    }
+    return 1;
+  });
 
   const categories: ComponentCategory[] = [
     'All',
@@ -199,6 +206,9 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
                   totalPages={pagination.totalPages}
                   onPageChange={(page) => {
                     setCurrentPage(page);
+                    if (typeof window !== 'undefined') {
+                      sessionStorage.setItem('easyui_dir_page', page.toString());
+                    }
                     const el = document.getElementById('components-directory');
                     if (el) {
                       el.scrollIntoView({ behavior: 'smooth' });

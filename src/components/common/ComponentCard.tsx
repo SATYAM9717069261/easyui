@@ -13,6 +13,16 @@ import { NotificationStack } from '../ui/NotificationStack';
 import { MorphingDialog } from '../ui/MorphingDialog';
 import { DotField } from '../ui/DotField';
 import { AnimatedNumber } from '../ui/AnimatedNumber';
+import { RocketPartyPopper } from '../ui/RocketPartyPopper';
+import { BranchingSubmenu } from '../ui/BranchingSubmenu';
+import { GravityParticleBurst } from '../ui/GravityParticleBurst';
+import { LiquidRippleButton } from '../ui/LiquidRippleButton';
+import { NeonEdgeButton } from '../ui/NeonEdgeButton';
+import { OrbitalLoadingRing } from '../ui/OrbitalLoadingRing';
+import { PillNavigation } from '../ui/PillNavigation';
+import { TextScrambleDecoder } from '../ui/TextScrambleDecoder';
+import { MacOSFolderCards } from '../ui/MacOSFolderCards';
+import { IntroLoader } from '../ui/IntroLoader';
 import { NewBadge } from './NewBadge';
 import { copyToClipboard, cn } from '../../lib/utils';
 
@@ -905,6 +915,94 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
                 <span className="text-[9px] text-[#F5F5F5] bg-white/10 px-1.5 py-0.5 rounded">Revert</span>
               </div>
             </div>
+          </div>
+        );
+      case 'rocket-party-popper':
+      case 'achievement-reveal':
+        return (
+          <div className="h-40 w-full flex items-center justify-center pointer-events-none overflow-hidden">
+            <div className="scale-[0.56] origin-center shrink-0 flex items-center justify-center">
+              <RocketPartyPopper
+                defaultLaunched={hovered}
+                title="Launch Complete"
+                description="Milestone celebrated."
+                metric="59 Components"
+              />
+            </div>
+          </div>
+        );
+      case 'branching-submenu':
+        return (
+          <div className="h-40 flex items-center justify-center p-2 pointer-events-none overflow-hidden">
+            <div className="w-[420px] shrink-0 origin-center scale-[0.62] flex justify-center">
+              <BranchingSubmenu className="w-full shadow-none" />
+            </div>
+          </div>
+        );
+      case 'mac-os-folder-cards':
+      case 'macos-folder-cards':
+      case 'velocity-aware-scroll-cards':
+        return (
+          <div className="h-40 flex items-center justify-center pointer-events-none overflow-hidden">
+            <div className="scale-[0.62] origin-center shrink-0 flex items-center justify-center">
+              <MacOSFolderCards isPeeked={hovered} className="min-h-0" />
+            </div>
+          </div>
+        );
+      case 'gravity-particle-burst':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <div className="pointer-events-none scale-90">
+              <GravityParticleBurst particleCount={18}>Burst</GravityParticleBurst>
+            </div>
+          </div>
+        );
+      case 'liquid-ripple-button':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <div className="pointer-events-none scale-90">
+              <LiquidRippleButton variant="secondary">Generate</LiquidRippleButton>
+            </div>
+          </div>
+        );
+      case 'neon-edge-button':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <div className="pointer-events-none scale-90">
+              <NeonEdgeButton>Deploy</NeonEdgeButton>
+            </div>
+          </div>
+        );
+      case 'orbital-loading-ring':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <OrbitalLoadingRing size={64} variant={hovered ? 'dense' : 'default'} label="Loading preview" />
+          </div>
+        );
+      case 'pill-navigation':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <div className="pointer-events-none scale-90">
+              <PillNavigation defaultValue={hovered ? 'motion' : 'overview'} />
+            </div>
+          </div>
+        );
+      case 'text-scramble-decoder':
+        return (
+          <div className="h-40 flex items-center justify-center p-4">
+            <TextScrambleDecoder
+              key={hovered ? 'hovered' : 'idle'}
+              text="EASYUI.SYNCED"
+              trigger="mount"
+              duration={650}
+              className="text-xs"
+            />
+          </div>
+        );
+      case 'intro-loader':
+        return (
+          <div className="h-40 w-full flex items-center justify-center p-2 pointer-events-none overflow-hidden">
+            <IntroLoader fullScreen={false} key={hovered ? 'hovered' : 'idle'} className="h-32 rounded-xl shadow-none border-none" />
           </div>
         );
 

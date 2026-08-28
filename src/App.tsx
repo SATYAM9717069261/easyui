@@ -210,7 +210,15 @@ export function App() {
     (page = 1) => {
       setSelectedComponent(null);
       setInvalidComponentSlug(null);
-      navigate(page > 1 ? `/components?page=${page}` : '/components');
+      const searchParams = new URLSearchParams(window.location.search);
+      if (page > 1) {
+        searchParams.set('page', page.toString());
+      } else {
+        searchParams.delete('page');
+      }
+      const newQuery = searchParams.toString();
+      const newPath = newQuery ? `/components?${newQuery}` : '/components';
+      navigate(newPath);
       setActiveView('components');
       setComponentPage(page);
       scrollToTop();
@@ -219,12 +227,21 @@ export function App() {
   );
 
   const handleNavigateComponents = useCallback(() => {
-    handleNavigateAllComponents(1);
-  }, [handleNavigateAllComponents]);
+    const targetPage = componentPage > 1 ? componentPage : 1;
+    handleNavigateAllComponents(targetPage);
+  }, [handleNavigateAllComponents, componentPage]);
 
   const handlePageChange = useCallback(
     (page: number) => {
-      navigate(page > 1 ? `/components?page=${page}` : '/components');
+      const searchParams = new URLSearchParams(window.location.search);
+      if (page > 1) {
+        searchParams.set('page', page.toString());
+      } else {
+        searchParams.delete('page');
+      }
+      const newQuery = searchParams.toString();
+      const newPath = newQuery ? `/components?${newQuery}` : '/components';
+      navigate(newPath);
       setComponentPage(page);
       scrollToTop();
     },

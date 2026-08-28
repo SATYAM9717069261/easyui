@@ -174,3 +174,34 @@ export type { BatchGestureTrayProps, BatchAction, BatchItem } from './BatchGestu
 
 export { RecoveryLedger } from './RecoveryLedger';
 export type { RecoveryLedgerProps, LedgerEntry } from './RecoveryLedger';
+
+export { TextScrambleDecoder } from './TextScrambleDecoder';
+export type { TextScrambleDecoderProps } from './TextScrambleDecoder';
+
+export { OrbitalLoadingRing } from './OrbitalLoadingRing';
+export type { OrbitalLoadingRingProps } from './OrbitalLoadingRing';
+
+export { GravityParticleBurst } from './GravityParticleBurst';
+export type { GravityParticleBurstProps } from './GravityParticleBurst';
+
+export { RocketPartyPopper } from './RocketPartyPopper';
+export type { RocketPartyPopperProps } from './RocketPartyPopper';
+
+export { MacOSFolderCards, VelocityAwareScrollCards } from './MacOSFolderCards';
+export type { MacOSFolderCardsProps, MacOSFolderCardItem, VelocityAwareScrollCardsProps, VelocityCardItem } from './MacOSFolderCards';
+
+export { LiquidRippleButton } from './LiquidRippleButton';
+export type { LiquidRippleButtonProps } from './LiquidRippleButton';
+
+export { BranchingSubmenu } from './BranchingSubmenu';
+export type { BranchingSubmenuProps, BranchingSubmenuItem } from './BranchingSubmenu';
+
+export { PillNavigation } from './PillNavigation';
+export type { PillNavigationProps, PillNavigationItem, PillSubItem } from './PillNavigation';
+
+export { NeonEdgeButton } from './NeonEdgeButton';
+export type { NeonEdgeButtonProps } from './NeonEdgeButton';
+
+export { IntroLoader } from './IntroLoader';
+export type { IntroLoaderProps } from './IntroLoader';
+
