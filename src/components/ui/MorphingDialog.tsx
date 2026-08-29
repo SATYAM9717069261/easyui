@@ -63,7 +63,7 @@ export const MorphingDialog: React.FC<MorphingDialogProps> = ({
               layoutId={id}
               transition={motionTransitions.springMorph}
               className={cn(
-                'relative w-full max-w-lg rounded-2xl border border-[#363636] bg-[#202020] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)] z-10 overflow-hidden',
+                'relative w-full max-w-lg rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)] z-10 overflow-hidden',
                 className
               )}
             >
@@ -74,7 +74,7 @@ export const MorphingDialog: React.FC<MorphingDialogProps> = ({
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.05 }}
-                    className="text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight"
+                    className="text-lg sm:text-xl font-semibold text-[#FAFAFA] tracking-tight"
                   >
                     {title}
                   </motion.h3>
@@ -83,7 +83,7 @@ export const MorphingDialog: React.FC<MorphingDialogProps> = ({
                       initial={{ opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1 }}
-                      className="text-xs sm:text-sm text-[#A3A3A3] mt-1"
+                      className="text-xs sm:text-sm text-[#A1A1A1] mt-1"
                     >
                       {subtitle}
                     </motion.p>
@@ -91,7 +91,7 @@ export const MorphingDialog: React.FC<MorphingDialogProps> = ({
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] transition-colors focus-ring cursor-pointer"
+                  className="p-1.5 rounded-lg text-[#525252] hover:text-[#FAFAFA] hover:bg-[#141414] transition-colors focus-ring cursor-pointer"
                   aria-label="Close dialog"
                 >
                   <X className="w-4 h-4" />

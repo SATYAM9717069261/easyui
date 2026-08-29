@@ -39,23 +39,23 @@ export interface ButtonProps
 
 const variantStyles: Record<ButtonVariant, string> = {
   default:
-    'bg-[#F5F5F5] text-[#151515] hover:bg-white shadow-xs border border-transparent font-medium cursor-pointer',
+    'bg-[#FAFAFA] text-[#050505] hover:bg-white shadow-xs border border-transparent font-medium cursor-pointer',
   primary:
-    'bg-[#F5F5F5] text-[#151515] hover:bg-white shadow-xs border border-transparent font-medium cursor-pointer',
+    'bg-[#FAFAFA] text-[#050505] hover:bg-white shadow-xs border border-transparent font-medium cursor-pointer',
   secondary:
-    'bg-[#202020] border border-[#363636] text-[#F5F5F5] hover:bg-[#242424] hover:border-[#4A4A4A] cursor-pointer',
+    'bg-[#0E0E0E] border border-[#1F1F1F] text-[#FAFAFA] hover:bg-[#141414] hover:border-[#4A4A4A] cursor-pointer',
   outline:
-    'bg-transparent border border-[#363636] text-[#F5F5F5] hover:bg-[#202020] hover:border-[#4A4A4A] cursor-pointer',
+    'bg-transparent border border-[#1F1F1F] text-[#FAFAFA] hover:bg-[#0E0E0E] hover:border-[#4A4A4A] cursor-pointer',
   ghost:
-    'bg-transparent text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#202020] border border-transparent cursor-pointer',
+    'bg-transparent text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#0E0E0E] border border-transparent cursor-pointer',
   destructive:
     'bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500 hover:text-white cursor-pointer',
   success:
     'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-white cursor-pointer',
   link:
-    'bg-transparent text-[#F5F5F5] underline-offset-4 hover:underline p-0 h-auto border-0 focus-ring shadow-none inline-flex cursor-pointer',
+    'bg-transparent text-[#FAFAFA] underline-offset-4 hover:underline p-0 h-auto border-0 focus-ring shadow-none inline-flex cursor-pointer',
   gradient:
-    'bg-[#202020] border border-[#363636] text-[#F5F5F5] hover:bg-[#242424] hover:border-[#4A4A4A] relative overflow-hidden cursor-pointer',
+    'bg-[#0E0E0E] border border-[#1F1F1F] text-[#FAFAFA] hover:bg-[#141414] hover:border-[#4A4A4A] relative overflow-hidden cursor-pointer',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

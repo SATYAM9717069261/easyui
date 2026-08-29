@@ -45,7 +45,7 @@ export function Demo() {
         { label: "Pricing", href: "#pricing" },
       ]}
       cta={
-        <button className="px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#050505] text-xs font-medium hover:bg-white transition-colors">
+        <button className="px-3.5 py-1.5 rounded-lg bg-[#FAFAFA] text-[#050505] text-xs font-medium hover:bg-white transition-colors">
           Get Started
         </button>
       }

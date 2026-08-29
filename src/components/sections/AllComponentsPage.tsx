@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Container } from '../layout/Container';
 import { EASY_COMPONENTS } from '../registry/components-data';
 import type { ComponentCategory } from '../../types/component';
-import { Search, ArrowLeft } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { ComponentCard } from '../common/ComponentCard';
 import { ComponentPagination } from '../common/ComponentPagination';
 import { InspirationNote } from '../common/InspirationNote';
@@ -132,83 +132,77 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#151515] text-[#F5F5F5] pt-2 pb-24">
+    <div className="min-h-screen bg-[#050505] text-[#FAFAFA] pt-12 sm:pt-20 pb-24">
       <Container size="xl">
-        {/* Top Header & Breadcrumbs */}
-        <div className="flex flex-wrap items-center justify-between gap-3 py-3 mb-4 sm:mb-6 border-b border-[#363636]">
-          <div className="flex items-center gap-1.5 text-xs font-sans text-[#A3A3A3]">
-            <button
-              onClick={onNavigateHome}
-              className="hover:text-white transition-colors focus-ring rounded cursor-pointer"
-            >
-              EasyUI
-            </button>
-            <span className="text-[#737373]">/</span>
-            <span className="text-white font-medium">All Components</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={onNavigateHome}
-              aria-label="Back to Home"
-              className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] transition-all focus-ring cursor-pointer"
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </button>
-          </div>
+        {/* Breadcrumb — quiet, no border */}
+        <div className="flex items-center gap-2 mb-10 sm:mb-14 text-[12px] text-[#6B6B6B]">
+          <button
+            onClick={onNavigateHome}
+            className="hover:text-white transition-colors focus-ring rounded cursor-pointer"
+          >
+            EasyUI
+          </button>
+          <span aria-hidden>/</span>
+          <span className="text-[#A1A1A1]">All components</span>
         </div>
 
-        {/* Section Header & Search Bar */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4 sm:mb-6">
+        {/* Section header — eyebrow + headline + count, no supporting paragraph */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#F5F5F5] tracking-tight">
-              All Components
+            <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em]">
+              Directory
+            </span>
+            <h1 className="mt-3 text-4xl sm:text-[52px] font-semibold text-[#FAFAFA] tracking-[-0.025em] leading-[1.05]">
+              All components
             </h1>
-            <p className="text-xs sm:text-sm text-[#A3A3A3] mt-1 max-w-xl">
-              Explore all {allSortedComponents.length} components. Crafted with spring physics, copy-paste ownership, and zero configuration.
+            <p className="mt-4 text-[14px] text-[#A1A1A1] max-w-md leading-relaxed">
+              {allSortedComponents.length} components. Crafted with spring physics, copy-paste ownership, zero configuration.
             </p>
           </div>
 
-          {/* Search Bar with Inspiration Note above */}
-          <div className="flex flex-col items-start md:items-end gap-1.5 w-full md:w-auto">
+          {/* Search Bar — simplified */}
+          <div className="flex flex-col items-start md:items-end gap-3 w-full md:w-auto">
             <InspirationNote />
-            <div className="relative w-full md:w-72">
-              <Search className="w-3.5 h-3.5 text-[#8A8A8A] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <div className="relative w-full md:w-64">
+              <Search className="w-3.5 h-3.5 text-[#525252] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                placeholder="Search components..."
-                className="w-full pl-8 pr-3 py-1.5 text-[16px] rounded-lg bg-[#242424] border border-[#363636] focus:border-[#4A4A4A] text-[#F5F5F5] placeholder-[#737373] focus:outline-none transition-colors"
+                placeholder="Search..."
+                className="w-full pl-9 pr-3 py-2 text-[14px] rounded-lg bg-[#0E0E0E] border border-[#1F1F1F] focus:border-[#4A4A4A] text-[#FAFAFA] placeholder-[#6B6B6B] focus:outline-none transition-colors"
               />
             </div>
           </div>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-5 sm:mb-7 scrollbar-none">
+        {/* Category filter — text-only, generous spacing */}
+        <div className="flex items-center gap-7 overflow-x-auto pb-4 mb-10 sm:mb-12 scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
               className={cn(
-                'px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap focus-ring cursor-pointer',
+                'relative text-[13px] font-medium whitespace-nowrap transition-colors focus-ring cursor-pointer',
                 selectedCategory === cat
-                  ? 'bg-[#242424] text-[#F5F5F5] border border-[#363636]'
-                  : 'bg-[#202020] text-[#737373] border border-[#363636] hover:text-[#F5F5F5] hover:bg-[#242424]'
+                  ? 'text-[#FAFAFA]'
+                  : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
               )}
             >
               {cat}
+              {selectedCategory === cat && (
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#FAFAFA]" aria-hidden />
+              )}
             </button>
           ))}
         </div>
 
         {/* Components Grid */}
         {filteredComponents.length === 0 ? (
-          <div className="py-20 text-center rounded-xl border border-[#363636] bg-[#202020] px-4">
+          <div className="py-24 text-center rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] px-4">
             {selectedCategory === 'Recent' ? (
               <div className="space-y-3 max-w-md mx-auto">
-                <p className="text-sm text-[#A3A3A3] leading-relaxed">
+                <p className="text-sm text-[#A1A1A1] leading-relaxed">
                   No recent components available at the moment. Check out all components on the components page.
                 </p>
                 <div className="flex items-center justify-center gap-3 pt-1">
@@ -221,13 +215,13 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
                     }}
                     className="px-4 py-2 text-xs rounded-xl bg-white text-black font-medium hover:bg-zinc-200 transition-colors cursor-pointer"
                   >
-                    View All Components
+                    View all components
                   </button>
                 </div>
               </div>
             ) : (
               <div className="space-y-3 max-w-md mx-auto">
-                <p className="text-sm text-[#737373]">No components found matching your search.</p>
+                <p className="text-sm text-[#6B6B6B]">No components found matching your search.</p>
                 <button
                   type="button"
                   onClick={() => {
@@ -244,7 +238,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
               {pagination.items.map((comp) => (
                 <ComponentCard
                   key={comp.id}
@@ -256,7 +250,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
             </div>
 
             {/* Pagination Controls */}
-            <div className="mt-8 pt-4 border-t border-[#363636]">
+            <div className="mt-16 sm:mt-20">
               <ComponentPagination
                 currentPage={pagination.currentPage}
                 totalPages={pagination.totalPages}

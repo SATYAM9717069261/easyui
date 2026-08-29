@@ -59,7 +59,7 @@ export const InspirationNote: React.FC = () => {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className="text-xs text-[#737373] hover:text-[#F5F5F5] transition-colors duration-200 underline-offset-4 hover:underline py-1.5 px-2 rounded focus-ring cursor-pointer"
+        className="text-xs text-[#6B6B6B] hover:text-[#FAFAFA] transition-colors duration-200 underline-offset-4 hover:underline py-1.5 px-2 rounded focus-ring cursor-pointer"
       >
         A note on inspiration
       </button>
@@ -81,19 +81,19 @@ export const InspirationNote: React.FC = () => {
             aria-label="A note on inspiration"
             className="absolute top-full left-0 sm:left-auto sm:right-0 mt-2 z-50 w-[90vw] sm:w-[440px] max-w-lg origin-top-left sm:origin-top-right"
           >
-            <div className="relative overflow-hidden rounded-2xl border border-[#363636] bg-[#242424]/95 backdrop-blur-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.6)] text-[#A3A3A3] space-y-3">
+            <div className="relative overflow-hidden rounded-2xl border border-[#1F1F1F] bg-[#141414]/95 backdrop-blur-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.6)] text-[#A1A1A1] space-y-3">
               {/* Subtle glass reflection highlight */}
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
 
               {/* Dialog Header - Pure text, no icons */}
-              <div className="flex items-center justify-between pb-2 border-b border-[#363636]">
-                <h3 className="text-sm font-semibold text-[#F5F5F5] tracking-tight">
+              <div className="flex items-center justify-between pb-2 border-b border-[#1F1F1F]">
+                <h3 className="text-sm font-semibold text-[#FAFAFA] tracking-tight">
                   A note on inspiration
                 </h3>
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="p-1 text-[#8A8A8A] hover:text-[#F5F5F5] rounded-md transition-colors focus-ring cursor-pointer"
+                  className="p-1 text-[#525252] hover:text-[#FAFAFA] rounded-md transition-colors focus-ring cursor-pointer"
                   aria-label="Close dialog"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -101,20 +101,20 @@ export const InspirationNote: React.FC = () => {
               </div>
 
               {/* Full Inspiration & Attribution Note */}
-              <p className="text-xs leading-relaxed text-[#A3A3A3]">
+              <p className="text-xs leading-relaxed text-[#A1A1A1]">
                 The components on EasyUI are built from scratch and are inspired by designs, interactions, and ideas found across the internet. They are created for learning, experimentation, and the UI community, and are not intended to intentionally copy or claim ownership of anyone else’s work.
               </p>
 
-              <p className="text-xs leading-relaxed text-[#A3A3A3]">
+              <p className="text-xs leading-relaxed text-[#A1A1A1]">
                 If you believe a component, image, design, or other material on EasyUI belongs to you and has been used without proper credit, please reach out to us. We’re happy to review the concern and, where appropriate, provide proper attribution or remove the material.
               </p>
 
               {/* Minimal inline write us redirection */}
-              <p className="text-xs leading-relaxed text-[#A3A3A3]">
+              <p className="text-xs leading-relaxed text-[#A1A1A1]">
                 For credit or removal requests,{' '}
                 <a
                   href={`mailto:${EMAIL}?subject=EasyUI%20Credit%20or%20Removal%20Request`}
-                  className="text-[#F5F5F5] hover:text-white underline underline-offset-4 decoration-[#737373] hover:decoration-white font-medium transition-colors cursor-pointer"
+                  className="text-[#FAFAFA] hover:text-white underline underline-offset-4 decoration-[#6B6B6B] hover:decoration-white font-medium transition-colors cursor-pointer"
                 >
                   write us
                 </a>
@@ -122,7 +122,7 @@ export const InspirationNote: React.FC = () => {
               </p>
 
               {/* Respect Footer Note */}
-              <p className="text-[11px] leading-relaxed text-[#737373] pt-0.5">
+              <p className="text-[11px] leading-relaxed text-[#6B6B6B] pt-0.5">
                 We respect the work of designers and developers and want EasyUI to be a place for sharing and building, not taking credit for someone else’s work.
               </p>
             </div>

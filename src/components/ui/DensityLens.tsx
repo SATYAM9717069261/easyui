@@ -80,9 +80,9 @@ export const DensityLens: React.FC<DensityLensProps> = ({
               height: lensSize,
             }}
             className={cn(
-              'absolute top-0 left-0 pointer-events-none overflow-hidden z-30 shadow-[0_8px_32px_rgba(0,0,0,0.6)] bg-[#242424]/90 backdrop-blur-sm',
+              'absolute top-0 left-0 pointer-events-none overflow-hidden z-30 shadow-[0_8px_32px_rgba(0,0,0,0.6)] bg-[#141414]/90 backdrop-blur-sm',
               shapeClasses[lensShape],
-              showBorder && 'border border-[#363636] ring-1 ring-[#4A4A4A]'
+              showBorder && 'border border-[#1F1F1F] ring-1 ring-[#4A4A4A]'
             )}
           >
             {/* Render magnified clone or custom higher-density overlay */}

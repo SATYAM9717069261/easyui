@@ -72,7 +72,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 height: '3rem',
                 borderRadius: '0.75rem',
                 backgroundColor: '#121212',
-                border: '1px solid #242424',
+                border: '1px solid #141414',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -110,7 +110,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </h1>
             <p
               style={{
-                color: '#737373',
+                color: '#6B6B6B',
                 fontSize: '0.8125rem',
                 lineHeight: 1.6,
                 margin: '0 0 1.5rem 0',
@@ -127,7 +127,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   margin: '0 0 1.5rem 0',
                   padding: '0.75rem',
                   backgroundColor: '#050505',
-                  border: '1px solid #1C1C1C',
+                  border: '1px solid #0B0B0B',
                   borderRadius: '0.5rem',
                   fontSize: '0.6875rem',
                   color: '#A1A1A1',

@@ -79,20 +79,20 @@ export const NotificationStack: React.FC<NotificationStackProps> = ({
   return (
     <div className={cn('flex flex-col gap-3 max-w-sm w-full select-none', className)}>
       <div className="flex items-center justify-between px-1">
-        <div className="flex items-center gap-2 text-xs font-medium text-[#A3A3A3]">
-          <Bell className="w-3.5 h-3.5 text-[#8A8A8A]" />
+        <div className="flex items-center gap-2 text-xs font-medium text-[#A1A1A1]">
+          <Bell className="w-3.5 h-3.5 text-[#525252]" />
           <span>Notifications ({notifications.length})</span>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={addSampleNotification}
-            className="text-[11px] text-[#F5F5F5] hover:text-white font-medium transition-colors cursor-pointer"
+            className="text-[11px] text-[#FAFAFA] hover:text-white font-medium transition-colors cursor-pointer"
           >
             + Simulate
           </button>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-[11px] text-[#737373] hover:text-[#A3A3A3] transition-colors cursor-pointer"
+            className="text-[11px] text-[#6B6B6B] hover:text-[#A1A1A1] transition-colors cursor-pointer"
           >
             {isExpanded ? 'Stack' : 'Expand'}
           </button>
@@ -105,7 +105,7 @@ export const NotificationStack: React.FC<NotificationStackProps> = ({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="p-6 text-center rounded-xl border border-[#363636] bg-[#202020] text-xs text-[#737373]"
+              className="p-6 text-center rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] text-xs text-[#6B6B6B]"
             >
               No pending notifications
             </motion.div>
@@ -141,24 +141,24 @@ export const NotificationStack: React.FC<NotificationStackProps> = ({
                     left: 0,
                     right: 0,
                   }}
-                  className="rounded-xl border border-[#363636] bg-[#202020] p-3.5 shadow-md cursor-grab active:cursor-grabbing hover:border-[#4A4A4A] transition-colors"
+                  className="rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] p-3.5 shadow-md cursor-grab active:cursor-grabbing hover:border-[#4A4A4A] transition-colors"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-start gap-2.5">
                       <div className="mt-0.5 shrink-0">{getIcon(item.type)}</div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h4 className="text-xs font-semibold text-[#F5F5F5]">{item.title}</h4>
-                          <span className="text-[10px] text-[#737373]">{item.time}</span>
+                          <h4 className="text-xs font-semibold text-[#FAFAFA]">{item.title}</h4>
+                          <span className="text-[10px] text-[#6B6B6B]">{item.time}</span>
                         </div>
-                        <p className="text-[11px] text-[#A3A3A3] mt-0.5 leading-snug">
+                        <p className="text-[11px] text-[#A1A1A1] mt-0.5 leading-snug">
                           {item.description}
                         </p>
                       </div>
                     </div>
                     <button
                       onClick={() => dismiss(item.id)}
-                      className="text-[#8A8A8A] hover:text-[#F5F5F5] p-0.5 rounded transition-colors cursor-pointer"
+                      className="text-[#525252] hover:text-[#FAFAFA] p-0.5 rounded transition-colors cursor-pointer"
                       aria-label="Dismiss"
                     >
                       <X className="w-3.5 h-3.5" />

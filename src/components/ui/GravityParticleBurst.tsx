@@ -137,7 +137,7 @@ export const GravityParticleBurst: React.FC<GravityParticleBurstProps> = ({
       />
       <button
         type="button"
-        className="focus-ring relative inline-flex items-center gap-2 rounded-xl border border-[#363636] bg-[#202020] px-5 py-3 text-sm font-medium text-[#F5F5F5] transition duration-150 hover:border-[#4A4A4A] hover:bg-[#242424] active:scale-[0.97] cursor-pointer"
+        className="focus-ring relative inline-flex items-center gap-2 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] px-5 py-3 text-sm font-medium text-[#FAFAFA] transition duration-150 hover:border-[#4A4A4A] hover:bg-[#141414] active:scale-[0.97] cursor-pointer"
       >
         <Sparkles className="h-4 w-4 text-amber-300" />
         <span className="select-none">{children || label}</span>

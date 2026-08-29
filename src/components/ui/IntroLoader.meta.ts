@@ -48,7 +48,7 @@ export function Demo() {
   }
 
   return (
-    <main className="min-h-screen bg-[#151515] text-[#F5F5F5] p-8">
+    <main className="min-h-screen bg-[#050505] text-[#FAFAFA] p-8">
       <h1>Welcome to the Application</h1>
     </main>
   );

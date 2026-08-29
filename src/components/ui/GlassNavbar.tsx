@@ -41,10 +41,10 @@ export interface GlassNavbarProps {
 export const GlassNavbar: React.FC<GlassNavbarProps> = ({
   brand = (
     <div className="flex items-center gap-2">
-      <div className="w-7 h-7 rounded-lg bg-[#242424] border border-[#363636] flex items-center justify-center font-bold text-xs text-[#F5F5F5]">
+      <div className="w-7 h-7 rounded-lg bg-[#141414] border border-[#1F1F1F] flex items-center justify-center font-bold text-xs text-[#FAFAFA]">
         E
       </div>
-      <span className="font-semibold text-sm tracking-tight text-[#F5F5F5]">EasyUI</span>
+      <span className="font-semibold text-sm tracking-tight text-[#FAFAFA]">EasyUI</span>
     </div>
   ),
   brandHref = '/',
@@ -57,7 +57,7 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
   cta = (
     <a
       href="#get-started"
-      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#151515] text-xs font-medium hover:bg-white transition-colors focus-ring shadow-xs"
+      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#FAFAFA] text-[#050505] text-xs font-medium hover:bg-white transition-colors focus-ring shadow-xs"
     >
       <span>Get Started</span>
       <ArrowRight className="w-3.5 h-3.5" />
@@ -134,11 +134,11 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
         className={cn(
           'relative mx-auto transition-all duration-300',
           isFloating
-            ? 'max-w-5xl rounded-2xl border border-[#363636] px-4 sm:px-5 py-2.5 shadow-[0_12px_32px_rgba(0,0,0,0.5)]'
-            : 'w-full border-b border-[#363636] px-4 sm:px-8 py-3.5',
+            ? 'max-w-5xl rounded-2xl border border-[#1F1F1F] px-4 sm:px-5 py-2.5 shadow-[0_12px_32px_rgba(0,0,0,0.5)]'
+            : 'w-full border-b border-[#1F1F1F] px-4 sm:px-8 py-3.5',
           glass
-            ? 'bg-[#202020]/90 backdrop-blur-md'
-            : 'bg-[#202020]'
+            ? 'bg-[#0E0E0E]/90 backdrop-blur-md'
+            : 'bg-[#0E0E0E]'
         )}
       >
         <nav
@@ -174,8 +174,8 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                   className={cn(
                     'relative px-3 py-1.5 text-xs font-medium rounded-lg transition-colors duration-150 flex items-center gap-1.5 focus-ring select-none cursor-pointer',
                     isCurrent
-                      ? 'text-[#F5F5F5]'
-                      : 'text-[#737373] hover:text-[#F5F5F5]'
+                      ? 'text-[#FAFAFA]'
+                      : 'text-[#6B6B6B] hover:text-[#FAFAFA]'
                   )}
                   aria-current={isCurrent ? 'page' : undefined}
                 >
@@ -183,7 +183,7 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                   {hoveredIndex === idx && (
                     <motion.div
                       layoutId="navbar-hover-pill"
-                      className="absolute inset-0 rounded-lg bg-[#242424] -z-10"
+                      className="absolute inset-0 rounded-lg bg-[#141414] -z-10"
                       transition={motionTransitions.springSnappy}
                     />
                   )}
@@ -192,7 +192,7 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                   {isCurrent && hoveredIndex === null && (
                     <motion.div
                       layoutId="navbar-active-pill"
-                      className="absolute inset-0 rounded-lg bg-[#242424] border border-[#363636] -z-10"
+                      className="absolute inset-0 rounded-lg bg-[#141414] border border-[#1F1F1F] -z-10"
                       transition={motionTransitions.springGentle}
                     />
                   )}
@@ -204,12 +204,12 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                   )}
                   <span>{item.label}</span>
                   {item.badge && (
-                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono leading-none bg-[#242424] border border-[#363636] text-[#A3A3A3]">
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono leading-none bg-[#141414] border border-[#1F1F1F] text-[#A1A1A1]">
                       {item.badge}
                     </span>
                   )}
                   {item.external && (
-                    <ExternalLink className="w-3 h-3 text-[#8A8A8A]" />
+                    <ExternalLink className="w-3 h-3 text-[#525252]" />
                   )}
                 </a>
               );
@@ -233,7 +233,7 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen}
-              className="p-2 rounded-lg bg-[#242424] border border-[#363636] text-[#8A8A8A] hover:text-[#F5F5F5] hover:border-[#4A4A4A] transition-colors focus-ring cursor-pointer"
+              className="p-2 rounded-lg bg-[#141414] border border-[#1F1F1F] text-[#525252] hover:text-[#FAFAFA] hover:border-[#4A4A4A] transition-colors focus-ring cursor-pointer"
             >
               <motion.div
                 key={mobileMenuOpen ? 'close' : 'menu'}
@@ -260,7 +260,7 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
               animate={{ opacity: 1, y: 0, height: 'auto' }}
               exit={{ opacity: 0, y: -8, height: 0 }}
               transition={motionTransitions.springGentle}
-              className="overflow-hidden md:hidden pt-3 mt-3 border-t border-[#363636]"
+              className="overflow-hidden md:hidden pt-3 mt-3 border-t border-[#1F1F1F]"
             >
               <div className="flex flex-col gap-1 pb-2">
                 {items.map((item) => {
@@ -277,8 +277,8 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                       className={cn(
                         'flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors focus-ring cursor-pointer',
                         isCurrent
-                          ? 'bg-[#242424] text-[#F5F5F5] border border-[#363636]'
-                          : 'text-[#737373] hover:text-[#F5F5F5] hover:bg-[#242424]'
+                          ? 'bg-[#141414] text-[#FAFAFA] border border-[#1F1F1F]'
+                          : 'text-[#6B6B6B] hover:text-[#FAFAFA] hover:bg-[#141414]'
                       )}
                     >
                       <div className="flex items-center gap-2">
@@ -291,12 +291,12 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                       </div>
                       <div className="flex items-center gap-2">
                         {item.badge && (
-                          <span className="px-1.5 py-0.5 rounded text-[9px] font-mono leading-none bg-[#242424] border border-[#363636] text-[#A3A3A3]">
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-mono leading-none bg-[#141414] border border-[#1F1F1F] text-[#A1A1A1]">
                             {item.badge}
                           </span>
                         )}
                         {item.external && (
-                          <ExternalLink className="w-3 h-3 text-[#8A8A8A]" />
+                          <ExternalLink className="w-3 h-3 text-[#525252]" />
                         )}
                       </div>
                     </a>
@@ -304,7 +304,7 @@ export const GlassNavbar: React.FC<GlassNavbarProps> = ({
                 })}
 
                 {cta && (
-                  <div className="pt-2 mt-2 border-t border-[#363636] flex flex-col">
+                  <div className="pt-2 mt-2 border-t border-[#1F1F1F] flex flex-col">
                     {cta}
                   </div>
                 )}

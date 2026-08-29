@@ -176,7 +176,7 @@ export const ScrollProgressNav: React.FC<ScrollProgressNavProps> = ({
         layout
         transition={motionTransitions.springMorph}
         className={cn(
-          'relative rounded-full border border-[#363636] bg-[#202020]/95 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.6)] p-1 flex items-center gap-1',
+          'relative rounded-full border border-[#1F1F1F] bg-[#0E0E0E]/95 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.6)] p-1 flex items-center gap-1',
           isFloating ? 'ring-1 ring-white/5' : ''
         )}
         role="navigation"
@@ -185,7 +185,7 @@ export const ScrollProgressNav: React.FC<ScrollProgressNavProps> = ({
         {/* Ambient progress line */}
         <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
           <div
-            className="h-[1.5px] bg-[#F5F5F5] absolute top-0 left-0 transition-all duration-150"
+            className="h-[1.5px] bg-[#FAFAFA] absolute top-0 left-0 transition-all duration-150"
             style={{ width: `${scrollProgress}%` }}
           />
         </div>
@@ -193,11 +193,11 @@ export const ScrollProgressNav: React.FC<ScrollProgressNavProps> = ({
         {/* Floating compact indicator (mobile or compact state) */}
         <div className="flex md:hidden items-center px-2 py-1 gap-2">
           <span className="text-[10px] font-mono text-white/50">{currentActiveItem?.index}</span>
-          <span className="text-xs font-medium text-[#F5F5F5]">{currentActiveItem?.label}</span>
+          <span className="text-xs font-medium text-[#FAFAFA]">{currentActiveItem?.label}</span>
           <button
             type="button"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-1 rounded-full text-[#737373] hover:text-white transition-colors cursor-pointer"
+            className="p-1 rounded-full text-[#6B6B6B] hover:text-white transition-colors cursor-pointer"
             aria-label="Toggle section menu"
           >
             <ChevronRight className={cn('w-3.5 h-3.5 transition-transform', isExpanded && 'rotate-90')} />
@@ -205,7 +205,7 @@ export const ScrollProgressNav: React.FC<ScrollProgressNavProps> = ({
         </div>
 
         {/* Full navigation buttons (Desktop / Expanded) */}
-        <div className={cn('hidden md:flex items-center gap-0.5', isExpanded ? '!flex flex-col md:flex-row absolute top-12 left-0 right-0 p-2 rounded-2xl bg-[#202020] border border-[#363636] md:relative md:top-auto md:p-0 md:bg-transparent md:border-none' : '')}>
+        <div className={cn('hidden md:flex items-center gap-0.5', isExpanded ? '!flex flex-col md:flex-row absolute top-12 left-0 right-0 p-2 rounded-2xl bg-[#0E0E0E] border border-[#1F1F1F] md:relative md:top-auto md:p-0 md:bg-transparent md:border-none' : '')}>
           {sections.map((section, idx) => {
             const isActive = activeSection === section.id;
             const indexStr = section.index || `0${idx + 1}`;
@@ -217,17 +217,17 @@ export const ScrollProgressNav: React.FC<ScrollProgressNavProps> = ({
                 onClick={() => scrollToSection(section.id)}
                 className={cn(
                   'relative px-3 py-1.5 rounded-full text-xs font-medium transition-colors focus-ring inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer',
-                  isActive ? 'text-[#F5F5F5]' : 'text-[#737373] hover:text-[#A3A3A3]'
+                  isActive ? 'text-[#FAFAFA]' : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
                 )}
               >
                 {isActive && (
                   <motion.div
                     layoutId={`active-scroll-pill-${uniqueId}`}
                     transition={motionTransitions.springMorph}
-                    className="absolute inset-0 rounded-full bg-[#242424] border border-[#363636] z-0 shadow-xs"
+                    className="absolute inset-0 rounded-full bg-[#141414] border border-[#1F1F1F] z-0 shadow-xs"
                   />
                 )}
-                <span className={cn('text-[10px] font-mono relative z-10', isActive ? 'text-[#F5F5F5]/80' : 'text-[#737373]')}>
+                <span className={cn('text-[10px] font-mono relative z-10', isActive ? 'text-[#FAFAFA]/80' : 'text-[#6B6B6B]')}>
                   {indexStr}
                 </span>
                 <span className="relative z-10">{section.label}</span>
@@ -241,7 +241,7 @@ export const ScrollProgressNav: React.FC<ScrollProgressNavProps> = ({
           <button
             type="button"
             onClick={scrollToTop}
-            className="w-6 h-6 rounded-full bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] flex items-center justify-center text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors focus-ring shrink-0 ml-0.5 cursor-pointer"
+            className="w-6 h-6 rounded-full bg-[#141414] hover:bg-[#0E0E0E] border border-[#1F1F1F] hover:border-[#4A4A4A] flex items-center justify-center text-[#525252] hover:text-[#FAFAFA] transition-colors focus-ring shrink-0 ml-0.5 cursor-pointer"
             title="Scroll to top"
             aria-label="Scroll back to top"
           >

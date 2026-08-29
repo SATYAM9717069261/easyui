@@ -120,7 +120,7 @@ export const DragToConfirm: React.FC<DragToConfirmProps> = ({
           'relative h-[52px] rounded-full border p-1 flex items-center overflow-hidden transition-colors',
           isConfirmed
             ? 'bg-emerald-500/10 border-emerald-500/30'
-            : 'bg-[#202020] border-[#363636]',
+            : 'bg-[#0E0E0E] border-[#1F1F1F]',
           disabled && 'opacity-30 cursor-not-allowed'
         )}
       >
@@ -131,14 +131,14 @@ export const DragToConfirm: React.FC<DragToConfirmProps> = ({
             'absolute inset-0 z-0 transition-opacity',
             actionType === 'delete'
               ? 'bg-rose-950/20'
-              : 'bg-[#242424]'
+              : 'bg-[#141414]'
           )}
         />
 
         {/* Track Label */}
         <motion.div
           style={{ opacity: textOpacity }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none text-xs font-medium tracking-wide text-[#A3A3A3] z-10"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none text-xs font-medium tracking-wide text-[#A1A1A1] z-10"
         >
           {isConfirmed ? '' : label}
         </motion.div>
@@ -169,7 +169,7 @@ export const DragToConfirm: React.FC<DragToConfirmProps> = ({
               ? 'bg-emerald-500 text-white border-transparent'
               : actionType === 'delete'
               ? 'bg-rose-500/20 border border-rose-500/40 text-rose-300'
-              : 'bg-[#242424] border border-[#363636] text-[#F5F5F5] hover:bg-[#2C2C2C]'
+              : 'bg-[#141414] border border-[#1F1F1F] text-[#FAFAFA] hover:bg-[#171717]'
           )}
           tabIndex={disabled ? -1 : 0}
           role="slider"

@@ -9,13 +9,13 @@ export interface DocArchitectureProps {
 
 export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSection }) => {
   return (
-    <article className="space-y-12 animate-fade-in text-[#A3A3A3]">
+    <article className="space-y-12 animate-fade-in text-[#A1A1A1]">
       {/* Header */}
-      <header className="space-y-3 border-b border-[#363636] pb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F5F5F5]">
+      <header className="space-y-3 border-b border-[#1F1F1F] pb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FAFAFA]">
           Registry Architecture
         </h1>
-        <p className="text-base text-[#A3A3A3] leading-relaxed max-w-2xl">
+        <p className="text-base text-[#A1A1A1] leading-relaxed max-w-2xl">
           EasyUI eliminates manual registry maintenance. Automated scripts scan TypeScript AST imports, parse prop definitions, package dependencies, and synchronize the shadcn registry and website catalog in real time.
         </p>
       </header>
@@ -23,45 +23,45 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Visual Pipeline Flow */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <Workflow className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-[#F5F5F5]">Single Source of Truth Pipeline</h2>
+          <Workflow className="w-4 h-4 text-[#FAFAFA]" />
+          <h2 className="text-lg font-semibold text-[#FAFAFA]">Single Source of Truth Pipeline</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          <div className="p-4 rounded-xl border border-[#363636] bg-[#202020] space-y-3">
+          <div className="p-4 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] space-y-3">
             <div>
-              <span className="text-[10px] font-mono text-[#737373] uppercase tracking-wider block mb-1">01. Inputs</span>
-              <h3 className="text-[#F5F5F5] font-semibold mb-1">Source Code & Meta</h3>
-              <p className="text-xs text-[#A3A3A3]">Author writes <code className="text-[#F5F5F5] font-mono">ComponentName.tsx</code> and <code className="text-[#F5F5F5] font-mono">.meta.ts</code></p>
+              <span className="text-[10px] font-mono text-[#6B6B6B] uppercase tracking-wider block mb-1">01. Inputs</span>
+              <h3 className="text-[#FAFAFA] font-semibold mb-1">Source Code & Meta</h3>
+              <p className="text-xs text-[#A1A1A1]">Author writes <code className="text-[#FAFAFA] font-mono">ComponentName.tsx</code> and <code className="text-[#FAFAFA] font-mono">.meta.ts</code></p>
             </div>
-            <ul className="space-y-1 font-mono text-[#8A8A8A] text-[11px]">
+            <ul className="space-y-1 font-mono text-[#525252] text-[11px]">
               <li>• Component JSX logic</li>
               <li>• Props interface & docs</li>
               <li>• Optional companion CSS</li>
             </ul>
           </div>
 
-          <div className="p-4 rounded-xl border border-[#363636] bg-[#242424] space-y-3">
+          <div className="p-4 rounded-xl border border-[#1F1F1F] bg-[#141414] space-y-3">
             <div>
               <span className="text-[10px] font-mono text-white uppercase tracking-wider block mb-1">02. Generator Engine</span>
-              <h3 className="text-[#F5F5F5] font-semibold mb-1">generate-registry.ts</h3>
-              <p className="text-xs text-[#A3A3A3]">Automated AST scanner inspects imports and types</p>
+              <h3 className="text-[#FAFAFA] font-semibold mb-1">generate-registry.ts</h3>
+              <p className="text-xs text-[#A1A1A1]">Automated AST scanner inspects imports and types</p>
             </div>
-            <ul className="space-y-1 font-mono text-[#8A8A8A] text-[11px]">
+            <ul className="space-y-1 font-mono text-[#525252] text-[11px]">
               <li>• AST dependency resolver</li>
               <li>• Package.json validation</li>
               <li>• Utility file bundler</li>
             </ul>
           </div>
 
-          <div className="p-4 rounded-xl border border-[#363636] bg-[#202020] space-y-3">
+          <div className="p-4 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] space-y-3">
             <div>
-              <span className="text-[10px] font-mono text-[#737373] uppercase tracking-wider block mb-1">03. Outputs</span>
-              <h3 className="text-[#F5F5F5] font-semibold mb-1">Synced Endpoints</h3>
-              <p className="text-xs text-[#A3A3A3]">All registries and catalog endpoints updated</p>
+              <span className="text-[10px] font-mono text-[#6B6B6B] uppercase tracking-wider block mb-1">03. Outputs</span>
+              <h3 className="text-[#FAFAFA] font-semibold mb-1">Synced Endpoints</h3>
+              <p className="text-xs text-[#A1A1A1]">All registries and catalog endpoints updated</p>
             </div>
-            <ul className="space-y-1 font-mono text-[#8A8A8A] text-[11px]">
-              <li>• <code className="text-[#F5F5F5]">public/r/*.json</code></li>
+            <ul className="space-y-1 font-mono text-[#525252] text-[11px]">
+              <li>• <code className="text-[#FAFAFA]">public/r/*.json</code></li>
               <li>• shadcn CLI install targets</li>
               <li>• ⌘K search index</li>
             </ul>
@@ -72,25 +72,25 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Feature 1: AST Import & Dependency Discovery */}
       <section className="space-y-4">
         <div className="flex items-center gap-2.5">
-          <Cpu className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-[#F5F5F5]">1. Automated Dependency Discovery</h2>
+          <Cpu className="w-4 h-4 text-[#FAFAFA]" />
+          <h2 className="text-lg font-semibold text-[#FAFAFA]">1. Automated Dependency Discovery</h2>
         </div>
-        <p className="text-sm text-[#A3A3A3] leading-relaxed">
-          When running <code className="text-[#F5F5F5] font-mono bg-[#242424] border border-[#363636] px-1.5 py-0.5 rounded text-xs">npm run component:sync</code>, the generator reads component source code to detect dependencies:
+        <p className="text-sm text-[#A1A1A1] leading-relaxed">
+          When running <code className="text-[#FAFAFA] font-mono bg-[#141414] border border-[#1F1F1F] px-1.5 py-0.5 rounded text-xs">npm run component:sync</code>, the generator reads component source code to detect dependencies:
         </p>
 
         <div className="space-y-3 text-xs">
-          <div className="p-3.5 rounded-lg border border-[#363636] bg-[#202020] space-y-1">
-            <span className="text-[#F5F5F5] font-semibold">External NPM Packages</span>
-            <p className="text-[#A3A3A3]">
-              Imports like <code className="text-[#F5F5F5] font-mono">framer-motion</code> or <code className="text-[#F5F5F5] font-mono">lucide-react</code> are verified and mapped to the registry dependencies array.
+          <div className="p-3.5 rounded-lg border border-[#1F1F1F] bg-[#0E0E0E] space-y-1">
+            <span className="text-[#FAFAFA] font-semibold">External NPM Packages</span>
+            <p className="text-[#A1A1A1]">
+              Imports like <code className="text-[#FAFAFA] font-mono">framer-motion</code> or <code className="text-[#FAFAFA] font-mono">lucide-react</code> are verified and mapped to the registry dependencies array.
             </p>
           </div>
 
-          <div className="p-3.5 rounded-lg border border-[#363636] bg-[#202020] space-y-1">
-            <span className="text-[#F5F5F5] font-semibold">Internal Utilities Linking</span>
-            <p className="text-[#A3A3A3]">
-              Imports from <code className="text-[#F5F5F5] font-mono">lib/motion-tokens</code> or <code className="text-[#F5F5F5] font-mono">lib/utils</code> are automatically added as registry prerequisites so the CLI downloads them cleanly.
+          <div className="p-3.5 rounded-lg border border-[#1F1F1F] bg-[#0E0E0E] space-y-1">
+            <span className="text-[#FAFAFA] font-semibold">Internal Utilities Linking</span>
+            <p className="text-[#A1A1A1]">
+              Imports from <code className="text-[#FAFAFA] font-mono">lib/motion-tokens</code> or <code className="text-[#FAFAFA] font-mono">lib/utils</code> are automatically added as registry prerequisites so the CLI downloads them cleanly.
             </p>
           </div>
         </div>
@@ -99,10 +99,10 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Feature 2: Multi-File Support */}
       <section className="space-y-4">
         <div className="flex items-center gap-2.5">
-          <Layers className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-[#F5F5F5]">2. Multi-File Widget Support</h2>
+          <Layers className="w-4 h-4 text-[#FAFAFA]" />
+          <h2 className="text-lg font-semibold text-[#FAFAFA]">2. Multi-File Widget Support</h2>
         </div>
-        <p className="text-sm text-[#A3A3A3] leading-relaxed">
+        <p className="text-sm text-[#A1A1A1] leading-relaxed">
           Complex components split across multiple sub-files in a directory are fully supported:
         </p>
 
@@ -120,10 +120,10 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
       {/* Feature 3: Registry Validation */}
       <section className="space-y-4">
         <div className="flex items-center gap-2.5">
-          <ShieldCheck className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-[#F5F5F5]">3. Strict Validation Guarantees</h2>
+          <ShieldCheck className="w-4 h-4 text-[#FAFAFA]" />
+          <h2 className="text-lg font-semibold text-[#FAFAFA]">3. Strict Validation Guarantees</h2>
         </div>
-        <p className="text-sm text-[#A3A3A3]">
+        <p className="text-sm text-[#A1A1A1]">
           Automated CI verification checks ensure zero broken installations before any release:
         </p>
 
@@ -136,21 +136,21 @@ export const DocArchitecture: React.FC<DocArchitectureProps> = ({ onNavigateSect
             'Props documentation tables match TypeScript types',
             'Usage examples and code snippets are syntax-checked',
           ].map((check, idx) => (
-            <div key={idx} className="flex items-start gap-2 p-3 rounded-lg border border-[#363636] bg-[#202020]">
+            <div key={idx} className="flex items-start gap-2 p-3 rounded-lg border border-[#1F1F1F] bg-[#0E0E0E]">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-              <span className="text-[#A3A3A3]">{check}</span>
+              <span className="text-[#A1A1A1]">{check}</span>
             </div>
           ))}
         </div>
       </section>
 
       {/* Single Sync Command */}
-      <section className="p-5 rounded-2xl border border-[#363636] bg-[#202020] space-y-3">
+      <section className="p-5 rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] space-y-3">
         <div className="flex items-center gap-2">
-          <RefreshCw className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-sm font-semibold text-[#F5F5F5]">One-Command Sync & Validate</h2>
+          <RefreshCw className="w-4 h-4 text-[#FAFAFA]" />
+          <h2 className="text-sm font-semibold text-[#FAFAFA]">One-Command Sync & Validate</h2>
         </div>
-        <p className="text-xs text-[#A3A3A3]">
+        <p className="text-xs text-[#A1A1A1]">
           Run the sync script anytime a component or metadata changes:
         </p>
         <DocCodeBlock

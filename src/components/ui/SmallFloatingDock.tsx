@@ -98,7 +98,7 @@ export const SmallFloatingDock: React.FC<SmallFloatingDockProps> = ({
             setActiveTooltip(null);
           }}
           className={cn(
-            'fixed z-50 flex items-center rounded-full bg-[#202020]/90 backdrop-blur-xl border border-[#363636] shadow-[0_12px_40px_rgba(0,0,0,0.6)]',
+            'fixed z-50 flex items-center rounded-full bg-[#0E0E0E]/90 backdrop-blur-xl border border-[#1F1F1F] shadow-[0_12px_40px_rgba(0,0,0,0.6)]',
             sizeClasses[size],
             positionClasses[position],
             className
@@ -126,8 +126,8 @@ export const SmallFloatingDock: React.FC<SmallFloatingDockProps> = ({
                     buttonSizeClasses[size],
                     item.disabled && 'opacity-40 cursor-not-allowed',
                     isActive
-                      ? 'bg-[#F5F5F5] text-[#151515] font-semibold shadow-xs'
-                      : 'bg-[#242424] text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#202020] border border-[#363636]'
+                      ? 'bg-[#FAFAFA] text-[#050505] font-semibold shadow-xs'
+                      : 'bg-[#141414] text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#0E0E0E] border border-[#1F1F1F]'
                   )}
                 >
                   <span className="w-4 h-4 flex items-center justify-center shrink-0">
@@ -143,7 +143,7 @@ export const SmallFloatingDock: React.FC<SmallFloatingDockProps> = ({
                     <motion.span
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full bg-rose-500 text-white font-mono text-[9px] font-bold flex items-center justify-center border-2 border-[#202020]"
+                      className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full bg-rose-500 text-white font-mono text-[9px] font-bold flex items-center justify-center border-2 border-[#0E0E0E]"
                     >
                       {item.badge > 99 ? '99+' : item.badge}
                     </motion.span>
@@ -157,7 +157,7 @@ export const SmallFloatingDock: React.FC<SmallFloatingDockProps> = ({
                     animate={{ opacity: 1, y: -36, scale: 1 }}
                     exit={{ opacity: 0, y: 4, scale: 0.9 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute left-1/2 -translate-x-1/2 px-2 py-1 rounded-md bg-[#242424] border border-[#363636] text-[10px] font-medium text-[#F5F5F5] shadow-md pointer-events-none whitespace-nowrap z-20"
+                    className="absolute left-1/2 -translate-x-1/2 px-2 py-1 rounded-md bg-[#141414] border border-[#1F1F1F] text-[10px] font-medium text-[#FAFAFA] shadow-md pointer-events-none whitespace-nowrap z-20"
                   >
                     {item.label}
                   </motion.div>

@@ -25,7 +25,7 @@ export const OrbitalLoadingRing: React.FC<OrbitalLoadingRingProps> = ({
     <div
       role="status"
       aria-label={label}
-      className={cn('relative inline-flex items-center justify-center text-[#F5F5F5] select-none', className)}
+      className={cn('relative inline-flex items-center justify-center text-[#FAFAFA] select-none', className)}
       style={{ width: size, height: size, ...style }}
       {...props}
     >

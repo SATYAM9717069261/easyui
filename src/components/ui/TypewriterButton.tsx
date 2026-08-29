@@ -123,9 +123,9 @@ export const TypewriterButton: React.FC<TypewriterButtonProps> = ({
   };
 
   const variantClasses = {
-    primary: 'bg-[#F5F5F5] text-[#151515] hover:bg-white border-transparent shadow-xs cursor-pointer',
-    secondary: 'bg-[#202020] text-[#F5F5F5] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] cursor-pointer',
-    outline: 'bg-transparent text-[#F5F5F5] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] cursor-pointer',
+    primary: 'bg-[#FAFAFA] text-[#050505] hover:bg-white border-transparent shadow-xs cursor-pointer',
+    secondary: 'bg-[#0E0E0E] text-[#FAFAFA] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] cursor-pointer',
+    outline: 'bg-transparent text-[#FAFAFA] hover:bg-[#0E0E0E] border border-[#1F1F1F] hover:border-[#4A4A4A] cursor-pointer',
   };
 
   return (

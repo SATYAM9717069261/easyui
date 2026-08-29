@@ -29,7 +29,7 @@ export const Loader: React.FC<LoaderProps> = ({
       role="status"
       aria-busy="true"
       aria-label={label}
-      className={cn('inline-flex flex-col items-center justify-center gap-2 text-[#F5F5F5]', className)}
+      className={cn('inline-flex flex-col items-center justify-center gap-2 text-[#FAFAFA]', className)}
       {...props}
     >
       {/* 1. Rotating Arc Variant */}
@@ -46,7 +46,7 @@ export const Loader: React.FC<LoaderProps> = ({
               cx="20"
               cy="20"
               r="16"
-              stroke="#363636"
+              stroke="#1F1F1F"
               strokeWidth="3"
               className="opacity-60"
             />
@@ -102,13 +102,13 @@ export const Loader: React.FC<LoaderProps> = ({
       {variant === 'line' && (
         <div
           style={{ width: size * 2, height: Math.max(3, size * 0.08) }}
-          className="relative rounded-full bg-[#242424] overflow-hidden"
+          className="relative rounded-full bg-[#141414] overflow-hidden"
         >
           <motion.div
             className="absolute top-0 bottom-0 rounded-full"
             style={{
               width: '35%',
-              backgroundColor: color !== 'currentColor' ? color : '#F5F5F5',
+              backgroundColor: color !== 'currentColor' ? color : '#FAFAFA',
             }}
             animate={
               reduceMotion

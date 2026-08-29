@@ -55,18 +55,18 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
     <aside className="w-full lg:w-64 shrink-0 flex flex-col space-y-6 select-none">
       {/* Sidebar Search */}
       <div className="relative">
-        <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#8A8A8A] pointer-events-none" />
+        <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#525252] pointer-events-none" />
         <input
           type="text"
           value={filterQuery}
           onChange={(e) => setFilterQuery(e.target.value)}
           placeholder="Filter docs..."
-          className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#242424] border border-[#363636] focus:border-[#4A4A4A] focus:outline-none text-xs text-[#F5F5F5] placeholder-[#737373] transition-colors"
+          className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#141414] border border-[#1F1F1F] focus:border-[#4A4A4A] focus:outline-none text-xs text-[#FAFAFA] placeholder-[#6B6B6B] transition-colors"
         />
         {filterQuery && (
           <button
             onClick={() => setFilterQuery('')}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#737373] hover:text-[#FFFFFF]"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#6B6B6B] hover:text-[#FFFFFF]"
             aria-label="Clear filter"
           >
             <X className="w-3 h-3" />
@@ -84,7 +84,7 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
 
           return (
             <div key={idx} className="space-y-1.5">
-              <h4 className="text-[11px] font-semibold text-[#737373] uppercase tracking-wider px-3">
+              <h4 className="text-[11px] font-semibold text-[#6B6B6B] uppercase tracking-wider px-3">
                 {section.group}
               </h4>
               <div className="space-y-0.5">
@@ -97,11 +97,11 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
                       onClick={() => onSelectTopic(item.id)}
                       className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all text-left group ${
                         isActive
-                          ? 'bg-[#242424] text-white font-medium shadow-sm border border-[#363636]'
-                          : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#202020]'
+                          ? 'bg-[#141414] text-white font-medium shadow-sm border border-[#1F1F1F]'
+                          : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#0E0E0E]'
                       }`}
                     >
-                      <Icon className={`w-3.5 h-3.5 shrink-0 transition-colors ${isActive ? 'text-white' : 'text-[#8A8A8A] group-hover:text-[#F5F5F5]'}`} />
+                      <Icon className={`w-3.5 h-3.5 shrink-0 transition-colors ${isActive ? 'text-white' : 'text-[#525252] group-hover:text-[#FAFAFA]'}`} />
                       <span className="truncate">{item.label}</span>
                     </button>
                   );

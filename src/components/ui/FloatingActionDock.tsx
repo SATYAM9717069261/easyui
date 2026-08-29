@@ -44,24 +44,24 @@ function DockIcon({
       whileTap={{ scale: 0.88 }}
       transition={motionTransitions.springSnappy}
       className={cn(
-        'group relative flex items-center justify-center rounded-xl bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] hover:bg-[#2C2C2C] transition-colors focus-ring cursor-pointer',
-        isActive && 'border-[#4A4A4A] bg-[#2C2C2C]'
+        'group relative flex items-center justify-center rounded-xl bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] hover:bg-[#171717] transition-colors focus-ring cursor-pointer',
+        isActive && 'border-[#4A4A4A] bg-[#171717]'
       )}
       aria-label={item.label}
     >
       {/* Tooltip */}
-      <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-[#242424] border border-[#363636] text-[11px] text-[#F5F5F5] font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-150 whitespace-nowrap shadow-md z-20">
+      <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-[#141414] border border-[#1F1F1F] text-[11px] text-[#FAFAFA] font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-150 whitespace-nowrap shadow-md z-20">
         {item.label}
       </div>
 
       {/* Icon */}
-      <span className="text-[#8A8A8A] group-hover:text-[#F5F5F5] transition-colors [&>svg]:w-5 [&>svg]:h-5">
+      <span className="text-[#525252] group-hover:text-[#FAFAFA] transition-colors [&>svg]:w-5 [&>svg]:h-5">
         {item.icon}
       </span>
 
       {/* Active Dot */}
       {isActive && (
-        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#F5F5F5]" />
+        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#FAFAFA]" />
       )}
     </motion.button>
   );
@@ -79,7 +79,7 @@ export const FloatingActionDock: React.FC<FloatingActionDockProps> = ({
       onMouseMove={(e) => mouseX.set(e.clientX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        'inline-flex items-end gap-2.5 px-3 py-2.5 rounded-2xl bg-[#202020]/90 backdrop-blur-md border border-[#363636] shadow-[0_12px_32px_rgba(0,0,0,0.5)]',
+        'inline-flex items-end gap-2.5 px-3 py-2.5 rounded-2xl bg-[#0E0E0E]/90 backdrop-blur-md border border-[#1F1F1F] shadow-[0_12px_32px_rgba(0,0,0,0.5)]',
         className
       )}
     >

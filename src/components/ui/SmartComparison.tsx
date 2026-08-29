@@ -105,14 +105,14 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
           <Check className="w-3 h-3" />
         </span>
       ) : (
-        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#242424] text-[#737373]">
+        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#141414] text-[#6B6B6B]">
           <Minus className="w-3 h-3" />
         </span>
       );
     }
 
     if (typeof value === 'string') {
-      return <span className="text-xs font-mono text-[#F5F5F5]">{value}</span>;
+      return <span className="text-xs font-mono text-[#FAFAFA]">{value}</span>;
     }
 
     return value;
@@ -123,23 +123,23 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
       role="region"
       aria-label="Feature and plan comparison"
       className={cn(
-        'w-full rounded-xl border border-[#363636] bg-[#202020] p-3.5 sm:p-5 text-[#F5F5F5] overflow-hidden',
+        'w-full rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] p-3.5 sm:p-5 text-[#FAFAFA] overflow-hidden',
         className
       )}
       {...props}
     >
       {/* Controls Bar: Search + Diff Filter Toggle + Mobile Plan Switcher */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-[#363636]">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-[#1F1F1F]">
         <div className="flex items-center gap-3">
           {enableSearch && (
             <div className="relative flex-1 sm:w-64">
-              <Search className="w-3.5 h-3.5 text-[#8A8A8A] absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-[#525252] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter capabilities..."
-                className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg bg-[#242424] border border-[#363636] text-[#F5F5F5] placeholder-[#737373] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg bg-[#141414] border border-[#1F1F1F] text-[#FAFAFA] placeholder-[#6B6B6B] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
               />
             </div>
           )}
@@ -151,8 +151,8 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
               className={cn(
                 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer shrink-0',
                 diffOnly
-                  ? 'bg-[#F5F5F5] text-[#151515] border-[#F5F5F5]'
-                  : 'bg-[#242424] text-[#A3A3A3] border-[#363636] hover:text-[#F5F5F5] hover:border-[#4A4A4A]'
+                  ? 'bg-[#FAFAFA] text-[#050505] border-[#FAFAFA]'
+                  : 'bg-[#141414] text-[#A1A1A1] border-[#1F1F1F] hover:text-[#FAFAFA] hover:border-[#4A4A4A]'
               )}
             >
               <Filter className="w-3 h-3" />
@@ -162,7 +162,7 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
         </div>
 
         {/* Mobile Plan Switcher Segment */}
-        <div className="sm:hidden flex items-center p-1 bg-[#242424] rounded-xl border border-[#363636]">
+        <div className="sm:hidden flex items-center p-1 bg-[#141414] rounded-xl border border-[#1F1F1F]">
           {plans.map((p) => {
             const isSelected = selectedPlanId === p.id;
             return (
@@ -172,13 +172,13 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
                 onClick={() => setSelectedPlanId(p.id)}
                 className={cn(
                   'relative flex-1 py-1.5 px-2 text-xs font-medium text-center rounded-lg transition-colors cursor-pointer',
-                  isSelected ? 'text-white' : 'text-[#737373] hover:text-[#A3A3A3]'
+                  isSelected ? 'text-white' : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
                 )}
               >
                 {isSelected && (
                   <motion.div
                     layoutId="smartComparisonMobileTab"
-                    className="absolute inset-0 bg-[#202020] border border-[#363636] rounded-lg -z-10"
+                    className="absolute inset-0 bg-[#0E0E0E] border border-[#1F1F1F] rounded-lg -z-10"
                     transition={motionTransitions.springSnappy}
                   />
                 )}
@@ -190,13 +190,13 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
       </div>
 
       {/* Plans Header Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pb-6 border-b border-[#363636]">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pb-6 border-b border-[#1F1F1F]">
         {/* Left Column Label spacer */}
         <div className="hidden sm:flex flex-col justify-end">
-          <span className="text-[11px] font-mono uppercase tracking-widest text-[#737373]">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-[#6B6B6B]">
             Feature Matrix
           </span>
-          <span className="text-xs text-[#A3A3A3] mt-0.5">
+          <span className="text-xs text-[#A1A1A1] mt-0.5">
             {categories.reduce((acc, c) => acc + c.features.length, 0)} specifications
           </span>
         </div>
@@ -212,33 +212,33 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
                 'relative p-4 rounded-xl border transition-all cursor-pointer flex flex-col justify-between',
                 isMobileActive ? 'block' : 'hidden sm:flex',
                 plan.featured
-                  ? 'bg-gradient-to-b from-[#242424] to-[#202020] border-white/30 shadow-md'
-                  : 'bg-[#202020] border-[#363636] hover:border-[#4A4A4A]'
+                  ? 'bg-gradient-to-b from-[#141414] to-[#0E0E0E] border-white/30 shadow-md'
+                  : 'bg-[#0E0E0E] border-[#1F1F1F] hover:border-[#4A4A4A]'
               )}
             >
               {plan.badge && (
-                <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#F5F5F5] text-[#151515] font-semibold shadow-sm">
+                <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#FAFAFA] text-[#050505] font-semibold shadow-sm">
                   {plan.badge}
                 </span>
               )}
 
               <div>
                 <div className="flex items-center justify-between gap-2 mb-1">
-                  <h3 className="text-sm font-semibold text-[#F5F5F5] flex items-center gap-1.5">
+                  <h3 className="text-sm font-semibold text-[#FAFAFA] flex items-center gap-1.5">
                     {plan.name}
                     {plan.featured && <Sparkles className="w-3.5 h-3.5 text-white" />}
                   </h3>
                 </div>
-                <p className="text-[11px] text-[#A3A3A3] mb-3 leading-snug">{plan.tagline}</p>
+                <p className="text-[11px] text-[#A1A1A1] mb-3 leading-snug">{plan.tagline}</p>
               </div>
 
               <div>
                 <div className="flex items-baseline gap-1 mb-3">
-                  <span className="text-xl font-bold font-mono text-[#F5F5F5] tracking-tight">
+                  <span className="text-xl font-bold font-mono text-[#FAFAFA] tracking-tight">
                     {plan.price}
                   </span>
                   {plan.billingPeriod && (
-                    <span className="text-[10px] font-mono text-[#737373]">
+                    <span className="text-[10px] font-mono text-[#6B6B6B]">
                       /{plan.billingPeriod}
                     </span>
                   )}
@@ -253,8 +253,8 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
                   className={cn(
                     'w-full py-2 px-3 rounded-lg text-xs font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white',
                     plan.featured
-                      ? 'bg-[#F5F5F5] text-[#151515] hover:bg-white font-semibold'
-                      : 'bg-[#242424] hover:bg-[#202020] text-[#A3A3A3] hover:text-[#F5F5F5] border border-[#363636]'
+                      ? 'bg-[#FAFAFA] text-[#050505] hover:bg-white font-semibold'
+                      : 'bg-[#141414] hover:bg-[#0E0E0E] text-[#A1A1A1] hover:text-[#FAFAFA] border border-[#1F1F1F]'
                   )}
                 >
                   {plan.ctaText || 'Get Started'}
@@ -266,9 +266,9 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
       </div>
 
       {/* Comparison Rows Grouped by Category */}
-      <div className="divide-y divide-[#363636]">
+      <div className="divide-y divide-[#1F1F1F]">
         {filteredCategories.length === 0 ? (
-          <div className="py-12 text-center text-xs text-[#737373]">
+          <div className="py-12 text-center text-xs text-[#6B6B6B]">
             No features match your current search or difference filters.
           </div>
         ) : (
@@ -283,14 +283,14 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
                   onClick={() => toggleCategory(category.id)}
                   className="w-full flex items-center justify-between py-2 text-left group cursor-pointer focus-visible:outline-none"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#F5F5F5] group-hover:text-white transition-colors flex items-center gap-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[#FAFAFA] group-hover:text-white transition-colors flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
                     {category.title}
                   </span>
                   <motion.div
                     animate={{ rotate: isCollapsed ? -90 : 0 }}
                     transition={{ duration: 0.15 }}
-                    className="text-[#8A8A8A] group-hover:text-white"
+                    className="text-[#525252] group-hover:text-white"
                   >
                     <ChevronDown className="w-4 h-4" />
                   </motion.div>
@@ -309,11 +309,11 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
                       {category.features.map((feat) => (
                         <div
                           key={feat.id}
-                          className="grid grid-cols-1 sm:grid-cols-4 gap-4 py-2.5 px-2 rounded-lg hover:bg-[#242424] transition-colors items-center text-xs"
+                          className="grid grid-cols-1 sm:grid-cols-4 gap-4 py-2.5 px-2 rounded-lg hover:bg-[#141414] transition-colors items-center text-xs"
                         >
                           {/* Feature Name & Info */}
                           <div className="flex items-center gap-1.5 min-w-0 pr-2">
-                            <span className="text-xs text-[#F5F5F5] font-normal truncate">
+                            <span className="text-xs text-[#FAFAFA] font-normal truncate">
                               {feat.name}
                             </span>
                             {feat.description && (
@@ -325,14 +325,14 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
                                   onClick={() =>
                                     setActiveTooltip((prev) => (prev === feat.id ? null : feat.id))
                                   }
-                                  className="text-[#8A8A8A] hover:text-[#F5F5F5] cursor-pointer"
+                                  className="text-[#525252] hover:text-[#FAFAFA] cursor-pointer"
                                   aria-label={`Info about ${feat.name}`}
                                 >
                                   <Info className="w-3 h-3" />
                                 </button>
 
                                 {activeTooltip === feat.id && (
-                                  <div className="absolute left-0 bottom-full mb-1 z-30 w-48 p-2 rounded-lg bg-[#242424] border border-[#363636] text-[10px] text-[#A3A3A3] shadow-md backdrop-blur-md">
+                                  <div className="absolute left-0 bottom-full mb-1 z-30 w-48 p-2 rounded-lg bg-[#141414] border border-[#1F1F1F] text-[10px] text-[#A1A1A1] shadow-md backdrop-blur-md">
                                     {feat.description}
                                   </div>
                                 )}
@@ -351,7 +351,7 @@ export const SmartComparison: React.FC<SmartComparisonProps> = ({
                                   isMobileActive ? 'flex justify-between py-1' : 'hidden sm:flex'
                                 )}
                               >
-                                <span className="sm:hidden text-[11px] font-mono text-[#737373]">
+                                <span className="sm:hidden text-[11px] font-mono text-[#6B6B6B]">
                                   {plan.name}:
                                 </span>
                                 <div>{renderValueCell(feat.values[plan.id])}</div>

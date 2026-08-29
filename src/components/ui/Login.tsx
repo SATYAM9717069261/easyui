@@ -43,8 +43,8 @@ export const Login: React.FC<LoginProps> = ({
   title = 'Welcome back',
   description = 'Sign in to access your EasyUI workspace',
   logo = (
-    <div className="w-10 h-10 rounded-xl bg-[#242424] border border-[#363636] flex items-center justify-center text-[#F5F5F5] shadow-xs">
-      <Sparkles className="w-5 h-5 text-[#F5F5F5]" />
+    <div className="w-10 h-10 rounded-xl bg-[#141414] border border-[#1F1F1F] flex items-center justify-center text-[#FAFAFA] shadow-xs">
+      <Sparkles className="w-5 h-5 text-[#FAFAFA]" />
     </div>
   ),
   error,
@@ -91,7 +91,7 @@ export const Login: React.FC<LoginProps> = ({
   return (
     <div
       className={cn(
-        'w-full max-w-md mx-auto rounded-2xl border border-[#363636] bg-[#202020] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative overflow-hidden transition-all duration-300',
+        'w-full max-w-md mx-auto rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative overflow-hidden transition-all duration-300',
         className
       )}
     >
@@ -104,11 +104,11 @@ export const Login: React.FC<LoginProps> = ({
       {/* Header */}
       <div className="flex flex-col items-center text-center mb-6 relative z-10">
         {logo && <div className="mb-3.5">{logo}</div>}
-        <h2 className="text-xl sm:text-2xl font-semibold text-[#F5F5F5] tracking-tight">
+        <h2 className="text-xl sm:text-2xl font-semibold text-[#FAFAFA] tracking-tight">
           {title}
         </h2>
         {description && (
-          <p className="text-xs sm:text-sm text-[#A3A3A3] mt-1.5 leading-relaxed max-w-xs">
+          <p className="text-xs sm:text-sm text-[#A1A1A1] mt-1.5 leading-relaxed max-w-xs">
             {description}
           </p>
         )}
@@ -167,8 +167,8 @@ export const Login: React.FC<LoginProps> = ({
           </div>
 
           <div className="relative flex items-center justify-center my-4">
-            <div className="border-t border-[#363636] w-full" />
-            <span className="bg-[#202020] px-3 text-[10px] uppercase font-mono tracking-widest text-[#737373] absolute">
+            <div className="border-t border-[#1F1F1F] w-full" />
+            <span className="bg-[#0E0E0E] px-3 text-[10px] uppercase font-mono tracking-widest text-[#6B6B6B] absolute">
               Or continue with
             </span>
           </div>
@@ -207,7 +207,7 @@ export const Login: React.FC<LoginProps> = ({
               <button
                 type="button"
                 onClick={onForgotPassword}
-                className="text-[11px] text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring rounded cursor-pointer"
+                className="text-[11px] text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring rounded cursor-pointer"
               >
                 Forgot password?
               </button>
@@ -259,11 +259,11 @@ export const Login: React.FC<LoginProps> = ({
 
       {/* Secondary Action */}
       {onSignUpClick && (
-        <div className="mt-6 text-center pt-4 border-t border-[#363636]">
+        <div className="mt-6 text-center pt-4 border-t border-[#1F1F1F]">
           <button
             type="button"
             onClick={onSignUpClick}
-            className="text-xs text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring rounded cursor-pointer"
+            className="text-xs text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring rounded cursor-pointer"
           >
             {signUpText}
           </button>

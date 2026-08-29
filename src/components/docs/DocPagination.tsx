@@ -32,13 +32,13 @@ export const DocPagination: React.FC<DocPaginationProps> = ({
   if (!prevDoc && !nextDoc) return null;
 
   return (
-    <nav aria-label="Documentation Pagination" className="pt-8 mt-12 border-t border-[#363636] flex items-center justify-between gap-4 select-none">
+    <nav aria-label="Documentation Pagination" className="pt-8 mt-12 border-t border-[#1F1F1F] flex items-center justify-between gap-4 select-none">
       {prevDoc ? (
         <button
           onClick={() => onNavigateTopic(prevDoc.id)}
-          className="group inline-flex items-center gap-2 text-sm text-[#A3A3A3] hover:text-white transition-colors py-1 text-left cursor-pointer"
+          className="group inline-flex items-center gap-2 text-sm text-[#A1A1A1] hover:text-white transition-colors py-1 text-left cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4 text-[#8A8A8A] group-hover:text-white transition-transform group-hover:-translate-x-1" />
+          <ArrowLeft className="w-4 h-4 text-[#525252] group-hover:text-white transition-transform group-hover:-translate-x-1" />
           <span className="font-medium">{prevDoc.title}</span>
         </button>
       ) : (
@@ -48,10 +48,10 @@ export const DocPagination: React.FC<DocPaginationProps> = ({
       {nextDoc && (
         <button
           onClick={() => onNavigateTopic(nextDoc.id)}
-          className="group inline-flex items-center gap-2 text-sm text-[#A3A3A3] hover:text-white transition-colors py-1 ml-auto text-right cursor-pointer"
+          className="group inline-flex items-center gap-2 text-sm text-[#A1A1A1] hover:text-white transition-colors py-1 ml-auto text-right cursor-pointer"
         >
           <span className="font-medium">{nextDoc.title}</span>
-          <ArrowRight className="w-4 h-4 text-[#8A8A8A] group-hover:text-white transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="w-4 h-4 text-[#525252] group-hover:text-white transition-transform group-hover:translate-x-1" />
         </button>
       )}
     </nav>

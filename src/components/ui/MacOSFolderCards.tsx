@@ -144,9 +144,9 @@ export const MacOSFolderCards: React.FC<MacOSFolderCardsProps> = ({
                       : { y: 0, rotate: -1.5, scale: 0.96 }
                   }
                   transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-                  className="absolute inset-x-1 top-0 h-18 rounded-xl border border-[#444444] bg-[#1C1C1C] opacity-90 shadow-sm flex items-center justify-between px-3"
+                  className="absolute inset-x-1 top-0 h-18 rounded-xl border border-[#444444] bg-[#0B0B0B] opacity-90 shadow-sm flex items-center justify-between px-3"
                 >
-                  <span className="font-mono text-[10px] text-[#8A8A8A]">02</span>
+                  <span className="font-mono text-[10px] text-[#525252]">02</span>
                   <Sparkles className="h-3.5 w-3.5 text-white" />
                 </motion.div>
 
@@ -160,7 +160,7 @@ export const MacOSFolderCards: React.FC<MacOSFolderCardsProps> = ({
                   transition={{ type: 'spring', stiffness: 350, damping: 25 }}
                   className="absolute inset-x-0 top-0 h-18 rounded-xl border border-[#4A4A4A] bg-[#222222] shadow-md flex items-center justify-between px-3.5"
                 >
-                  <span className="font-mono text-[10px] font-semibold text-[#A3A3A3]">01</span>
+                  <span className="font-mono text-[10px] font-semibold text-[#A1A1A1]">01</span>
                   <span className="text-xs font-semibold text-white truncate max-w-[85px]">
                     {items[0]?.title}
                   </span>
@@ -182,9 +182,9 @@ export const MacOSFolderCards: React.FC<MacOSFolderCardsProps> = ({
             </motion.div>
 
             {/* Folder Label */}
-            <div className="flex items-center gap-1.5 text-sm font-medium text-[#F5F5F5] group-hover:text-white transition-colors">
+            <div className="flex items-center gap-1.5 text-sm font-medium text-[#FAFAFA] group-hover:text-white transition-colors">
               <span>{folderTitle}</span>
-              <span className="text-xs text-[#737373] font-mono">({items.length})</span>
+              <span className="text-xs text-[#6B6B6B] font-mono">({items.length})</span>
             </div>
           </motion.div>
         ) : (
@@ -202,14 +202,14 @@ export const MacOSFolderCards: React.FC<MacOSFolderCardsProps> = ({
             {/* Minimal Header Bar */}
             <div className="flex items-center justify-between px-1">
               <div className="flex items-center gap-2.5">
-                <span className="text-sm font-semibold text-[#F5F5F5]">{folderTitle}</span>
-                <span className="text-xs text-[#737373] font-mono">• {items.length} items</span>
+                <span className="text-sm font-semibold text-[#FAFAFA]">{folderTitle}</span>
+                <span className="text-xs text-[#6B6B6B] font-mono">• {items.length} items</span>
               </div>
 
               <button
                 type="button"
                 onClick={toggleFolder}
-                className="focus-ring inline-flex items-center gap-1 text-xs font-mono text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer px-2.5 py-1 rounded-lg hover:bg-[#202020] border border-transparent hover:border-[#363636]"
+                className="focus-ring inline-flex items-center gap-1 text-xs font-mono text-[#525252] hover:text-[#FAFAFA] transition-colors cursor-pointer px-2.5 py-1 rounded-lg hover:bg-[#0E0E0E] border border-transparent hover:border-[#1F1F1F]"
                 aria-label="Close folder"
               >
                 <X className="h-3.5 w-3.5 text-white" />
@@ -231,21 +231,21 @@ export const MacOSFolderCards: React.FC<MacOSFolderCardsProps> = ({
                     delay: index * 0.03,
                   }}
                   whileHover={reducedMotion ? undefined : { y: -2 }}
-                  className="group rounded-2xl border border-[#363636] bg-[#202020] p-5 transition-colors hover:border-[#4A4A4A] hover:bg-[#242424] cursor-pointer"
+                  className="group rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] p-5 transition-colors hover:border-[#4A4A4A] hover:bg-[#141414] cursor-pointer"
                 >
                   <div className="mb-3 flex items-center justify-between">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#161616] border border-[#363636] text-white">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#161616] border border-[#1F1F1F] text-white">
                       {item.icon || <Layers className="h-4 w-4 text-white" />}
                     </div>
-                    <span className="font-mono text-[10px] text-[#737373] group-hover:text-[#A3A3A3] transition-colors">
+                    <span className="font-mono text-[10px] text-[#6B6B6B] group-hover:text-[#A1A1A1] transition-colors">
                       {item.meta || `0${index + 1}`}
                     </span>
                   </div>
 
-                  <h4 className="text-sm font-semibold text-[#F5F5F5] group-hover:text-white transition-colors">
+                  <h4 className="text-sm font-semibold text-[#FAFAFA] group-hover:text-white transition-colors">
                     {item.title}
                   </h4>
-                  <p className="mt-1 text-xs leading-relaxed text-[#A3A3A3] group-hover:text-zinc-300 transition-colors">
+                  <p className="mt-1 text-xs leading-relaxed text-[#A1A1A1] group-hover:text-zinc-300 transition-colors">
                     {item.description}
                   </p>
                 </motion.article>

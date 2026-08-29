@@ -58,38 +58,38 @@ export const DocsPage: React.FC<DocsPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#151515] text-[#F5F5F5] pt-2 pb-24">
+    <div className="min-h-screen bg-[#050505] text-[#FAFAFA] pt-2 pb-24">
       <Container size="xl">
         {/* Top Header & Breadcrumbs */}
-        <div className="flex items-center justify-between gap-3 py-3 mb-6 sm:mb-8 border-b border-[#363636]">
+        <div className="flex items-center justify-between gap-3 py-3 mb-6 sm:mb-8 border-b border-[#1F1F1F]">
           <div className="flex items-center gap-2.5 min-w-0">
             {/* Mobile Sidebar Trigger (Placed on Left with Icon and Text) */}
             <button
               type="button"
               onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
               aria-label="Open documentation menu"
-              className="lg:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#242424] hover:bg-[#2A2A2A] border border-[#363636] text-xs font-medium text-[#A3A3A3] hover:text-white transition-colors shrink-0 focus-ring cursor-pointer"
+              className="lg:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#141414] hover:bg-[#2A2A2A] border border-[#1F1F1F] text-xs font-medium text-[#A1A1A1] hover:text-white transition-colors shrink-0 focus-ring cursor-pointer"
             >
               <Menu className="w-3.5 h-3.5 text-[#CCCCCC]" />
               <span>Menu</span>
             </button>
 
             {/* Breadcrumbs */}
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-sans text-[#A3A3A3] truncate">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-sans text-[#A1A1A1] truncate">
               <button
                 onClick={onNavigateHome}
                 className="hover:text-white transition-colors shrink-0"
               >
                 EasyUI
               </button>
-              <span className="text-[#737373]">/</span>
+              <span className="text-[#6B6B6B]">/</span>
               <button
                 onClick={() => handleSelectTopicWithMobileClose('introduction')}
                 className="hover:text-white transition-colors shrink-0"
               >
                 Docs
               </button>
-              <span className="text-[#737373]">/</span>
+              <span className="text-[#6B6B6B]">/</span>
               <span className="text-white font-medium truncate">{getBreadcrumbLabel()}</span>
             </nav>
           </div>
@@ -99,7 +99,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
             <button
               onClick={onNavigateComponents}
               aria-label="Back to Components"
-              className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-white hover:bg-[#242424] transition-all focus-ring cursor-pointer"
+              className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] transition-all focus-ring cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -138,13 +138,13 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                     damping: 32,
                     mass: 0.8,
                   }}
-                  className="relative w-72 max-w-[80vw] bg-[#202020] border-r border-[#363636] h-full p-6 overflow-y-auto z-10 space-y-6 shadow-2xl"
+                  className="relative w-72 max-w-[80vw] bg-[#0E0E0E] border-r border-[#1F1F1F] h-full p-6 overflow-y-auto z-10 space-y-6 shadow-2xl"
                 >
-                  <div className="flex items-center justify-between border-b border-[#363636] pb-3">
-                    <span className="text-xs font-mono text-[#A3A3A3] uppercase tracking-wider">Documentation</span>
+                  <div className="flex items-center justify-between border-b border-[#1F1F1F] pb-3">
+                    <span className="text-xs font-mono text-[#A1A1A1] uppercase tracking-wider">Documentation</span>
                     <button
                       onClick={() => setMobileSidebarOpen(false)}
-                      className="p-1.5 rounded-lg text-zinc-400 hover:text-white bg-[#242424] hover:bg-[#2C2C2C] border border-[#363636] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-white bg-[#141414] hover:bg-[#171717] border border-[#1F1F1F] transition-colors cursor-pointer"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
