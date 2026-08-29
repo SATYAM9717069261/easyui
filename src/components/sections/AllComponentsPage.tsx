@@ -8,7 +8,6 @@ import { ComponentPagination } from '../common/ComponentPagination';
 import { InspirationNote } from '../common/InspirationNote';
 import {
   getSortedComponents,
-  getNewestComponent,
   isComponentNew,
   getPaginatedComponents,
   ITEMS_PER_PAGE,
@@ -69,16 +68,11 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
     return getSortedComponents(EASY_COMPONENTS);
   }, []);
 
-  // 2. Identify the single newest component
-  const newestComponent = useMemo(() => {
-    return getNewestComponent(allSortedComponents);
-  }, [allSortedComponents]);
-
-  // 3. Filter by category & search query
+  // 2. Filter by category & search query
   const filteredComponents = useMemo(() => {
     return allSortedComponents.filter((comp) => {
       const isRecent =
-        isComponentNew(comp, newestComponent) ||
+        isComponentNew(comp) ||
         comp.badges?.some((b) => b.toLowerCase() === 'new');
 
       const matchCategory =
@@ -94,7 +88,7 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
         comp.badges.some((b) => b.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchCategory && matchSearch;
     });
-  }, [allSortedComponents, selectedCategory, searchQuery, newestComponent]);
+  }, [allSortedComponents, selectedCategory, searchQuery]);
 
   // 4. Calculate pagination
   const pagination = useMemo(() => {
@@ -250,12 +244,12 @@ export const AllComponentsPage: React.FC<AllComponentsPageProps> = ({
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {pagination.items.map((comp) => (
                 <ComponentCard
                   key={comp.id}
                   component={comp}
-                  isNew={isComponentNew(comp, newestComponent)}
+                  isNew={isComponentNew(comp)}
                   onSelect={onSelectComponent}
                 />
               ))}

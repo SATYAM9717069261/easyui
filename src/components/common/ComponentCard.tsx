@@ -24,6 +24,7 @@ import { TextScrambleDecoder } from '../ui/TextScrambleDecoder';
 import { MacOSFolderCards } from '../ui/MacOSFolderCards';
 import { IntroLoader } from '../ui/IntroLoader';
 import { NewBadge } from './NewBadge';
+import { isComponentNew } from '../../lib/components';
 import { copyToClipboard, cn } from '../../lib/utils';
 
 export interface ComponentCardProps {
@@ -45,7 +46,7 @@ const AnimatedNumberPreview: React.FC<{ isHovered?: boolean }> = ({ isHovered = 
   }, [isHovered]);
 
   return (
-    <div className="h-40 flex flex-col items-center justify-center p-4">
+    <div className="h-52 flex flex-col items-center justify-center p-4">
       <div className="text-2xl font-bold font-mono tracking-tight text-white mb-1">
         <AnimatedNumber value={val} prefix="$" useGrouping />
       </div>
@@ -59,10 +60,11 @@ const AnimatedNumberPreview: React.FC<{ isHovered?: boolean }> = ({ isHovered = 
 
 export const ComponentCard: React.FC<ComponentCardProps> = ({
   component,
-  isNew = false,
+  isNew,
   onSelect,
   className,
 }) => {
+  const showNew = isNew !== undefined ? isNew : isComponentNew(component);
   const [copied, setCopied] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -78,8 +80,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
     switch (comp.id) {
       case 'interactive-timeline':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[260px] space-y-2 pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] space-y-2 pointer-events-none scale-100 sm:scale-100">
               <motion.div
                 animate={{ x: hovered ? 2 : 0 }}
                 className="flex items-center gap-2.5 p-2 rounded-lg bg-[#202020] border border-[#363636]"
@@ -101,10 +103,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'smart-comparison':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -2 : 0, borderColor: hovered ? '#4A4A4A' : '#363636' }}
-              className="w-full max-w-[260px] p-3 rounded-xl bg-[#202020] border border-[#363636] pointer-events-none scale-90 sm:scale-95 transition-colors shadow-xs"
+              className="w-full max-w-[260px] p-3 rounded-xl bg-[#202020] border border-[#363636] pointer-events-none scale-100 sm:scale-100 transition-colors shadow-xs"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[11px] font-semibold text-[#F5F5F5]">Pro Tier</span>
@@ -119,8 +121,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'activity-feed':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[260px] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] space-y-1.5 pointer-events-none scale-100 sm:scale-100">
               <motion.div
                 animate={{ y: hovered ? -1 : 0 }}
                 className="flex items-center gap-2 p-2 rounded-lg bg-[#202020] border border-[#363636]"
@@ -142,8 +144,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'metric-hud':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[260px] p-3 rounded-xl bg-[#202020] border border-[#363636] pointer-events-none scale-90 sm:scale-95 shadow-xs">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[260px] p-3 rounded-xl bg-[#202020] border border-[#363636] pointer-events-none scale-100 sm:scale-100 shadow-xs">
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[11px] text-[#737373]">p99 Latency</span>
                 <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">{hovered ? '-24.8%' : '-18.4%'}</span>
@@ -167,10 +169,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'code-snippet-deck':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -2 : 0, rotate: hovered ? -1 : 0 }}
-              className="w-full max-w-[260px] rounded-xl bg-[#202020] border border-[#363636] overflow-hidden pointer-events-none scale-90 sm:scale-95 shadow-xs"
+              className="w-full max-w-[260px] rounded-xl bg-[#202020] border border-[#363636] overflow-hidden pointer-events-none scale-100 sm:scale-100 shadow-xs"
             >
               <div className="px-2.5 py-1.5 bg-[#242424] border-b border-[#363636] flex items-center justify-between text-[10px] font-mono text-[#737373]">
                 <span>client.ts</span>
@@ -185,7 +187,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'magnetic-button':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div
               animate={{ scale: hovered ? 1.08 : 1, y: hovered ? -2 : 0 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -199,7 +201,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'spotlight-card':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <SpotlightCard className={cn('w-full p-4 transition-colors', hovered ? 'bg-[#242424] border-[#4A4A4A]' : 'bg-[#202020] border-[#363636]')}>
               <div className="flex items-center gap-2 mb-1">
                 <span className={cn('w-1.5 h-1.5 rounded-full', hovered ? 'bg-emerald-400 animate-pulse' : 'bg-white')} />
@@ -211,7 +213,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'expandable-search':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div animate={{ width: hovered ? '100%' : 'auto' }} className="flex justify-center">
               <ExpandableSearch placeholder="Search components..." />
             </motion.div>
@@ -219,7 +221,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'animated-tabs':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <AnimatedTabs
               tabs={[
                 { id: 'tab1', label: 'Code', content: <div className="text-xs text-[#737373]">React 18 JSX</div> },
@@ -232,7 +234,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       case 'floating-action-dock':
       case 'floating-dock':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div animate={{ y: hovered ? -3 : 0 }} transition={{ type: 'spring', stiffness: 350, damping: 20 }}>
               <FloatingActionDock
                 items={[
@@ -247,7 +249,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'reveal-card':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div animate={{ rotateX: hovered ? 8 : 0, rotateY: hovered ? -8 : 0 }} className="w-full">
               <RevealCard
                 revealContent={<span className="text-xs text-white font-medium">Revealed on hover tilt</span>}
@@ -261,7 +263,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'smooth-accordion':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <div className="w-full">
               <SmoothAccordion
                 items={[
@@ -278,7 +280,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'notification-stack':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div animate={{ y: hovered ? -4 : 0 }}>
               <NotificationStack maxVisible={2} />
             </motion.div>
@@ -286,7 +288,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'morphing-dialog':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div animate={{ scale: hovered ? 1.05 : 1 }}>
               <MorphingDialog
                 id={`card-dialog-${comp.id}`}
@@ -309,7 +311,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'command-menu':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div
               animate={{ y: hovered ? -2 : 0, borderColor: hovered ? '#4A4A4A' : '#363636' }}
               className="px-3.5 py-2 rounded-lg bg-[#202020] border border-[#363636] text-xs font-mono text-[#A3A3A3] flex items-center gap-2 transition-colors shadow-xs"
@@ -321,10 +323,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'glass-navbar':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -2 : 0, borderColor: hovered ? '#4A4A4A' : '#363636' }}
-              className="w-full max-w-[260px] p-2 rounded-xl bg-[#202020]/90 border border-[#363636] shadow-md flex items-center justify-between pointer-events-none scale-90 sm:scale-95"
+              className="w-full max-w-[260px] p-2 rounded-xl bg-[#202020]/90 border border-[#363636] shadow-md flex items-center justify-between pointer-events-none scale-100 sm:scale-100"
             >
               <div className="flex items-center gap-1.5">
                 <span className="w-4 h-4 rounded bg-white/10 flex items-center justify-center text-[8px] font-bold text-white">E</span>
@@ -340,8 +342,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'button':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
-            <div className="flex items-center gap-2 pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-4">
+            <div className="flex items-center gap-2 pointer-events-none scale-100 sm:scale-100">
               <motion.span
                 animate={{ scale: hovered ? 1.05 : 1, y: hovered ? -2 : 0 }}
                 className="px-3 py-1.5 rounded-lg bg-[#F5F5F5] text-[#151515] text-xs font-medium shadow flex items-center gap-1"
@@ -360,8 +362,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'form':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-100 sm:scale-100">
               <div className="flex justify-between text-[10px]">
                 <span className="text-[#A3A3A3] font-medium">Workspace Email</span>
                 <span className="text-[#FF7A7A]">*</span>
@@ -378,10 +380,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'login':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -2 : 0 }}
-              className="w-full max-w-[240px] p-3 rounded-xl bg-[#202020] border border-[#363636] space-y-2 pointer-events-none scale-90 sm:scale-95 shadow-xs"
+              className="w-full max-w-[240px] p-3 rounded-xl bg-[#202020] border border-[#363636] space-y-2 pointer-events-none scale-100 sm:scale-100 shadow-xs"
             >
               <div className="text-[11px] font-semibold text-[#F5F5F5]">Welcome back</div>
               <div className="h-6 px-2 rounded-md bg-[#242424] border border-[#363636] text-[10px] text-[#737373] flex items-center">
@@ -398,8 +400,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'sign-up':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[240px] p-3 rounded-xl bg-[#202020] border border-[#363636] space-y-1.5 pointer-events-none scale-90 sm:scale-95 shadow-xs">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] p-3 rounded-xl bg-[#202020] border border-[#363636] space-y-1.5 pointer-events-none scale-100 sm:scale-100 shadow-xs">
               <div className="text-[11px] font-semibold text-[#F5F5F5]">Create account</div>
               <div className="flex gap-1 h-1">
                 <div className="flex-1 rounded-full bg-emerald-400" />
@@ -416,10 +418,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'faq':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -2 : 0 }}
-              className="w-full max-w-[250px] rounded-lg border border-[#363636] bg-[#202020] overflow-hidden pointer-events-none scale-90 sm:scale-95 shadow-xs"
+              className="w-full max-w-[250px] rounded-lg border border-[#363636] bg-[#202020] overflow-hidden pointer-events-none scale-100 sm:scale-100 shadow-xs"
             >
               <div className="p-2.5 flex items-center justify-between text-[11px] font-medium text-[#F5F5F5] border-b border-[#363636]">
                 <span>How to use CLI?</span>
@@ -433,8 +435,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'payment-receipt-printer':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[240px] flex flex-col items-center pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] flex flex-col items-center pointer-events-none scale-100 sm:scale-100">
               <div className="w-full p-2 rounded-xl bg-[#202020] border border-[#363636] flex items-center justify-between shadow-md z-10">
                 <div className="flex items-center gap-1.5">
                   <span className="w-3.5 h-3.5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[9px] font-bold">✓</span>
@@ -461,7 +463,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'dot-field':
         return (
-          <div className="h-40 relative rounded-lg overflow-hidden border border-[#363636] bg-[#202020]">
+          <div className="h-52 relative rounded-lg overflow-hidden border border-[#363636] bg-[#202020]">
             <DotField
               dotRadius={1.5}
               dotSpacing={12}
@@ -477,10 +479,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'particle-delete':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ scale: hovered ? 1.02 : 1 }}
-              className="w-full max-w-[240px] p-2.5 rounded-lg bg-[#202020] border border-[#363636] pointer-events-none scale-90 sm:scale-95 flex items-center justify-between gap-2 shadow-xs"
+              className="w-full max-w-[240px] p-2.5 rounded-lg bg-[#202020] border border-[#363636] pointer-events-none scale-100 sm:scale-100 flex items-center justify-between gap-2 shadow-xs"
             >
               <div className="flex items-center gap-2 min-w-0">
                 <span className="w-6 h-6 rounded-md bg-[#242424] border border-[#363636] flex items-center justify-center text-[#A3A3A3]">
@@ -499,10 +501,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'animated-file-upload':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ borderColor: hovered ? '#4A4A4A' : '#363636', scale: hovered ? 1.02 : 1 }}
-              className="w-full max-w-[240px] p-3 rounded-xl border border-dashed bg-[#202020] flex flex-col items-center justify-center text-center pointer-events-none scale-90 sm:scale-95 transition-colors shadow-xs"
+              className="w-full max-w-[240px] p-3 rounded-xl border border-dashed bg-[#202020] flex flex-col items-center justify-center text-center pointer-events-none scale-100 sm:scale-100 transition-colors shadow-xs"
             >
               <motion.div
                 animate={{ y: hovered ? -3 : 0 }}
@@ -517,10 +519,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'payment-status':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -2 : 0 }}
-              className="w-full max-w-[240px] p-3 rounded-xl bg-[#202020] border border-[#363636] space-y-2 pointer-events-none scale-90 sm:scale-95 shadow-xs"
+              className="w-full max-w-[240px] p-3 rounded-xl bg-[#202020] border border-[#363636] space-y-2 pointer-events-none scale-100 sm:scale-100 shadow-xs"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
@@ -538,10 +540,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'undo-toast':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -3 : 0 }}
-              className="w-full max-w-[250px] p-2.5 rounded-xl bg-[#202020] border border-[#363636] shadow-lg pointer-events-none scale-90 sm:scale-95"
+              className="w-full max-w-[250px] p-2.5 rounded-xl bg-[#202020] border border-[#363636] shadow-lg pointer-events-none scale-100 sm:scale-100"
             >
               <div className="flex items-center justify-between gap-2 mb-1.5">
                 <span className="text-[11px] font-medium text-[#F5F5F5]">Project archived</span>
@@ -555,10 +557,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'expandable-data-row':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -2 : 0 }}
-              className="w-full max-w-[250px] rounded-xl bg-[#202020] border border-[#363636] overflow-hidden pointer-events-none scale-90 sm:scale-95 shadow-xs"
+              className="w-full max-w-[250px] rounded-xl bg-[#202020] border border-[#363636] overflow-hidden pointer-events-none scale-100 sm:scale-100 shadow-xs"
             >
               <div className="p-2.5 flex items-center justify-between border-b border-[#363636] bg-[#242424]">
                 <div className="flex items-center gap-2">
@@ -576,10 +578,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'scroll-progress-nav':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ scale: hovered ? 1.05 : 1 }}
-              className="rounded-full bg-[#202020] border border-[#363636] shadow-xl p-1 flex items-center gap-1 pointer-events-none scale-90 sm:scale-95"
+              className="rounded-full bg-[#202020] border border-[#363636] shadow-xl p-1 flex items-center gap-1 pointer-events-none scale-100 sm:scale-100"
             >
               <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-[#737373]">01</span>
               <motion.span
@@ -597,10 +599,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         return <AnimatedNumberPreview isHovered={hovered} />;
       case 'spotlight-search':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -2 : 0 }}
-              className="w-full max-w-[240px] p-2.5 rounded-xl bg-[#202020] border border-[#363636] shadow-md pointer-events-none scale-90 sm:scale-95"
+              className="w-full max-w-[240px] p-2.5 rounded-xl bg-[#202020] border border-[#363636] shadow-md pointer-events-none scale-100 sm:scale-100"
             >
               <div className="flex items-center justify-between text-[11px] text-[#737373] mb-2 border-b border-[#363636] pb-1.5">
                 <span>Search components...</span>
@@ -619,10 +621,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'morphing-button':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div
               animate={{ scale: hovered ? 1.05 : 1 }}
-              className="px-4 py-2 rounded-lg bg-[#F5F5F5] text-[#151515] text-xs font-medium shadow flex items-center gap-1.5 pointer-events-none scale-90 sm:scale-95"
+              className="px-4 py-2 rounded-lg bg-[#F5F5F5] text-[#151515] text-xs font-medium shadow flex items-center gap-1.5 pointer-events-none scale-100 sm:scale-100"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>{hovered ? 'Saved ✓' : 'Save Changes'}</span>
@@ -631,8 +633,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'drag-to-confirm':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[240px] h-10 rounded-xl bg-[#202020] border border-[#363636] p-1 flex items-center justify-between pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] h-10 rounded-xl bg-[#202020] border border-[#363636] p-1 flex items-center justify-between pointer-events-none scale-100 sm:scale-100">
               <motion.div
                 animate={{ x: hovered ? 120 : 0 }}
                 transition={{ type: 'spring', stiffness: 220, damping: 22 }}
@@ -646,10 +648,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'peek-card':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -3 : 0, scale: hovered ? 1.02 : 1 }}
-              className="w-full max-w-[240px] p-2.5 rounded-xl bg-[#202020] border border-[#363636] space-y-1.5 pointer-events-none scale-90 sm:scale-95 shadow-xs"
+              className="w-full max-w-[240px] p-2.5 rounded-xl bg-[#202020] border border-[#363636] space-y-1.5 pointer-events-none scale-100 sm:scale-100 shadow-xs"
             >
               <div className="flex justify-between items-center">
                 <span className="text-[11px] font-semibold text-[#F5F5F5]">Payment #3948</span>
@@ -661,10 +663,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'selection-basket':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -4 : 0 }}
-              className="px-3 py-1.5 rounded-xl bg-[#202020] border border-[#363636] shadow-lg flex items-center gap-2 pointer-events-none scale-90 sm:scale-95"
+              className="px-3 py-1.5 rounded-xl bg-[#202020] border border-[#363636] shadow-lg flex items-center gap-2 pointer-events-none scale-100 sm:scale-100"
             >
               <span className="w-4 h-4 rounded-full bg-[#F5F5F5] text-[#151515] text-[9px] font-bold flex items-center justify-center">3</span>
               <span className="text-[10px] font-medium text-[#F5F5F5]">selected</span>
@@ -674,10 +676,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'focus-mode':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ scale: hovered ? 1.03 : 1, borderColor: hovered ? '#4A4A4A' : '#363636' }}
-              className="w-full max-w-[240px] p-3 rounded-xl bg-[#202020] border border-[#363636] shadow-md pointer-events-none scale-90 sm:scale-95"
+              className="w-full max-w-[240px] p-3 rounded-xl bg-[#202020] border border-[#363636] shadow-md pointer-events-none scale-100 sm:scale-100"
             >
               <div className="flex justify-between text-[11px] font-medium text-[#F5F5F5] mb-1">
                 <span>Revenue Focus</span>
@@ -689,7 +691,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'loader':
         return (
-          <div className="h-40 flex items-center justify-center gap-4 p-4 pointer-events-none">
+          <div className="h-52 flex items-center justify-center gap-4 p-4 pointer-events-none">
             <motion.div
               animate={{ rotate: hovered ? 360 : 0 }}
               transition={{ repeat: Infinity, duration: 2, ease: 'linear' }}
@@ -709,10 +711,10 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'small-floating-dock':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
+          <div className="h-52 flex items-center justify-center p-3">
             <motion.div
               animate={{ y: hovered ? -3 : 0, scale: hovered ? 1.05 : 1 }}
-              className="p-1.5 rounded-full bg-[#202020] border border-[#363636] shadow-lg flex items-center gap-1.5 pointer-events-none scale-90 sm:scale-95"
+              className="p-1.5 rounded-full bg-[#202020] border border-[#363636] shadow-lg flex items-center gap-1.5 pointer-events-none scale-100 sm:scale-100"
             >
               <span className="w-7 h-7 rounded-full bg-[#F5F5F5] text-[#151515] flex items-center justify-center text-[10px] font-bold">⌘</span>
               <span className="w-7 h-7 rounded-full bg-[#242424] text-[#A3A3A3] flex items-center justify-center text-[10px]">⌥</span>
@@ -726,7 +728,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'hamburger-menu':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div
               animate={{ scale: hovered ? 1.1 : 1 }}
               className="w-12 h-12 rounded-xl bg-[#242424] border border-[#363636] flex flex-col items-center justify-center gap-1.5 pointer-events-none"
@@ -748,7 +750,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'notification-bell':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div
               animate={hovered ? { rotate: [0, -14, 12, -8, 6, 0] } : {}}
               transition={{ duration: 0.5 }}
@@ -767,7 +769,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'ios-search-bar':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div
               animate={{ width: hovered ? '220px' : '160px', borderColor: hovered ? '#4A4A4A' : '#363636' }}
               className="h-8 px-3 rounded-full bg-[#242424] border border-[#363636] flex items-center justify-between text-xs text-[#737373] pointer-events-none"
@@ -782,7 +784,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'typewriter-button':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div
               animate={{ scale: hovered ? 1.05 : 1 }}
               className="px-3.5 py-2 rounded-xl bg-[#F5F5F5] text-[#151515] font-mono text-xs font-semibold flex items-center gap-1 shadow pointer-events-none"
@@ -798,7 +800,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'depth-corridor':
         return (
-          <div className="h-40 flex items-center justify-center p-4" style={{ perspective: '600px' }}>
+          <div className="h-52 flex items-center justify-center p-4" style={{ perspective: '600px' }}>
             <div className="relative w-40 h-24 flex items-center justify-center pointer-events-none" style={{ transformStyle: 'preserve-3d' }}>
               <motion.div
                 animate={{ z: hovered ? -60 : -40, opacity: hovered ? 0.3 : 0.4 }}
@@ -820,7 +822,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'density-lens':
         return (
-          <div className="h-40 flex items-center justify-center p-4 relative overflow-hidden">
+          <div className="h-52 flex items-center justify-center p-4 relative overflow-hidden">
             <div className="w-full max-w-[220px] p-3 rounded-xl bg-[#202020] border border-[#363636] text-center pointer-events-none shadow-xs">
               <span className="text-xs text-[#A3A3A3]">Normal Resolution</span>
               <motion.div
@@ -835,7 +837,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'torque-dial':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <motion.div
               animate={{ rotate: hovered ? 180 : 45 }}
               transition={{ type: 'spring', stiffness: 200, damping: 15 }}
@@ -848,8 +850,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'stack-unfold-panel':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-100 sm:scale-100">
               <motion.div
                 animate={{ y: hovered ? -2 : 0 }}
                 className="p-2 rounded-lg bg-[#202020] border border-[#363636] flex justify-between text-[10px] text-white font-medium shadow-xs"
@@ -869,8 +871,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'dependency-trace':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="flex items-center gap-4 pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="flex items-center gap-4 pointer-events-none scale-100 sm:scale-100">
               <motion.div animate={{ scale: hovered ? 1.1 : 1 }} className="w-10 h-10 rounded-full bg-[#242424] border border-white text-[9px] font-mono text-white flex items-center justify-center shadow">
                 API
               </motion.div>
@@ -883,8 +885,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'batch-gesture-tray':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[240px] relative pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] relative pointer-events-none scale-100 sm:scale-100">
               <div className="p-2 rounded-lg bg-[#202020] border border-[#363636] flex items-center gap-2 mb-2 shadow-xs">
                 <span className="w-3.5 h-3.5 rounded bg-[#F5F5F5] text-[#151515] text-[8px] flex items-center justify-center font-bold">✓</span>
                 <span className="text-[10px] text-[#F5F5F5]">3 items selected</span>
@@ -901,8 +903,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'recovery-ledger':
         return (
-          <div className="h-40 flex items-center justify-center p-3">
-            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-90 sm:scale-95">
+          <div className="h-52 flex items-center justify-center p-3">
+            <div className="w-full max-w-[240px] space-y-1.5 pointer-events-none scale-100 sm:scale-100">
               <motion.div animate={{ y: hovered ? -1 : 0 }} className="p-2 rounded-lg bg-[#202020] border border-emerald-500/30 flex items-center justify-between shadow-xs">
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
@@ -920,8 +922,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       case 'rocket-party-popper':
       case 'achievement-reveal':
         return (
-          <div className="h-40 w-full flex items-center justify-center pointer-events-none overflow-hidden">
-            <div className="scale-[0.56] origin-center shrink-0 flex items-center justify-center">
+          <div className="h-52 w-full flex items-center justify-center pointer-events-none overflow-hidden">
+            <div className="scale-[0.72] origin-center shrink-0 flex items-center justify-center">
               <RocketPartyPopper
                 defaultLaunched={hovered}
                 title="Launch Complete"
@@ -933,8 +935,8 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'branching-submenu':
         return (
-          <div className="h-40 flex items-center justify-center p-2 pointer-events-none overflow-hidden">
-            <div className="w-[420px] shrink-0 origin-center scale-[0.62] flex justify-center">
+          <div className="h-52 flex items-center justify-center p-2 pointer-events-none overflow-hidden">
+            <div className="w-[420px] shrink-0 origin-center scale-[0.80] flex justify-center">
               <BranchingSubmenu className="w-full shadow-none" />
             </div>
           </div>
@@ -943,15 +945,15 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       case 'macos-folder-cards':
       case 'velocity-aware-scroll-cards':
         return (
-          <div className="h-40 flex items-center justify-center pointer-events-none overflow-hidden">
-            <div className="scale-[0.62] origin-center shrink-0 flex items-center justify-center">
+          <div className="h-52 flex items-center justify-center pointer-events-none overflow-hidden">
+            <div className="scale-[0.80] origin-center shrink-0 flex items-center justify-center">
               <MacOSFolderCards isPeeked={hovered} className="min-h-0" />
             </div>
           </div>
         );
       case 'gravity-particle-burst':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <div className="pointer-events-none scale-90">
               <GravityParticleBurst particleCount={18}>Burst</GravityParticleBurst>
             </div>
@@ -959,7 +961,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'liquid-ripple-button':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <div className="pointer-events-none scale-90">
               <LiquidRippleButton variant="secondary">Generate</LiquidRippleButton>
             </div>
@@ -967,7 +969,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'neon-edge-button':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <div className="pointer-events-none scale-90">
               <NeonEdgeButton>Deploy</NeonEdgeButton>
             </div>
@@ -975,13 +977,13 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'orbital-loading-ring':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <OrbitalLoadingRing size={64} variant={hovered ? 'dense' : 'default'} label="Loading preview" />
           </div>
         );
       case 'pill-navigation':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <div className="pointer-events-none scale-90">
               <PillNavigation defaultValue={hovered ? 'motion' : 'overview'} />
             </div>
@@ -989,7 +991,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'text-scramble-decoder':
         return (
-          <div className="h-40 flex items-center justify-center p-4">
+          <div className="h-52 flex items-center justify-center p-4">
             <TextScrambleDecoder
               key={hovered ? 'hovered' : 'idle'}
               text="EASYUI.SYNCED"
@@ -1001,14 +1003,14 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         );
       case 'intro-loader':
         return (
-          <div className="h-40 w-full flex items-center justify-center p-2 pointer-events-none overflow-hidden">
+          <div className="h-52 w-full flex items-center justify-center p-2 pointer-events-none overflow-hidden">
             <IntroLoader fullScreen={false} key={hovered ? 'hovered' : 'idle'} className="h-32 rounded-xl shadow-none border-none" />
           </div>
         );
 
       default:
         return (
-          <div className="h-40 flex flex-col items-center justify-center p-4 text-center">
+          <div className="h-52 flex flex-col items-center justify-center p-4 text-center">
             <span className="text-xs font-semibold text-[#F5F5F5] mb-1">{comp.name}</span>
             <span className="text-[11px] text-[#737373] line-clamp-2 max-w-[200px]">{comp.tagline}</span>
           </div>
@@ -1040,25 +1042,25 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
       className={cn(
-        'group rounded-2xl border border-[#262626] bg-[#151515] p-2.5 sm:p-3 hover:border-[#3d3d3d] hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer flex flex-col justify-between block',
+        'group relative block rounded-[20px] border-[1.5px] border-[#1c1c1c] bg-[#080808] p-2 hover:border-[#2a2a2a] hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer',
         className
       )}
     >
-      {/* Inset Live Preview Box */}
-      <div className="relative rounded-xl bg-[#1a1a1a] border border-[#262626] overflow-hidden flex-1 flex flex-col justify-center">
-        {/* Subtle Copy CLI Button (Reveals on card hover) */}
+      {/* Inset Live Preview Box — large, deep, "carved" surface */}
+      <div className="relative rounded-2xl bg-[#0c0c0c] border border-[#161616] overflow-hidden min-h-[260px] sm:min-h-[300px] flex flex-col justify-center">
+        {/* Subtle Copy CLI Button (Reveals on card hover) — minimal, ghost-like */}
         <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150">
           <button
             type="button"
             onClick={handleCopyCLI}
-            className="p-1.5 rounded-lg bg-[#242424]/90 backdrop-blur border border-[#363636] text-[#8A8A8A] hover:text-white hover:border-[#4A4A4A] transition-colors focus-ring"
+            className="p-1.5 rounded-md bg-black/60 backdrop-blur border border-white/10 text-[#8A8A8A] hover:text-white hover:border-white/30 transition-colors focus-ring"
             title="Copy CLI command"
             aria-label={`Copy CLI command for ${component.name}`}
           >
             {copied ? (
-              <Check className="w-3.5 h-3.5 text-white" />
+              <Check className="w-3 h-3 text-white" />
             ) : (
-              <Copy className="w-3.5 h-3.5" />
+              <Copy className="w-3 h-3" />
             )}
           </button>
         </div>
@@ -1066,15 +1068,18 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         {renderPreview(component, isHovered)}
       </div>
 
-      {/* Component Footer - Name on left & White Arrow visible on hover on right */}
-      <div className="pt-2.5 pb-0.5 px-1 flex items-center justify-between gap-2">
+      {/* Component Footer — large title, prominent persistent arrow */}
+      <div className="pt-5 pb-2 px-2 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
-          <h3 className="text-xs sm:text-[13px] font-semibold text-[#E5E5E5] group-hover:text-white transition-colors truncate">
+          <h3 className="text-base sm:text-lg font-semibold text-[#E5E5E5] group-hover:text-white transition-colors truncate">
             {component.name}
           </h3>
-          {isNew && <NewBadge size="xs" />}
+          {showNew && <NewBadge size="xs" />}
         </div>
-        <ArrowUpRight className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-200 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+        <ArrowUpRight
+          className="w-5 h-5 text-[#9A9A9A] group-hover:text-white group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200 shrink-0"
+          strokeWidth={2}
+        />
       </div>
     </a>
   );

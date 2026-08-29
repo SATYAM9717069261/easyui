@@ -7,7 +7,6 @@ import { ComponentCard } from '../common/ComponentCard';
 import { ComponentPagination } from '../common/ComponentPagination';
 import {
   getSortedComponents,
-  getNewestComponent,
   isComponentNew,
   getPaginatedComponents,
 } from '../../lib/components';
@@ -52,16 +51,11 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
     return getSortedComponents(EASY_COMPONENTS);
   }, []);
 
-  // 2. Identify the single newest component
-  const newestComponent = useMemo(() => {
-    return getNewestComponent(allSortedComponents);
-  }, [allSortedComponents]);
-
-  // 3. Filter by category & search
+  // 2. Filter by category & search
   const filteredComponents = useMemo(() => {
     return allSortedComponents.filter((comp) => {
       const isRecent =
-        isComponentNew(comp, newestComponent) ||
+        isComponentNew(comp) ||
         comp.badges?.some((b) => b.toLowerCase() === 'new');
 
       const matchCategory =
@@ -77,9 +71,9 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
         comp.badges.some((b) => b.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchCategory && matchSearch;
     });
-  }, [allSortedComponents, selectedCategory, searchQuery, newestComponent]);
+  }, [allSortedComponents, selectedCategory, searchQuery]);
 
-  // 4. Calculate pagination (6 per page across all category components)
+  // 3. Calculate pagination (6 per page across all category components)
   const pagination = useMemo(() => {
     return getPaginatedComponents(filteredComponents, currentPage, HOMEPAGE_PAGE_SIZE);
   }, [filteredComponents, currentPage]);
@@ -187,12 +181,12 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {pagination.items.map((comp) => (
                 <ComponentCard
                   key={comp.id}
                   component={comp}
-                  isNew={isComponentNew(comp, newestComponent)}
+                  isNew={isComponentNew(comp)}
                   onSelect={onSelectComponent}
                 />
               ))}

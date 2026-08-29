@@ -21,7 +21,7 @@ import {
 import type { EasyComponentMeta } from '../../types/component';
 import { EASY_COMPONENTS } from '../registry/components-data';
 import { cn, copyToClipboard } from '../../lib/utils';
-import { isComponentNew, getNewestComponent } from '../../lib/components';
+import { isComponentNew } from '../../lib/components';
 import { useComponentSource } from '../../lib/source-loader';
 import { NewBadge } from '../common/NewBadge';
 
@@ -591,9 +591,6 @@ export const ComponentDetailPage: React.FC<ComponentDetailPageProps> = ({
     setIsCopiedCli(true);
     setTimeout(() => setIsCopiedCli(false), 2000);
   };
-
-  // Calculate newest component for unified 'New' badge synchronisation
-  const newestComponent = useMemo(() => getNewestComponent(EASY_COMPONENTS), []);
 
   // Filtered components list for the sidebar
   const filteredComponents = useMemo(() => {
@@ -1785,7 +1782,7 @@ const completion = await client.completions.create({
                   <div className="space-y-0.5">
                     {filteredComponents.map((item) => {
                       const isActive = item.id === component.id;
-                      const isNew = isComponentNew(item, newestComponent);
+                      const isNew = isComponentNew(item);
                       return (
                         <button
                           key={item.id}
@@ -1897,7 +1894,7 @@ const completion = await client.completions.create({
                 <div className="space-y-0.5">
                   {filteredComponents.map((item) => {
                     const isActive = item.id === component.id;
-                    const isNew = isComponentNew(item, newestComponent);
+                    const isNew = isComponentNew(item);
                     return (
                       <button
                         key={item.id}

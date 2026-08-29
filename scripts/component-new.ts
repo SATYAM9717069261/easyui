@@ -83,7 +83,7 @@ const meta: EasyUIComponentMeta = {
   category: 'Motion',
   tagline: 'Responsive interactive ${title.toLowerCase()}',
   badges: ['Motion', 'Tailwind', 'Interactive'],
-  createdAt: '${new Date().toISOString().split('T')[0]}',
+  createdAt: '${new Date().toISOString()}',
   features: [
     'Responsive design for modern web applications',
     'Hardware accelerated layout animations',

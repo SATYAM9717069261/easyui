@@ -118,7 +118,11 @@ export function generateComponentSchema(component: EasyComponentMeta): Record<st
         headline: `${component.name} Component for React — EasyUI`,
         description: component.description,
         url: canonical,
-        datePublished: component.createdAt ? `${component.createdAt}T00:00:00Z` : '2026-08-01T00:00:00Z',
+        datePublished: component.createdAt
+          ? component.createdAt.includes('T')
+            ? component.createdAt
+            : `${component.createdAt}T00:00:00Z`
+          : '2026-08-01T00:00:00Z',
         dateModified: new Date().toISOString(),
         author: {
           '@type': 'Person',
