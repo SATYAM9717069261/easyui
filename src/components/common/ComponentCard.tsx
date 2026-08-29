@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { EasyComponentMeta } from '../../types/component';
-import { Copy, Check, Sparkles, Code2, Terminal, Bell, Search, X } from 'lucide-react';
+import { Copy, Check, Sparkles, Code2, Terminal, Bell, Search, X, ArrowUpRight } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 import { SpotlightCard } from '../ui/SpotlightCard';
 import { ExpandableSearch } from '../ui/ExpandableSearch';
@@ -1040,12 +1040,12 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
       className={cn(
-        'group rounded-2xl border border-[#363636] bg-[#202020] overflow-hidden hover:border-[#4A4A4A] hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer flex flex-col justify-between block',
+        'group rounded-2xl border border-[#262626] bg-[#151515] p-2.5 sm:p-3 hover:border-[#3d3d3d] hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer flex flex-col justify-between block',
         className
       )}
     >
-      {/* Live Preview Area */}
-      <div className="relative bg-[#1A1A1A] border-b border-[#2C2C2C] bg-grid-pattern overflow-hidden">
+      {/* Inset Live Preview Box */}
+      <div className="relative rounded-xl bg-[#1a1a1a] border border-[#262626] overflow-hidden flex-1 flex flex-col justify-center">
         {/* Subtle Copy CLI Button (Reveals on card hover) */}
         <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150">
           <button
@@ -1066,17 +1066,15 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         {renderPreview(component, isHovered)}
       </div>
 
-      {/* Component Info Card - Ultra-Minimal: Name + NEW badge + Category */}
-      <div className="px-4 py-3 flex items-center justify-between gap-3 bg-[#202020]">
+      {/* Component Footer - Name on left & White Arrow visible on hover on right */}
+      <div className="pt-2.5 pb-0.5 px-1 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
-          <h3 className="text-xs font-medium text-[#F5F5F5] group-hover:text-white transition-colors truncate">
+          <h3 className="text-xs sm:text-[13px] font-semibold text-[#E5E5E5] group-hover:text-white transition-colors truncate">
             {component.name}
           </h3>
           {isNew && <NewBadge size="xs" />}
         </div>
-        <span className="text-[10px] font-mono text-[#737373] group-hover:text-[#A3A3A3] transition-colors shrink-0">
-          {component.category}
-        </span>
+        <ArrowUpRight className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-200 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
       </div>
     </a>
   );
