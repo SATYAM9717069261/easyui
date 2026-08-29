@@ -27,14 +27,14 @@ export const PhilosophySection: React.FC = () => {
   ];
 
   return (
-    <section id="philosophy" className="py-20 border-t border-b border-[#363636] bg-[#151515]">
+    <section id="philosophy" className="py-20 border-t border-b border-[#1F1F1F] bg-[#050505]">
       <Container size="xl">
         {/* Main Philosophy Header */}
         <div className="max-w-2xl mx-auto text-center mb-12">
-          <span className="text-[11px] font-mono uppercase tracking-widest text-[#737373]">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-[#6B6B6B]">
             The Standard
           </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-[#F5F5F5] tracking-tight mt-2">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-[#FAFAFA] tracking-tight mt-2">
             Built for developers who care about the details.
           </h2>
         </div>
@@ -44,15 +44,15 @@ export const PhilosophySection: React.FC = () => {
           {principles.map((item, idx) => (
             <div
               key={idx}
-              className="p-5 rounded-xl border border-[#363636] bg-[#202020] hover:border-[#4A4A4A] transition-colors group shadow-xs"
+              className="p-5 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] hover:border-[#4A4A4A] transition-colors group shadow-xs"
             >
-              <div className="w-8 h-8 rounded-lg bg-[#242424] border border-[#363636] flex items-center justify-center mb-4 group-hover:border-[#4A4A4A] transition-colors">
+              <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#1F1F1F] flex items-center justify-center mb-4 group-hover:border-[#4A4A4A] transition-colors">
                 {item.icon}
               </div>
-              <h3 className="text-sm font-semibold text-[#F5F5F5] tracking-tight mb-1.5">
+              <h3 className="text-sm font-semibold text-[#FAFAFA] tracking-tight mb-1.5">
                 {item.title}
               </h3>
-              <p className="text-xs text-[#A3A3A3] leading-relaxed">
+              <p className="text-xs text-[#A1A1A1] leading-relaxed">
                 {item.description}
               </p>
             </div>

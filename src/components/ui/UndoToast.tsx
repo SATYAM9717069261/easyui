@@ -176,7 +176,7 @@ export const UndoToast: React.FC<UndoToastProps> = ({
               remainingTimeRef.current = (progress / 100) * duration;
             }}
             className={cn(
-              'pointer-events-auto relative overflow-hidden rounded-xl border border-[#363636] bg-[#202020] text-[#F5F5F5] shadow-[0_12px_32px_rgba(0,0,0,0.6)] p-3.5 sm:p-4 min-w-[280px] sm:min-w-[340px] max-w-md font-sans select-none',
+              'pointer-events-auto relative overflow-hidden rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] text-[#FAFAFA] shadow-[0_12px_32px_rgba(0,0,0,0.6)] p-3.5 sm:p-4 min-w-[280px] sm:min-w-[340px] max-w-md font-sans select-none',
               className
             )}
             role="status"
@@ -184,7 +184,7 @@ export const UndoToast: React.FC<UndoToastProps> = ({
           >
             <div className="flex items-center justify-between gap-3 relative z-10">
               {/* Icon / Status indicator */}
-              <div className="w-8 h-8 rounded-lg bg-[#242424] border border-[#363636] flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-[#141414] border border-[#1F1F1F] flex items-center justify-center shrink-0">
                 {isRestored ? (
                   <motion.div
                     initial={{ scale: 0 }}
@@ -200,11 +200,11 @@ export const UndoToast: React.FC<UndoToastProps> = ({
 
               {/* Text copy */}
               <div className="flex-1 min-w-0 pr-1">
-                <p className="text-xs font-semibold text-[#F5F5F5] truncate">
+                <p className="text-xs font-semibold text-[#FAFAFA] truncate">
                   {isRestored ? restoredMessage : title}
                 </p>
                 {description && !isRestored && (
-                  <p className="text-[11px] text-[#A3A3A3] truncate mt-0.5">
+                  <p className="text-[11px] text-[#A1A1A1] truncate mt-0.5">
                     {description}
                   </p>
                 )}
@@ -216,9 +216,9 @@ export const UndoToast: React.FC<UndoToastProps> = ({
                   <button
                     type="button"
                     onClick={handleUndoClick}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#F5F5F5] transition-colors focus-ring cursor-pointer"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#141414] hover:bg-[#0E0E0E] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-medium text-[#FAFAFA] transition-colors focus-ring cursor-pointer"
                   >
-                    <Undo2 className="w-3 h-3 text-[#A3A3A3]" />
+                    <Undo2 className="w-3 h-3 text-[#A1A1A1]" />
                     <span>{undoLabel}</span>
                   </button>
                 )}
@@ -226,7 +226,7 @@ export const UndoToast: React.FC<UndoToastProps> = ({
                 <button
                   type="button"
                   onClick={handleDismiss}
-                  className="p-1 rounded-md text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] transition-colors focus-ring cursor-pointer"
+                  className="p-1 rounded-md text-[#525252] hover:text-[#FAFAFA] hover:bg-[#141414] transition-colors focus-ring cursor-pointer"
                   aria-label="Close notification"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -236,9 +236,9 @@ export const UndoToast: React.FC<UndoToastProps> = ({
 
             {/* Live Progress Bar countdown indicator */}
             {showProgress && !isRestored && (
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#151515]">
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#050505]">
                 <div
-                  className="h-full bg-[#F5F5F5] transition-all"
+                  className="h-full bg-[#FAFAFA] transition-all"
                   style={{ width: `${progress}%`, transition: isPaused ? 'none' : 'width 50ms linear' }}
                 />
               </div>

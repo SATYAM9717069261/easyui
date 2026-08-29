@@ -9,13 +9,16 @@ export interface DocSEOProps {
 
 export const DocSEO: React.FC<DocSEOProps> = ({ onNavigateSection }) => {
   return (
-    <article className="space-y-12 animate-fade-in text-[#A3A3A3]">
+    <article className="space-y-14 animate-fade-in text-[#A1A1A1]">
       {/* Header */}
-      <header className="space-y-3 border-b border-[#363636] pb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F5F5F5]">
+      <header className="space-y-4 border-b border-[#1F1F1F] pb-10">
+        <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em]">
+          Architecture & Engine · 02
+        </span>
+        <h1 className="text-3xl sm:text-[40px] font-semibold tracking-[-0.02em] text-[#FAFAFA] leading-[1.1]">
           Automated SEO System
         </h1>
-        <p className="text-base text-[#A3A3A3] leading-relaxed max-w-2xl">
+        <p className="text-[15px] text-[#A1A1A1] leading-relaxed max-w-2xl">
           Every component in EasyUI inherits search engine optimization automatically—including dynamic document titles, canonical URLs, XML sitemaps, Open Graph preview cards, and schema.org JSON-LD structured data.
         </p>
       </header>
@@ -23,11 +26,11 @@ export const DocSEO: React.FC<DocSEOProps> = ({ onNavigateSection }) => {
       {/* Feature 1: Dynamic SEO Hook */}
       <section className="space-y-4">
         <div className="flex items-center gap-2.5">
-          <Globe className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-white">1. Dynamic Head & Canonical Resolution</h2>
+          <Globe className="w-3.5 h-3.5 text-[#FAFAFA]" />
+          <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Dynamic Head & Canonical Resolution</h2>
         </div>
-        <p className="text-sm text-[#A3A3A3] leading-relaxed">
-          The <code className="text-[#F5F5F5] font-mono bg-[#242424] border border-[#363636] px-1.5 py-0.5 rounded text-xs">useSEO()</code> hook synchronizes page titles, meta descriptions, canonical URLs, and social tags as users navigate routes, pagination pages, or modal deep links:
+        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
+          The <code className="text-[#FAFAFA] font-mono bg-[#0E0E0E] border border-[#1F1F1F] px-1.5 py-0.5 rounded text-[12px]">useSEO()</code> hook synchronizes page titles, meta descriptions, canonical URLs, and social tags as users navigate routes, pagination pages, or modal deep links:
         </p>
 
         <DocCodeBlock
@@ -45,31 +48,31 @@ export const DocSEO: React.FC<DocSEOProps> = ({ onNavigateSection }) => {
       {/* Feature 2: Structured Data */}
       <section className="space-y-4">
         <div className="flex items-center gap-2.5">
-          <FileCode className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-[#F5F5F5]">2. Schema.org JSON-LD Structured Data</h2>
+          <FileCode className="w-3.5 h-3.5 text-[#FAFAFA]" />
+          <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Schema.org JSON-LD Structured Data</h2>
         </div>
-        <p className="text-sm text-[#A3A3A3]">
+        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
           Search engines receive rich structured metadata for each component:
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div className="p-4 rounded-xl border border-[#363636] bg-[#202020] space-y-1.5">
-            <h3 className="text-[#F5F5F5] font-semibold flex items-center gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+          <div className="p-4 rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] space-y-1.5">
+            <h3 className="text-[14px] text-[#FAFAFA] font-semibold flex items-center gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               SoftwareApplication Schema
             </h3>
-            <p className="text-[#A3A3A3]">
+            <p className="text-[13px] text-[#A1A1A1] leading-relaxed">
               Declares application category, open-source MIT license, zero cost ($0.00), and framework dependencies (React, Tailwind, Framer Motion).
             </p>
           </div>
 
-          <div className="p-4 rounded-xl border border-[#363636] bg-[#202020] space-y-1.5">
-            <h3 className="text-[#F5F5F5] font-semibold flex items-center gap-2">
+          <div className="p-4 rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] space-y-1.5">
+            <h3 className="text-[14px] text-[#FAFAFA] font-semibold flex items-center gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               BreadcrumbList & TechArticle
             </h3>
-            <p className="text-[#A3A3A3]">
-              Generates accurate navigation trails (<code className="text-[#F5F5F5] font-mono">EasyUI → Components → Magnetic Button</code>) and technical documentation timestamps.
+            <p className="text-[13px] text-[#A1A1A1] leading-relaxed">
+              Generates accurate navigation trails (<code className="text-[#FAFAFA] font-mono text-[12px]">EasyUI → Components → Magnetic Button</code>) and technical documentation timestamps.
             </p>
           </div>
         </div>
@@ -78,16 +81,16 @@ export const DocSEO: React.FC<DocSEOProps> = ({ onNavigateSection }) => {
       {/* Feature 3: Dynamic Sitemap */}
       <section className="space-y-4">
         <div className="flex items-center gap-2.5">
-          <RefreshCw className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-[#F5F5F5]">3. Automated Sitemap Generation</h2>
+          <RefreshCw className="w-3.5 h-3.5 text-[#FAFAFA]" />
+          <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Automated Sitemap Generation</h2>
         </div>
-        <p className="text-sm text-[#A3A3A3] leading-relaxed">
-          On every build or component sync, <code className="text-[#F5F5F5] font-mono bg-[#242424] border border-[#363636] px-1.5 py-0.5 rounded text-xs">public/sitemap.xml</code> is automatically updated with:
+        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
+          On every build or component sync, <code className="text-[#FAFAFA] font-mono bg-[#0E0E0E] border border-[#1F1F1F] px-1.5 py-0.5 rounded text-[12px]">public/sitemap.xml</code> is automatically updated with:
         </p>
 
-        <ul className="text-xs text-[#A3A3A3] space-y-1.5 pl-5 list-disc">
-          <li>All component showcase pages and deep links (<code className="text-[#F5F5F5] font-mono">/components/magnetic-button</code>)</li>
-          <li>All documentation topics (<code className="text-[#F5F5F5] font-mono">/docs/introduction</code>, <code className="text-[#F5F5F5] font-mono">/docs/quick-start</code>)</li>
+        <ul className="text-[13px] text-[#A1A1A1] space-y-1.5 pl-5 list-disc marker:text-[#525252]">
+          <li>All component showcase pages and deep links (<code className="text-[#FAFAFA] font-mono text-[12px]">/components/magnetic-button</code>)</li>
+          <li>All documentation topics (<code className="text-[#FAFAFA] font-mono text-[12px]">/docs/introduction</code>, <code className="text-[#FAFAFA] font-mono text-[12px]">/docs/quick-start</code>)</li>
           <li>Canonical home and directory pagination pages</li>
         </ul>
       </section>
@@ -95,10 +98,10 @@ export const DocSEO: React.FC<DocSEOProps> = ({ onNavigateSection }) => {
       {/* Feature 4: Automated CLI SEO Audit */}
       <section className="space-y-4">
         <div className="flex items-center gap-2.5">
-          <ShieldCheck className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-[#F5F5F5]">4. 44-Point Automated SEO Health Audit</h2>
+          <ShieldCheck className="w-3.5 h-3.5 text-[#FAFAFA]" />
+          <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">44-Point Automated SEO Health Audit</h2>
         </div>
-        <p className="text-sm text-[#A3A3A3]">
+        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
           Run the audit tool in CI or locally to verify tag compliance, structured data validity, and sitemap parity:
         </p>
 
@@ -109,14 +112,14 @@ export const DocSEO: React.FC<DocSEOProps> = ({ onNavigateSection }) => {
           code="npm run seo:audit"
         />
 
-        <div className="p-4 rounded-xl border border-[#363636] bg-[#202020] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-4 rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center font-mono font-bold text-emerald-400 text-sm">
+            <div className="w-10 h-10 rounded-md bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center font-mono font-bold text-emerald-400 text-sm">
               100
             </div>
             <div>
-              <h3 className="text-xs font-semibold text-[#F5F5F5]">Technical SEO Score: 100/100</h3>
-              <p className="text-[11px] text-[#737373]">44 automated health checks passing with 0 errors or warnings.</p>
+              <h3 className="text-[13px] font-semibold text-[#FAFAFA]">Technical SEO Score: 100/100</h3>
+              <p className="text-[11px] text-[#6B6B6B]">44 automated health checks passing with 0 errors or warnings.</p>
             </div>
           </div>
           <span className="text-[11px] font-mono text-emerald-400 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 self-start sm:self-auto">

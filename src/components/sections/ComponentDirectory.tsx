@@ -89,59 +89,59 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
   };
 
   return (
-    <section id="components-directory" className="py-20 bg-[#151515] border-t border-[#363636]">
+    <section id="components-directory" className="py-24 sm:py-32 lg:py-40 bg-[#050505] border-t border-[#1F1F1F]">
       <Container size="xl">
-        {/* Section Title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        {/* Section header — eyebrow + headline + count, no supporting paragraph */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
-            <span className="text-[11px] font-mono text-[#737373] uppercase tracking-widest">
+            <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em]">
               Directory
             </span>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#F5F5F5] tracking-tight mt-1">
+            <h2 className="mt-3 text-3xl sm:text-[44px] font-semibold text-[#FAFAFA] tracking-[-0.02em] leading-[1.1]">
               Components
             </h2>
-            <p className="text-sm text-[#A3A3A3] mt-1.5">
-              {EASY_COMPONENTS.length} polished components crafted for tactile feedback and copy-paste ownership.
-            </p>
           </div>
 
           {/* Search bar */}
-          <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 text-[#8A8A8A] absolute left-3 top-1/2 -translate-y-1/2" />
+          <div className="relative w-full md:w-64">
+            <Search className="w-3.5 h-3.5 text-[#525252] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder="Search components, tags..."
-              className="w-full pl-9 pr-3 py-2 text-[16px] rounded-lg bg-[#242424] border border-[#363636] text-[#F5F5F5] placeholder-[#737373] focus:outline-none focus:border-[#4A4A4A] transition-colors"
+              placeholder="Search..."
+              className="w-full pl-9 pr-3 py-2 text-[14px] rounded-lg bg-[#0E0E0E] border border-[#1F1F1F] text-[#FAFAFA] placeholder-[#6B6B6B] focus:outline-none focus:border-[#4A4A4A] transition-colors"
             />
           </div>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-8 scrollbar-none">
+        {/* Category Filter Pills — text-only, no border, no bg, generous spacing */}
+        <div className="flex items-center gap-7 overflow-x-auto pb-4 mb-10 sm:mb-12 scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategorySelect(cat)}
               className={cn(
-                'px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap focus-ring cursor-pointer',
+                'relative text-[13px] font-medium whitespace-nowrap transition-colors focus-ring cursor-pointer',
                 selectedCategory === cat
-                  ? 'bg-[#242424] text-[#F5F5F5] border border-[#363636]'
-                  : 'bg-[#202020] text-[#737373] border border-[#363636] hover:text-[#F5F5F5] hover:bg-[#242424]'
+                  ? 'text-[#FAFAFA]'
+                  : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
               )}
             >
               {cat}
+              {selectedCategory === cat && (
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#FAFAFA]" aria-hidden />
+              )}
             </button>
           ))}
         </div>
 
-        {/* Components Grid */}
+        {/* Components Grid — larger gap, larger breathing room */}
         {filteredComponents.length === 0 ? (
-          <div className="py-20 text-center rounded-xl border border-[#363636] bg-[#202020] px-4">
+          <div className="py-24 text-center rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] px-4">
             {selectedCategory === 'Recent' ? (
               <div className="space-y-3 max-w-md mx-auto">
-                <p className="text-sm text-[#A3A3A3] leading-relaxed">
+                <p className="text-sm text-[#A1A1A1] leading-relaxed">
                   No recent components available at the moment. Check out all components on the components page.
                 </p>
                 <div className="flex items-center justify-center gap-3 pt-1">
@@ -158,13 +158,13 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
                     }}
                     className="px-4 py-2 text-xs rounded-xl bg-white text-black font-medium hover:bg-zinc-200 transition-colors cursor-pointer"
                   >
-                    View All Components
+                    View all components
                   </button>
                 </div>
               </div>
             ) : (
               <div className="space-y-3 max-w-md mx-auto">
-                <p className="text-sm text-[#737373]">No components found matching your search.</p>
+                <p className="text-sm text-[#6B6B6B]">No components found matching your search.</p>
                 <button
                   type="button"
                   onClick={() => {
@@ -181,7 +181,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
               {pagination.items.map((comp) => (
                 <ComponentCard
                   key={comp.id}
@@ -194,7 +194,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
 
             {/* Pagination Controls */}
             {pagination.totalPages > 1 && (
-              <div className="mt-10 pt-4 border-t border-[#363636]">
+              <div className="mt-16 sm:mt-20">
                 <ComponentPagination
                   currentPage={pagination.currentPage}
                   totalPages={pagination.totalPages}
@@ -212,16 +212,19 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
               </div>
             )}
 
-            {/* View All Components Action */}
+            {/* View all components — text-led, centered */}
             {onNavigateAllComponents && (
-              <div className="mt-8 flex justify-center">
+              <div className="mt-16 flex justify-center">
                 <button
                   type="button"
                   onClick={onNavigateAllComponents}
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#A3A3A3] hover:text-white transition-all shadow-sm focus-ring cursor-pointer"
+                  className="group inline-flex items-center gap-2 text-[13px] font-medium text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring rounded cursor-pointer"
                 >
-                  <span>View all components</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#737373] group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <span className="relative">
+                    View all components
+                    <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 bg-[#A1A1A1] transition-transform duration-300" />
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" />
                 </button>
               </div>
             )}

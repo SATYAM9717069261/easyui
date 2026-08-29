@@ -136,7 +136,7 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
   return (
     <div
       className={cn(
-        'w-full max-w-md mx-auto rounded-2xl border border-[#363636] bg-[#202020] p-6 sm:p-7 text-left font-sans shadow-[0_12px_30px_-10px_rgba(0,0,0,0.6)] transition-all select-none',
+        'w-full max-w-md mx-auto rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] p-6 sm:p-7 text-left font-sans shadow-[0_12px_30px_-10px_rgba(0,0,0,0.6)] transition-all select-none',
         className
       )}
     >
@@ -144,18 +144,18 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
         {/* Status Indicator Badge */}
         <div className="relative mb-5">
           {status === 'processing' && (
-            <div className="w-14 h-14 rounded-full bg-[#242424] border border-[#363636] flex items-center justify-center relative">
+            <div className="w-14 h-14 rounded-full bg-[#141414] border border-[#1F1F1F] flex items-center justify-center relative">
               <motion.div
                 className="absolute inset-0 rounded-full border border-white/30 border-t-white"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }}
               />
-              <CreditCard className="w-5 h-5 text-[#8A8A8A]" />
+              <CreditCard className="w-5 h-5 text-[#525252]" />
             </div>
           )}
 
           {status === 'verifying' && (
-            <div className="w-14 h-14 rounded-full bg-[#242424] border border-[#363636] flex items-center justify-center relative">
+            <div className="w-14 h-14 rounded-full bg-[#141414] border border-[#1F1F1F] flex items-center justify-center relative">
               <motion.div
                 className="absolute inset-1 rounded-full border border-sky-400/40 border-t-sky-400"
                 animate={{ rotate: 360 }}
@@ -199,7 +199,7 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={motionTransitions.springSnappy}
-              className="w-14 h-14 rounded-full bg-[#242424] border border-[#363636] flex items-center justify-center text-[#8A8A8A]"
+              className="w-14 h-14 rounded-full bg-[#141414] border border-[#1F1F1F] flex items-center justify-center text-[#525252]"
             >
               <RotateCcw className="w-6 h-6" />
             </motion.div>
@@ -207,7 +207,7 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
         </div>
 
         {/* Heading and Subtext */}
-        <h3 className="text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight">
+        <h3 className="text-lg sm:text-xl font-semibold text-[#FAFAFA] tracking-tight">
           {status === 'processing' && 'Processing Payment'}
           {status === 'verifying' && 'Verifying Transaction'}
           {status === 'success' && 'Payment Successful'}
@@ -215,7 +215,7 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
           {status === 'refunded' && 'Payment Refunded'}
         </h3>
 
-        <p className="text-xs sm:text-sm text-[#A3A3A3] mt-1 max-w-xs">
+        <p className="text-xs sm:text-sm text-[#A1A1A1] mt-1 max-w-xs">
           {status === 'processing' && 'Securely communicating with payment provider...'}
           {status === 'verifying' && 'Confirming token authorization and anti-fraud checks...'}
           {status === 'success' && `Your purchase with ${merchantName} is confirmed.`}
@@ -224,9 +224,9 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
         </p>
 
         {/* Amount Pill */}
-        <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#242424] border border-[#363636]">
-          <span className="text-[11px] font-mono text-[#737373]">Total</span>
-          <span className="text-sm font-semibold font-mono text-[#F5F5F5]">
+        <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#141414] border border-[#1F1F1F]">
+          <span className="text-[11px] font-mono text-[#6B6B6B]">Total</span>
+          <span className="text-sm font-semibold font-mono text-[#FAFAFA]">
             {formattedAmount}
           </span>
         </div>
@@ -240,54 +240,54 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
             transition={motionTransitions.springGentle}
-            className="mt-6 pt-5 border-t border-[#363636] space-y-2.5 text-xs"
+            className="mt-6 pt-5 border-t border-[#1F1F1F] space-y-2.5 text-xs"
           >
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#A3A3A3]">Transaction ID</span>
+              <span className="text-[#A1A1A1]">Transaction ID</span>
               <button
                 type="button"
                 onClick={handleCopyId}
-                className="inline-flex items-center gap-1 font-mono text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring px-1.5 py-0.5 rounded bg-[#242424] border border-[#363636] cursor-pointer"
+                className="inline-flex items-center gap-1 font-mono text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring px-1.5 py-0.5 rounded bg-[#141414] border border-[#1F1F1F] cursor-pointer"
                 title="Copy Transaction ID"
               >
                 <span>{transactionId.slice(0, 14)}...</span>
-                {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-[#737373]" />}
+                {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-[#6B6B6B]" />}
               </button>
             </div>
 
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#A3A3A3]">Date & Time</span>
-              <span className="font-mono text-[#F5F5F5]">{formattedDate}</span>
+              <span className="text-[#A1A1A1]">Date & Time</span>
+              <span className="font-mono text-[#FAFAFA]">{formattedDate}</span>
             </div>
 
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#A3A3A3]">Payment Method</span>
-              <span className="text-[#F5F5F5] flex items-center gap-1.5">
-                <CreditCard className="w-3.5 h-3.5 text-[#8A8A8A]" />
+              <span className="text-[#A1A1A1]">Payment Method</span>
+              <span className="text-[#FAFAFA] flex items-center gap-1.5">
+                <CreditCard className="w-3.5 h-3.5 text-[#525252]" />
                 {paymentMethod} {last4 ? `(•••• ${last4})` : ''}
               </span>
             </div>
 
             {/* Receipt Actions */}
-            <div className="pt-4 mt-2 border-t border-[#363636] flex items-center justify-between gap-2">
+            <div className="pt-4 mt-2 border-t border-[#1F1F1F] flex items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={() => {
                   setShowReceiptDetails(!showReceiptDetails);
                   onViewReceipt?.();
                 }}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring cursor-pointer"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#141414] hover:bg-[#0E0E0E] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-medium text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring cursor-pointer"
               >
-                <Receipt className="w-3.5 h-3.5 text-[#8A8A8A]" />
+                <Receipt className="w-3.5 h-3.5 text-[#525252]" />
                 <span>{showReceiptDetails ? 'Hide Details' : 'View Receipt'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleDownload}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors focus-ring cursor-pointer"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[#141414] hover:bg-[#0E0E0E] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-medium text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring cursor-pointer"
               >
-                <Download className="w-3.5 h-3.5 text-[#8A8A8A]" />
+                <Download className="w-3.5 h-3.5 text-[#525252]" />
                 <span>Download</span>
               </button>
             </div>
@@ -300,21 +300,21 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={motionTransitions.springGentle}
-                  className="overflow-hidden pt-2 space-y-1.5 bg-[#151515] p-3 rounded-lg border border-[#363636]"
+                  className="overflow-hidden pt-2 space-y-1.5 bg-[#050505] p-3 rounded-lg border border-[#1F1F1F]"
                 >
-                  <p className="text-[10px] font-mono uppercase text-[#737373] tracking-wider mb-1">
+                  <p className="text-[10px] font-mono uppercase text-[#6B6B6B] tracking-wider mb-1">
                     Itemized Breakdown
                   </p>
                   {items.map((item, idx) => (
-                    <div key={idx} className="flex items-center justify-between text-xs text-[#A3A3A3]">
+                    <div key={idx} className="flex items-center justify-between text-xs text-[#A1A1A1]">
                       <span>
                         {item.quantity ? `${item.quantity}x ` : ''}
                         {item.name}
                       </span>
-                      <span className="font-mono text-[#F5F5F5]">{item.price}</span>
+                      <span className="font-mono text-[#FAFAFA]">{item.price}</span>
                     </div>
                   ))}
-                  <div className="pt-2 mt-1 border-t border-[#363636] flex justify-between font-medium text-xs text-[#F5F5F5]">
+                  <div className="pt-2 mt-1 border-t border-[#1F1F1F] flex justify-between font-medium text-xs text-[#FAFAFA]">
                     <span>Total Paid</span>
                     <span className="font-mono">{formattedAmount}</span>
                   </div>
@@ -330,12 +330,12 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
             transition={motionTransitions.springGentle}
-            className="mt-6 pt-5 border-t border-[#363636] space-y-2"
+            className="mt-6 pt-5 border-t border-[#1F1F1F] space-y-2"
           >
             <button
               type="button"
               onClick={onRetry}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#F5F5F5] hover:bg-white text-[#151515] font-medium text-xs sm:text-sm transition-all focus-ring shadow-xs cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#FAFAFA] hover:bg-white text-[#050505] font-medium text-xs sm:text-sm transition-all focus-ring shadow-xs cursor-pointer"
             >
               <RotateCcw className="w-4 h-4" />
               <span>Try Again</span>
@@ -344,10 +344,10 @@ ${items.map((i) => `- ${i.name} (${i.quantity || 1}x): ${i.price}`).join('\n')}
             <button
               type="button"
               onClick={onChangePaymentMethod}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-[#A3A3A3] hover:text-[#F5F5F5] font-medium text-xs transition-colors focus-ring cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#141414] hover:bg-[#0E0E0E] border border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-[#FAFAFA] font-medium text-xs transition-colors focus-ring cursor-pointer"
             >
               <span>Change Payment Method</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#737373]" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#6B6B6B]" />
             </button>
           </motion.div>
         )}

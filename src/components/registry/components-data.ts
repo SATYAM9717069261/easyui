@@ -1705,7 +1705,7 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
       "aria-expanded and aria-current attributes on interactive items"
     ],
     "createdAt": "2026-08-19",
-    "usageCode": "import { GlassNavbar } from \"@/components/ui/glass-navbar\";\nimport { Sparkles } from \"lucide-react\";\n\nexport function Demo() {\n  return (\n    <GlassNavbar\n      items={[\n        { label: \"Overview\", href: \"#overview\" },\n        { label: \"Components\", href: \"#components\", badge: \"20+\" },\n        { label: \"Pricing\", href: \"#pricing\" },\n      ]}\n      cta={\n        <button className=\"px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#050505] text-xs font-medium hover:bg-white transition-colors\">\n          Get Started\n        </button>\n      }\n    />\n  );\n}",
+    "usageCode": "import { GlassNavbar } from \"@/components/ui/glass-navbar\";\nimport { Sparkles } from \"lucide-react\";\n\nexport function Demo() {\n  return (\n    <GlassNavbar\n      items={[\n        { label: \"Overview\", href: \"#overview\" },\n        { label: \"Components\", href: \"#components\", badge: \"20+\" },\n        { label: \"Pricing\", href: \"#pricing\" },\n      ]}\n      cta={\n        <button className=\"px-3.5 py-1.5 rounded-lg bg-[#FAFAFA] text-[#050505] text-xs font-medium hover:bg-white transition-colors\">\n          Get Started\n        </button>\n      }\n    />\n  );\n}",
     "dependencies": [
       "framer-motion",
       "lucide-react"
@@ -2030,7 +2030,7 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
       "Dialog role with aria-label=\"Welcome intro screen\" and clean tree unmounting upon finish"
     ],
     "createdAt": "2026-08-28",
-    "usageCode": "import { IntroLoader } from \"@/components/ui/intro-loader\";\nimport { useState } from \"react\";\n\nexport function Demo() {\n  const [loading, setLoading] = useState(true);\n\n  if (loading) {\n    return (\n      <IntroLoader\n        allowSkip={true}\n        showProgress={true}\n        onComplete={() => setLoading(false)}\n      />\n    );\n  }\n\n  return (\n    <main className=\"min-h-screen bg-[#151515] text-[#F5F5F5] p-8\">\n      <h1>Welcome to the Application</h1>\n    </main>\n  );\n}",
+    "usageCode": "import { IntroLoader } from \"@/components/ui/intro-loader\";\nimport { useState } from \"react\";\n\nexport function Demo() {\n  const [loading, setLoading] = useState(true);\n\n  if (loading) {\n    return (\n      <IntroLoader\n        allowSkip={true}\n        showProgress={true}\n        onComplete={() => setLoading(false)}\n      />\n    );\n  }\n\n  return (\n    <main className=\"min-h-screen bg-[#050505] text-[#FAFAFA] p-8\">\n      <h1>Welcome to the Application</h1>\n    </main>\n  );\n}",
     "dependencies": [
       "framer-motion",
       "lucide-react"

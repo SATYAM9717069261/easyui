@@ -168,11 +168,11 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
               onClick={handleFinish}
-              className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#181818]/90 hover:bg-[#242424] border border-[#333333] hover:border-[#4A4A4A] text-[11px] font-mono text-[#A3A3A3] hover:text-white transition-all cursor-pointer backdrop-blur-md focus-ring shadow-sm"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#181818]/90 hover:bg-[#141414] border border-[#333333] hover:border-[#4A4A4A] text-[11px] font-mono text-[#A1A1A1] hover:text-white transition-all cursor-pointer backdrop-blur-md focus-ring shadow-sm"
               aria-label="Skip welcome sequence"
             >
               <span>Skip</span>
-              <kbd className="hidden sm:inline-block text-[9px] text-[#737373] bg-[#222222] px-1 py-0.2 rounded border border-[#363636]">
+              <kbd className="hidden sm:inline-block text-[9px] text-[#6B6B6B] bg-[#222222] px-1 py-0.2 rounded border border-[#1F1F1F]">
                 ESC
               </kbd>
               <X className="h-3 w-3 sm:hidden" />
@@ -201,7 +201,7 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               className="flex items-center justify-center text-center"
             >
-              <span className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#F5F5F5] tracking-tight">
+              <span className="text-3xl sm:text-4xl md:text-5xl font-medium text-[#FAFAFA] tracking-tight">
                 {currentGreeting.text}
               </span>
             </motion.div>
@@ -231,7 +231,7 @@ export const IntroLoader: React.FC<IntroLoaderProps> = ({
             <button
               type="button"
               onClick={replay}
-              className="focus-ring inline-flex items-center gap-2 rounded-xl bg-[#202020] px-4 py-2.5 text-xs font-medium text-white border border-[#363636] hover:bg-[#262626] hover:border-[#4A4A4A] transition-all cursor-pointer shadow-sm active:scale-95"
+              className="focus-ring inline-flex items-center gap-2 rounded-xl bg-[#0E0E0E] px-4 py-2.5 text-xs font-medium text-white border border-[#1F1F1F] hover:bg-[#262626] hover:border-[#4A4A4A] transition-all cursor-pointer shadow-sm active:scale-95"
               aria-label="Replay intro animation"
             >
               <RotateCw className="h-3.5 w-3.5 text-white" />

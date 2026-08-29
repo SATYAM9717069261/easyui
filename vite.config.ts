@@ -38,5 +38,8 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/test-setup.ts'],
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    // Use forks pool for reliable runs on Windows + CI (default 'threads' can time out
+    // on the JSDOM worker under heavy parallel mounts of the full App).
+    pool: 'forks',
   },
 })

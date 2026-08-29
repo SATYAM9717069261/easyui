@@ -47,46 +47,23 @@ EasyUI uses the official **shadcn GitHub Registry** format. You can install any 
 npx shadcn@latest add Surajmaurya1/easyui/<component-name>
 ```
 
-#### Available Component Install Commands:
+#### Quick Install — 4 Examples:
 
 ```bash
-# Buttons
-npx shadcn@latest add Surajmaurya1/easyui/button
+# Button
 npx shadcn@latest add Surajmaurya1/easyui/magnetic-button
-npx shadcn@latest add Surajmaurya1/easyui/liquid-ripple-button
-npx shadcn@latest add Surajmaurya1/easyui/neon-edge-button
 
-# Surfaces & Motion
+# Surface & Motion
 npx shadcn@latest add Surajmaurya1/easyui/spotlight-card
-npx shadcn@latest add Surajmaurya1/easyui/reveal-card
-npx shadcn@latest add Surajmaurya1/easyui/dot-field
-npx shadcn@latest add Surajmaurya1/easyui/text-scramble-decoder
-npx shadcn@latest add Surajmaurya1/easyui/gravity-particle-burst
-npx shadcn@latest add Surajmaurya1/easyui/velocity-aware-scroll-cards
 
 # Navigation
 npx shadcn@latest add Surajmaurya1/easyui/glass-navbar
-npx shadcn@latest add Surajmaurya1/easyui/animated-tabs
-npx shadcn@latest add Surajmaurya1/easyui/floating-action-dock
-npx shadcn@latest add Surajmaurya1/easyui/expandable-search
-npx shadcn@latest add Surajmaurya1/easyui/branching-submenu
-npx shadcn@latest add Surajmaurya1/easyui/pill-navigation
 
-# Forms & Authentication
+# Form
 npx shadcn@latest add Surajmaurya1/easyui/form
-npx shadcn@latest add Surajmaurya1/easyui/login
-npx shadcn@latest add Surajmaurya1/easyui/sign-up
-
-# Feedback & Overlays
-npx shadcn@latest add Surajmaurya1/easyui/payment-receipt-printer
-npx shadcn@latest add Surajmaurya1/easyui/faq
-npx shadcn@latest add Surajmaurya1/easyui/notification-stack
-npx shadcn@latest add Surajmaurya1/easyui/morphing-dialog
-npx shadcn@latest add Surajmaurya1/easyui/smooth-accordion
-npx shadcn@latest add Surajmaurya1/easyui/command-menu
-npx shadcn@latest add Surajmaurya1/easyui/orbital-loading-ring
-npx shadcn@latest add Surajmaurya1/easyui/achievement-reveal
 ```
+
+> **Browse the full catalog :** [easyui.site/components](https://easyui.site/components) — every component has a live preview, install command, source, and prop reference.
 
 #### What the CLI does automatically:
 1. Downloads the component file into your `components/ui/` directory.

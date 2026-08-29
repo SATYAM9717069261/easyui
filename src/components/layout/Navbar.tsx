@@ -39,71 +39,79 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
+  // Shared pill motion config — used by all three pills so they morph in sync.
+  const pillMotion = {
+    initial: false,
+    animate: {
+      y: isScrolled ? 14 : 0,
+      height: isScrolled ? 44 : 56,
+      borderRadius: 9999,
+      backgroundColor: isScrolled ? 'rgba(14, 14, 14, 0.85)' : 'rgba(14, 14, 14, 0)',
+      borderColor: isScrolled ? 'rgba(31, 31, 31, 1)' : 'rgba(31, 31, 31, 0)',
+      boxShadow: isScrolled
+        ? '0 12px 28px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04)'
+        : '0 0 0 0 rgba(0, 0, 0, 0)',
+    },
+    transition: {
+      type: 'spring' as const,
+      stiffness: 220,
+      damping: 28,
+      mass: 0.8,
+    },
+  };
+
   return (
-    <header className="sticky top-0 z-40 w-full flex flex-col items-center pointer-events-none">
-      {/* Full-width docked background header (fades smoothly when scrolled) */}
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: isScrolled ? 0 : 1,
-        }}
-        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 h-13 w-full border-b border-[#363636] bg-[#151515]/90 backdrop-blur-md pointer-events-none -z-10"
-      />
-
-      {/* Spring Morphing Capsule */}
-      <motion.div
-        initial={false}
-        animate={{
-          y: isScrolled ? 10 : 0,
-          width: isScrolled ? 'calc(100% - 24px)' : '100%',
-          maxWidth: isScrolled ? 860 : 1400,
-          height: isScrolled ? 46 : 52,
-          borderRadius: isScrolled ? 9999 : 0,
-          backgroundColor: isScrolled ? 'rgba(32, 32, 32, 0.92)' : 'rgba(21, 21, 21, 0)',
-          borderColor: isScrolled ? 'rgba(255, 255, 255, 0.12)' : 'rgba(54, 54, 54, 0)',
-          boxShadow: isScrolled
-            ? '0 16px 36px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)'
-            : '0 0 0 0 rgba(0, 0, 0, 0)',
-          paddingLeft: isScrolled ? 16 : 24,
-          paddingRight: isScrolled ? 16 : 24,
-        }}
-        transition={{
-          type: 'spring',
-          stiffness: 220,
-          damping: 28,
-          mass: 0.8,
-        }}
-        className="relative flex items-center justify-between border backdrop-blur-xl pointer-events-auto"
-      >
-        {/* Logo */}
-        <a
-          href="/"
-          onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
-          className="flex items-center gap-2 group cursor-pointer focus-ring rounded-md py-1 shrink-0"
-          aria-label="EasyUI Home"
+    <header className="sticky top-0 z-40 w-full pointer-events-none">
+      {/* Top dock — three independent pills, side by side, evenly distributed */}
+      <div className="w-full flex items-center justify-between gap-2 px-3 sm:px-5 pt-3 sm:pt-4 pointer-events-none">
+        {/* Pill 1 — Logo (left) */}
+        <motion.div
+          {...pillMotion}
+          className="flex items-center gap-2 border backdrop-blur-xl px-3 sm:px-3.5 pointer-events-auto"
         >
-          <img
-            src="/logo.png"
-            alt="EasyUI Logo"
-            width="20"
-            height="20"
-            className="w-5 h-5 object-contain group-hover:scale-105 transition-transform duration-200"
-          />
-          <span className="text-sm font-medium text-[#F5F5F5] font-mono group-hover:text-white transition-colors">
-            easyui
-          </span>
-        </a>
+          <a
+            href="/"
+            onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
+            className="flex items-center gap-2 group cursor-pointer focus-ring rounded-md py-1"
+            aria-label="EasyUI Home"
+          >
+            <img
+              src="/logo.png"
+              alt="EasyUI Logo"
+              width="22"
+              height="22"
+              className="w-[22px] h-[22px] object-contain group-hover:scale-105 transition-transform duration-200"
+            />
+            <span className="text-sm font-medium text-[#FAFAFA] font-mono group-hover:text-white transition-colors">
+              easyui
+            </span>
+          </a>
+        </motion.div>
 
-        {/* Desktop Center Navigation */}
-        <nav className="hidden md:flex items-center gap-6" aria-label="Main Navigation">
+        {/* Pill 2 — Center navigation (Home, Components, Docs) */}
+        <motion.nav
+          {...pillMotion}
+          aria-label="Main Navigation"
+          className="hidden md:flex items-center border backdrop-blur-xl px-1.5 py-1 pointer-events-auto"
+        >
+          <a
+            href="/"
+            onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
+            className={`px-3 py-1.5 text-[13px] font-medium rounded-full transition-colors cursor-pointer ${
+              activeView === 'showcase'
+                ? 'bg-[#141414] text-[#FAFAFA]'
+                : 'text-[#A1A1A1] hover:text-[#FAFAFA]'
+            }`}
+          >
+            Home
+          </a>
           <a
             href="/components"
             onClick={(e) => handleLinkClick(e, onNavigateComponents)}
-            className={`text-xs font-medium transition-colors cursor-pointer ${
+            className={`px-3 py-1.5 text-[13px] font-medium rounded-full transition-colors cursor-pointer ${
               activeView === 'components' || activeView === 'component-detail'
-                ? 'text-white'
-                : 'text-[#A3A3A3] hover:text-[#F5F5F5]'
+                ? 'bg-[#141414] text-[#FAFAFA]'
+                : 'text-[#A1A1A1] hover:text-[#FAFAFA]'
             }`}
           >
             Components
@@ -111,70 +119,77 @@ export const Navbar: React.FC<NavbarProps> = ({
           <a
             href="/docs/introduction"
             onClick={(e) => handleLinkClick(e, onNavigateDocs)}
-            className={`text-xs font-medium transition-colors cursor-pointer ${
+            className={`px-3 py-1.5 text-[13px] font-medium rounded-full transition-colors cursor-pointer ${
               activeView === 'docs'
-                ? 'text-white'
-                : 'text-[#A3A3A3] hover:text-[#F5F5F5]'
+                ? 'bg-[#141414] text-[#FAFAFA]'
+                : 'text-[#A1A1A1] hover:text-[#FAFAFA]'
             }`}
           >
             Docs
           </a>
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-medium text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors"
-          >
-            GitHub
-          </a>
-        </nav>
+        </motion.nav>
 
-        {/* Right Controls */}
-        <div className="flex items-center gap-2 shrink-0">
-          {/* Search Trigger Button */}
+        {/* Pill 3 — Search + GitHub on desktop, Menu trigger on mobile */}
+        <motion.div
+          {...pillMotion}
+          className="hidden md:flex items-center gap-0.5 border backdrop-blur-xl px-1.5 py-1 pointer-events-auto"
+        >
+          {/* Desktop: search + GitHub icons */}
           <button
             type="button"
             onClick={onOpenSearch}
-            className="flex items-center gap-2 h-7 px-2.5 rounded-lg border border-[#363636] bg-[#242424] hover:border-[#484848] hover:bg-[#2A2A2A] text-xs text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors focus-ring cursor-pointer"
+            className="p-1.5 rounded-full text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414] transition-colors focus-ring cursor-pointer"
             aria-label="Search components (Cmd+K)"
           >
-            <Search className="w-3 h-3" />
-            <span className="hidden sm:inline text-[11px]">Search...</span>
-            <kbd className="hidden sm:inline-flex items-center text-[10px] font-mono px-1 rounded bg-[#202020] border border-[#363636] text-[#737373]">
-              ⌘K
-            </kbd>
+            <Search className="w-3.5 h-3.5" />
           </button>
-
-          {/* GitHub icon link */}
           <a
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] transition-colors focus-ring"
-            aria-label="GitHub Repository"
+            className="p-1.5 rounded-full text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414] transition-colors focus-ring"
+            aria-label="GitHub"
           >
-            <GithubIcon className="w-4 h-4" />
+            <GithubIcon className="w-3.5 h-3.5" />
           </a>
+        </motion.div>
 
-          {/* Mobile Menu Trigger */}
-          <button
-            type="button"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-nav"
-            aria-label="Toggle navigation menu"
-            className="md:hidden p-1.5 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] focus-ring transition-colors cursor-pointer"
+        {/* Mobile-only: perfectly circular menu trigger pill */}
+        <motion.button
+          type="button"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
+          aria-label="Toggle navigation menu"
+          initial={false}
+          animate={{
+            y: isScrolled ? 14 : 0,
+            width: isScrolled ? 44 : 48,
+            height: isScrolled ? 44 : 48,
+            borderRadius: 9999,
+            backgroundColor: isScrolled ? 'rgba(14, 14, 14, 0.85)' : 'rgba(14, 14, 14, 0)',
+            borderColor: isScrolled ? 'rgba(31, 31, 31, 1)' : 'rgba(31, 31, 31, 0)',
+            boxShadow: isScrolled
+              ? '0 12px 28px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04)'
+              : '0 0 0 0 rgba(0, 0, 0, 0)',
+          }}
+          transition={{
+            type: 'spring' as const,
+            stiffness: 220,
+            damping: 28,
+            mass: 0.8,
+          }}
+          className="md:hidden flex items-center justify-center border backdrop-blur-xl pointer-events-auto focus-ring text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]/40 transition-colors"
+        >
+          <motion.div
+            initial={false}
+            animate={{ rotate: mobileOpen ? 90 : 0 }}
+            transition={{ duration: 0.2 }}
           >
-            <motion.div
-              initial={false}
-              animate={{ rotate: mobileOpen ? 90 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-            </motion.div>
-          </button>
-        </div>
-      </motion.div>
+            {mobileOpen ? <X className="w-3.5 h-3.5" /> : <Menu className="w-3.5 h-3.5" />}
+          </motion.div>
+        </motion.button>
+      </div>
 
       {/* Floating Mobile Dropdown Menu (when scrolled) */}
       <AnimatePresence>
@@ -185,16 +200,27 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 16, scale: 1 }}
             exit={{ opacity: 0, y: 0, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-            className="md:hidden w-[calc(100%-24px)] max-w-[860px] rounded-2xl border border-[#363636] bg-[#202020]/95 backdrop-blur-2xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden pointer-events-auto p-2"
+            className="md:hidden w-[calc(100%-24px)] max-w-[860px] mx-auto rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E]/95 backdrop-blur-2xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden pointer-events-auto p-2"
           >
             <nav className="space-y-1" aria-label="Mobile Navigation">
+              <a
+                href="/"
+                onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
+                className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
+                  activeView === 'showcase'
+                    ? 'bg-[#141414] text-[#FAFAFA] font-medium'
+                    : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
+                }`}
+              >
+                Home
+              </a>
               <a
                 href="/components"
                 onClick={(e) => handleLinkClick(e, onNavigateComponents)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'components'
-                    ? 'bg-[#242424] text-[#F5F5F5] font-medium border border-[#363636]'
-                    : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424]'
+                    ? 'bg-[#141414] text-[#FAFAFA] font-medium'
+                    : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
                 }`}
               >
                 Components
@@ -204,19 +230,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={(e) => handleLinkClick(e, onNavigateDocs)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'docs'
-                    ? 'bg-[#242424] text-[#F5F5F5] font-medium border border-[#363636]'
-                    : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424]'
+                    ? 'bg-[#141414] text-[#FAFAFA] font-medium'
+                    : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
                 }`}
               >
-                Docs & Installation
+                Docs
               </a>
               <a
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-left px-3 py-2 text-xs text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424] rounded-lg transition-colors"
+                className="block w-full text-left px-3 py-2 text-xs text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414] rounded-lg transition-colors"
               >
-                GitHub Repository
+                GitHub
               </a>
             </nav>
           </motion.div>
@@ -232,17 +258,28 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -8, height: 0 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden absolute top-full left-0 right-0 border-b border-[#363636] bg-[#151515]/95 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden pointer-events-auto"
+            className="md:hidden absolute top-full left-0 right-0 border-b border-[#1F1F1F] bg-[#050505]/95 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden pointer-events-auto"
           >
             <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
               <nav className="py-3 space-y-1" aria-label="Mobile Navigation">
+                <a
+                  href="/"
+                  onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
+                  className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
+                    activeView === 'showcase'
+                      ? 'bg-[#141414] text-[#FAFAFA] font-medium'
+                      : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
+                  }`}
+                >
+                  Home
+                </a>
                 <a
                   href="/components"
                   onClick={(e) => handleLinkClick(e, onNavigateComponents)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'components'
-                      ? 'bg-[#242424] text-[#F5F5F5] font-medium border border-[#363636]'
-                      : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424]'
+                      ? 'bg-[#141414] text-[#FAFAFA] font-medium'
+                      : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
                   }`}
                 >
                   Components
@@ -252,19 +289,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={(e) => handleLinkClick(e, onNavigateDocs)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'docs'
-                      ? 'bg-[#242424] text-[#F5F5F5] font-medium border border-[#363636]'
-                      : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424]'
+                      ? 'bg-[#141414] text-[#FAFAFA] font-medium'
+                      : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
                   }`}
                 >
-                  Docs & Installation
+                  Docs
                 </a>
                 <a
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#242424] rounded-lg transition-colors"
+                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414] rounded-lg transition-colors"
                 >
-                  GitHub Repository
+                  GitHub
                 </a>
               </nav>
             </div>

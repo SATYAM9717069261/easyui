@@ -51,10 +51,10 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   };
 
   const variantStyles = {
-    primary: 'bg-[#F5F5F5] text-[#151515] hover:bg-[#FFFFFF] shadow-xs font-medium cursor-pointer',
-    secondary: 'bg-[#202020] text-[#F5F5F5] border border-[#363636] hover:border-[#4A4A4A] hover:bg-[#242424] cursor-pointer',
-    outline: 'bg-transparent text-[#F5F5F5] border border-[#363636] hover:border-[#4A4A4A] hover:bg-[#202020] cursor-pointer',
-    ghost: 'bg-transparent text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#202020] cursor-pointer',
+    primary: 'bg-[#FAFAFA] text-[#050505] hover:bg-[#FFFFFF] shadow-xs font-medium cursor-pointer',
+    secondary: 'bg-[#0E0E0E] text-[#FAFAFA] border border-[#1F1F1F] hover:border-[#4A4A4A] hover:bg-[#141414] cursor-pointer',
+    outline: 'bg-transparent text-[#FAFAFA] border border-[#1F1F1F] hover:border-[#4A4A4A] hover:bg-[#0E0E0E] cursor-pointer',
+    ghost: 'bg-transparent text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#0E0E0E] cursor-pointer',
   };
 
   const sizeStyles = {

@@ -279,7 +279,7 @@ export function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#151515] text-[#F5F5F5] font-sans selection:bg-[#3B82F6]/25 selection:text-white">
+    <div className="min-h-screen bg-[#050505] text-[#FAFAFA] font-sans selection:bg-[#3B82F6]/25 selection:text-white">
       {/* Vercel Analytics & Speed Insights (active on production deployment) */}
       {typeof window !== 'undefined' &&
         !window.location.hostname.includes('localhost') &&
@@ -311,15 +311,15 @@ export function App() {
           />
         ) : activeView === 'component-not-found' ? (
           <main className="min-h-[70vh] flex items-center justify-center p-6 text-center">
-            <div className="max-w-md w-full p-8 rounded-2xl bg-[#202020] border border-[#363636] space-y-5">
+            <div className="max-w-md w-full p-8 rounded-2xl bg-[#0E0E0E] border border-[#1F1F1F] space-y-5">
               <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
                 <AlertCircle className="w-6 h-6" />
               </div>
               <div className="space-y-2">
                 <h1 className="text-xl font-bold text-white tracking-tight">Component Not Found</h1>
-                <p className="text-xs text-[#A3A3A3] leading-relaxed">
+                <p className="text-xs text-[#A1A1A1] leading-relaxed">
                   No component exists matching{' '}
-                  <code className="px-1.5 py-0.5 rounded bg-[#242424] text-rose-400 font-mono">
+                  <code className="px-1.5 py-0.5 rounded bg-[#141414] text-rose-400 font-mono">
                     /components/{invalidComponentSlug || 'unknown'}
                   </code>
                   . It may have been moved or renamed.
@@ -337,7 +337,7 @@ export function App() {
                 <button
                   type="button"
                   onClick={handleNavigateHome}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#141414] hover:bg-[#1C1C1C] border border-[#222222] text-xs text-white transition-colors cursor-pointer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#141414] hover:bg-[#0B0B0B] border border-[#222222] text-xs text-white transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Go Home</span>

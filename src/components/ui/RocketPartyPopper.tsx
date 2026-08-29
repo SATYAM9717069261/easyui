@@ -33,7 +33,7 @@ interface ConfettiParticle {
 }
 
 const CONFETTI_COLORS = [
-  '#F5F5F5', // Pure White / Platinum
+  '#FAFAFA', // Pure White / Platinum
   '#38BDF8', // Sky Blue
   '#34D399', // Emerald Mint
   '#FBBF24', // Warm Gold
@@ -218,7 +218,7 @@ export const RocketPartyPopper: React.FC<RocketPartyPopperProps> = ({
             {/* Rocket Flight Track Container */}
             <div className="relative h-24 w-20 flex items-end justify-center mb-4">
               {/* Launchpad Ground Ring */}
-              <div className="absolute bottom-0 w-14 h-1.5 rounded-full bg-[#151515] border border-[#363636]" />
+              <div className="absolute bottom-0 w-14 h-1.5 rounded-full bg-[#050505] border border-[#1F1F1F]" />
 
               {/* The Matte Black Rocket */}
               <motion.div
@@ -239,8 +239,8 @@ export const RocketPartyPopper: React.FC<RocketPartyPopperProps> = ({
                 onClick={handleLaunch}
               >
                 {/* Sleek Dark Rocket Body */}
-                <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-[#151515] border border-[#363636] hover:border-[#4A4A4A] transition-colors shadow-inner">
-                  <Rocket className="w-6 h-6 text-[#F5F5F5] stroke-[1.75] -rotate-45" />
+                <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-[#050505] border border-[#1F1F1F] hover:border-[#4A4A4A] transition-colors shadow-inner">
+                  <Rocket className="w-6 h-6 text-[#FAFAFA] stroke-[1.75] -rotate-45" />
                 </div>
 
                 {/* Thruster Flame during Idle / Launch */}
@@ -267,9 +267,9 @@ export const RocketPartyPopper: React.FC<RocketPartyPopperProps> = ({
                 type="button"
                 onClick={handleLaunch}
                 disabled={status === 'launching'}
-                className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#F5F5F5] text-[#151515] text-xs font-semibold hover:bg-white transition-all active:scale-[0.97] cursor-pointer shadow-sm disabled:opacity-50"
+                className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FAFAFA] text-[#050505] text-xs font-semibold hover:bg-white transition-all active:scale-[0.97] cursor-pointer shadow-sm disabled:opacity-50"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#151515]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#050505]" />
                 <span>{status === 'launching' ? 'Launching...' : triggerLabel}</span>
               </button>
             </div>
@@ -289,7 +289,7 @@ export const RocketPartyPopper: React.FC<RocketPartyPopperProps> = ({
             <button
               type="button"
               onClick={handleReset}
-              className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#202020] hover:bg-[#262626] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#F5F5F5] hover:text-white transition-all active:scale-[0.97] cursor-pointer shadow-sm"
+              className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0E0E0E] hover:bg-[#262626] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-medium text-[#FAFAFA] hover:text-white transition-all active:scale-[0.97] cursor-pointer shadow-sm"
               aria-label="Launch again"
             >
               <RotateCcw className="w-3.5 h-3.5 text-white" />

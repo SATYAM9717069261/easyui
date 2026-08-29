@@ -14,7 +14,7 @@ export const NewBadge: React.FC<NewBadgeProps> = ({ className, size = 'xs' }) =>
       className={cn(
         'inline-flex items-center font-mono font-medium uppercase tracking-wider rounded border select-none transition-colors',
         size === 'xs' ? 'text-[10px] px-1.5 py-0.5' : 'text-xs px-2 py-0.5',
-        'bg-white/10 text-[#F5F5F5] border-white/20 hover:border-white/30',
+        'bg-white/10 text-[#FAFAFA] border-white/20 hover:border-white/30',
         className
       )}
     >

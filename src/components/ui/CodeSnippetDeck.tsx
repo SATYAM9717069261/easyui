@@ -86,30 +86,30 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
       role="region"
       aria-label="Multi-runtime code snippet deck"
       className={cn(
-        'w-full rounded-xl border border-[#363636] bg-[#202020] overflow-hidden text-[#F5F5F5] shadow-2xl',
+        'w-full rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] overflow-hidden text-[#FAFAFA] shadow-2xl',
         className
       )}
       {...props}
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#242424] border-b border-[#363636]">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#141414] border-b border-[#1F1F1F]">
         <div className="flex items-center gap-3">
           {showWindowBar && (
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#363636]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#363636]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#363636]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#1F1F1F]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#1F1F1F]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#1F1F1F]" />
             </div>
           )}
 
           {activeSnippet?.filename && (
-            <div className="flex items-center gap-1.5 text-xs font-mono text-[#A3A3A3]">
-              <Terminal className="w-3.5 h-3.5 text-[#8A8A8A]" />
+            <div className="flex items-center gap-1.5 text-xs font-mono text-[#A1A1A1]">
+              <Terminal className="w-3.5 h-3.5 text-[#525252]" />
               <span>{activeSnippet.filename}</span>
             </div>
           )}
         </div>
 
-        <div className="flex items-center p-1 bg-[#202020] rounded-xl border border-[#363636] overflow-x-auto scrollbar-none">
+        <div className="flex items-center p-1 bg-[#0E0E0E] rounded-xl border border-[#1F1F1F] overflow-x-auto scrollbar-none">
           {snippets.map((snip) => {
             const isSelected = activeLang === snip.language;
             return (
@@ -119,13 +119,13 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
                 onClick={() => setActiveLang(snip.language)}
                 className={cn(
                   'relative py-1 px-3 text-xs font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer',
-                  isSelected ? 'text-white' : 'text-[#737373] hover:text-[#A3A3A3]'
+                  isSelected ? 'text-white' : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
                 )}
               >
                 {isSelected && (
                   <motion.div
                     layoutId={`codeDeckTab-${deckId}`}
-                    className="absolute inset-0 bg-[#363636] border border-[#484848] rounded-lg -z-10"
+                    className="absolute inset-0 bg-[#1F1F1F] border border-[#2A2A2A] rounded-lg -z-10"
                     transition={motionTransitions.springSnappy}
                   />
                 )}
@@ -144,7 +144,7 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
                 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors cursor-pointer',
                 showConfig
                   ? 'bg-white text-black border-white'
-                  : 'bg-[#202020] text-[#A3A3A3] border-[#363636] hover:text-white'
+                  : 'bg-[#0E0E0E] text-[#A1A1A1] border-[#1F1F1F] hover:text-white'
               )}
               title="Customize snippet parameters"
             >
@@ -156,7 +156,7 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
           <button
             type="button"
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#202020] hover:bg-[#282828] border border-[#363636] text-xs font-mono text-[#A3A3A3] hover:text-white transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#0E0E0E] hover:bg-[#282828] border border-[#1F1F1F] text-xs font-mono text-[#A1A1A1] hover:text-white transition-colors cursor-pointer"
             title="Copy code"
           >
             {copied ? (
@@ -175,8 +175,8 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
       </div>
 
       {showConfig && parameters.length > 0 && (
-        <div className="p-3.5 bg-[#202020] border-b border-[#363636] flex flex-wrap items-center gap-4 text-xs">
-          <div className="flex items-center gap-1.5 text-[#8A8A8A] font-mono text-[11px] uppercase tracking-wider">
+        <div className="p-3.5 bg-[#0E0E0E] border-b border-[#1F1F1F] flex flex-wrap items-center gap-4 text-xs">
+          <div className="flex items-center gap-1.5 text-[#525252] font-mono text-[11px] uppercase tracking-wider">
             <Sparkles className="w-3 h-3 text-white" />
             <span>Interactive Variables:</span>
           </div>
@@ -187,13 +187,13 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
               return (
                 <label
                   key={param.id}
-                  className="flex items-center gap-2 cursor-pointer select-none text-[#A3A3A3] hover:text-white"
+                  className="flex items-center gap-2 cursor-pointer select-none text-[#A1A1A1] hover:text-white"
                 >
                   <input
                     type="checkbox"
                     checked={checked}
                     onChange={(e) => handleParamChange(param.id, e.target.checked)}
-                    className="rounded bg-[#242424] border-[#363636] text-white focus:ring-0 cursor-pointer"
+                    className="rounded bg-[#141414] border-[#1F1F1F] text-white focus:ring-0 cursor-pointer"
                   />
                   <span>{param.label}</span>
                 </label>
@@ -203,14 +203,14 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
             if (param.type === 'select') {
               return (
                 <div key={param.id} className="flex items-center gap-1.5">
-                  <span className="text-[#8A8A8A]">{param.label}:</span>
+                  <span className="text-[#525252]">{param.label}:</span>
                   <select
                     value={paramValues[param.id]}
                     onChange={(e) => handleParamChange(param.id, e.target.value)}
-                    className="bg-[#242424] border border-[#363636] rounded-md px-2 py-0.5 text-xs text-[#F5F5F5] focus:outline-none focus:border-[#4A4A4A] cursor-pointer"
+                    className="bg-[#141414] border border-[#1F1F1F] rounded-md px-2 py-0.5 text-xs text-[#FAFAFA] focus:outline-none focus:border-[#4A4A4A] cursor-pointer"
                   >
                     {param.options?.map((opt) => (
-                      <option key={opt} value={opt} className="bg-[#202020] text-[#F5F5F5]">
+                      <option key={opt} value={opt} className="bg-[#0E0E0E] text-[#FAFAFA]">
                         {opt}
                       </option>
                     ))}
@@ -222,12 +222,12 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
             if (param.type === 'text') {
               return (
                 <div key={param.id} className="flex items-center gap-2">
-                  <span className="text-[#8A8A8A]">{param.label}:</span>
+                  <span className="text-[#525252]">{param.label}:</span>
                   <input
                     type="text"
                     value={paramValues[param.id] || ''}
                     onChange={(e) => handleParamChange(param.id, e.target.value)}
-                    className="px-2 py-1 rounded bg-[#242424] border border-[#363636] text-xs text-white w-32 focus-visible:outline-none"
+                    className="px-2 py-1 rounded bg-[#141414] border border-[#1F1F1F] text-xs text-white w-32 focus-visible:outline-none"
                   />
                 </div>
               );
@@ -238,8 +238,8 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
         </div>
       )}
 
-      <div className="relative overflow-x-auto max-h-[500px] scrollbar-thin bg-[#151515]">
-        <pre className="p-4 font-mono text-xs text-[#F5F5F5] leading-relaxed">
+      <div className="relative overflow-x-auto max-h-[500px] scrollbar-thin bg-[#050505]">
+        <pre className="p-4 font-mono text-xs text-[#FAFAFA] leading-relaxed">
           {codeLines.map((line, idx) => {
             const lineNum = idx + 1;
             const isHighlighted = activeSnippet?.highlightLines?.includes(lineNum);
@@ -264,7 +264,7 @@ export const CodeSnippetDeck: React.FC<CodeSnippetDeckProps> = ({
         </pre>
       </div>
 
-      <div className="px-4 py-2.5 bg-[#242424] border-t border-[#363636] flex items-center justify-between text-[11px] font-mono text-[#737373]">
+      <div className="px-4 py-2.5 bg-[#141414] border-t border-[#1F1F1F] flex items-center justify-between text-[11px] font-mono text-[#6B6B6B]">
         <span>Runtime: {activeSnippet?.label}</span>
         <span>{codeLines.length} lines</span>
       </div>

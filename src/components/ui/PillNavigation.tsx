@@ -125,7 +125,7 @@ export const PillNavigation: React.FC<PillNavigationProps> = ({
       {/* 1. Main Segmented Control Bar */}
       <div
         role="tablist"
-        className="inline-flex items-center rounded-full border border-[#363636] bg-[#151515] p-1 shadow-inner"
+        className="inline-flex items-center rounded-full border border-[#1F1F1F] bg-[#050505] p-1 shadow-inner"
       >
         {items.map((item) => {
           const active = item.id === activeId;
@@ -143,18 +143,18 @@ export const PillNavigation: React.FC<PillNavigationProps> = ({
               onClick={() => selectMain(item.id)}
               className={cn(
                 'focus-ring relative flex min-h-8 items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-colors cursor-pointer',
-                active ? 'text-[#151515] font-semibold' : 'text-[#A3A3A3] hover:text-[#F5F5F5]'
+                active ? 'text-[#050505] font-semibold' : 'text-[#A1A1A1] hover:text-[#FAFAFA]'
               )}
             >
               {active && !reducedMotion && (
                 <motion.span
                   layoutId="easyui-pill-main-indicator"
                   transition={motionTransitions.springMorph}
-                  className="absolute inset-0 rounded-full bg-[#F5F5F5] shadow-[0_2px_8px_rgba(0,0,0,0.35)]"
+                  className="absolute inset-0 rounded-full bg-[#FAFAFA] shadow-[0_2px_8px_rgba(0,0,0,0.35)]"
                 />
               )}
               {active && reducedMotion && (
-                <span className="absolute inset-0 rounded-full bg-[#F5F5F5]" />
+                <span className="absolute inset-0 rounded-full bg-[#FAFAFA]" />
               )}
 
               <span className="relative z-10">{item.label}</span>
@@ -163,7 +163,7 @@ export const PillNavigation: React.FC<PillNavigationProps> = ({
                 <ChevronDown
                   className={cn(
                     'relative z-10 h-3 w-3 transition-transform duration-200',
-                    active ? 'text-[#151515]' : 'text-[#737373]',
+                    active ? 'text-[#050505]' : 'text-[#6B6B6B]',
                     active && submenuOpen && 'rotate-180'
                   )}
                 />
@@ -185,7 +185,7 @@ export const PillNavigation: React.FC<PillNavigationProps> = ({
             transition={motionTransitions.springGentle}
             role="menu"
             aria-label={`${activeItem.label} submenu`}
-            className="inline-flex items-center gap-1 rounded-full border border-[#2C2C2C] bg-[#1C1C1C]/90 backdrop-blur-md p-1 shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
+            className="inline-flex items-center gap-1 rounded-full border border-[#171717] bg-[#0B0B0B]/90 backdrop-blur-md p-1 shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
           >
             {(activeItem.children || []).map((subItem) => {
               const isSubActive = subItem.id === activeSubId;
@@ -200,7 +200,7 @@ export const PillNavigation: React.FC<PillNavigationProps> = ({
                   onClick={() => selectSub(subItem.id)}
                   className={cn(
                     'focus-ring relative flex min-h-7 items-center rounded-full px-3 py-1 text-[11px] font-medium transition-colors cursor-pointer',
-                    isSubActive ? 'text-[#F5F5F5] font-semibold' : 'text-[#8A8A8A] hover:text-[#D4D4D4]'
+                    isSubActive ? 'text-[#FAFAFA] font-semibold' : 'text-[#525252] hover:text-[#D4D4D4]'
                   )}
                 >
                   {isSubActive && !reducedMotion && (

@@ -103,7 +103,7 @@ export const TextScrambleDecoder: React.FC<TextScrambleDecoderProps> = ({
     <span
       className={cn(
         'font-mono text-sm font-medium tracking-tight tabular-nums transition-colors duration-150 inline-block select-none',
-        isDecoding ? 'text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.35)]' : 'text-[#F5F5F5]',
+        isDecoding ? 'text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.35)]' : 'text-[#FAFAFA]',
         className
       )}
       aria-label={text}
@@ -126,7 +126,7 @@ export const TextScrambleDecoder: React.FC<TextScrambleDecoderProps> = ({
         type="button"
         onClick={decode}
         disabled={isDecoding}
-        className="focus-ring inline-flex h-7 w-7 items-center justify-center rounded-lg border border-[#363636] bg-[#202020] text-[#8A8A8A] transition-all hover:border-[#4A4A4A] hover:bg-[#242424] hover:text-[#F5F5F5] active:scale-[0.95] cursor-pointer disabled:opacity-50"
+        className="focus-ring inline-flex h-7 w-7 items-center justify-center rounded-lg border border-[#1F1F1F] bg-[#0E0E0E] text-[#525252] transition-all hover:border-[#4A4A4A] hover:bg-[#141414] hover:text-[#FAFAFA] active:scale-[0.95] cursor-pointer disabled:opacity-50"
         aria-label={replayLabel}
       >
         <RefreshCw className={cn('h-3.5 w-3.5 transition-transform duration-500', isDecoding && 'animate-spin text-emerald-400')} />

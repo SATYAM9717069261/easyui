@@ -24,32 +24,33 @@ export const DocMotionSystem: React.FC<DocMotionSystemProps> = ({ onNavigateSect
   };
 
   return (
-    <article className="space-y-12 animate-fade-in text-[#A3A3A3]">
+    <article className="space-y-14 animate-fade-in text-[#A1A1A1]">
       {/* Header */}
-      <header className="space-y-3 border-b border-[#363636] pb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F5F5F5]">
+      <header className="space-y-4 border-b border-[#1F1F1F] pb-10">
+        <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em]">
+          Getting Started · 03
+        </span>
+        <h1 className="text-3xl sm:text-[40px] font-semibold tracking-[-0.02em] text-[#FAFAFA] leading-[1.1]">
           Motion Tokens & Physics Curves
         </h1>
-        <p className="text-base text-[#A3A3A3] leading-relaxed max-w-2xl">
+        <p className="text-[15px] text-[#A1A1A1] leading-relaxed max-w-2xl">
           EasyUI standardizes animation through calibrated spring physics curves and bezier easing tokens. Consistent physical stiffness, damping, and mass ensure every interaction feels organic and responsive.
         </p>
       </header>
 
       {/* Interactive Physics Sandbox */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-[#F5F5F5]" />
-            <h2 className="text-lg font-semibold text-[#F5F5F5]">Interactive Physics Sandbox</h2>
-          </div>
+      <section className="space-y-5">
+        <div className="flex items-center gap-2">
+          <Activity className="w-3.5 h-3.5 text-[#FAFAFA]" />
+          <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Interactive Physics Sandbox</h2>
         </div>
-        <p className="text-sm text-[#A3A3A3]">
+        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
           Select a token curve and click the cube below to trigger the physical spring response:
         </p>
 
-        <div className="p-6 rounded-2xl border border-[#363636] bg-[#202020] space-y-6">
+        <div className="p-5 rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] space-y-5">
           {/* Curve Selector Pills */}
-          <div className="flex flex-wrap gap-1.5 p-1 bg-[#242424] rounded-xl border border-[#363636]">
+          <div className="flex flex-wrap gap-1 p-1 bg-[#0E0E0E] rounded-md border border-[#1F1F1F]">
             {(Object.keys(motionTransitions) as (keyof typeof motionTransitions)[]).map((curveKey) => (
               <button
                 key={curveKey}
@@ -57,10 +58,10 @@ export const DocMotionSystem: React.FC<DocMotionSystemProps> = ({ onNavigateSect
                   setActiveCurve(curveKey);
                   setTestTrigger((t) => t + 1);
                 }}
-                className={`px-3 py-1.5 text-xs font-mono rounded-lg transition-all cursor-pointer ${
+                className={`px-3 py-1.5 text-[11px] font-mono rounded transition-colors cursor-pointer ${
                   activeCurve === curveKey
-                    ? 'bg-white text-black font-semibold shadow-sm'
-                    : 'text-[#A3A3A3] hover:text-white hover:bg-[#2C2C2C]'
+                    ? 'bg-white text-black font-semibold'
+                    : 'text-[#A1A1A1] hover:text-white hover:bg-[#141414]'
                 }`}
               >
                 {curveKey}
@@ -69,7 +70,7 @@ export const DocMotionSystem: React.FC<DocMotionSystemProps> = ({ onNavigateSect
           </div>
 
           {/* Interactive Playground Box */}
-          <div className="h-48 rounded-xl border border-[#363636] bg-[#151515] flex flex-col items-center justify-center relative overflow-hidden bg-dot-subtle select-none">
+          <div className="h-48 rounded-lg border border-[#1F1F1F] bg-[#050505] flex flex-col items-center justify-center relative overflow-hidden bg-dot-subtle select-none">
             <motion.div
               key={`${activeCurve}-${testTrigger}`}
               initial={{ scale: 0.75, rotate: -8 }}
@@ -78,17 +79,17 @@ export const DocMotionSystem: React.FC<DocMotionSystemProps> = ({ onNavigateSect
               whileTap={{ scale: 0.92 }}
               transition={motionTransitions[activeCurve]}
               onClick={() => setTestTrigger((t) => t + 1)}
-              className="w-24 h-24 rounded-2xl bg-white shadow-xl shadow-white/5 flex flex-col items-center justify-center text-black font-mono text-xs font-bold cursor-pointer"
+              className="w-24 h-24 rounded-xl bg-white flex flex-col items-center justify-center text-black font-mono text-xs font-bold cursor-pointer"
             >
               <span>Click Me</span>
               <span className="text-[10px] font-normal opacity-70 mt-0.5">{activeCurve}</span>
             </motion.div>
 
-            <div className="absolute bottom-3 left-4 text-xs font-mono text-[#A3A3A3]">
-              Values: <span className="text-[#F5F5F5] font-medium">{tokenDetails[activeCurve].values}</span>
+            <div className="absolute bottom-3 left-4 text-[11px] font-mono text-[#A1A1A1]">
+              Values: <span className="text-[#FAFAFA] font-medium">{tokenDetails[activeCurve].values}</span>
             </div>
 
-            <div className="absolute bottom-3 right-4 text-xs font-mono text-[#737373] flex items-center gap-1.5">
+            <div className="absolute bottom-3 right-4 text-[11px] font-mono text-[#6B6B6B] flex items-center gap-1.5">
               <RefreshCw className="w-3 h-3" />
               <span>Click to trigger</span>
             </div>
@@ -99,25 +100,25 @@ export const DocMotionSystem: React.FC<DocMotionSystemProps> = ({ onNavigateSect
       {/* Motion Tokens Reference Table */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <Sliders className="w-4 h-4 text-[#F5F5F5]" />
-          <h2 className="text-lg font-semibold text-[#F5F5F5]">Token Reference</h2>
+          <Sliders className="w-3.5 h-3.5 text-[#FAFAFA]" />
+          <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Token Reference</h2>
         </div>
 
-        <div className="rounded-xl border border-[#363636] bg-[#202020] overflow-hidden">
-          <table className="w-full text-left text-xs font-mono">
-            <thead className="bg-[#1C1C1C] text-[#A3A3A3] border-b border-[#363636]">
+        <div className="rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] overflow-hidden">
+          <table className="w-full text-left text-[12px] font-mono">
+            <thead className="bg-[#0E0E0E] text-[#6B6B6B] border-b border-[#1F1F1F]">
               <tr>
-                <th className="p-3.5 font-semibold text-[#F5F5F5]">Token</th>
-                <th className="p-3.5 font-semibold">Parameters</th>
-                <th className="p-3.5 font-semibold hidden sm:table-cell">Recommended Use Case</th>
+                <th className="p-3.5 font-medium text-[#FAFAFA]">Token</th>
+                <th className="p-3.5 font-medium text-[#A1A1A1]">Parameters</th>
+                <th className="p-3.5 font-medium hidden sm:table-cell text-[#A1A1A1]">Recommended Use Case</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#363636] text-[#A3A3A3]">
+            <tbody className="divide-y divide-[#1F1F1F] text-[#A1A1A1]">
               {(Object.keys(motionTransitions) as (keyof typeof motionTransitions)[]).map((curveKey) => (
-                <tr key={curveKey} className="hover:bg-[#242424] transition-colors">
-                  <td className="p-3.5 text-[#F5F5F5] font-medium">{curveKey}</td>
-                  <td className="p-3.5 text-[#CCCCCC]">{tokenDetails[curveKey].values}</td>
-                  <td className="p-3.5 text-[#8A8A8A] hidden sm:table-cell">{tokenDetails[curveKey].desc}</td>
+                <tr key={curveKey} className="hover:bg-[#0E0E0E] transition-colors">
+                  <td className="p-3.5 text-[#FAFAFA] font-medium">{curveKey}</td>
+                  <td className="p-3.5 text-[#A1A1A1]">{tokenDetails[curveKey].values}</td>
+                  <td className="p-3.5 text-[#6B6B6B] hidden sm:table-cell">{tokenDetails[curveKey].desc}</td>
                 </tr>
               ))}
             </tbody>
@@ -127,9 +128,9 @@ export const DocMotionSystem: React.FC<DocMotionSystemProps> = ({ onNavigateSect
 
       {/* Code Usage Example */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-[#F5F5F5]">Using Motion Tokens in Custom Components</h2>
-        <p className="text-sm text-[#A3A3A3]">
-          Import <code className="text-[#F5F5F5] font-mono bg-[#242424] border border-[#363636] px-1.5 py-0.5 rounded text-xs">motionTransitions</code> from your shared tokens helper:
+        <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Using Motion Tokens in Custom Components</h2>
+        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
+          Import <code className="text-[#FAFAFA] font-mono bg-[#0E0E0E] border border-[#1F1F1F] px-1.5 py-0.5 rounded text-[12px]">motionTransitions</code> from your shared tokens helper:
         </p>
 
         <DocCodeBlock
@@ -154,10 +155,10 @@ export function InteractiveCard() {
       </section>
 
       {/* Accessibility Callout */}
-      <section className="p-4 rounded-xl border border-[#363636] bg-[#202020] space-y-1">
-        <h3 className="text-xs font-semibold text-[#F5F5F5]">Reduced Motion Support</h3>
-        <p className="text-xs text-[#A3A3A3] leading-relaxed">
-          EasyUI components automatically detect and respect <code className="text-[#F5F5F5] font-mono bg-[#242424] border border-[#363636] px-1 rounded text-[11px]">prefers-reduced-motion: reduce</code>, disabling heavy translations while preserving smooth instantaneous updates.
+      <section className="p-4 rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] space-y-1.5">
+        <h3 className="text-[13px] font-semibold text-[#FAFAFA]">Reduced Motion Support</h3>
+        <p className="text-[13px] text-[#A1A1A1] leading-relaxed">
+          EasyUI components automatically detect and respect <code className="text-[#FAFAFA] font-mono bg-[#0E0E0E] border border-[#1F1F1F] px-1 rounded text-[12px]">prefers-reduced-motion: reduce</code>, disabling heavy translations while preserving smooth instantaneous updates.
         </p>
       </section>
 

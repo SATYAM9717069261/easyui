@@ -97,22 +97,22 @@ const AnimatedNumberShowcase: React.FC = () => {
   return (
     <div className="py-6 w-full max-w-lg mx-auto space-y-4 select-none px-2">
       {/* Top Main Hero Metric */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-[#202020] border border-[#363636] text-center space-y-3 shadow-xs">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-[#737373]">Live Production ARR</span>
-        <div className="text-4xl sm:text-5xl font-bold font-mono tracking-tight text-[#F5F5F5] flex items-center justify-center">
+      <div className="p-6 sm:p-8 rounded-2xl bg-[#0E0E0E] border border-[#1F1F1F] text-center space-y-3 shadow-xs">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-[#6B6B6B]">Live Production ARR</span>
+        <div className="text-4xl sm:text-5xl font-bold font-mono tracking-tight text-[#FAFAFA] flex items-center justify-center">
           <AnimatedNumber value={revenue} prefix="$" useGrouping />
         </div>
         <div className="flex items-center justify-center gap-2 text-xs font-mono text-emerald-400">
           <span>+</span>
           <AnimatedNumber value={growth} suffix="%" decimals={1} />
-          <span className="text-[#737373]">annualized expansion</span>
+          <span className="text-[#6B6B6B]">annualized expansion</span>
         </div>
       </div>
 
       {/* Interactive Controls Bar */}
-      <div className="p-3.5 rounded-xl bg-[#242424] border border-[#363636] space-y-3">
-        <div className="text-xs font-medium text-[#F5F5F5] flex items-center justify-between">
-          <span className="text-[11px] font-mono text-[#737373]">Live Playground</span>
+      <div className="p-3.5 rounded-xl bg-[#141414] border border-[#1F1F1F] space-y-3">
+        <div className="text-xs font-medium text-[#FAFAFA] flex items-center justify-between">
+          <span className="text-[11px] font-mono text-[#6B6B6B]">Live Playground</span>
           <button
             type="button"
             onClick={() => setIsLiveTicker(!isLiveTicker)}
@@ -120,10 +120,10 @@ const AnimatedNumberShowcase: React.FC = () => {
               'px-2.5 py-1 rounded-md text-[10px] font-mono border transition-colors flex items-center gap-1.5 cursor-pointer',
               isLiveTicker
                 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-                : 'bg-[#202020] border-[#363636] text-[#A3A3A3] hover:text-white'
+                : 'bg-[#0E0E0E] border-[#1F1F1F] text-[#A1A1A1] hover:text-white'
             )}
           >
-            <span className={cn('w-1.5 h-1.5 rounded-full', isLiveTicker ? 'bg-emerald-400 animate-pulse' : 'bg-[#737373]')} />
+            <span className={cn('w-1.5 h-1.5 rounded-full', isLiveTicker ? 'bg-emerald-400 animate-pulse' : 'bg-[#6B6B6B]')} />
             {isLiveTicker ? 'Ticker Active' : 'Simulate Ticker'}
           </button>
         </div>
@@ -132,21 +132,21 @@ const AnimatedNumberShowcase: React.FC = () => {
           <button
             type="button"
             onClick={() => setRevenue((prev) => prev + 1000)}
-            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#0E0E0E] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-mono text-[#FAFAFA] transition-colors text-center cursor-pointer"
           >
             +$1,000
           </button>
           <button
             type="button"
             onClick={() => setRevenue((prev) => Math.max(100, prev - 500))}
-            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#0E0E0E] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-mono text-[#FAFAFA] transition-colors text-center cursor-pointer"
           >
             -$500
           </button>
           <button
             type="button"
             onClick={() => setRevenue(Math.floor(Math.random() * 88000) + 12000)}
-            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#0E0E0E] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-mono text-[#FAFAFA] transition-colors text-center cursor-pointer"
           >
             Randomize
           </button>
@@ -156,7 +156,7 @@ const AnimatedNumberShowcase: React.FC = () => {
               setRevenue(12450);
               setGrowth(24.5);
             }}
-            className="px-3 py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#737373] hover:text-white transition-colors text-center cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#0E0E0E] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-mono text-[#6B6B6B] hover:text-white transition-colors text-center cursor-pointer"
           >
             Reset
           </button>
@@ -178,15 +178,15 @@ const ScrollProgressNavShowcase: React.FC = () => {
 
   return (
     <div className="w-full max-w-xl mx-auto space-y-4">
-      <div className="flex items-center justify-between px-1 text-xs text-[#737373] font-mono">
+      <div className="flex items-center justify-between px-1 text-xs text-[#6B6B6B] font-mono">
         <span>Simulated Scroll Viewport</span>
         <span>Scroll or click pills to test navigation</span>
       </div>
 
       {/* Simulated Scrollable Container */}
-      <div className="relative rounded-2xl border border-[#363636] bg-[#202020] overflow-hidden shadow-md">
+      <div className="relative rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] overflow-hidden shadow-md">
         {/* Floating / Sticky Nav inside container */}
-        <div className="p-3 sticky top-0 z-30 bg-[#202020]/90 backdrop-blur-md border-b border-[#363636] flex justify-center">
+        <div className="p-3 sticky top-0 z-30 bg-[#0E0E0E]/90 backdrop-blur-md border-b border-[#1F1F1F] flex justify-center">
           <ScrollProgressNav
             mode="inline"
             sections={sections}
@@ -199,42 +199,42 @@ const ScrollProgressNavShowcase: React.FC = () => {
           ref={containerRef}
           className="h-[300px] overflow-y-auto p-5 space-y-6 scroll-smooth"
         >
-          <div id="sec-overview-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
+          <div id="sec-overview-modal" className="p-5 rounded-xl bg-[#141414] border border-[#1F1F1F] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">01 Overview</span>
-            <h4 className="text-sm font-semibold text-[#F5F5F5]">Edge First Motion Architecture</h4>
-            <p className="text-xs text-[#A3A3A3] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#FAFAFA]">Edge First Motion Architecture</h4>
+            <p className="text-xs text-[#A1A1A1] leading-relaxed">
               EasyUI is engineered from the ground up for minimal latency, zero-jank spring physics, and Apple-grade micro interactions.
             </p>
           </div>
 
-          <div id="sec-architecture-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
+          <div id="sec-architecture-modal" className="p-5 rounded-xl bg-[#141414] border border-[#1F1F1F] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">02 Architecture</span>
-            <h4 className="text-sm font-semibold text-[#F5F5F5]">Monochrome Slate Design Tokens</h4>
-            <p className="text-xs text-[#A3A3A3] leading-relaxed">
-              Strict grayscale elevation hierarchy using #151515 canvas, #202020 surface, and calibrated 1px #363636 borders.
+            <h4 className="text-sm font-semibold text-[#FAFAFA]">Monochrome Slate Design Tokens</h4>
+            <p className="text-xs text-[#A1A1A1] leading-relaxed">
+              Strict grayscale elevation hierarchy using #050505 canvas, #0E0E0E surface, and calibrated 1px #1F1F1F borders.
             </p>
           </div>
 
-          <div id="sec-components-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
+          <div id="sec-components-modal" className="p-5 rounded-xl bg-[#141414] border border-[#1F1F1F] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">03 Components</span>
-            <h4 className="text-sm font-semibold text-[#F5F5F5]">44 Production UI Elements</h4>
-            <p className="text-xs text-[#A3A3A3] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#FAFAFA]">44 Production UI Elements</h4>
+            <p className="text-xs text-[#A1A1A1] leading-relaxed">
               Every component supports keyboard shortcuts, touch gestures, screen-reader semantics, and prefers-reduced-motion.
             </p>
           </div>
 
-          <div id="sec-telemetry-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
+          <div id="sec-telemetry-modal" className="p-5 rounded-xl bg-[#141414] border border-[#1F1F1F] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">04 Telemetry</span>
-            <h4 className="text-sm font-semibold text-[#F5F5F5]">Real-Time Event Streams</h4>
-            <p className="text-xs text-[#A3A3A3] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#FAFAFA]">Real-Time Event Streams</h4>
+            <p className="text-xs text-[#A1A1A1] leading-relaxed">
               Sub-millisecond latency tracking and automated canary deployments across 32 regional edge nodes worldwide.
             </p>
           </div>
 
-          <div id="sec-pricing-modal" className="p-5 rounded-xl bg-[#242424] border border-[#363636] space-y-2">
+          <div id="sec-pricing-modal" className="p-5 rounded-xl bg-[#141414] border border-[#1F1F1F] space-y-2">
             <span className="text-[10px] font-mono text-white/50 uppercase">05 Pricing</span>
-            <h4 className="text-sm font-semibold text-[#F5F5F5]">Open Source & Free Forever</h4>
-            <p className="text-xs text-[#A3A3A3] leading-relaxed">
+            <h4 className="text-sm font-semibold text-[#FAFAFA]">Open Source & Free Forever</h4>
+            <p className="text-xs text-[#A1A1A1] leading-relaxed">
               Install any component with the CLI. No subscriptions, no lock-in, 100% copy-pasteable TypeScript code.
             </p>
           </div>
@@ -268,14 +268,14 @@ const SelectionBasketShowcase: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-xl mx-auto min-h-[340px] pb-16 p-4 rounded-2xl border border-[#363636] bg-[#202020] flex flex-col justify-between select-none shadow-md">
+    <div className="relative w-full max-w-xl mx-auto min-h-[340px] pb-16 p-4 rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] flex flex-col justify-between select-none shadow-md">
       <div className="space-y-3">
-        <div className="flex items-center justify-between px-1 text-xs text-[#737373] font-mono">
+        <div className="flex items-center justify-between px-1 text-xs text-[#6B6B6B] font-mono">
           <span>Select items to trigger bottom toolbar</span>
           <button
             type="button"
             onClick={handleSelectAll}
-            className="text-[11px] text-[#A3A3A3] hover:text-white transition-colors underline underline-offset-2 cursor-pointer"
+            className="text-[11px] text-[#A1A1A1] hover:text-white transition-colors underline underline-offset-2 cursor-pointer"
           >
             {selectedIds.length === items.length ? 'Deselect All' : 'Select All'}
           </button>
@@ -291,8 +291,8 @@ const SelectionBasketShowcase: React.FC = () => {
                 className={cn(
                   'flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer',
                   isChecked
-                    ? 'bg-[#242424] border-[#4A4A4A] text-white shadow-xs'
-                    : 'bg-[#202020] border-[#363636] text-[#A3A3A3] hover:bg-[#242424] hover:text-[#F5F5F5]'
+                    ? 'bg-[#141414] border-[#4A4A4A] text-white shadow-xs'
+                    : 'bg-[#0E0E0E] border-[#1F1F1F] text-[#A1A1A1] hover:bg-[#141414] hover:text-[#FAFAFA]'
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -300,15 +300,15 @@ const SelectionBasketShowcase: React.FC = () => {
                     className={cn(
                       'w-4 h-4 rounded border flex items-center justify-center transition-colors',
                       isChecked
-                        ? 'bg-[#F5F5F5] border-[#F5F5F5] text-[#151515]'
-                        : 'border-[#363636] bg-[#242424]'
+                        ? 'bg-[#FAFAFA] border-[#FAFAFA] text-[#050505]'
+                        : 'border-[#1F1F1F] bg-[#141414]'
                     )}
                   >
                     {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                   </div>
                   <span className="text-xs font-mono">{item.name}</span>
                 </div>
-                <div className="flex items-center gap-2 text-[10px] font-mono text-[#737373]">
+                <div className="flex items-center gap-2 text-[10px] font-mono text-[#6B6B6B]">
                   <span>{item.type}</span>
                   <span>·</span>
                   <span>{item.size}</span>
@@ -339,13 +339,13 @@ const SpotlightSearchShowcase: React.FC = () => {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="px-4 py-2.5 rounded-xl bg-[#202020] hover:bg-[#242424] border border-[#363636] text-xs font-mono text-[#F5F5F5] flex items-center gap-3 transition-colors hover:border-[#4A4A4A] shadow-md cursor-pointer"
+        className="px-4 py-2.5 rounded-xl bg-[#0E0E0E] hover:bg-[#141414] border border-[#1F1F1F] text-xs font-mono text-[#FAFAFA] flex items-center gap-3 transition-colors hover:border-[#4A4A4A] shadow-md cursor-pointer"
       >
         <span>Press</span>
-        <kbd className="px-1.5 py-0.5 rounded bg-[#242424] border border-[#363636] text-white">⌘K</kbd>
+        <kbd className="px-1.5 py-0.5 rounded bg-[#141414] border border-[#1F1F1F] text-white">⌘K</kbd>
         <span>or click to open Spotlight Search</span>
       </button>
-      <p className="text-xs text-[#737373] font-mono">Keyboard-driven overlay with instant fuzzy filter and smooth spring highlight</p>
+      <p className="text-xs text-[#6B6B6B] font-mono">Keyboard-driven overlay with instant fuzzy filter and smooth spring highlight</p>
       <SpotlightSearch
         open={isOpen}
         onOpenChange={setIsOpen}
@@ -795,15 +795,15 @@ func main() {
       case 'spotlight-card':
         return (
           <div className="py-8 flex justify-center">
-            <SpotlightCard className="max-w-md w-full p-6 bg-[#202020] border border-[#363636]">
+            <SpotlightCard className="max-w-md w-full p-6 bg-[#0E0E0E] border border-[#1F1F1F]">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-white" />
-                <h4 className="text-sm font-semibold text-[#F5F5F5]">Spotlight Shader</h4>
+                <h4 className="text-sm font-semibold text-[#FAFAFA]">Spotlight Shader</h4>
               </div>
-              <p className="text-xs text-[#A3A3A3] leading-relaxed mb-4">
+              <p className="text-xs text-[#A1A1A1] leading-relaxed mb-4">
                 Pointer-aware radial illumination calculating Euclidean coordinates in real time.
               </p>
-              <div className="p-3 rounded-lg bg-[#242424] border border-[#363636] text-xs font-mono text-[#A3A3A3]">
+              <div className="p-3 rounded-lg bg-[#141414] border border-[#1F1F1F] text-xs font-mono text-[#A1A1A1]">
                 Coordinates: Hardware Accelerated
               </div>
             </SpotlightCard>
@@ -813,7 +813,7 @@ func main() {
         return (
           <div className="py-12 flex flex-col items-center justify-center gap-4">
             <ExpandableSearch placeholder="Search components, tokens..." />
-            <p className="text-xs text-[#737373]">Click input or focus to test smooth width expansion</p>
+            <p className="text-xs text-[#6B6B6B]">Click input or focus to test smooth width expansion</p>
           </div>
         );
       case 'animated-tabs':
@@ -821,9 +821,9 @@ func main() {
           <div className="py-8 flex flex-col items-center justify-center">
             <AnimatedTabs
               tabs={[
-                { id: 'tab1', label: 'Overview', content: <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">Overview metrics & telemetry</div> },
-                { id: 'tab2', label: 'Integration', content: <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">Next.js App Router setup</div> },
-                { id: 'tab3', label: 'Security', content: <div className="text-xs text-[#A3A3A3] p-4 bg-[#242424] rounded-xl border border-[#363636]">Zero external runtime network dependencies</div> },
+                { id: 'tab1', label: 'Overview', content: <div className="text-xs text-[#A1A1A1] p-4 bg-[#141414] rounded-xl border border-[#1F1F1F]">Overview metrics & telemetry</div> },
+                { id: 'tab2', label: 'Integration', content: <div className="text-xs text-[#A1A1A1] p-4 bg-[#141414] rounded-xl border border-[#1F1F1F]">Next.js App Router setup</div> },
+                { id: 'tab3', label: 'Security', content: <div className="text-xs text-[#A1A1A1] p-4 bg-[#141414] rounded-xl border border-[#1F1F1F]">Zero external runtime network dependencies</div> },
               ]}
               defaultTab="tab1"
             />
@@ -842,7 +842,7 @@ func main() {
               ]}
               activeId="1"
             />
-            <p className="text-xs text-[#737373]">Hover icons to test continuous magnification curve</p>
+            <p className="text-xs text-[#6B6B6B]">Hover icons to test continuous magnification curve</p>
           </div>
         );
       case 'reveal-card':
@@ -850,15 +850,15 @@ func main() {
           <div className="py-8 flex justify-center">
             <RevealCard
               revealContent={
-                <div className="text-xs text-[#F5F5F5] space-y-1">
+                <div className="text-xs text-[#FAFAFA] space-y-1">
                   <div>✓ Latency: 0.12ms</div>
                   <div>✓ Region: us-east-1</div>
                 </div>
               }
-              className="max-w-sm w-full p-6 bg-[#202020] border border-[#363636]"
+              className="max-w-sm w-full p-6 bg-[#0E0E0E] border border-[#1F1F1F]"
             >
-              <h4 className="text-sm font-semibold text-[#F5F5F5] mb-1">Interactive 3D Tilt</h4>
-              <p className="text-xs text-[#A3A3A3]">Hover cursor to rotate perspective and reveal telemetry.</p>
+              <h4 className="text-sm font-semibold text-[#FAFAFA] mb-1">Interactive 3D Tilt</h4>
+              <p className="text-xs text-[#A1A1A1]">Hover cursor to rotate perspective and reveal telemetry.</p>
             </RevealCard>
           </div>
         );
@@ -890,30 +890,30 @@ func main() {
               trigger={(open) => (
                 <button
                   onClick={open}
-                  className="px-5 py-2.5 rounded-xl bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-medium text-[#F5F5F5] transition-all cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-medium text-[#FAFAFA] transition-all cursor-pointer"
                 >
                   Open Morphing Dialog
                 </button>
               )}
             >
-              <div className="p-4 rounded-xl bg-[#242424] border border-[#363636] text-xs text-[#A3A3A3]">
+              <div className="p-4 rounded-xl bg-[#141414] border border-[#1F1F1F] text-xs text-[#A1A1A1]">
                 Continuous layoutId expansion without jarring modal popping.
               </div>
             </MorphingDialog>
-            <p className="text-xs text-[#737373]">Click trigger to see smooth shared layout transition</p>
+            <p className="text-xs text-[#6B6B6B]">Click trigger to see smooth shared layout transition</p>
           </div>
         );
       case 'command-menu':
         return (
           <div className="py-10 text-center">
-            <p className="text-xs text-[#A3A3A3] mb-3">Press <kbd className="px-1.5 py-0.5 rounded bg-[#242424] border border-[#363636] font-mono text-white">⌘K</kbd> anywhere on the page to open.</p>
+            <p className="text-xs text-[#A1A1A1] mb-3">Press <kbd className="px-1.5 py-0.5 rounded bg-[#141414] border border-[#1F1F1F] font-mono text-white">⌘K</kbd> anywhere on the page to open.</p>
           </div>
         );
       case 'glass-navbar':
         return (
           <div className="py-6 w-full space-y-4">
-            <div className="p-4 rounded-xl bg-[#202020] border border-[#363636] overflow-hidden">
-              <p className="text-[11px] font-mono text-[#737373] mb-3 uppercase tracking-wider">
+            <div className="p-4 rounded-xl bg-[#0E0E0E] border border-[#1F1F1F] overflow-hidden">
+              <p className="text-[11px] font-mono text-[#6B6B6B] mb-3 uppercase tracking-wider">
                 Interactive Glass Navbar Demo (Responsive & Spring Physics)
               </p>
               <div className="relative py-2">
@@ -930,7 +930,7 @@ func main() {
                     <button
                       type="button"
                       onClick={() => alert('CTA clicked!')}
-                      className="px-3.5 py-1.5 rounded-lg bg-[#F5F5F5] text-[#151515] text-xs font-medium hover:bg-white transition-colors shadow-xs cursor-pointer"
+                      className="px-3.5 py-1.5 rounded-lg bg-[#FAFAFA] text-[#050505] text-xs font-medium hover:bg-white transition-colors shadow-xs cursor-pointer"
                     >
                       Deploy Now
                     </button>
@@ -938,7 +938,7 @@ func main() {
                 />
               </div>
             </div>
-            <p className="text-xs text-center text-[#737373]">
+            <p className="text-xs text-center text-[#6B6B6B]">
               Hover items to test spotlight cursor pill. Resize screen or click hamburger on mobile to test spring drawer.
             </p>
           </div>
@@ -946,8 +946,8 @@ func main() {
       case 'button':
         return (
           <div className="py-6 w-full space-y-6 max-w-xl mx-auto">
-            <div className="p-5 rounded-xl bg-[#202020] border border-[#363636] space-y-4">
-              <div className="text-xs font-semibold text-[#F5F5F5]">Visual Variants</div>
+            <div className="p-5 rounded-xl bg-[#0E0E0E] border border-[#1F1F1F] space-y-4">
+              <div className="text-xs font-semibold text-[#FAFAFA]">Visual Variants</div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <Button variant="primary">Primary</Button>
                 <Button variant="secondary">Secondary</Button>
@@ -959,8 +959,8 @@ func main() {
               </div>
             </div>
 
-            <div className="p-5 rounded-xl bg-[#202020] border border-[#363636] space-y-4">
-              <div className="text-xs font-semibold text-[#F5F5F5]">Sizes & Interactive Loading</div>
+            <div className="p-5 rounded-xl bg-[#0E0E0E] border border-[#1F1F1F] space-y-4">
+              <div className="text-xs font-semibold text-[#FAFAFA]">Sizes & Interactive Loading</div>
               <div className="flex flex-wrap items-center gap-3">
                 <Button size="sm" variant="primary">Small (sm)</Button>
                 <Button size="md" variant="primary">Medium (md)</Button>
@@ -982,7 +982,7 @@ func main() {
                 </Button>
               </div>
             </div>
-            <p className="text-xs text-center text-[#737373]">
+            <p className="text-xs text-center text-[#6B6B6B]">
               Click buttons to experience Framer Motion springSnappy tap feedback (0.97 scale).
             </p>
           </div>
@@ -990,8 +990,8 @@ func main() {
       case 'form':
         return (
           <div className="py-4 max-w-md mx-auto w-full">
-            <div className="p-6 rounded-2xl bg-[#202020] border border-[#363636] space-y-4">
-              <div className="text-sm font-semibold text-[#F5F5F5]">Interactive Form System</div>
+            <div className="p-6 rounded-2xl bg-[#0E0E0E] border border-[#1F1F1F] space-y-4">
+              <div className="text-sm font-semibold text-[#FAFAFA]">Interactive Form System</div>
               <Form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -1020,7 +1020,7 @@ func main() {
                   </FormControl>
                 </FormItem>
 
-                <div className="pt-1 space-y-3 border-t border-[#363636]">
+                <div className="pt-1 space-y-3 border-t border-[#1F1F1F]">
                   <Checkbox label="Enable Edge Caching" defaultChecked />
                   <Switch label="Automatic TLS Certificates" defaultChecked />
                 </div>
@@ -1112,9 +1112,9 @@ func main() {
         );
       case 'dot-field':
         return (
-          <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#363636] bg-[#202020]">
+          <div className="relative w-full h-[280px] rounded-xl overflow-hidden border border-[#1F1F1F] bg-[#0E0E0E]">
             <DotField dotRadius={1.2} dotSpacing={20} gradientFrom="#818cf8" gradientTo="#c084fc" className="w-full h-80 rounded-2xl" />
-            <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-[#242424]/90 border border-[#363636] text-[11px] font-mono text-[#A3A3A3] backdrop-blur-sm pointer-events-none">
+            <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-[#141414]/90 border border-[#1F1F1F] text-[11px] font-mono text-[#A1A1A1] backdrop-blur-sm pointer-events-none">
               Move cursor across canvas to test repulsion & glow
             </div>
           </div>
@@ -1182,7 +1182,7 @@ func main() {
               <MorphingButton status="success" successText="Saved ✓" />
               <MorphingButton status="error" errorText="Failed" variant="danger" />
             </div>
-            <p className="text-xs text-[#737373]">Maintains physical shape & size across asynchronous state morphs</p>
+            <p className="text-xs text-[#6B6B6B]">Maintains physical shape & size across asynchronous state morphs</p>
           </div>
         );
       case 'drag-to-confirm':
@@ -1194,7 +1194,7 @@ func main() {
               confirmedLabel="Pipeline Deleted ✓"
               onConfirm={() => console.log('Confirmed')}
             />
-            <p className="text-xs text-center text-[#737373]">Physical resistance spring handle with tactile snapback</p>
+            <p className="text-xs text-center text-[#6B6B6B]">Physical resistance spring handle with tactile snapback</p>
           </div>
         );
       case 'peek-card':
@@ -1218,11 +1218,11 @@ func main() {
                 ],
               }}
             >
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#242424] hover:bg-[#202020] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#F5F5F5] cursor-pointer transition-colors">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] hover:bg-[#0E0E0E] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-mono text-[#FAFAFA] cursor-pointer transition-colors">
                 Hover over: Payment #3948
               </span>
             </PeekCard>
-            <p className="text-xs text-[#737373]">Contextual preview card emerging smoothly from trigger element</p>
+            <p className="text-xs text-[#6B6B6B]">Contextual preview card emerging smoothly from trigger element</p>
           </div>
         );
       case 'selection-basket':
@@ -1237,21 +1237,21 @@ func main() {
         return (
           <div className="py-12 flex flex-col items-center gap-4">
             <TextScrambleDecoder text="EASYUI.REGISTRY.SYNCED" trigger="manual" duration={1000} />
-            <p className="text-xs text-[#737373]">Replay the controlled decode sequence.</p>
+            <p className="text-xs text-[#6B6B6B]">Replay the controlled decode sequence.</p>
           </div>
         );
       case 'orbital-loading-ring':
         return (
           <div className="py-12 flex flex-col items-center gap-4">
             <OrbitalLoadingRing size={96} variant="dense" label="Syncing registry" />
-            <p className="text-xs text-[#737373]">Layered orbital loading with reduced-motion fallback.</p>
+            <p className="text-xs text-[#6B6B6B]">Layered orbital loading with reduced-motion fallback.</p>
           </div>
         );
       case 'gravity-particle-burst':
         return (
           <div className="py-12 flex flex-col items-center gap-4">
             <GravityParticleBurst>Commit release</GravityParticleBurst>
-            <p className="text-xs text-[#737373]">Click or tap to emit gravity-driven particles.</p>
+            <p className="text-xs text-[#6B6B6B]">Click or tap to emit gravity-driven particles.</p>
           </div>
         );
       case 'rocket-party-popper':
@@ -1337,20 +1337,20 @@ func main() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.98, y: 6 }}
         transition={motionTransitions.springSnappy}
-        className="relative w-full max-w-5xl h-[680px] sm:h-[740px] max-h-[90vh] rounded-2xl border border-[#363636] bg-[#202020] shadow-[0_25px_70px_rgba(0,0,0,0.6)] flex flex-col z-10 overflow-hidden my-auto"
+        className="relative w-full max-w-5xl h-[680px] sm:h-[740px] max-h-[90vh] rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] shadow-[0_25px_70px_rgba(0,0,0,0.6)] flex flex-col z-10 overflow-hidden my-auto"
       >
         {/* Minimalist Header */}
-        <div className="px-5 sm:px-6 py-4 border-b border-[#363636] flex items-start justify-between gap-4 bg-[#1C1C1C] shrink-0">
+        <div className="px-5 sm:px-6 py-4 border-b border-[#1F1F1F] flex items-start justify-between gap-4 bg-[#0B0B0B] shrink-0">
           <div className="min-w-0">
             {/* Breadcrumb */}
-            <div className="flex items-center gap-1.5 mb-1 text-[11px] font-mono text-[#737373]">
+            <div className="flex items-center gap-1.5 mb-1 text-[11px] font-mono text-[#6B6B6B]">
               <span>easyui</span>
               <span>/</span>
-              <span className="text-[#A3A3A3] font-medium truncate">{component.id}</span>
+              <span className="text-[#A1A1A1] font-medium truncate">{component.id}</span>
             </div>
 
             {/* Component Title */}
-            <h2 className="text-lg sm:text-xl font-semibold text-[#F5F5F5] tracking-tight truncate">
+            <h2 className="text-lg sm:text-xl font-semibold text-[#FAFAFA] tracking-tight truncate">
               {component.name}
             </h2>
           </div>
@@ -1363,7 +1363,7 @@ func main() {
                 const compUrl = `${window.location.origin}/components/${component.id}`;
                 handleCopy(compUrl, 'compUrl');
               }}
-              className="p-2 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer focus-ring"
+              className="p-2 rounded-lg text-[#525252] hover:text-[#FAFAFA] hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer focus-ring"
               title="Copy component link"
               aria-label="Copy component link"
             >
@@ -1377,7 +1377,7 @@ func main() {
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg text-[#8A8A8A] hover:text-[#F5F5F5] hover:bg-[#242424] border border-transparent hover:border-[#363636] transition-colors cursor-pointer focus-ring"
+              className="p-2 rounded-lg text-[#525252] hover:text-[#FAFAFA] hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer focus-ring"
               title="Close preview (Esc)"
               aria-label="Close dialog"
             >
@@ -1387,7 +1387,7 @@ func main() {
         </div>
 
         {/* Minimal Tab Bar */}
-        <div className="px-4 sm:px-6 bg-[#1C1C1C] border-b border-[#363636] flex items-center gap-1 overflow-x-auto scrollbar-none shrink-0">
+        <div className="px-4 sm:px-6 bg-[#0B0B0B] border-b border-[#1F1F1F] flex items-center gap-1 overflow-x-auto scrollbar-none shrink-0">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -1397,7 +1397,7 @@ func main() {
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
                   'relative px-3 sm:px-3.5 py-2.5 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap',
-                  isActive ? 'text-[#F5F5F5]' : 'text-[#737373] hover:text-[#A3A3A3]'
+                  isActive ? 'text-[#FAFAFA]' : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
                 )}
               >
                 <span>{tab.label}</span>
@@ -1414,17 +1414,17 @@ func main() {
         </div>
 
         {/* Tab Body Viewport */}
-        <div className="p-5 sm:p-6 overflow-y-auto flex-1 text-xs space-y-6 bg-[#202020]">
+        <div className="p-5 sm:p-6 overflow-y-auto flex-1 text-xs space-y-6 bg-[#0E0E0E]">
           {/* TAB 1: PREVIEW */}
           {activeTab === 'preview' && (
             <div className="space-y-5">
               {/* Preview Stage */}
-              <div className="relative rounded-xl border border-[#363636] bg-[#151515] min-h-[300px] sm:min-h-[360px] flex items-center justify-center p-4 sm:p-8 overflow-hidden">
+              <div className="relative rounded-xl border border-[#1F1F1F] bg-[#050505] min-h-[300px] sm:min-h-[360px] flex items-center justify-center p-4 sm:p-8 overflow-hidden">
                 {/* Fullscreen Button */}
                 <button
                   type="button"
                   onClick={() => setIsFullscreenPreview(true)}
-                  className="absolute top-3 right-3 p-1.5 rounded-md text-[#8A8A8A] hover:text-white bg-[#242424]/80 hover:bg-[#2C2C2C] border border-[#363636] transition-colors cursor-pointer focus-ring"
+                  className="absolute top-3 right-3 p-1.5 rounded-md text-[#525252] hover:text-white bg-[#141414]/80 hover:bg-[#171717] border border-[#1F1F1F] transition-colors cursor-pointer focus-ring"
                   title="Fullscreen preview"
                   aria-label="Fullscreen preview"
                 >
@@ -1439,14 +1439,14 @@ func main() {
               {/* Minimal Key Features List */}
               {component.features && component.features.length > 0 && (
                 <div className="pt-1">
-                  <h3 className="text-xs font-semibold text-[#737373] uppercase tracking-wider mb-2.5">
+                  <h3 className="text-xs font-semibold text-[#6B6B6B] uppercase tracking-wider mb-2.5">
                     Features
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#A3A3A3]">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#A1A1A1]">
                     {component.features.map((feat, i) => (
                       <div key={i} className="flex items-start gap-2 py-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#737373] mt-1.5 shrink-0" />
-                        <span className="leading-relaxed text-[#F5F5F5]">{feat}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#6B6B6B] mt-1.5 shrink-0" />
+                        <span className="leading-relaxed text-[#FAFAFA]">{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -1461,14 +1461,14 @@ func main() {
               {/* Import Section */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[#A3A3A3] font-medium">Import component</span>
+                  <span className="text-[#A1A1A1] font-medium">Import component</span>
                   <button
                     type="button"
                     onClick={() => {
                       const importStmt = `import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`;
                       handleCopy(importStmt, 'import');
                     }}
-                    className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 text-[11px] text-[#525252] hover:text-[#FAFAFA] transition-colors cursor-pointer"
                   >
                     {copiedCode === 'import' ? (
                       <Check className="w-3.5 h-3.5 text-white" />
@@ -1478,7 +1478,7 @@ func main() {
                     <span>{copiedCode === 'import' ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
-                <pre className="p-3.5 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#F5F5F5] overflow-x-auto">
+                <pre className="p-3.5 rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] font-mono text-xs text-[#FAFAFA] overflow-x-auto">
                   <code>{`import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`}</code>
                 </pre>
               </div>
@@ -1486,11 +1486,11 @@ func main() {
               {/* Example Section */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[#A3A3A3] font-medium">Example</span>
+                  <span className="text-[#A1A1A1] font-medium">Example</span>
                   <button
                     type="button"
                     onClick={() => handleCopy(component.usageCode, 'usage')}
-                    className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 text-[11px] text-[#525252] hover:text-[#FAFAFA] transition-colors cursor-pointer"
                   >
                     {copiedCode === 'usage' ? (
                       <Check className="w-3.5 h-3.5 text-white" />
@@ -1500,7 +1500,7 @@ func main() {
                     <span>{copiedCode === 'usage' ? 'Copied' : 'Copy Example'}</span>
                   </button>
                 </div>
-                <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#A3A3A3] overflow-x-auto max-h-[380px] leading-relaxed scrollbar-thin">
+                <pre className="p-4 rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] font-mono text-xs text-[#A1A1A1] overflow-x-auto max-h-[380px] leading-relaxed scrollbar-thin">
                   <code>{component.usageCode}</code>
                 </pre>
               </div>
@@ -1512,15 +1512,15 @@ func main() {
             <div className="space-y-5">
               {/* CLI / Manual Toggle */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#242424] border border-[#363636]">
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#141414] border border-[#1F1F1F]">
                   <button
                     type="button"
                     onClick={() => setInstallMode('cli')}
                     className={cn(
                       'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
                       installMode === 'cli'
-                        ? 'bg-[#363636] text-white shadow-xs'
-                        : 'text-[#737373] hover:text-white'
+                        ? 'bg-[#1F1F1F] text-white shadow-xs'
+                        : 'text-[#6B6B6B] hover:text-white'
                     )}
                   >
                     CLI
@@ -1531,8 +1531,8 @@ func main() {
                     className={cn(
                       'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
                       installMode === 'manual'
-                        ? 'bg-[#363636] text-white shadow-xs'
-                        : 'text-[#737373] hover:text-white'
+                        ? 'bg-[#1F1F1F] text-white shadow-xs'
+                        : 'text-[#6B6B6B] hover:text-white'
                     )}
                   >
                     Manual
@@ -1549,8 +1549,8 @@ func main() {
                         className={cn(
                           'px-2 py-0.5 rounded transition-colors cursor-pointer',
                           pkgManager === pm
-                            ? 'bg-[#363636] text-white'
-                            : 'text-[#737373] hover:text-[#A3A3A3]'
+                            ? 'bg-[#1F1F1F] text-white'
+                            : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
                         )}
                       >
                         {pm}
@@ -1563,15 +1563,15 @@ func main() {
               {/* CLI Mode View */}
               {installMode === 'cli' && (
                 <div className="space-y-4">
-                  <p className="text-xs text-[#A3A3A3]">
+                  <p className="text-xs text-[#A1A1A1]">
                     Add the component directly to your project using the shadcn CLI:
                   </p>
-                  <div className="rounded-xl border border-[#363636] bg-[#1A1A1A] p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-[#F5F5F5]">
+                  <div className="rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-[#FAFAFA]">
                     <span className="truncate">{component.cliCommand}</span>
                     <button
                       type="button"
                       onClick={() => handleCopy(component.cliCommand, 'cli')}
-                      className="p-1.5 rounded-md text-[#8A8A8A] hover:text-white bg-[#242424] hover:bg-[#2C2C2C] border border-[#363636] transition-colors cursor-pointer shrink-0"
+                      className="p-1.5 rounded-md text-[#525252] hover:text-white bg-[#141414] hover:bg-[#171717] border border-[#1F1F1F] transition-colors cursor-pointer shrink-0"
                       title="Copy CLI command"
                       aria-label="Copy CLI command"
                     >
@@ -1585,7 +1585,7 @@ func main() {
 
                   {/* Required Dependencies */}
                   <div className="pt-2">
-                    <h4 className="text-xs font-semibold text-[#737373] uppercase tracking-wider mb-2">
+                    <h4 className="text-xs font-semibold text-[#6B6B6B] uppercase tracking-wider mb-2">
                       Dependencies
                     </h4>
                     {component.dependencies && component.dependencies.length > 0 ? (
@@ -1593,14 +1593,14 @@ func main() {
                         {component.dependencies.map((dep) => (
                           <code
                             key={dep}
-                            className="px-2.5 py-1 rounded-md bg-[#242424] border border-[#363636] font-mono text-[11px] text-[#F5F5F5]"
+                            className="px-2.5 py-1 rounded-md bg-[#141414] border border-[#1F1F1F] font-mono text-[11px] text-[#FAFAFA]"
                           >
                             {dep}
                           </code>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-[#737373]">
+                      <p className="text-xs text-[#6B6B6B]">
                         No external npm dependencies required (standard Tailwind CSS only).
                       </p>
                     )}
@@ -1615,11 +1615,11 @@ func main() {
                   {component.dependencies && component.dependencies.length > 0 && (
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-[#A3A3A3] font-medium">1. Install dependencies</span>
+                        <span className="text-[#A1A1A1] font-medium">1. Install dependencies</span>
                         <button
                           type="button"
                           onClick={() => handleCopy(getInstallDepCommand(), 'deps')}
-                          className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
+                          className="flex items-center gap-1.5 text-[11px] text-[#525252] hover:text-[#FAFAFA] transition-colors cursor-pointer"
                         >
                           {copiedCode === 'deps' ? (
                             <Check className="w-3.5 h-3.5 text-white" />
@@ -1629,7 +1629,7 @@ func main() {
                           <span>{copiedCode === 'deps' ? 'Copied' : 'Copy'}</span>
                         </button>
                       </div>
-                      <pre className="p-3.5 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#F5F5F5] overflow-x-auto">
+                      <pre className="p-3.5 rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] font-mono text-xs text-[#FAFAFA] overflow-x-auto">
                         <code>{getInstallDepCommand()}</code>
                       </pre>
                     </div>
@@ -1638,14 +1638,14 @@ func main() {
                   {/* Step 2: Component Code */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[#A3A3A3] font-medium">
+                      <span className="text-[#A1A1A1] font-medium">
                         {component.dependencies && component.dependencies.length > 0 ? '2. ' : '1. '}
-                        Copy component code to <code className="font-mono text-[#F5F5F5]">components/ui/{component.id}.tsx</code>
+                        Copy component code to <code className="font-mono text-[#FAFAFA]">components/ui/{component.id}.tsx</code>
                       </span>
                       <button
                         type="button"
                         onClick={() => handleCopy(effectiveSourceCode, 'source-manual')}
-                        className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
+                        className="flex items-center gap-1.5 text-[11px] text-[#525252] hover:text-[#FAFAFA] transition-colors cursor-pointer"
                       >
                         {copiedCode === 'source-manual' ? (
                           <Check className="w-3.5 h-3.5 text-white" />
@@ -1655,7 +1655,7 @@ func main() {
                         <span>{copiedCode === 'source-manual' ? 'Copied' : 'Copy Source'}</span>
                       </button>
                     </div>
-                    <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#A3A3A3] overflow-x-auto max-h-[260px] leading-relaxed scrollbar-thin">
+                    <pre className="p-4 rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] font-mono text-xs text-[#A1A1A1] overflow-x-auto max-h-[260px] leading-relaxed scrollbar-thin">
                       <code>{effectiveSourceCode}</code>
                     </pre>
                   </div>
@@ -1668,13 +1668,13 @@ func main() {
           {activeTab === 'source' && (
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-mono text-[#A3A3A3] text-[11px]">
+                <span className="font-mono text-[#A1A1A1] text-[11px]">
                   components/ui/{component.id}.tsx
                 </span>
                 <button
                   type="button"
                   onClick={() => handleCopy(effectiveSourceCode, 'source')}
-                  className="flex items-center gap-1.5 text-[11px] text-[#8A8A8A] hover:text-[#F5F5F5] transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 text-[11px] text-[#525252] hover:text-[#FAFAFA] transition-colors cursor-pointer"
                 >
                   {copiedCode === 'source' ? (
                     <Check className="w-3.5 h-3.5 text-white" />
@@ -1684,7 +1684,7 @@ func main() {
                   <span>{copiedCode === 'source' ? 'Copied' : 'Copy Source'}</span>
                 </button>
               </div>
-              <pre className="p-4 rounded-xl border border-[#363636] bg-[#1A1A1A] font-mono text-xs text-[#A3A3A3] overflow-x-auto max-h-[420px] leading-relaxed scrollbar-thin">
+              <pre className="p-4 rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] font-mono text-xs text-[#A1A1A1] overflow-x-auto max-h-[420px] leading-relaxed scrollbar-thin">
                 <code>{effectiveSourceCode}</code>
               </pre>
             </div>
@@ -1693,10 +1693,10 @@ func main() {
           {/* TAB 5: PROPS API */}
           {activeTab === 'api' && (
             <div className="space-y-3">
-              <div className="rounded-xl border border-[#363636] overflow-hidden bg-[#202020]">
+              <div className="rounded-xl border border-[#1F1F1F] overflow-hidden bg-[#0E0E0E]">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-[#1C1C1C] text-[#A3A3A3] border-b border-[#363636]">
+                    <thead className="bg-[#0B0B0B] text-[#A1A1A1] border-b border-[#1F1F1F]">
                       <tr>
                         <th className="py-2.5 px-3.5 font-mono font-medium">Prop</th>
                         <th className="py-2.5 px-3.5 font-mono font-medium">Type</th>
@@ -1704,13 +1704,13 @@ func main() {
                         <th className="py-2.5 px-3.5 font-medium">Description</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#363636]">
+                    <tbody className="divide-y divide-[#1F1F1F]">
                       {component.props.map((p, i) => (
-                        <tr key={i} className="hover:bg-[#242424] transition-colors">
+                        <tr key={i} className="hover:bg-[#141414] transition-colors">
                           <td className="py-2.5 px-3.5 font-mono text-white font-medium">{p.name}</td>
-                          <td className="py-2.5 px-3.5 font-mono text-[#A3A3A3]">{p.type}</td>
-                          <td className="py-2.5 px-3.5 font-mono text-[#737373]">{p.default || '—'}</td>
-                          <td className="py-2.5 px-3.5 text-[#A3A3A3] leading-relaxed">{p.description}</td>
+                          <td className="py-2.5 px-3.5 font-mono text-[#A1A1A1]">{p.type}</td>
+                          <td className="py-2.5 px-3.5 font-mono text-[#6B6B6B]">{p.default || '—'}</td>
+                          <td className="py-2.5 px-3.5 text-[#A1A1A1] leading-relaxed">{p.description}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1723,9 +1723,9 @@ func main() {
           {/* TAB 6: ACCESSIBILITY */}
           {activeTab === 'a11y' && (
             <div className="space-y-3">
-              <div className="rounded-xl border border-[#363636] bg-[#202020] divide-y divide-[#363636]">
+              <div className="rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] divide-y divide-[#1F1F1F]">
                 {component.accessibility.map((item, i) => (
-                  <div key={i} className="p-3.5 text-xs text-[#A3A3A3] flex items-start gap-3">
+                  <div key={i} className="p-3.5 text-xs text-[#A1A1A1] flex items-start gap-3">
                     <ShieldCheck className="w-4 h-4 text-white mt-0.5 shrink-0" />
                     <span className="leading-relaxed">{item}</span>
                   </div>
@@ -1736,13 +1736,13 @@ func main() {
         </div>
 
         {/* Minimal Footer */}
-        <div className="px-5 sm:px-6 py-3 bg-[#1C1C1C] border-t border-[#363636] flex items-center justify-between text-xs text-[#737373] shrink-0">
+        <div className="px-5 sm:px-6 py-3 bg-[#0B0B0B] border-t border-[#1F1F1F] flex items-center justify-between text-xs text-[#6B6B6B] shrink-0">
           <span className="hidden sm:inline">EasyUI Component Documentation</span>
           <span className="sm:hidden font-mono text-[11px]">easyui/{component.id}</span>
           <button
             type="button"
             onClick={onClose}
-            className="px-3 py-1 rounded-md bg-[#242424] hover:bg-[#2C2C2C] text-[#F5F5F5] text-xs font-medium transition-colors cursor-pointer border border-[#363636]"
+            className="px-3 py-1 rounded-md bg-[#141414] hover:bg-[#171717] text-[#FAFAFA] text-xs font-medium transition-colors cursor-pointer border border-[#1F1F1F]"
           >
             Done
           </button>
@@ -1757,27 +1757,27 @@ func main() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[100] bg-[#151515] bg-dot-subtle flex flex-col overflow-y-auto"
+            className="fixed inset-0 z-[100] bg-[#050505] bg-dot-subtle flex flex-col overflow-y-auto"
           >
             {/* Minimal Fullscreen Header Bar */}
-            <div className="sticky top-0 inset-x-0 z-[110] bg-[#151515]/90 border-b border-[#363636] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
+            <div className="sticky top-0 inset-x-0 z-[110] bg-[#050505]/90 border-b border-[#1F1F1F] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
                 <span className="text-xs sm:text-sm font-medium text-white truncate max-w-[160px] sm:max-w-none">
                   {component.name}
                 </span>
-                <span className="text-[10px] font-mono text-[#737373] hidden sm:inline">Live Stage</span>
+                <span className="text-[10px] font-mono text-[#6B6B6B] hidden sm:inline">Live Stage</span>
               </div>
 
               <button
                 type="button"
                 onClick={() => setIsFullscreenPreview(false)}
-                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#202020] hover:bg-[#242424] border border-[#363636] hover:border-[#4A4A4A] text-xs font-mono text-[#A3A3A3] hover:text-white transition-colors shrink-0 cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[#0E0E0E] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-mono text-[#A1A1A1] hover:text-white transition-colors shrink-0 cursor-pointer"
                 title="Exit Fullscreen Preview (Esc)"
               >
                 <X className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline text-xs font-sans">Exit</span>
-                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#242424] border border-[#363636] text-[#737373]">ESC</kbd>
+                <kbd className="hidden sm:inline-flex text-[9px] font-mono px-1 py-0.2 rounded bg-[#141414] border border-[#1F1F1F] text-[#6B6B6B]">ESC</kbd>
               </button>
             </div>
 

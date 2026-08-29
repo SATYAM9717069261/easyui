@@ -107,7 +107,7 @@ export const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
   return (
     <span
       className={cn(
-        'inline-flex items-baseline font-mono tracking-tight text-[#F5F5F5] select-none',
+        'inline-flex items-baseline font-mono tracking-tight text-[#FAFAFA] select-none',
         className
       )}
       aria-label={`${prefix}${formattedStr}${suffix}`}

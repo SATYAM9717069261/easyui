@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { 
-  BookOpen, 
-  Terminal, 
-  Cpu, 
-  GitPullRequest, 
-  Sliders, 
+import React from 'react';
+import {
+  BookOpen,
+  Terminal,
+  Cpu,
+  GitPullRequest,
+  Sliders,
   Search,
-  X,
-  type LucideIcon
+  type LucideIcon,
 } from 'lucide-react';
 
 export interface DocSidebarProps {
@@ -30,8 +29,6 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
   activeTopic,
   onSelectTopic,
 }) => {
-  const [filterQuery, setFilterQuery] = useState('');
-
   const docNavSections: NavSection[] = [
     {
       group: 'Getting Started',
@@ -52,64 +49,47 @@ export const DocSidebar: React.FC<DocSidebarProps> = ({
   ];
 
   return (
-    <aside className="w-full lg:w-64 shrink-0 flex flex-col space-y-6 select-none">
-      {/* Sidebar Search */}
-      <div className="relative">
-        <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#8A8A8A] pointer-events-none" />
-        <input
-          type="text"
-          value={filterQuery}
-          onChange={(e) => setFilterQuery(e.target.value)}
-          placeholder="Filter docs..."
-          className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#242424] border border-[#363636] focus:border-[#4A4A4A] focus:outline-none text-xs text-[#F5F5F5] placeholder-[#737373] transition-colors"
-        />
-        {filterQuery && (
-          <button
-            onClick={() => setFilterQuery('')}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#737373] hover:text-[#FFFFFF]"
-            aria-label="Clear filter"
-          >
-            <X className="w-3 h-3" />
-          </button>
-        )}
-      </div>
+    <aside className="w-full lg:w-64 shrink-0 flex flex-col select-none">
+      {/* Eyebrow label — same mono uppercase rhythm as the homepage */}
+      <span className="text-[10px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em] mb-4">
+        Documentation
+      </span>
 
-      {/* Main Navigation Topics */}
       <div className="space-y-6">
-        {docNavSections.map((section, idx) => {
-          const filteredItems = section.items.filter((item) =>
-            item.label.toLowerCase().includes(filterQuery.toLowerCase())
-          );
-          if (filteredItems.length === 0) return null;
-
-          return (
-            <div key={idx} className="space-y-1.5">
-              <h4 className="text-[11px] font-semibold text-[#737373] uppercase tracking-wider px-3">
-                {section.group}
-              </h4>
-              <div className="space-y-0.5">
-                {filteredItems.map((item) => {
-                  const Icon = item.icon;
-                  const isActive = activeTopic === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => onSelectTopic(item.id)}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all text-left group ${
+        {docNavSections.map((section) => (
+          <div key={section.group} className="space-y-2">
+            <h4 className="text-[10px] font-mono text-[#525252] uppercase tracking-[0.18em]">
+              {section.group}
+            </h4>
+            <div className="space-y-0.5">
+              {section.items.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeTopic === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => onSelectTopic(item.id)}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-[13px] transition-colors text-left group ${
+                      isActive
+                        ? 'bg-[#141414] text-[#FAFAFA]'
+                        : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#0E0E0E]'
+                    }`}
+                  >
+                    <Icon
+                      className={`w-3.5 h-3.5 shrink-0 transition-colors ${
                         isActive
-                          ? 'bg-[#242424] text-white font-medium shadow-sm border border-[#363636]'
-                          : 'text-[#A3A3A3] hover:text-[#F5F5F5] hover:bg-[#202020]'
+                          ? 'text-[#FAFAFA]'
+                          : 'text-[#525252] group-hover:text-[#FAFAFA]'
                       }`}
-                    >
-                      <Icon className={`w-3.5 h-3.5 shrink-0 transition-colors ${isActive ? 'text-white' : 'text-[#8A8A8A] group-hover:text-[#F5F5F5]'}`} />
-                      <span className="truncate">{item.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
+                    />
+                    <span className="truncate">{item.label}</span>
+                  </button>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </aside>
   );
