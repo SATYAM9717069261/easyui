@@ -32,14 +32,20 @@ export const DocPagination: React.FC<DocPaginationProps> = ({
   if (!prevDoc && !nextDoc) return null;
 
   return (
-    <nav aria-label="Documentation Pagination" className="pt-8 mt-12 border-t border-[#1F1F1F] flex items-center justify-between gap-4 select-none">
+    <nav
+      aria-label="Documentation Pagination"
+      className="pt-10 mt-12 border-t border-[#1F1F1F] flex items-center justify-between gap-6 select-none"
+    >
       {prevDoc ? (
         <button
           onClick={() => onNavigateTopic(prevDoc.id)}
-          className="group inline-flex items-center gap-2 text-sm text-[#A1A1A1] hover:text-white transition-colors py-1 text-left cursor-pointer"
+          className="group inline-flex items-center gap-2 text-[13px] text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4 text-[#525252] group-hover:text-white transition-transform group-hover:-translate-x-1" />
-          <span className="font-medium">{prevDoc.title}</span>
+          <ArrowLeft className="w-3.5 h-3.5 text-[#525252] group-hover:text-[#FAFAFA] transition-transform group-hover:-translate-x-0.5" />
+          <span className="relative">
+            {prevDoc.title}
+            <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 bg-[#A1A1A1] transition-transform duration-300" />
+          </span>
         </button>
       ) : (
         <div />
@@ -48,10 +54,13 @@ export const DocPagination: React.FC<DocPaginationProps> = ({
       {nextDoc && (
         <button
           onClick={() => onNavigateTopic(nextDoc.id)}
-          className="group inline-flex items-center gap-2 text-sm text-[#A1A1A1] hover:text-white transition-colors py-1 ml-auto text-right cursor-pointer"
+          className="group inline-flex items-center gap-2 text-[13px] text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors ml-auto text-right cursor-pointer"
         >
-          <span className="font-medium">{nextDoc.title}</span>
-          <ArrowRight className="w-4 h-4 text-[#525252] group-hover:text-white transition-transform group-hover:translate-x-1" />
+          <span className="relative">
+            {nextDoc.title}
+            <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 bg-[#A1A1A1] transition-transform duration-300" />
+          </span>
+          <ArrowRight className="w-3.5 h-3.5 text-[#525252] group-hover:text-[#FAFAFA] transition-transform group-hover:translate-x-0.5" />
         </button>
       )}
     </nav>
