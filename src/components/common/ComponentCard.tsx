@@ -1040,25 +1040,25 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
       className={cn(
-        'group rounded-2xl border border-[#262626] bg-[#151515] p-2.5 sm:p-3 hover:border-[#3d3d3d] hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer flex flex-col justify-between block',
+        'group relative block rounded-[20px] border-[1.5px] border-[#1c1c1c] bg-[#080808] p-2 hover:border-[#2a2a2a] hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer',
         className
       )}
     >
-      {/* Inset Live Preview Box */}
-      <div className="relative rounded-xl bg-[#1a1a1a] border border-[#262626] overflow-hidden flex-1 flex flex-col justify-center">
-        {/* Subtle Copy CLI Button (Reveals on card hover) */}
+      {/* Inset Live Preview Box — large, deep, "carved" surface */}
+      <div className="relative rounded-2xl bg-[#0c0c0c] border border-[#161616] overflow-hidden min-h-[260px] sm:min-h-[300px] flex flex-col justify-center">
+        {/* Subtle Copy CLI Button (Reveals on card hover) — minimal, ghost-like */}
         <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150">
           <button
             type="button"
             onClick={handleCopyCLI}
-            className="p-1.5 rounded-lg bg-[#242424]/90 backdrop-blur border border-[#363636] text-[#8A8A8A] hover:text-white hover:border-[#4A4A4A] transition-colors focus-ring"
+            className="p-1.5 rounded-md bg-black/60 backdrop-blur border border-white/10 text-[#8A8A8A] hover:text-white hover:border-white/30 transition-colors focus-ring"
             title="Copy CLI command"
             aria-label={`Copy CLI command for ${component.name}`}
           >
             {copied ? (
-              <Check className="w-3.5 h-3.5 text-white" />
+              <Check className="w-3 h-3 text-white" />
             ) : (
-              <Copy className="w-3.5 h-3.5" />
+              <Copy className="w-3 h-3" />
             )}
           </button>
         </div>
@@ -1066,15 +1066,18 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
         {renderPreview(component, isHovered)}
       </div>
 
-      {/* Component Footer - Name on left & White Arrow visible on hover on right */}
-      <div className="pt-2.5 pb-0.5 px-1 flex items-center justify-between gap-2">
+      {/* Component Footer — large title, prominent persistent arrow */}
+      <div className="pt-5 pb-2 px-2 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
-          <h3 className="text-xs sm:text-[13px] font-semibold text-[#E5E5E5] group-hover:text-white transition-colors truncate">
+          <h3 className="text-base sm:text-lg font-semibold text-[#E5E5E5] group-hover:text-white transition-colors truncate">
             {component.name}
           </h3>
           {isNew && <NewBadge size="xs" />}
         </div>
-        <ArrowUpRight className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-200 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+        <ArrowUpRight
+          className="w-5 h-5 text-[#9A9A9A] group-hover:text-white group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200 shrink-0"
+          strokeWidth={2}
+        />
       </div>
     </a>
   );
