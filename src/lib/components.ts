@@ -10,6 +10,9 @@ export const ITEMS_PER_PAGE = 10;
  */
 export const FEATURED_COMPONENT_LIMIT = 6;
 
+export const NEW_BADGE_DURATION_DAYS = 7;
+export const NEW_BADGE_DURATION_MS = NEW_BADGE_DURATION_DAYS * 24 * 60 * 60 * 1000;
+
 /**
  * Returns all components sorted by creation date descending (newest first).
  * Stable secondary sort on component name for identical timestamps.
@@ -35,16 +38,33 @@ export function getNewestComponent(components: EasyComponentMeta[]): EasyCompone
 }
 
 /**
- * Determines whether a given component qualifies for the minimal NEW badge.
+ * Determines whether a given component qualifies for the NEW badge.
+ * A component is considered NEW if its creation/publish date is within the last 7 days (604,800,000 ms).
+ * Calculation is strictly per-component based on its own timestamp and does not depend on repository pushes or global commit dates.
+ *
+ * @param component Component metadata object containing createdAt timestamp
+ * @param referenceTime Optional reference date/timestamp for deterministic calculation / testing (defaults to Date.now())
  */
 export function isComponentNew(
-  component: EasyComponentMeta,
-  newestComponent: EasyComponentMeta | null
+  component: { createdAt?: string } | null | undefined,
+  referenceTime?: Date | number | unknown
 ): boolean {
-  if (!newestComponent) return false;
-  const newestTime = new Date(newestComponent.createdAt).getTime();
-  const compTime = new Date(component.createdAt).getTime();
-  return compTime >= newestTime || component.id === newestComponent.id;
+  if (!component || !component.createdAt) return false;
+  const createdTime = new Date(component.createdAt).getTime();
+  if (isNaN(createdTime)) return false;
+
+  let nowTime = Date.now();
+  if (typeof referenceTime === 'number') {
+    nowTime = referenceTime;
+  } else if (referenceTime instanceof Date) {
+    nowTime = referenceTime.getTime();
+  }
+
+  if (isNaN(nowTime)) return false;
+  const age = nowTime - createdTime;
+
+  // Component must have been created in the past (or present) and within 7 days
+  return age >= 0 && age < NEW_BADGE_DURATION_MS;
 }
 
 export interface PaginatedResult<T> {

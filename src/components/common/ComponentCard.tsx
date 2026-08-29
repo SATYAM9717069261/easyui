@@ -24,6 +24,7 @@ import { TextScrambleDecoder } from '../ui/TextScrambleDecoder';
 import { MacOSFolderCards } from '../ui/MacOSFolderCards';
 import { IntroLoader } from '../ui/IntroLoader';
 import { NewBadge } from './NewBadge';
+import { isComponentNew } from '../../lib/components';
 import { copyToClipboard, cn } from '../../lib/utils';
 
 export interface ComponentCardProps {
@@ -59,10 +60,11 @@ const AnimatedNumberPreview: React.FC<{ isHovered?: boolean }> = ({ isHovered = 
 
 export const ComponentCard: React.FC<ComponentCardProps> = ({
   component,
-  isNew = false,
+  isNew,
   onSelect,
   className,
 }) => {
+  const showNew = isNew !== undefined ? isNew : isComponentNew(component);
   const [copied, setCopied] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -1072,7 +1074,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
           <h3 className="text-base sm:text-lg font-semibold text-[#E5E5E5] group-hover:text-white transition-colors truncate">
             {component.name}
           </h3>
-          {isNew && <NewBadge size="xs" />}
+          {showNew && <NewBadge size="xs" />}
         </div>
         <ArrowUpRight
           className="w-5 h-5 text-[#9A9A9A] group-hover:text-white group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200 shrink-0"
