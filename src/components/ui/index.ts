@@ -205,4 +205,25 @@ export type { NeonEdgeButtonProps } from './NeonEdgeButton';
 export { IntroLoader } from './IntroLoader';
 export type { IntroLoaderProps } from './IntroLoader';
 
+export { NimbuMirchi } from './NimbuMirchi';
+export type { NimbuMirchiProps } from './NimbuMirchi';
+
+export { EvilEye } from './EvilEye';
+export type { EvilEyeProps } from './EvilEye';
+
+export { WalletCard } from './WalletCard';
+export type { WalletCardProps } from './WalletCard';
+
+export { CircularOrbit } from './CircularOrbit';
+export type { CircularOrbitProps, OrbitItem } from './CircularOrbit';
+
+export { ProfileCard } from './ProfileCard';
+export type { ProfileCardProps } from './ProfileCard';
+
+export { BookCallButton } from './BookCallButton';
+export type { BookCallButtonProps } from './BookCallButton';
+
+export { GooeyMenu } from './GooeyMenu';
+export type { GooeyMenuProps } from './GooeyMenu';
+
 
