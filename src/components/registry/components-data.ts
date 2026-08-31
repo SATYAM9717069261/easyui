@@ -1994,7 +1994,7 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
       {
         "name": "options",
         "type": "string[]",
-        "default": "['Home', 'About', 'Projects', 'Contact', 'Playground', 'Trail']",
+        "default": "['Home', 'About', 'Projects', 'Contact', 'Book a call', 'Follow us']",
         "description": "Array of option labels"
       },
       {

@@ -23,7 +23,7 @@ export interface GooeyMenuProps extends Omit<React.HTMLAttributes<HTMLDivElement
   className?: string;
 }
 
-const DEFAULT_OPTIONS = ['Home', 'About', 'Projects', 'Contact', 'Playground', 'Trail'];
+const DEFAULT_OPTIONS = ['Home', 'About', 'Projects', 'Contact', 'Book a call', 'Follow us'];
 
 const W = 306;
 const PILL_H = 56;

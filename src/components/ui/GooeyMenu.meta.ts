@@ -15,7 +15,7 @@ const meta: EasyUIComponentMeta = {
     'Respects prefers-reduced-motion: automatically disables intense blur filters',
   ],
   props: [
-    { name: 'options', type: 'string[]', default: "['Home', 'About', 'Projects', 'Contact', 'Playground', 'Trail']", description: 'Array of option labels' },
+    { name: 'options', type: 'string[]', default: "['Home', 'About', 'Projects', 'Contact', 'Book a call', 'Follow us']", description: 'Array of option labels' },
     { name: 'value', type: 'string', default: 'undefined', description: 'Controlled active selected option' },
     { name: 'defaultValue', type: 'string', default: "options[0]", description: 'Default selected option if uncontrolled' },
     { name: 'open', type: 'boolean', default: 'undefined', description: 'Controlled open dropdown state' },
