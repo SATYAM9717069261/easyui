@@ -94,6 +94,12 @@ import { PillNavigation } from '../ui/PillNavigation';
 import { TextScrambleDecoder } from '../ui/TextScrambleDecoder';
 import { MacOSFolderCards } from '../ui/MacOSFolderCards';
 import { IntroLoader } from '../ui/IntroLoader';
+import { NimbuMirchi } from '../ui/NimbuMirchi';
+import { EvilEye } from '../ui/EvilEye';
+import { WalletCard } from '../ui/WalletCard';
+import { CircularOrbit } from '../ui/CircularOrbit';
+import { ProfileCard } from '../ui/ProfileCard';
+import { BookCallButton } from '../ui/BookCallButton';
 
 export type MainTab = 'preview' | 'usage' | 'code' | 'props' | 'accessibility';
 export type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
@@ -1690,6 +1696,81 @@ const completion = await client.completions.create({
               showProgress={true}
               allowSkip={true}
             />
+          </div>
+        );
+      case 'nimbu-mirchi':
+        return (
+          <div className="w-full max-w-md mx-auto">
+            <NimbuMirchi
+              key={demoKey}
+              maxRotation={13}
+              stiffnessX={55}
+              stiffnessY={45}
+              damping={9}
+              caption="Hanging nimbu-mirchi charm"
+            />
+          </div>
+        );
+      case 'evil-eye':
+        return (
+          <div className="w-full max-w-md mx-auto">
+            <EvilEye
+              key={demoKey}
+              maxRotation={13}
+              stiffnessX={55}
+              stiffnessY={45}
+              damping={9}
+              caption="Hanging evil eye amulet"
+            />
+          </div>
+        );
+      case 'wallet-card':
+        return (
+          <div className="w-full max-w-md mx-auto">
+            <WalletCard
+              key={demoKey}
+              balance="$4,566.00"
+              cardType="Mastercard"
+              cardLastFour="3040"
+              buttonLabel="Use Wallet"
+              balanceLabel="Total Balance"
+            />
+          </div>
+        );
+      case 'circular-orbit':
+        return (
+          <div className="w-full max-w-2xl mx-auto">
+            <CircularOrbit
+              key={demoKey}
+              title="Orbit"
+              speed={0.00022}
+              radius={240}
+              pauseOnHover
+            />
+          </div>
+        );
+      case 'profile-card':
+        return (
+          <div className="w-full max-w-md mx-auto">
+            <ProfileCard
+              key={demoKey}
+              name="Suraj"
+              username="@surajmaurya_m"
+              description="Building EasyUI. Engineer."
+              followers="200K"
+              posts="72"
+              website="easyui.site"
+            />
+          </div>
+        );
+      case 'book-call-button':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center gap-6">
+            {/* Single pill at rest. The expanding-capsule and
+                phone-hover choreography is the point of the
+                component — users will discover it by hovering. */}
+            <BookCallButton key={demoKey} />
+            <p className="text-[11px] font-mono text-[#6B6B6B]">Hover the pill to expand the capsule and reveal the phone icon.</p>
           </div>
         );
       default:

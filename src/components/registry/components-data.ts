@@ -447,6 +447,80 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "book-call-button",
+    "name": "Book Call Button",
+    "tagline": "Expanding accent pill with phone hover state",
+    "description": "A premium \"Book a call\" pill with a green expanding capsule. At rest, a 36% accent capsule holds a dotted arrow + label; on hover, the capsule fills the pill, the label slides out, and a phone icon with ringing lines fades in centered.",
+    "category": "Buttons",
+    "badges": [
+      "Spring",
+      "State Choreography",
+      "Reduced Motion",
+      "Responsive"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/book-call-button",
+    "features": [
+      "Three independently-timed motion layers: expanding capsule, label/arrow, and phone icon",
+      "Capsule grows from \"left center\" so the expansion feels directional, not scale-from-middle",
+      "Hover lift (1.01) and tap compression (0.975) on the pill itself, independent of the inner choreography",
+      "Renders as <a> when href is provided so the same component works on a marketing page or a form action",
+      "prefers-reduced-motion collapses every spring to an instant state change — no travel, no entrance",
+      "Decorative SVGs are aria-hidden; the label is conveyed by aria-label on the interactive root",
+      "Native <button> / <a> elements with focus-visible ring tied to the accent color"
+    ],
+    "props": [
+      {
+        "name": "children",
+        "type": "string",
+        "default": "'Book a call'",
+        "description": "Label rendered to the right of the dotted arrow at rest"
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Click handler — ignored when href is also provided"
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "default": "undefined",
+        "description": "When provided, the pill renders as an <a> with this href instead of a <button>"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "undefined",
+        "description": "Additional Tailwind classes merged into the pill root"
+      }
+    ],
+    "accessibility": [
+      "Semantic <button> by default; <a> when href is provided — no <div onClick>",
+      "aria-label is set from the visible children so screen readers announce the action",
+      "Decorative SVGs (dotted arrow, phone) are aria-hidden",
+      "Visible focus-visible ring tied to the accent (#82ff22) for keyboard navigation",
+      "prefers-reduced-motion fallback: all three motion layers resolve instantly to the final state",
+      "pointer-events-none on the phone overlay ensures clicks always reach the underlying interactive element"
+    ],
+    "createdAt": "2026-08-31",
+    "usageCode": "import { BookCallButton } from \"@/components/ui/book-call-button\";\n\nexport function Demo() {\n  return (\n    <div className=\"flex items-center justify-center py-12\">\n      <BookCallButton onClick={() => console.log('Book a call clicked')} />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/BookCallButton.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/book-call-button.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
     "id": "branching-submenu",
     "name": "Branching Submenu",
     "tagline": "Animated tree navigation with keyboard support",
@@ -605,6 +679,90 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/motion-tokens.ts",
         "type": "registry:lib",
         "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "circular-orbit",
+    "name": "Circular Orbit",
+    "tagline": "Continuous circular orbit gallery with depth-aware tiles",
+    "description": "A circular gallery of image tiles orbiting around a centered title. All motion runs on a single MotionValue driven by useAnimationFrame, so no React renders per frame.",
+    "category": "Motion",
+    "badges": [
+      "MotionValue",
+      "Spatial Animation",
+      "Depth Field",
+      "Gallery"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/circular-orbit",
+    "features": [
+      "Single shared rotation MotionValue drives every tile — no React state per frame",
+      "True circular orbit: x and y use the same radius so tiles trace a perfect circle",
+      "Depth field derived from cos(angle): scale, opacity, blur, and z-index stay internally consistent",
+      "Smooth ease-in / ease-out on hover-pause instead of a hard stop",
+      "Configurable speed, radius, items, and pause-on-hover behaviour",
+      "Respects prefers-reduced-motion: animation loop short-circuits to a static rest pose",
+      "Light and dark surface variants"
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "OrbitItem[]",
+        "default": "14 Unsplash tiles",
+        "description": "Tiles to place around the orbit"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "'Push'",
+        "description": "Centered headline rendered above the orbit"
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "default": "0.00022",
+        "description": "Radians per millisecond. Smaller = slower"
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "default": "270",
+        "description": "Pixel radius of the orbit on the desktop layout"
+      },
+      {
+        "name": "pauseOnHover",
+        "type": "boolean",
+        "default": "true",
+        "description": "Smoothly stop the orbit when the pointer enters the gallery"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "undefined",
+        "description": "Additional Tailwind classes merged into the section root"
+      }
+    ],
+    "accessibility": [
+      "role=\"region\" with aria-label so the gallery is announced as a single landmark",
+      "Decorative tiles and the centered headline are aria-hidden — content is conveyed by the label",
+      "Images use loading=\"lazy\" and decoding=\"async\" and a neutral alt for screen readers",
+      "prefers-reduced-motion short-circuits the animation loop — the gallery rests in place"
+    ],
+    "createdAt": "2026-08-31",
+    "usageCode": "import { CircularOrbit } from \"@/components/ui/circular-orbit\";\n\nexport function Demo() {\n  return (\n    <div className=\"w-full max-w-3xl mx-auto rounded-2xl border border-[#1F1F1F] overflow-hidden\">\n      <CircularOrbit\n        title=\"Push\"\n        speed={0.00022}\n        radius={240}\n        pauseOnHover\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/CircularOrbit.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/circular-orbit.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
       }
     ]
   },
@@ -1151,6 +1309,90 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/motion-tokens.ts",
         "type": "registry:lib",
         "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "evil-eye",
+    "name": "Evil Eye",
+    "tagline": "Pointer-driven hanging amulet with layered spring physics",
+    "description": "A hanging navy amulet disc with concentric sky-blue and white rings that swings with realistic inertia in response to the pointer, painted as a layered SVG and driven by a single spring pipeline.",
+    "category": "Motion",
+    "badges": [
+      "Spring Physics",
+      "Pointer Tracking",
+      "Layered Motion",
+      "Painted SVG"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/evil-eye",
+    "features": [
+      "Pointer position drives a normalized MotionValue pipeline (no React renders per frame)",
+      "Layered secondary motion — braided cord, metallic cap, and amulet disc each swing independently",
+      "Painted SVG with radial gradients for the navy disc, sky-blue ring, and the signature pupil glint",
+      "Configurable spring stiffness, damping, and max rotation for tuning the physical feel",
+      "Geometry-aware normalization that adapts to the actual container size",
+      "Respects prefers-reduced-motion with a clean static rest pose",
+      "Graceful degradation when pointer events are unavailable"
+    ],
+    "props": [
+      {
+        "name": "maxRotation",
+        "type": "number",
+        "default": "13",
+        "description": "Maximum rotation in degrees at full pointer offset"
+      },
+      {
+        "name": "stiffnessX",
+        "type": "number",
+        "default": "55",
+        "description": "Pointer X spring stiffness (higher = snappier follow)"
+      },
+      {
+        "name": "stiffnessY",
+        "type": "number",
+        "default": "45",
+        "description": "Pointer Y spring stiffness"
+      },
+      {
+        "name": "damping",
+        "type": "number",
+        "default": "9",
+        "description": "Spring damping (higher = less swing overshoot)"
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional screen-reader caption for the amulet"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "undefined",
+        "description": "Additional Tailwind classes merged into the container"
+      }
+    ],
+    "accessibility": [
+      "role=\"img\" with descriptive aria-label for screen readers",
+      "Touch-none and select-none to avoid stray text selection while interacting",
+      "Complete prefers-reduced-motion fallback: pointer listeners are never wired, amulet rests in place",
+      "Decorative SVG marked aria-hidden"
+    ],
+    "createdAt": "2026-08-31",
+    "usageCode": "import { EvilEye } from \"@/components/ui/evil-eye\";\n\nexport function Demo() {\n  return (\n    <EvilEye\n      maxRotation={13}\n      stiffnessX={55}\n      stiffnessY={45}\n      damping={9}\n      caption=\"Hanging evil eye amulet\"\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/EvilEye.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/evil-eye.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
       }
     ]
   },
@@ -2826,6 +3068,88 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "nimbu-mirchi",
+    "name": "Nimbu Mirchi",
+    "tagline": "Pointer-driven hanging charm with layered spring physics",
+    "description": "A hanging lemon-and-green-chilli charm that swings with realistic inertia in response to the pointer, built from layered physical springs rather than a single rigid illustration.",
+    "category": "Motion",
+    "badges": [
+      "Spring Physics",
+      "Pointer Tracking",
+      "Layered Motion"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/nimbu-mirchi",
+    "features": [
+      "Pointer position drives a normalized MotionValue pipeline (no React renders per frame)",
+      "Layered secondary motion — chillies, lemon, and trailing strings each swing independently",
+      "Configurable spring stiffness, damping, and max rotation for tuning the physical feel",
+      "Geometry-aware normalization that adapts to the actual container size",
+      "Respects prefers-reduced-motion with a clean static rest pose",
+      "Graceful degradation when pointer events are unavailable"
+    ],
+    "props": [
+      {
+        "name": "maxRotation",
+        "type": "number",
+        "default": "13",
+        "description": "Maximum rotation in degrees at full pointer offset"
+      },
+      {
+        "name": "stiffnessX",
+        "type": "number",
+        "default": "55",
+        "description": "Pointer X spring stiffness (higher = snappier follow)"
+      },
+      {
+        "name": "stiffnessY",
+        "type": "number",
+        "default": "45",
+        "description": "Pointer Y spring stiffness"
+      },
+      {
+        "name": "damping",
+        "type": "number",
+        "default": "9",
+        "description": "Spring damping (higher = less swing overshoot)"
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional screen-reader caption for the charm"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "undefined",
+        "description": "Additional Tailwind classes merged into the container"
+      }
+    ],
+    "accessibility": [
+      "role=\"img\" with descriptive aria-label for screen readers",
+      "Touch-none and select-none to avoid stray text selection while interacting",
+      "Complete prefers-reduced-motion fallback: pointer listeners are never wired, charm rests in place",
+      "Decorative SVG and dot textures marked aria-hidden"
+    ],
+    "createdAt": "2026-08-31",
+    "usageCode": "import { NimbuMirchi } from \"@/components/ui/nimbu-mirchi\";\n\nexport function Demo() {\n  return (\n    <div className=\"w-full max-w-md mx-auto rounded-2xl border border-[#1F1F1F] overflow-hidden\">\n      <NimbuMirchi\n        maxRotation={13}\n        stiffnessX={55}\n        stiffnessY={45}\n        damping={9}\n        caption=\"Hanging nimbu-mirchi charm\"\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/NimbuMirchi.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/nimbu-mirchi.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
     "id": "notification-bell",
     "name": "Notification Bell",
     "tagline": "Adaptive notification badge & animated alert drawer",
@@ -3604,6 +3928,110 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/motion-tokens.ts",
         "type": "registry:lib",
         "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "profile-card",
+    "name": "Profile Card",
+    "tagline": "Dark social profile card with painted blue cover art",
+    "description": "A premium dark social profile card with a painted blue cover-art panel, action row, and a detail panel with avatar, verified name, bio, follower stats, and outbound website link.",
+    "category": "Motion",
+    "badges": [
+      "Spring Tap",
+      "Tailwind",
+      "Painted Artwork",
+      "Responsive"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/profile-card",
+    "features": [
+      "Painted blue cover-art surface built from layered radial / linear gradients — no image assets required",
+      "Spring-tap response on the primary action button (0.97 scale) via framer-motion",
+      "Avatar and outbound link are keyboard-focusable with visible focus rings",
+      "Outbound link uses rel=\"noreferrer noopener\" for safe new-tab behaviour",
+      "Responsive: cover height, padding, avatar size, and type scale all collapse cleanly under 600px",
+      "Decorative artwork and icons are aria-hidden; the section semantics are conveyed by the visible name and labels",
+      "Respects prefers-reduced-motion: spring tap is skipped entirely on the action button"
+    ],
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "default": "'Suraj'",
+        "description": "Display name shown in the detail panel header"
+      },
+      {
+        "name": "username",
+        "type": "string",
+        "default": "'@surajmaurya_m'",
+        "description": "Handle rendered as the small caption under the name"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "'Building EasyUI. Engineer.'",
+        "description": "Biographical text shown under the name"
+      },
+      {
+        "name": "followers",
+        "type": "string",
+        "default": "'200K'",
+        "description": "Pre-formatted follower count"
+      },
+      {
+        "name": "posts",
+        "type": "string",
+        "default": "'72'",
+        "description": "Pre-formatted post count"
+      },
+      {
+        "name": "website",
+        "type": "string",
+        "default": "'easyui.site'",
+        "description": "Website domain — link href is auto-prefixed with https://"
+      },
+      {
+        "name": "actionLabel",
+        "type": "string",
+        "default": "'Follow'",
+        "description": "Label for the primary action button"
+      },
+      {
+        "name": "onAction",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Click handler for the primary action button"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "undefined",
+        "description": "Additional Tailwind classes merged into the card root"
+      }
+    ],
+    "accessibility": [
+      "Semantic <article> root with heading hierarchy (h2 for the name)",
+      "Native <button> and <a> for the interactive controls — no <div onClick>",
+      "All decorative artwork and icons are aria-hidden; the card content is conveyed by the visible labels",
+      "Visible focus rings on the action button, secondary button, and outbound link (focus-visible)",
+      "Outbound link announces \"(opens in a new tab)\" via aria-label",
+      "prefers-reduced-motion fallback: spring tap on the action button is disabled"
+    ],
+    "createdAt": "2026-08-31",
+    "usageCode": "import { ProfileCard } from \"@/components/ui/profile-card\";\n\nexport function Demo() {\n  return (\n    <div className=\"w-full max-w-md mx-auto\">\n      <ProfileCard\n        name=\"Suraj\"\n        username=\"@surajmaurya_m\"\n        description=\"Building EasyUI. Engineer.\"\n        followers=\"200K\"\n        posts=\"72\"\n        website=\"easyui.site\"\n        onAction={() => console.log('Follow clicked')}\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/ProfileCard.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/profile-card.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
       }
     ]
   },
@@ -4927,6 +5355,101 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/motion-tokens.ts",
         "type": "registry:lib",
         "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "wallet-card",
+    "name": "Wallet Card",
+    "tagline": "Dark wallet card with pointer-driven cyan shine",
+    "description": "A premium dark wallet card with a blue radial-gradient surface, live balance display, iOS-style toggle, and a primary action button. The card surface responds to the pointer with a soft cyan shine driven entirely by MotionValues.",
+    "category": "Motion",
+    "badges": [
+      "Pointer Shine",
+      "Spring Tap",
+      "Painted Surface"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/wallet-card",
+    "features": [
+      "Live balance figure with iOS-style toggle and primary action button",
+      "Painted blue radial-gradient surface with diagonal specular sweep and outer glow",
+      "Pointer-driven cyan shine — same MotionValue architecture as SpotlightCard",
+      "Spring-tap response on the action button (0.97 scale)",
+      "Full keyboard support and visible focus outline on the button",
+      "Respects prefers-reduced-motion — shine is skipped, button tap is disabled",
+      "Responsive aspect ratio; surface adapts without layout shift"
+    ],
+    "props": [
+      {
+        "name": "balance",
+        "type": "string",
+        "default": "'$4,566.00'",
+        "description": "Headline balance figure rendered as the dominant type"
+      },
+      {
+        "name": "cardType",
+        "type": "string",
+        "default": "'Mastercard'",
+        "description": "Card brand label shown in the subtitle"
+      },
+      {
+        "name": "cardLastFour",
+        "type": "string",
+        "default": "'3040'",
+        "description": "Last four digits of the underlying card"
+      },
+      {
+        "name": "buttonLabel",
+        "type": "string",
+        "default": "'Use Wallet'",
+        "description": "Label for the primary action button"
+      },
+      {
+        "name": "onUseWallet",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Click handler for the action button"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disable the action button"
+      },
+      {
+        "name": "balanceLabel",
+        "type": "string",
+        "default": "'Total Balance'",
+        "description": "Small caption under the balance figure"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "default": "undefined",
+        "description": "Additional Tailwind classes merged into the card root"
+      }
+    ],
+    "accessibility": [
+      "Semantic <article> root with descriptive title and subtitle",
+      "Native <button> for the action with aria-label and visible focus outline",
+      "Pointer shine is purely decorative — aria-hidden on all glow layers",
+      "prefers-reduced-motion fallback: shine is never tracked, button tap is skipped"
+    ],
+    "createdAt": "2026-08-31",
+    "usageCode": "import { WalletCard } from \"@/components/ui/wallet-card\";\n\nexport function Demo() {\n  return (\n    <div className=\"w-full max-w-md mx-auto\">\n      <WalletCard\n        balance=\"$4,566.00\"\n        cardType=\"Mastercard\"\n        cardLastFour=\"3040\"\n        buttonLabel=\"Use Wallet\"\n        onUseWallet={() => console.log('wallet used')}\n        balanceLabel=\"Total Balance\"\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/WalletCard.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/wallet-card.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
       }
     ]
   }
