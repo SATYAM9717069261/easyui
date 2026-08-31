@@ -17,6 +17,8 @@ import {
   Home,
   Grid,
   Menu,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
 import { EASY_COMPONENTS } from '../registry/components-data';
@@ -556,6 +558,7 @@ export const ComponentDetailPage: React.FC<ComponentDetailPageProps> = ({
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [demoKey, setDemoKey] = useState(0);
   const [isCopiedCli, setIsCopiedCli] = useState(false);
+  const [previewTheme, setPreviewTheme] = useState<'dark' | 'light'>('dark');
 
   const handleBackToComponents = () => {
     if (typeof window !== 'undefined' && window.history.length > 1) {
@@ -2085,12 +2088,28 @@ const completion = await client.completions.create({
                     {/* Stage Controls */}
                     <div className="flex items-center gap-1.5">
 
+                      {/* Toggle Preview Background Theme */}
+                      <button
+                        type="button"
+                        onClick={() => setPreviewTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+                        className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
+                        title={previewTheme === 'dark' ? 'Switch to light background' : 'Switch to dark background'}
+                        aria-label="Toggle preview theme"
+                      >
+                        {previewTheme === 'dark' ? (
+                          <Sun className="w-3.5 h-3.5" />
+                        ) : (
+                          <Moon className="w-3.5 h-3.5" />
+                        )}
+                      </button>
+
                       {/* Reset Demo */}
                       <button
                         type="button"
                         onClick={() => setDemoKey((k) => k + 1)}
                         className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
                         title="Reset interactive demo"
+                        aria-label="Reset demo"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
                       </button>
@@ -2101,6 +2120,7 @@ const completion = await client.completions.create({
                         onClick={() => handleCopy(component.cliCommand, 'cli-top')}
                         className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
                         title="Copy CLI command"
+                        aria-label="Copy CLI command"
                       >
                         {copiedCode === 'cli-top' ? (
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -2115,6 +2135,7 @@ const completion = await client.completions.create({
                         onClick={() => setIsFullscreenPreview(true)}
                         className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
                         title="Fullscreen preview"
+                        aria-label="Fullscreen preview"
                       >
                         <Maximize2 className="w-3.5 h-3.5" />
                       </button>
@@ -2122,7 +2143,12 @@ const completion = await client.completions.create({
                   </div>
 
                   {/* Component Render Canvas */}
-                  <div className="relative min-h-[360px] sm:min-h-[420px] p-6 sm:p-10 flex items-center justify-center bg-[#050505]">
+                  <div
+                    className={cn(
+                      'relative min-h-[360px] sm:min-h-[420px] p-6 sm:p-10 flex items-center justify-center transition-colors duration-200',
+                      previewTheme === 'dark' ? 'bg-[#050505] text-[#FAFAFA]' : 'bg-[#FAFAFA] text-[#050505]'
+                    )}
+                  >
                     <div className="w-full flex items-center justify-center">
                       {!isFullscreenPreview && renderInteractiveDemo()}
                     </div>
@@ -2440,23 +2466,66 @@ const completion = await client.completions.create({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-            className="fixed inset-0 z-[100] bg-[#050505] flex flex-col overflow-y-auto"
+            className={cn(
+              "fixed inset-0 z-[100] flex flex-col overflow-y-auto transition-colors duration-200",
+              previewTheme === 'dark' ? 'bg-[#050505] text-[#FAFAFA]' : 'bg-[#FAFAFA] text-[#050505]'
+            )}
           >
             {/* Header */}
-            <div className="sticky top-0 inset-x-0 z-[110] bg-[#0E0E0E]/90 border-b border-[#1F1F1F] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0">
-              <span className="font-mono text-xs text-white font-medium">
+            <div
+              className={cn(
+                "sticky top-0 inset-x-0 z-[110] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0 transition-colors duration-200",
+                previewTheme === 'dark'
+                  ? 'bg-[#0E0E0E]/90 border-b border-[#1F1F1F]'
+                  : 'bg-white/90 border-b border-[#E4E4E7]'
+              )}
+            >
+              <span
+                className={cn(
+                  "font-mono text-xs font-medium",
+                  previewTheme === 'dark' ? 'text-white' : 'text-zinc-900'
+                )}
+              >
                 {component.name}
               </span>
 
-              <button
-                type="button"
-                onClick={() => setIsFullscreenPreview(false)}
-                className="p-1.5 rounded-lg bg-[#141414] hover:bg-[#171717] border border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white transition-colors shrink-0 cursor-pointer"
-                title="Close fullscreen"
-                aria-label="Close fullscreen"
-              >
-                <X className="w-4 h-4 text-white" />
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Toggle Preview Theme in Fullscreen */}
+                <button
+                  type="button"
+                  onClick={() => setPreviewTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+                  className={cn(
+                    "p-1.5 rounded-lg border transition-colors shrink-0 cursor-pointer",
+                    previewTheme === 'dark'
+                      ? "bg-[#141414] hover:bg-[#171717] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white"
+                      : "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900"
+                  )}
+                  title={previewTheme === 'dark' ? 'Switch to light background' : 'Switch to dark background'}
+                  aria-label="Toggle preview theme"
+                >
+                  {previewTheme === 'dark' ? (
+                    <Sun className="w-4 h-4" />
+                  ) : (
+                    <Moon className="w-4 h-4" />
+                  )}
+                </button>
+
+                {/* Close Fullscreen */}
+                <button
+                  type="button"
+                  onClick={() => setIsFullscreenPreview(false)}
+                  className={cn(
+                    "p-1.5 rounded-lg border transition-colors shrink-0 cursor-pointer",
+                    previewTheme === 'dark'
+                      ? "bg-[#141414] hover:bg-[#171717] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white"
+                      : "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900"
+                  )}
+                  title="Close fullscreen"
+                  aria-label="Close fullscreen"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
             {/* Canvas Body */}
