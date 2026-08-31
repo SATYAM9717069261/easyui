@@ -102,6 +102,7 @@ import { WalletCard } from '../ui/WalletCard';
 import { CircularOrbit } from '../ui/CircularOrbit';
 import { ProfileCard } from '../ui/ProfileCard';
 import { BookCallButton } from '../ui/BookCallButton';
+import { GooeyMenu } from '../ui/GooeyMenu';
 
 export type MainTab = 'preview' | 'usage' | 'code' | 'props' | 'accessibility';
 export type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
@@ -1768,12 +1769,14 @@ const completion = await client.completions.create({
         );
       case 'book-call-button':
         return (
-          <div className="py-12 flex flex-col items-center justify-center gap-6">
-            {/* Single pill at rest. The expanding-capsule and
-                phone-hover choreography is the point of the
-                component — users will discover it by hovering. */}
+          <div className="py-12 flex flex-col items-center justify-center">
             <BookCallButton key={demoKey} />
-            <p className="text-[11px] font-mono text-[#6B6B6B]">Hover the pill to expand the capsule and reveal the phone icon.</p>
+          </div>
+        );
+      case 'gooey-menu':
+        return (
+          <div className="py-10 flex flex-col items-center justify-center">
+            <GooeyMenu key={demoKey} />
           </div>
         );
       default:

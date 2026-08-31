@@ -29,6 +29,7 @@ import { WalletCard } from '../ui/WalletCard';
 import { CircularOrbit } from '../ui/CircularOrbit';
 import { ProfileCard } from '../ui/ProfileCard';
 import { BookCallButton } from '../ui/BookCallButton';
+import { GooeyMenu } from '../ui/GooeyMenu';
 import { NewBadge } from './NewBadge';
 import { isComponentNew } from '../../lib/components';
 import { copyToClipboard, cn } from '../../lib/utils';
@@ -1098,18 +1099,25 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       case 'book-call-button':
         return (
           <div className="h-52 w-full flex items-center justify-center p-2 pointer-events-none overflow-hidden">
-            {/* The pill is rendered at its natural 306×96 size and
-                visually scaled to 0.62 → 190×60. pointer-events-none
-                on the wrapper prevents the inner button from stealing
-                the card-level click. The rest state is shown —
-                capturing the iconic "green capsule + dotted arrow +
-                label" silhouette. */}
             <div className="w-[230px] h-[200px] overflow-hidden flex items-center justify-center">
               <div
                 className="origin-center shrink-0"
                 style={{ width: 306, height: 96, transform: 'scale(0.62)' }}
               >
                 <BookCallButton />
+              </div>
+            </div>
+          </div>
+        );
+      case 'gooey-menu':
+        return (
+          <div className="h-52 w-full flex items-center justify-center p-2 pointer-events-none overflow-hidden">
+            <div className="w-[240px] h-[200px] overflow-hidden flex items-start justify-center pt-2">
+              <div
+                className="origin-top shrink-0"
+                style={{ width: 306, transform: 'scale(0.50)' }}
+              >
+                <GooeyMenu open={hovered} defaultValue="Home" />
               </div>
             </div>
           </div>

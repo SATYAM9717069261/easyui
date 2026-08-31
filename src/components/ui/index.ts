@@ -223,4 +223,7 @@ export type { ProfileCardProps } from './ProfileCard';
 export { BookCallButton } from './BookCallButton';
 export type { BookCallButtonProps } from './BookCallButton';
 
+export { GooeyMenu } from './GooeyMenu';
+export type { GooeyMenuProps } from './GooeyMenu';
+
 

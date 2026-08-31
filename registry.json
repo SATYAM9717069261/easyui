@@ -620,6 +620,27 @@
       ]
     },
     {
+      "name": "gooey-menu",
+      "type": "registry:ui",
+      "title": "Gooey Menu",
+      "description": "A tactile liquid dropdown menu with organic SVG metaball fusion filter and spring-driven extrusion animation.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/GooeyMenu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gooey-menu.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
       "name": "gravity-particle-burst",
       "type": "registry:ui",
       "title": "Gravity Particle Burst",
