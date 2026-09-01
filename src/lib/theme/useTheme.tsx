@@ -114,17 +114,20 @@ export function ThemeProvider({ children, initialTheme }: ThemeProviderProps): R
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
+const DEFAULT_THEME_CONTEXT: ThemeContextValue = {
+  theme: 'dark',
+  setTheme: () => {},
+  toggleTheme: () => {},
+};
+
 /**
  * useTheme — read the current theme and (optionally) toggle it.
  *
- * Must be used inside a <ThemeProvider>. Throws if it is not, so that bugs
- * surface immediately during development rather than silently using a
- * per-component default.
+ * Reads from <ThemeProvider> context if present, or falls back to a default dark
+ * theme context when rendered outside a provider (e.g. in isolated unit tests).
  */
 export function useTheme(): ThemeContextValue {
   const ctx = useContext(ThemeContext);
-  if (!ctx) {
-    throw new Error('useTheme must be used inside a <ThemeProvider>.');
-  }
-  return ctx;
+  return ctx ?? DEFAULT_THEME_CONTEXT;
 }
+

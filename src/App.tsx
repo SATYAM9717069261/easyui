@@ -13,6 +13,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useAnalyticsTracker } from './lib/analytics';
 import { useSEO } from './lib/seo';
 import { scrollToTop } from './lib/utils';
+import { ThemeProvider } from './lib/theme/useTheme';
 import { AlertCircle, ArrowLeft, Grid } from 'lucide-react';
 
 // Route-level lazy loading for bundle optimization
@@ -279,124 +280,126 @@ export function App() {
   );
 
   return (
-    <div className="min-h-screen bg-background text-text-primary font-sans selection:bg-accent/25 selection:text-text-primary">
-      {/* Vercel Analytics & Speed Insights (active on production deployment) */}
-      {typeof window !== 'undefined' &&
-        !window.location.hostname.includes('localhost') &&
-        !window.location.hostname.includes('127.0.0.1') && (
-          <>
-            <Analytics />
-            <SpeedInsights />
-          </>
-        )}
+    <ThemeProvider>
+      <div className="min-h-screen bg-background text-text-primary font-sans selection:bg-accent/25 selection:text-text-primary">
+        {/* Vercel Analytics & Speed Insights (active on production deployment) */}
+        {typeof window !== 'undefined' &&
+          !window.location.hostname.includes('localhost') &&
+          !window.location.hostname.includes('127.0.0.1') && (
+            <>
+              <Analytics />
+              <SpeedInsights />
+            </>
+          )}
 
-      {/* Navigation */}
-      <Navbar
-        onOpenSearch={() => setIsSearchOpen(true)}
-        onNavigateComponents={handleNavigateComponents}
-        onNavigateDocs={() => handleNavigateDocs('introduction')}
-        onNavigateHome={handleNavigateHome}
-        activeView={activeView === 'component-not-found' ? 'components' : activeView}
-      />
+        {/* Navigation */}
+        <Navbar
+          onOpenSearch={() => setIsSearchOpen(true)}
+          onNavigateComponents={handleNavigateComponents}
+          onNavigateDocs={() => handleNavigateDocs('introduction')}
+          onNavigateHome={handleNavigateHome}
+          activeView={activeView === 'component-not-found' ? 'components' : activeView}
+        />
 
-      {/* Main View Router with Suspense */}
-      <Suspense fallback={<PageLoader />}>
-        {activeView === 'component-detail' && selectedComponent ? (
-          <ComponentDetailPage
-            component={selectedComponent}
-            onSelectComponent={handleSelectComponentById}
-            onNavigateHome={handleNavigateHome}
-            onNavigateComponents={handleNavigateComponents}
-            onNavigateDocs={handleNavigateDocs}
-          />
-        ) : activeView === 'component-not-found' ? (
-          <main className="min-h-[70vh] flex items-center justify-center p-6 text-center">
-            <div className="max-w-md w-full p-8 rounded-2xl bg-surface border border-border space-y-5">
-              <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 flex items-center justify-center mx-auto">
-                <AlertCircle className="w-6 h-6" />
-              </div>
-              <div className="space-y-2">
-                <h1 className="text-xl font-bold text-text-primary tracking-tight">Component Not Found</h1>
-                <p className="text-xs text-text-secondary leading-relaxed">
-                  No component exists matching{' '}
-                  <code className="px-1.5 py-0.5 rounded bg-surface-hover text-rose-500 font-mono">
-                    /components/{invalidComponentSlug || 'unknown'}
-                  </code>
-                  . It may have been moved or renamed.
-                </p>
-              </div>
-              <div className="flex items-center justify-center gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={handleNavigateComponents}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-background text-xs font-medium hover:opacity-90 transition-opacity cursor-pointer"
-                >
-                  <Grid className="w-3.5 h-3.5" />
-                  <span>Browse Components</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleNavigateHome}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-hover hover:bg-surface-raised border border-border text-xs text-text-primary transition-colors cursor-pointer"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>Go Home</span>
-                </button>
-              </div>
-            </div>
-          </main>
-        ) : activeView === 'docs' ? (
-          <DocsPage
-            activeTopic={activeDocTopic}
-            onSelectTopic={handleSelectDocTopic}
-            onNavigateHome={handleNavigateHome}
-            onNavigateComponents={handleNavigateComponents}
-          />
-        ) : activeView === 'components' ? (
-          <AllComponentsPage
-            currentPage={componentPage}
-            onPageChange={handlePageChange}
-            onSelectComponent={handleSelectComponentById}
-            onNavigateHome={handleNavigateHome}
-            onNavigateDocs={() => handleNavigateDocs('introduction')}
-          />
-        ) : (
-          <main>
-            {/* Hero */}
-            <HeroSection
-              onExplore={handleNavigateComponents}
+        {/* Main View Router with Suspense */}
+        <Suspense fallback={<PageLoader />}>
+          {activeView === 'component-detail' && selectedComponent ? (
+            <ComponentDetailPage
+              component={selectedComponent}
               onSelectComponent={handleSelectComponentById}
+              onNavigateHome={handleNavigateHome}
+              onNavigateComponents={handleNavigateComponents}
+              onNavigateDocs={handleNavigateDocs}
             />
-
-            {/* How It Works (Dev Experience) */}
-            <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
-
-            {/* Component Directory (Homepage limited 6 items) */}
-            <ComponentDirectory
+          ) : activeView === 'component-not-found' ? (
+            <main className="min-h-[70vh] flex items-center justify-center p-6 text-center">
+              <div className="max-w-md w-full p-8 rounded-2xl bg-surface border border-border space-y-5">
+                <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 flex items-center justify-center mx-auto">
+                  <AlertCircle className="w-6 h-6" />
+                </div>
+                <div className="space-y-2">
+                  <h1 className="text-xl font-bold text-text-primary tracking-tight">Component Not Found</h1>
+                  <p className="text-xs text-text-secondary leading-relaxed">
+                    No component exists matching{' '}
+                    <code className="px-1.5 py-0.5 rounded bg-surface-hover text-rose-500 font-mono">
+                      /components/{invalidComponentSlug || 'unknown'}
+                    </code>
+                    . It may have been moved or renamed.
+                  </p>
+                </div>
+                <div className="flex items-center justify-center gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={handleNavigateComponents}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-background text-xs font-medium hover:opacity-90 transition-opacity cursor-pointer"
+                  >
+                    <Grid className="w-3.5 h-3.5" />
+                    <span>Browse Components</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNavigateHome}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-hover hover:bg-surface-raised border border-border text-xs text-text-primary transition-colors cursor-pointer"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Go Home</span>
+                  </button>
+                </div>
+              </div>
+            </main>
+          ) : activeView === 'docs' ? (
+            <DocsPage
+              activeTopic={activeDocTopic}
+              onSelectTopic={handleSelectDocTopic}
+              onNavigateHome={handleNavigateHome}
+              onNavigateComponents={handleNavigateComponents}
+            />
+          ) : activeView === 'components' ? (
+            <AllComponentsPage
+              currentPage={componentPage}
+              onPageChange={handlePageChange}
               onSelectComponent={handleSelectComponentById}
-              onNavigateAllComponents={() => handleNavigateAllComponents(1)}
+              onNavigateHome={handleNavigateHome}
+              onNavigateDocs={() => handleNavigateDocs('introduction')}
             />
+          ) : (
+            <main>
+              {/* Hero */}
+              <HeroSection
+                onExplore={handleNavigateComponents}
+                onSelectComponent={handleSelectComponentById}
+              />
 
-            {/* Final CTA */}
-            <FinalCta onBrowse={() => handleNavigateAllComponents(1)} />
-          </main>
-        )}
-      </Suspense>
+              {/* How It Works (Dev Experience) */}
+              <DevExperience onExploreDocs={() => handleNavigateDocs('introduction')} />
 
-      {/* Footer */}
-      <Footer
-        onNavigateComponents={handleNavigateComponents}
-        onNavigateDocs={() => handleNavigateDocs('introduction')}
-      />
+              {/* Component Directory (Homepage limited 6 items) */}
+              <ComponentDirectory
+                onSelectComponent={handleSelectComponentById}
+                onNavigateAllComponents={() => handleNavigateAllComponents(1)}
+              />
 
-      {/* Global Spotlight Search (⌘K) */}
-      <SpotlightSearch
-        open={isSearchOpen}
-        onOpenChange={setIsSearchOpen}
-        onSelectComponent={handleSelectComponentById}
-        onNavigateDocs={handleNavigateDocs}
-      />
-    </div>
+              {/* Final CTA */}
+              <FinalCta onBrowse={() => handleNavigateAllComponents(1)} />
+            </main>
+          )}
+        </Suspense>
+
+        {/* Footer */}
+        <Footer
+          onNavigateComponents={handleNavigateComponents}
+          onNavigateDocs={() => handleNavigateDocs('introduction')}
+        />
+
+        {/* Global Spotlight Search (⌘K) */}
+        <SpotlightSearch
+          open={isSearchOpen}
+          onOpenChange={setIsSearchOpen}
+          onSelectComponent={handleSelectComponentById}
+          onNavigateDocs={handleNavigateDocs}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 
