@@ -1322,6 +1322,7 @@ func main() {
       aria-modal="true"
       aria-label={component.name}
     >
+      {/* Modal is a dark "island" — components inside stay dark, so we scope `dark` to the surface. */}
       {/* Backdrop with quiet blur so dotted background remains visible */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -1331,7 +1332,8 @@ func main() {
         className="fixed inset-0 bg-black/60 backdrop-blur-xs"
       />
 
-      {/* Main Dialog Modal Surface */}
+      {/* Main Dialog Modal Surface — kept dark so demos look correct on light pages too. */}
+      <div className="dark contents">
       <motion.div
         initial={{ opacity: 0, scale: 0.98, y: 6 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -1748,10 +1750,12 @@ func main() {
           </button>
         </div>
       </motion.div>
+      </div>
 
-      {/* Fullscreen Component Playground Overlay */}
+      {/* Fullscreen Component Playground Overlay — dark island, components stay dark. */}
       <AnimatePresence>
         {isFullscreenPreview && (
+          <div className="dark contents">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -1786,6 +1790,7 @@ func main() {
               {renderInteractiveDemo()}
             </div>
           </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

@@ -54,7 +54,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#FAFAFA] pt-2 pb-24">
+    <div className="min-h-screen bg-background text-text-primary pt-2 pb-24">
       <Container size="xl">
         {/* Top Header & Breadcrumbs — quiet one-line rhythm, no heavy border row */}
         <div className="flex items-center justify-between gap-3 py-3 mb-8 sm:mb-10">
@@ -64,7 +64,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
               type="button"
               onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
               aria-label="Open documentation menu"
-              className="lg:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#0E0E0E] hover:bg-[#141414] border border-[#1F1F1F] text-xs font-medium text-[#A1A1A1] hover:text-white transition-colors shrink-0 focus-ring cursor-pointer"
+              className="lg:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-surface hover:bg-surface-hover border border-border text-xs font-medium text-text-secondary hover:text-text-primary transition-colors shrink-0 focus-ring cursor-pointer"
             >
               <Menu className="w-3.5 h-3.5" />
               <span>Menu</span>
@@ -73,23 +73,23 @@ export const DocsPage: React.FC<DocsPageProps> = ({
             {/* Breadcrumbs — same quiet rhythm as the site footer */}
             <nav
               aria-label="Breadcrumb"
-              className="flex items-center gap-1.5 text-[12px] text-[#6B6B6B] truncate"
+              className="flex items-center gap-1.5 text-[12px] text-text-muted truncate"
             >
               <button
                 onClick={onNavigateHome}
-                className="hover:text-white transition-colors shrink-0"
+                className="hover:text-text-primary transition-colors shrink-0"
               >
                 EasyUI
               </button>
-              <span className="text-[#525252]">/</span>
+              <span className="text-text-subtle">/</span>
               <button
                 onClick={() => handleSelectTopicWithMobileClose('introduction')}
-                className="hover:text-white transition-colors shrink-0"
+                className="hover:text-text-primary transition-colors shrink-0"
               >
                 Docs
               </button>
-              <span className="text-[#525252]">/</span>
-              <span className="text-[#FAFAFA] truncate">{getBreadcrumbLabel()}</span>
+              <span className="text-text-subtle">/</span>
+              <span className="text-text-primary truncate">{getBreadcrumbLabel()}</span>
             </nav>
           </div>
 
@@ -97,7 +97,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
           <button
             onClick={onNavigateComponents}
             aria-label="Back to Components"
-            className="p-1.5 rounded-md text-[#525252] hover:text-white hover:bg-[#0E0E0E] transition-colors focus-ring cursor-pointer shrink-0"
+            className="p-1.5 rounded-md text-text-subtle hover:text-text-primary hover:bg-surface transition-colors focus-ring cursor-pointer shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
           </button>
@@ -135,16 +135,16 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                     damping: 32,
                     mass: 0.8,
                   }}
-                  className="relative w-72 max-w-[80vw] bg-[#0B0B0B] border-r border-[#1F1F1F] h-full p-6 overflow-y-auto z-10 shadow-2xl"
+                  className="relative w-72 max-w-[80vw] bg-surface-raised border-r border-border h-full p-6 overflow-y-auto z-10 shadow-2xl"
                 >
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-[10px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em]">
+                    <span className="text-[10px] font-mono text-text-muted uppercase tracking-[0.18em]">
                       Documentation
                     </span>
                     <button
                       onClick={() => setMobileSidebarOpen(false)}
                       aria-label="Close menu"
-                      className="p-1.5 rounded-md text-[#6B6B6B] hover:text-white hover:bg-[#141414] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-md text-text-muted hover:text-text-primary hover:bg-surface-hover transition-colors cursor-pointer"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>

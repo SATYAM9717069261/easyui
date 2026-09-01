@@ -9,16 +9,16 @@ export interface DocQuickStartProps {
 
 export const DocQuickStart: React.FC<DocQuickStartProps> = ({ onNavigateSection }) => {
   return (
-    <article className="space-y-14 animate-fade-in text-[#A1A1A1]">
+    <article className="space-y-14 animate-fade-in text-text-secondary">
       {/* Header */}
-      <header className="space-y-4 border-b border-[#1F1F1F] pb-10">
-        <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em]">
+      <header className="space-y-4 border-b border-border pb-10">
+        <span className="text-[11px] font-mono text-text-muted uppercase tracking-[0.18em]">
           Getting Started · 02
         </span>
-        <h1 className="text-3xl sm:text-[40px] font-semibold tracking-[-0.02em] text-[#FAFAFA] leading-[1.1]">
+        <h1 className="text-3xl sm:text-[40px] font-semibold tracking-[-0.02em] text-text-primary leading-[1.1]">
           Quick Start
         </h1>
-        <p className="text-[15px] text-[#A1A1A1] leading-relaxed max-w-2xl">
+        <p className="text-[15px] text-text-secondary leading-relaxed max-w-2xl">
           Get started with EasyUI in under 2 minutes. Install components directly into any React project using the shadcn CLI or copy the raw source code.
         </p>
       </header>
@@ -26,28 +26,28 @@ export const DocQuickStart: React.FC<DocQuickStartProps> = ({ onNavigateSection 
       {/* Step 1: Initialize shadcn */}
       <section className="space-y-4">
         <div className="flex items-baseline gap-3">
-          <span className="font-mono text-[11px] tracking-[0.18em] text-[#6B6B6B] uppercase">
+          <span className="font-mono text-[11px] tracking-[0.18em] text-text-muted uppercase">
             Step 01
           </span>
         </div>
-        <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Initialize shadcn in your project</h2>
-        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
+        <h2 className="text-[16px] font-semibold text-text-primary tracking-[-0.01em]">
+          Initialize shadcn in your project
+        </h2>
+        <p className="text-[14px] text-text-secondary leading-relaxed">
           If your project doesn't have shadcn initialized yet, run the setup command in your terminal:
         </p>
-        <DocCodeBlock
-          code="npx shadcn@latest init"
-          language="bash"
-          isTerminal={true}
-        />
+        <DocCodeBlock code="npx shadcn@latest init" language="bash" isTerminal={true} />
       </section>
 
       {/* Step 2: Add Components */}
       <section className="space-y-4">
-        <span className="font-mono text-[11px] tracking-[0.18em] text-[#6B6B6B] uppercase">
+        <span className="font-mono text-[11px] tracking-[0.18em] text-text-muted uppercase">
           Step 02
         </span>
-        <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Install Components via shadcn CLI</h2>
-        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
+        <h2 className="text-[16px] font-semibold text-text-primary tracking-[-0.01em]">
+          Install Components via shadcn CLI
+        </h2>
+        <p className="text-[14px] text-text-secondary leading-relaxed">
           Reference the repository path and component slug to install any component directly:
         </p>
         <DocCodeBlock
@@ -64,26 +64,41 @@ npx shadcn@latest add Surajmaurya1/easyui/animated-tabs`}
           title="Terminal"
         />
 
-        <div className="p-4 rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] space-y-2.5">
-          <div className="flex items-center gap-2 text-[12px] font-semibold text-[#FAFAFA]">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="p-4 rounded-lg border border-border bg-surface space-y-2.5">
+          <div className="flex items-center gap-2 text-[12px] font-semibold text-text-primary">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
             <span>Automatic during CLI installation:</span>
           </div>
-          <ul className="text-[13px] text-[#A1A1A1] space-y-1.5 pl-5 list-disc marker:text-[#525252]">
-            <li>Component source file is placed in your <code className="text-[#FAFAFA] font-mono bg-[#0E0E0E] border border-[#1F1F1F] px-1.5 py-0.5 rounded text-[12px]">components/ui/</code> folder.</li>
-            <li>Required packages (<code className="text-[#FAFAFA] font-mono text-[12px]">framer-motion</code>, <code className="text-[#FAFAFA] font-mono text-[12px]">lucide-react</code>) are installed.</li>
-            <li>Shared motion tokens and utilities are placed in <code className="text-[#FAFAFA] font-mono text-[12px]">lib/</code> automatically if referenced.</li>
+          <ul className="text-[13px] text-text-secondary space-y-1.5 pl-5 list-disc marker:text-text-subtle">
+            <li>
+              Component source file is placed in your{' '}
+              <code className="text-text-primary font-mono bg-surface-raised border border-border px-1.5 py-0.5 rounded text-[12px]">
+                components/ui/
+              </code>{' '}
+              folder.
+            </li>
+            <li>
+              Required packages (
+              <code className="text-text-primary font-mono text-[12px]">framer-motion</code>,{' '}
+              <code className="text-text-primary font-mono text-[12px]">lucide-react</code>) are installed.
+            </li>
+            <li>
+              Shared motion tokens and utilities are placed in{' '}
+              <code className="text-text-primary font-mono text-[12px]">lib/</code> automatically if referenced.
+            </li>
           </ul>
         </div>
       </section>
 
       {/* Step 3: Usage in Code */}
       <section className="space-y-4">
-        <span className="font-mono text-[11px] tracking-[0.18em] text-[#6B6B6B] uppercase">
+        <span className="font-mono text-[11px] tracking-[0.18em] text-text-muted uppercase">
           Step 03
         </span>
-        <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Import & Use in your Code</h2>
-        <p className="text-[14px] text-[#A1A1A1] leading-relaxed">
+        <h2 className="text-[16px] font-semibold text-text-primary tracking-[-0.01em]">
+          Import &amp; Use in your Code
+        </h2>
+        <p className="text-[14px] text-text-secondary leading-relaxed">
           Import the installed component directly into your React pages or components with full TypeScript autocomplete:
         </p>
 
@@ -114,11 +129,17 @@ export function FeaturePreview() {
       </section>
 
       {/* Manual Setup Utilities */}
-      <section className="space-y-4 pt-6 border-t border-[#1F1F1F]">
+      <section className="space-y-4 pt-6 border-t border-border">
         <div className="space-y-1.5">
-          <h2 className="text-[16px] font-semibold text-[#FAFAFA] tracking-[-0.01em]">Manual Setup (Utilities & Tokens)</h2>
-          <p className="text-[14px] text-[#A1A1A1] leading-relaxed max-w-2xl">
-            If you are copying source code manually without the shadcn CLI, ensure you have standard <code className="text-[#FAFAFA] font-mono bg-[#0E0E0E] border border-[#1F1F1F] px-1.5 py-0.5 rounded text-[12px]">cn</code> and motion tokens:
+          <h2 className="text-[16px] font-semibold text-text-primary tracking-[-0.01em]">
+            Manual Setup (Utilities &amp; Tokens)
+          </h2>
+          <p className="text-[14px] text-text-secondary leading-relaxed max-w-2xl">
+            If you are copying source code manually without the shadcn CLI, ensure you have standard{' '}
+            <code className="text-text-primary font-mono bg-surface-raised border border-border px-1.5 py-0.5 rounded text-[12px]">
+              cn
+            </code>{' '}
+            and motion tokens:
           </p>
         </div>
 

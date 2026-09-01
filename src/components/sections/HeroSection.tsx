@@ -29,12 +29,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExplore }) => {
         <DotField
           dotRadius={1.5}
           dotSpacing={18}
-          gradientFrom="rgba(255, 255, 255, 0.18)"
-          gradientTo="rgba(255, 255, 255, 0.05)"
+          gradientFrom="rgba(10, 10, 10, 0.18)"
+          gradientTo="rgba(10, 10, 10, 0.05)"
           className="w-full h-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/40 via-transparent to-[#050505]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,#050505_95%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,var(--bg)_95%)]" />
       </div>
 
       <Container size="lg">
@@ -44,7 +44,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExplore }) => {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 sm:mt-7 text-[40px] sm:text-[64px] lg:text-[80px] font-bold tracking-[-0.035em] text-[#FAFAFA] leading-[1.02]"
+            className="mt-6 sm:mt-7 text-[40px] sm:text-[64px] lg:text-[80px] font-bold tracking-[-0.035em] text-text-primary leading-[1.02]"
           >
             Beautiful Components,
             <br />
@@ -56,7 +56,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExplore }) => {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-7 sm:mt-9 text-[15px] sm:text-[16px] text-[#A1A1A1] max-w-md leading-relaxed"
+            className="mt-7 sm:mt-9 text-[15px] sm:text-[16px] text-text-secondary max-w-md leading-relaxed"
           >
             Beautiful, open source and animated React components you can copy, customize, and install with one command.
           </motion.p>
@@ -73,15 +73,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExplore }) => {
                 type="button"
                 onClick={handleCopy}
                 aria-label="Copy install command"
-                className="group flex-1 min-w-0 flex items-center gap-2.5 px-3.5 py-2.5 rounded-md border border-[#1F1F1F] bg-[#0E0E0E]/60 hover:border-[#2A2A2A] hover:bg-[#141414]/60 transition-colors focus-ring"
+                className="group flex-1 min-w-0 flex items-center gap-2.5 px-3.5 py-2.5 rounded-md border border-border bg-surface/60 hover:border-border-hover hover:bg-surface-hover/60 transition-colors focus-ring"
               >
-                <span className="text-[10px] font-sans uppercase tracking-[0.18em] text-[#6B6B6B] shrink-0 select-none">
+                <span className="text-[10px] font-sans uppercase tracking-[0.18em] text-text-muted shrink-0 select-none">
                   CLI
                 </span>
-                <span className="text-[12.5px] font-sans text-[#A1A1A1] truncate flex-1 text-left select-all">
+                <span className="text-[12.5px] font-sans text-text-secondary truncate flex-1 text-left select-all">
                   {INSTALL_COMMAND}
                 </span>
-                <span className="shrink-0 text-[#525252] group-hover:text-[#FAFAFA] transition-colors">
+                <span className="shrink-0 text-text-subtle group-hover:text-text-primary transition-colors">
                   {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                 </span>
               </button>

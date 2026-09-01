@@ -89,28 +89,28 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
   };
 
   return (
-    <section id="components-directory" className="py-24 sm:py-32 lg:py-40 bg-[#050505] border-t border-[#1F1F1F]">
+    <section id="components-directory" className="py-24 sm:py-32 lg:py-40 bg-background border-t border-border">
       <Container size="xl">
         {/* Section header — eyebrow + headline + count, no supporting paragraph */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
-            <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em]">
+            <span className="text-[11px] font-mono text-text-muted uppercase tracking-[0.18em]">
               Directory
             </span>
-            <h2 className="mt-3 text-3xl sm:text-[44px] font-semibold text-[#FAFAFA] tracking-[-0.02em] leading-[1.1]">
+            <h2 className="mt-3 text-3xl sm:text-[44px] font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">
               Components
             </h2>
           </div>
 
           {/* Search bar */}
           <div className="relative w-full md:w-64">
-            <Search className="w-3.5 h-3.5 text-[#525252] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-text-subtle absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
               placeholder="Search..."
-              className="w-full pl-9 pr-3 py-2 text-[14px] rounded-lg bg-[#0E0E0E] border border-[#1F1F1F] text-[#FAFAFA] placeholder-[#6B6B6B] focus:outline-none focus:border-[#4A4A4A] transition-colors"
+              className="w-full pl-9 pr-3 py-2 text-[14px] rounded-lg bg-surface border border-border text-text-primary placeholder-text-muted focus:outline-none focus:border-text-subtle transition-colors"
             />
           </div>
         </div>
@@ -124,13 +124,13 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
               className={cn(
                 'relative text-[13px] font-medium whitespace-nowrap transition-colors focus-ring cursor-pointer',
                 selectedCategory === cat
-                  ? 'text-[#FAFAFA]'
-                  : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
+                  ? 'text-text-primary'
+                  : 'text-text-muted hover:text-text-secondary'
               )}
             >
               {cat}
               {selectedCategory === cat && (
-                <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#FAFAFA]" aria-hidden />
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-text-primary" aria-hidden />
               )}
             </button>
           ))}
@@ -138,10 +138,10 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
 
         {/* Components Grid — larger gap, larger breathing room */}
         {filteredComponents.length === 0 ? (
-          <div className="py-24 text-center rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] px-4">
+          <div className="py-24 text-center rounded-xl border border-border bg-surface px-4">
             {selectedCategory === 'Recent' ? (
               <div className="space-y-3 max-w-md mx-auto">
-                <p className="text-sm text-[#A1A1A1] leading-relaxed">
+                <p className="text-sm text-text-secondary leading-relaxed">
                   No recent components available at the moment. Check out all components on the components page.
                 </p>
                 <div className="flex items-center justify-center gap-3 pt-1">
@@ -156,7 +156,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
                         setCurrentPage(1);
                       }
                     }}
-                    className="px-4 py-2 text-xs rounded-xl bg-white text-black font-medium hover:bg-zinc-200 transition-colors cursor-pointer"
+                    className="px-4 py-2 text-xs rounded-xl bg-accent text-background font-medium hover:opacity-90 transition-opacity cursor-pointer"
                   >
                     View all components
                   </button>
@@ -164,7 +164,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
               </div>
             ) : (
               <div className="space-y-3 max-w-md mx-auto">
-                <p className="text-sm text-[#6B6B6B]">No components found matching your search.</p>
+                <p className="text-sm text-text-muted">No components found matching your search.</p>
                 <button
                   type="button"
                   onClick={() => {
@@ -172,7 +172,7 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
                     setSearchQuery('');
                     setCurrentPage(1);
                   }}
-                  className="mt-2 text-xs text-white hover:underline focus-ring rounded cursor-pointer"
+                  className="mt-2 text-xs text-text-primary hover:underline focus-ring rounded cursor-pointer"
                 >
                   Reset filters
                 </button>
@@ -218,11 +218,11 @@ export const ComponentDirectory: React.FC<ComponentDirectoryProps> = ({
                 <button
                   type="button"
                   onClick={onNavigateAllComponents}
-                  className="group inline-flex items-center gap-2 text-[13px] font-medium text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring rounded cursor-pointer"
+                  className="group inline-flex items-center gap-2 text-[13px] font-medium text-text-secondary hover:text-text-primary transition-colors focus-ring rounded cursor-pointer"
                 >
                   <span className="relative">
                     View all components
-                    <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 bg-[#A1A1A1] transition-transform duration-300" />
+                    <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 bg-text-secondary transition-transform duration-300" />
                   </span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" />
                 </button>

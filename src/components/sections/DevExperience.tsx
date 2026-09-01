@@ -41,7 +41,7 @@ export const DevExperience: React.FC<DevExperienceProps> = ({ onExploreDocs }) =
   };
 
   return (
-    <section id="how-it-works" className="py-20 sm:py-24 lg:py-28 bg-[#050505] border-t border-[#1F1F1F] scroll-mt-12">
+    <section id="how-it-works" className="py-20 sm:py-24 lg:py-28 bg-background border-t border-border scroll-mt-12">
       {/* Anchor aliases for backwards compatibility */}
       <span id="workflow" className="sr-only" />
       <span id="dev-experience" className="sr-only" />
@@ -50,10 +50,10 @@ export const DevExperience: React.FC<DevExperienceProps> = ({ onExploreDocs }) =
         {/* Section header — eyebrow + headline only, no paragraph */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
           <div>
-            <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-[0.18em]">
+            <span className="text-[11px] font-mono text-text-muted uppercase tracking-[0.18em]">
               How it works
             </span>
-            <h2 className="mt-3 text-3xl sm:text-[44px] font-semibold text-[#FAFAFA] tracking-[-0.02em] leading-[1.1]">
+            <h2 className="mt-3 text-3xl sm:text-[44px] font-semibold text-text-primary tracking-[-0.02em] leading-[1.1]">
               Three steps. Own the code.
             </h2>
           </div>
@@ -61,11 +61,11 @@ export const DevExperience: React.FC<DevExperienceProps> = ({ onExploreDocs }) =
           {onExploreDocs && (
             <button
               onClick={onExploreDocs}
-              className="self-start md:self-auto group inline-flex items-center gap-2 text-[13px] font-medium text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring rounded cursor-pointer"
+              className="self-start md:self-auto group inline-flex items-center gap-2 text-[13px] font-medium text-text-secondary hover:text-text-primary transition-colors focus-ring rounded cursor-pointer"
             >
               <span className="relative">
                 Read the docs
-                <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 bg-[#A1A1A1] transition-transform duration-300" />
+                <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 bg-text-secondary transition-transform duration-300" />
               </span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" />
             </button>
@@ -77,28 +77,28 @@ export const DevExperience: React.FC<DevExperienceProps> = ({ onExploreDocs }) =
           {STEPS.map((item, idx) => (
             <div key={idx} className="flex flex-col">
               {/* Quiet step number, no pill */}
-              <span className="font-mono text-[11px] tracking-[0.18em] text-[#6B6B6B] uppercase">
+              <span className="font-mono text-[11px] tracking-[0.18em] text-text-muted uppercase">
                 {item.number}
               </span>
 
-              <h3 className="mt-4 text-[20px] font-semibold text-[#FAFAFA] tracking-[-0.015em] leading-snug">
+              <h3 className="mt-4 text-[20px] font-semibold text-text-primary tracking-[-0.015em] leading-snug">
                 {item.title}
               </h3>
 
-              <p className="mt-3 text-[14px] text-[#A1A1A1] leading-relaxed">
+              <p className="mt-3 text-[14px] text-text-secondary leading-relaxed">
                 {item.description}
               </p>
 
-              {/* Code block — single-line snippet, all three cards match visually */}
-              <div className="mt-6 flex flex-col rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] overflow-hidden">
-                <div className="flex items-center justify-between px-3 py-2 border-b border-[#1F1F1F]">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6B6B6B]">
+              {/* Code block — single-line snippet, follows the global light/dark theme. */}
+              <div className="mt-6 flex flex-col rounded-lg border border-border bg-surface-raised text-text-primary overflow-hidden">
+                <div className="flex items-center justify-between px-3 py-2 border-b border-border">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
                     {item.label}
                   </span>
                   <button
                     type="button"
                     onClick={() => handleCopy(item.code, idx)}
-                    className="p-1 rounded text-[#6B6B6B] hover:text-[#FAFAFA] transition-colors focus-ring"
+                    className="p-1 rounded text-text-muted hover:text-text-primary transition-colors focus-ring"
                     title="Copy snippet"
                     aria-label={`Copy ${item.label} snippet`}
                   >
@@ -109,7 +109,7 @@ export const DevExperience: React.FC<DevExperienceProps> = ({ onExploreDocs }) =
                     )}
                   </button>
                 </div>
-                <pre className="px-3.5 py-3 text-[11.5px] font-mono text-[#A1A1A1] leading-snug overflow-x-auto scrollbar-none selection:bg-white/20 whitespace-nowrap">
+                <pre className="px-3.5 py-3 text-[11.5px] font-mono text-text-secondary leading-snug overflow-x-auto scrollbar-none whitespace-nowrap">
                   <code>{item.code}</code>
                 </pre>
               </div>

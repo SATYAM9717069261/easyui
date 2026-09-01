@@ -17,8 +17,6 @@ import {
   Home,
   Grid,
   Menu,
-  Sun,
-  Moon,
 } from 'lucide-react';
 import type { EasyComponentMeta } from '../../types/component';
 import { EASY_COMPONENTS } from '../registry/components-data';
@@ -26,6 +24,7 @@ import { cn, copyToClipboard } from '../../lib/utils';
 import { isComponentNew } from '../../lib/components';
 import { useComponentSource } from '../../lib/source-loader';
 import { NewBadge } from '../common/NewBadge';
+import { useTheme } from '../../lib/theme/useTheme';
 
 // UI components for live interactive demonstrations
 import { MagneticButton } from '../ui/MagneticButton';
@@ -559,7 +558,8 @@ export const ComponentDetailPage: React.FC<ComponentDetailPageProps> = ({
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [demoKey, setDemoKey] = useState(0);
   const [isCopiedCli, setIsCopiedCli] = useState(false);
-  const [previewTheme, setPreviewTheme] = useState<'dark' | 'light'>('dark');
+  // Preview surface follows the global page theme (no local toggle).
+  const { theme } = useTheme();
 
   const handleBackToComponents = () => {
     if (typeof window !== 'undefined' && window.history.length > 1) {
@@ -977,7 +977,7 @@ const completion = await client.completions.create({
                   id: 'tab1',
                   label: 'Overview',
                   content: (
-                    <div className="text-xs text-[#A1A1A1] p-4 bg-[#141414] rounded-xl border border-[#1F1F1F]">
+                    <div className="text-xs text-text-secondary p-4 bg-surface-raised rounded-xl border border-border dark:bg-[#141414] dark:border-[#1F1F1F] dark:text-[#A1A1A1]">
                       Overview metrics & telemetry
                     </div>
                   ),
@@ -986,7 +986,7 @@ const completion = await client.completions.create({
                   id: 'tab2',
                   label: 'Integration',
                   content: (
-                    <div className="text-xs text-[#A1A1A1] p-4 bg-[#141414] rounded-xl border border-[#1F1F1F]">
+                    <div className="text-xs text-text-secondary p-4 bg-surface-raised rounded-xl border border-border dark:bg-[#141414] dark:border-[#1F1F1F] dark:text-[#A1A1A1]">
                       Next.js App Router setup
                     </div>
                   ),
@@ -995,7 +995,7 @@ const completion = await client.completions.create({
                   id: 'tab3',
                   label: 'Security',
                   content: (
-                    <div className="text-xs text-[#A1A1A1] p-4 bg-[#141414] rounded-xl border border-[#1F1F1F]">
+                    <div className="text-xs text-text-secondary p-4 bg-surface-raised rounded-xl border border-border dark:bg-[#141414] dark:border-[#1F1F1F] dark:text-[#A1A1A1]">
                       Zero external runtime network dependencies
                     </div>
                   ),
@@ -1790,17 +1790,17 @@ const completion = await client.completions.create({
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#FAFAFA] selection:bg-[#3B82F6]/25 selection:text-white">
+    <div className="min-h-screen bg-background text-text-primary selection:bg-[#3B82F6]/25 selection:text-text-primary">
       {/* Documentation Container */}
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Mobile Header Bar */}
-        <div className="lg:hidden flex items-center justify-between gap-3 pb-4 mb-4 border-b border-[#1F1F1F]">
+        <div className="lg:hidden flex items-center justify-between gap-3 pb-4 mb-4 border-b border-border">
           <button
             type="button"
             onClick={() => setMobileSidebarOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#141414] border border-[#1F1F1F] text-xs font-medium text-white hover:bg-[#1A1A1A] transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-raised border border-border text-xs font-medium text-text-primary hover:bg-surface-hover transition-colors"
           >
-            <Menu className="w-4 h-4 text-zinc-400" />
+            <Menu className="w-4 h-4 text-text-muted" />
             <span>Components Menu</span>
           </button>
 
@@ -1808,9 +1808,9 @@ const completion = await client.completions.create({
             <button
               type="button"
               onClick={handleCopyCli}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141414] border border-[#1F1F1F] text-xs text-zinc-300 hover:text-white"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-raised border border-border text-xs text-text-secondary hover:text-text-primary"
             >
-              {isCopiedCli ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Terminal className="w-3.5 h-3.5" />}
+              {isCopiedCli ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Terminal className="w-3.5 h-3.5" />}
               <span>{isCopiedCli ? 'Copied CLI' : 'Copy CLI'}</span>
             </button>
           </div>
@@ -1838,13 +1838,13 @@ const completion = await client.completions.create({
                   damping: 32,
                   mass: 0.8,
                 }}
-                className="relative w-80 max-w-[85vw] bg-[#1A1A1A] border-r border-[#2d2d2d] h-full p-5 overflow-y-auto z-10 flex flex-col gap-4 shadow-2xl"
+                className="relative w-80 max-w-[85vw] bg-surface border-r border-border h-full p-5 overflow-y-auto z-10 flex flex-col gap-4 shadow-2xl"
               >
-                <div className="flex items-center justify-between border-b border-[#2d2d2d] pb-3">
-                  <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Components Catalog</span>
+                <div className="flex items-center justify-between border-b border-border pb-3">
+                  <span className="text-xs font-mono text-text-muted uppercase tracking-wider">Components Catalog</span>
                   <button
                     onClick={() => setMobileSidebarOpen(false)}
-                    className="p-1.5 rounded-lg text-zinc-400 hover:text-white bg-[#141414] hover:bg-[#2d2d2d] border border-[#2d2d2d] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg text-text-secondary hover:text-text-primary bg-surface-raised hover:bg-surface-hover border border-border transition-colors cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -1852,18 +1852,18 @@ const completion = await client.completions.create({
 
                 {/* Search */}
                 <div className="relative">
-                  <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
+                  <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-subtle pointer-events-none" />
                   <input
                     type="text"
                     value={sidebarFilter}
                     onChange={(e) => setSidebarFilter(e.target.value)}
                     placeholder="Filter components..."
-                    className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#141414] border border-[#2d2d2d] text-[16px] text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
+                    className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-surface-raised border border-border text-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-text-subtle transition-colors"
                   />
                 </div>
                 {/* Items */}
                 <div className="space-y-1 overflow-y-auto">
-                  <h4 className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest px-2 mb-1.5">
+                  <h4 className="text-[11px] font-bold text-text-muted uppercase tracking-widest px-2 mb-1.5">
                     Components
                   </h4>
                   <div className="space-y-0.5">
@@ -1878,10 +1878,10 @@ const completion = await client.completions.create({
                             setMobileSidebarOpen(false);
                           }}
                           className={cn(
-                            'w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-all text-left',
+                            'w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-all text-left cursor-pointer',
                             isActive
-                              ? 'bg-[#141414] text-white font-medium border border-[#2d2d2d]'
-                              : 'text-zinc-400 hover:text-white hover:bg-[#141414]'
+                              ? 'bg-surface-hover text-text-primary font-medium border border-border'
+                              : 'text-text-secondary hover:text-text-primary hover:bg-surface'
                           )}
                         >
                           <span className="truncate">{item.name}</span>
@@ -1904,18 +1904,18 @@ const completion = await client.completions.create({
           <aside className="hidden lg:block w-64 shrink-0 sticky top-20 self-start max-h-[calc(100vh-6rem)] overflow-y-auto select-none pr-3 scrollbar-thin">
             {/* Filter Search Box */}
             <div className="relative mb-6">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-subtle pointer-events-none" />
               <input
                 type="text"
                 value={sidebarFilter}
                 onChange={(e) => setSidebarFilter(e.target.value)}
                 placeholder="Search..."
-                className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#1A1A1A] border border-[#2d2d2d] text-[16px] text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+                className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-surface-raised border border-border text-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-text-subtle transition-colors"
               />
               {sidebarFilter && (
                 <button
                   onClick={() => setSidebarFilter('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-subtle hover:text-text-primary"
                   aria-label="Clear filter"
                 >
                   <X className="w-3 h-3" />
@@ -1926,56 +1926,56 @@ const completion = await client.completions.create({
             {/* INTRO Section */}
             <div className="space-y-6">
               <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-[#6B6B6B] uppercase tracking-widest px-2.5 mb-1.5">
+                <h4 className="text-[11px] font-bold text-text-muted uppercase tracking-widest px-2.5 mb-1.5">
                   Intro
                 </h4>
                 <button
                   onClick={onNavigateHome}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A1A1A1] hover:text-white hover:bg-[#141414] transition-colors text-left cursor-pointer"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-text-secondary hover:text-text-primary hover:bg-surface transition-colors text-left cursor-pointer"
                 >
-                  <Home className="w-3.5 h-3.5 text-[#525252]" />
+                  <Home className="w-3.5 h-3.5 text-text-subtle" />
                   <span>Home</span>
                 </button>
                 <button
                   onClick={onNavigateComponents}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A1A1A1] hover:text-white hover:bg-[#141414] transition-colors text-left cursor-pointer"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-text-secondary hover:text-text-primary hover:bg-surface transition-colors text-left cursor-pointer"
                 >
-                  <Grid className="w-3.5 h-3.5 text-[#525252]" />
+                  <Grid className="w-3.5 h-3.5 text-text-subtle" />
                   <span>Components</span>
                 </button>
               </div>
 
               {/* GUIDES Section */}
               <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-[#6B6B6B] uppercase tracking-widest px-2.5 mb-1.5">
+                <h4 className="text-[11px] font-bold text-text-muted uppercase tracking-widest px-2.5 mb-1.5">
                   Guides
                 </h4>
                 <button
                   onClick={() => onNavigateDocs('quick-start')}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A1A1A1] hover:text-white hover:bg-[#141414] transition-colors text-left cursor-pointer"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-text-secondary hover:text-text-primary hover:bg-surface transition-colors text-left cursor-pointer"
                 >
-                  <Terminal className="w-3.5 h-3.5 text-[#525252]" />
+                  <Terminal className="w-3.5 h-3.5 text-text-subtle" />
                   <span>Quick Start</span>
                 </button>
                 <button
                   onClick={() => onNavigateDocs('motion')}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A1A1A1] hover:text-white hover:bg-[#141414] transition-colors text-left cursor-pointer"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-text-secondary hover:text-text-primary hover:bg-surface transition-colors text-left cursor-pointer"
                 >
-                  <Sliders className="w-3.5 h-3.5 text-[#525252]" />
+                  <Sliders className="w-3.5 h-3.5 text-text-subtle" />
                   <span>Motion Tokens</span>
                 </button>
                 <button
                   onClick={() => onNavigateDocs('architecture')}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#A1A1A1] hover:text-white hover:bg-[#141414] transition-colors text-left cursor-pointer"
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-text-secondary hover:text-text-primary hover:bg-surface transition-colors text-left cursor-pointer"
                 >
-                  <Cpu className="w-3.5 h-3.5 text-[#525252]" />
+                  <Cpu className="w-3.5 h-3.5 text-text-subtle" />
                   <span>Architecture</span>
                 </button>
               </div>
 
               {/* COMPONENTS Section */}
               <div className="space-y-1">
-                <h4 className="text-[11px] font-bold text-[#6B6B6B] uppercase tracking-widest px-2.5 mb-1.5">
+                <h4 className="text-[11px] font-bold text-text-muted uppercase tracking-widest px-2.5 mb-1.5">
                   Components
                 </h4>
                 <div className="space-y-0.5">
@@ -1989,15 +1989,15 @@ const completion = await client.completions.create({
                         className={cn(
                           'w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all text-left group cursor-pointer',
                           isActive
-                            ? 'bg-[#141414] text-white font-medium border border-[#1F1F1F] shadow-xs'
-                            : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#0E0E0E]'
+                            ? 'bg-surface-hover text-text-primary font-medium border border-border shadow-xs'
+                            : 'text-text-secondary hover:text-text-primary hover:bg-surface'
                         )}
                       >
                         <span className="truncate">{item.name}</span>
                         <div className="flex items-center gap-1.5 shrink-0">
                           {isNew && <NewBadge size="xs" />}
                           {isActive && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-text-primary shrink-0" />
                           )}
                         </div>
                       </button>
@@ -2015,29 +2015,29 @@ const completion = await client.completions.create({
             {/* Breadcrumb & Header */}
             <div id="overview-section" className="space-y-3 pt-1">
               {/* Breadcrumb */}
-              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#6B6B6B]">
+              <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-text-muted">
                 <button
                   type="button"
                   onClick={handleBackToComponents}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  className="hover:text-text-primary transition-colors cursor-pointer"
                 >
                   Components
                 </button>
-                <ChevronRight className="w-3 h-3 text-[#6B6B6B]" />
-                <span className="text-[#A1A1A1]">{component.category || 'UI'}</span>
-                <ChevronRight className="w-3 h-3 text-[#6B6B6B]" />
-                <span className="text-white font-medium">{component.name}</span>
+                <ChevronRight className="w-3 h-3 text-text-muted" />
+                <span className="text-text-secondary">{component.category || 'UI'}</span>
+                <ChevronRight className="w-3 h-3 text-text-muted" />
+                <span className="text-text-primary font-medium">{component.name}</span>
               </nav>
 
               {/* Title */}
               <div className="pt-1">
-                <h1 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
+                <h1 className="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight">
                   {component.name}
                 </h1>
               </div>
 
               {/* Description Paragraph */}
-              <p className="text-sm sm:text-base text-[#A1A1A1] leading-relaxed max-w-3xl pt-1">
+              <p className="text-sm sm:text-base text-text-secondary leading-relaxed max-w-3xl pt-1">
                 {component.description || component.tagline}
               </p>
             </div>
@@ -2066,32 +2066,17 @@ const completion = await client.completions.create({
             {activeTab === 'preview' && (
               <div id="preview-section" className="space-y-6">
                 {/* Main Interactive Stage Box */}
-                <div className="relative rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col">
+                <div className="relative rounded-2xl border border-border bg-surface overflow-hidden shadow-elevated flex flex-col">
                   {/* Top Bar inside the preview card */}
-                  <div className="px-4 py-2.5 border-b border-[#1F1F1F] bg-[#0B0B0B]/90 backdrop-blur-md flex items-center justify-end gap-3 text-xs">
+                  <div className="px-4 py-2.5 border-b border-border bg-surface-raised/90 backdrop-blur-md flex items-center justify-end gap-3 text-xs">
                     {/* Stage Controls */}
                     <div className="flex items-center gap-1.5">
-
-                      {/* Toggle Preview Background Theme */}
-                      <button
-                        type="button"
-                        onClick={() => setPreviewTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
-                        className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
-                        title={previewTheme === 'dark' ? 'Switch to light background' : 'Switch to dark background'}
-                        aria-label="Toggle preview theme"
-                      >
-                        {previewTheme === 'dark' ? (
-                          <Sun className="w-3.5 h-3.5" />
-                        ) : (
-                          <Moon className="w-3.5 h-3.5" />
-                        )}
-                      </button>
 
                       {/* Reset Demo */}
                       <button
                         type="button"
                         onClick={() => setDemoKey((k) => k + 1)}
-                        className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
+                        className="p-1.5 rounded-lg text-text-subtle hover:text-text-primary hover:bg-surface-hover border border-transparent hover:border-border transition-colors cursor-pointer"
                         title="Reset interactive demo"
                         aria-label="Reset demo"
                       >
@@ -2102,7 +2087,7 @@ const completion = await client.completions.create({
                       <button
                         type="button"
                         onClick={() => handleCopy(component.cliCommand, 'cli-top')}
-                        className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
+                        className="p-1.5 rounded-lg text-text-subtle hover:text-text-primary hover:bg-surface-hover border border-transparent hover:border-border transition-colors cursor-pointer"
                         title="Copy CLI command"
                         aria-label="Copy CLI command"
                       >
@@ -2117,7 +2102,7 @@ const completion = await client.completions.create({
                       <button
                         type="button"
                         onClick={() => setIsFullscreenPreview(true)}
-                        className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
+                        className="p-1.5 rounded-lg text-text-subtle hover:text-text-primary hover:bg-surface-hover border border-transparent hover:border-border transition-colors cursor-pointer"
                         title="Fullscreen preview"
                         aria-label="Fullscreen preview"
                       >
@@ -2126,11 +2111,13 @@ const completion = await client.completions.create({
                     </div>
                   </div>
 
-                  {/* Component Render Canvas */}
+                  {/* Component Render Canvas — backdrop follows the global theme.
+                      The component demo itself follows the page theme too; components
+                      that are not yet light/dark aware keep their original styling. */}
                   <div
                     className={cn(
-                      'relative min-h-[360px] sm:min-h-[420px] p-6 sm:p-10 flex items-center justify-center transition-colors duration-200',
-                      previewTheme === 'dark' ? 'bg-[#050505] text-[#FAFAFA]' : 'bg-[#FAFAFA] text-[#050505]'
+                      'relative min-h-[360px] sm:min-h-[420px] p-6 sm:p-10 flex items-center justify-center overflow-hidden transition-colors duration-200',
+                      theme === 'dark' ? 'bg-[#050505] text-text-primary' : 'bg-[#FAFAFA] text-[#0A0A0A]'
                     )}
                   >
                     <div className="w-full flex items-center justify-center">
@@ -2148,14 +2135,14 @@ const completion = await client.completions.create({
               <div id="usage-section" className="space-y-6">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#A1A1A1] font-medium">Import Component</span>
+                    <span className="text-text-secondary font-medium">Import Component</span>
                     <button
                       type="button"
                       onClick={() => {
                         const importStmt = `import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`;
                         handleCopy(importStmt, 'import');
                       }}
-                      className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-text-subtle hover:text-text-primary hover:bg-surface-hover border border-transparent hover:border-border transition-colors cursor-pointer"
                       title={copiedCode === 'import' ? 'Copied' : 'Copy Import Statement'}
                       aria-label={copiedCode === 'import' ? 'Copied import statement' : 'Copy import statement'}
                     >
@@ -2166,18 +2153,18 @@ const completion = await client.completions.create({
                       )}
                     </button>
                   </div>
-                  <pre className="p-4 rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] font-mono text-xs text-[#FAFAFA] overflow-x-auto">
+                  <pre className="p-4 rounded-xl border border-border bg-surface-raised font-mono text-xs text-text-primary overflow-x-auto">
                     <code>{`import { ${component.name.replace(/[\s-]+/g, '')} } from "@/components/ui/${component.id}";`}</code>
                   </pre>
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#A1A1A1] font-medium">Example Code</span>
+                    <span className="text-text-secondary font-medium">Example Code</span>
                     <button
                       type="button"
                       onClick={() => handleCopy(component.usageCode, 'usage')}
-                      className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-text-subtle hover:text-text-primary hover:bg-surface-hover border border-transparent hover:border-border transition-colors cursor-pointer"
                       title={copiedCode === 'usage' ? 'Copied' : 'Copy Example Code'}
                       aria-label={copiedCode === 'usage' ? 'Copied example code' : 'Copy example code'}
                     >
@@ -2188,7 +2175,7 @@ const completion = await client.completions.create({
                       )}
                     </button>
                   </div>
-                  <pre className="p-4 rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] font-mono text-xs text-[#A1A1A1] overflow-x-auto max-h-[460px] leading-relaxed scrollbar-thin">
+                  <pre className="p-4 rounded-xl border border-border bg-surface-raised font-mono text-xs text-text-secondary overflow-x-auto max-h-[460px] leading-relaxed scrollbar-thin">
                     <code>{component.usageCode}</code>
                   </pre>
                 </div>
@@ -2201,13 +2188,13 @@ const completion = await client.completions.create({
             {activeTab === 'code' && (
               <div id="code-section" className="space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[#A1A1A1] font-medium font-mono">
+                  <span className="text-text-secondary font-medium font-mono">
                     src/components/ui/{component.id}.tsx
                   </span>
                   <button
                     type="button"
                     onClick={() => handleCopy(effectiveSourceCode, 'source')}
-                    className="p-1.5 rounded-lg text-[#525252] hover:text-white hover:bg-[#141414] border border-transparent hover:border-[#1F1F1F] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg text-text-subtle hover:text-text-primary hover:bg-surface-hover border border-transparent hover:border-border transition-colors cursor-pointer"
                     title={copiedCode === 'source' ? 'Copied' : 'Copy Source Code'}
                     aria-label={copiedCode === 'source' ? 'Copied source code' : 'Copy source code'}
                   >
@@ -2218,7 +2205,7 @@ const completion = await client.completions.create({
                     )}
                   </button>
                 </div>
-                <pre className="p-4 rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] font-mono text-xs text-[#A1A1A1] overflow-x-auto max-h-[520px] leading-relaxed scrollbar-thin">
+                <pre className="p-4 rounded-xl border border-border bg-surface-raised font-mono text-xs text-text-secondary overflow-x-auto max-h-[520px] leading-relaxed scrollbar-thin">
                   <code>{effectiveSourceCode}</code>
                 </pre>
               </div>
@@ -2227,19 +2214,19 @@ const completion = await client.completions.create({
             {/* ========================================================================= */}
             {/* SECTION: INSTALLATION                                                     */}
             {/* ========================================================================= */}
-            <section id="install-section" className="space-y-4 pt-4 border-t border-[#1F1F1F]">
+            <section id="install-section" className="space-y-4 pt-4 border-t border-border">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-[#FAFAFA] tracking-tight">Installation</h2>
+                <h2 className="text-lg font-semibold text-text-primary tracking-tight">Installation</h2>
                 {/* CLI vs Manual Toggle */}
-                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#0E0E0E] border border-[#1F1F1F]">
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-surface border border-border">
                   <button
                     type="button"
                     onClick={() => setInstallMode('cli')}
                     className={cn(
                       'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
                       installMode === 'cli'
-                        ? 'bg-[#1F1F1F] text-white shadow-xs'
-                        : 'text-[#6B6B6B] hover:text-white'
+                        ? 'bg-surface-hover text-text-primary shadow-xs'
+                        : 'text-text-muted hover:text-text-primary'
                     )}
                   >
                     CLI
@@ -2250,8 +2237,8 @@ const completion = await client.completions.create({
                     className={cn(
                       'px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer',
                       installMode === 'manual'
-                        ? 'bg-[#1F1F1F] text-white shadow-xs'
-                        : 'text-[#6B6B6B] hover:text-white'
+                        ? 'bg-surface-hover text-text-primary shadow-xs'
+                        : 'text-text-muted hover:text-text-primary'
                     )}
                   >
                     Manual
@@ -2261,15 +2248,15 @@ const completion = await client.completions.create({
 
               {installMode === 'cli' ? (
                 <div className="space-y-3">
-                  <p className="text-xs text-[#A1A1A1]">
+                  <p className="text-xs text-text-secondary">
                     Add the component directly to your repository using shadcn CLI:
                   </p>
-                  <div className="rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-[#FAFAFA]">
+                  <div className="rounded-xl border border-border bg-surface-raised p-3.5 sm:p-4 flex items-center justify-between gap-3 font-mono text-xs text-text-primary">
                     <span className="truncate">{component.cliCommand}</span>
                     <button
                       type="button"
                       onClick={() => handleCopy(component.cliCommand, 'cli')}
-                      className="p-1.5 rounded-md text-[#525252] hover:text-white bg-[#141414] hover:bg-[#1A1A1A] border border-[#1F1F1F] transition-colors cursor-pointer shrink-0"
+                      className="p-1.5 rounded-md text-text-subtle hover:text-text-primary bg-surface hover:bg-surface-hover border border-border transition-colors cursor-pointer shrink-0"
                     >
                       {copiedCode === 'cli' ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -2283,7 +2270,7 @@ const completion = await client.completions.create({
                 <div className="space-y-4">
                   {/* Package Manager selector */}
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#A1A1A1]">1. Install dependencies</span>
+                    <span className="text-text-secondary">1. Install dependencies</span>
                     <div className="flex items-center gap-1 font-mono text-[11px]">
                       {(['pnpm', 'npm', 'yarn', 'bun'] as PkgManager[]).map((pm) => (
                         <button
@@ -2293,8 +2280,8 @@ const completion = await client.completions.create({
                           className={cn(
                             'px-2 py-0.5 rounded transition-colors cursor-pointer',
                             pkgManager === pm
-                              ? 'bg-[#1F1F1F] text-white'
-                              : 'text-[#6B6B6B] hover:text-[#A1A1A1]'
+                              ? 'bg-surface-hover text-text-primary'
+                              : 'text-text-muted hover:text-text-secondary'
                           )}
                         >
                           {pm}
@@ -2303,12 +2290,12 @@ const completion = await client.completions.create({
                     </div>
                   </div>
 
-                  <div className="rounded-xl border border-[#1F1F1F] bg-[#1A1A1A] p-3.5 flex items-center justify-between gap-3 font-mono text-xs text-[#FAFAFA]">
+                  <div className="rounded-xl border border-border bg-surface-raised p-3.5 flex items-center justify-between gap-3 font-mono text-xs text-text-primary">
                     <span className="truncate">{getInstallDepCommand()}</span>
                     <button
                       type="button"
                       onClick={() => handleCopy(getInstallDepCommand(), 'deps')}
-                      className="p-1.5 rounded-md text-[#525252] hover:text-white bg-[#141414] border border-[#1F1F1F] transition-colors cursor-pointer"
+                      className="p-1.5 rounded-md text-text-subtle hover:text-text-primary bg-surface border border-border transition-colors cursor-pointer"
                     >
                       {copiedCode === 'deps' ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -2318,15 +2305,15 @@ const completion = await client.completions.create({
                     </button>
                   </div>
 
-                  <p className="text-xs text-[#A1A1A1] pt-1">
+                  <p className="text-xs text-text-secondary pt-1">
                     2. Copy the component source code from the{' '}
                     <button
                       onClick={() => setActiveTab('code')}
-                      className="text-white underline hover:text-zinc-300"
+                      className="text-text-primary underline hover:opacity-80"
                     >
                       Code tab
                     </button>{' '}
-                    into your project at <code className="text-zinc-300">components/ui/{component.id}.tsx</code>.
+                    into your project at <code className="text-text-primary">components/ui/{component.id}.tsx</code>.
                   </p>
                 </div>
               )}
@@ -2335,13 +2322,13 @@ const completion = await client.completions.create({
             {/* ========================================================================= */}
             {/* SECTION: PROPS & API REFERENCE                                            */}
             {/* ========================================================================= */}
-            <section id="props-section" className="space-y-4 pt-4 border-t border-[#1F1F1F]">
-              <h2 className="text-lg font-semibold text-[#FAFAFA] tracking-tight">API Reference</h2>
+            <section id="props-section" className="space-y-4 pt-4 border-t border-border">
+              <h2 className="text-lg font-semibold text-text-primary tracking-tight">API Reference</h2>
               {component.props && component.props.length > 0 ? (
-                <div className="rounded-xl border border-[#1F1F1F] overflow-hidden bg-[#0E0E0E]">
+                <div className="rounded-xl border border-border overflow-hidden bg-surface">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
-                      <thead className="bg-[#0B0B0B] text-[#A1A1A1] border-b border-[#1F1F1F]">
+                      <thead className="bg-surface-raised text-text-secondary border-b border-border">
                         <tr>
                           <th className="py-3 px-4 font-mono font-medium">Prop</th>
                           <th className="py-3 px-4 font-mono font-medium">Type</th>
@@ -2349,13 +2336,13 @@ const completion = await client.completions.create({
                           <th className="py-3 px-4 font-medium">Description</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#1F1F1F]">
+                      <tbody className="divide-y divide-border">
                         {component.props.map((p, i) => (
-                          <tr key={i} className="hover:bg-[#141414] transition-colors">
-                            <td className="py-3 px-4 font-mono text-white font-medium">{p.name}</td>
-                            <td className="py-3 px-4 font-mono text-[#A1A1A1]">{p.type}</td>
-                            <td className="py-3 px-4 font-mono text-[#6B6B6B]">{p.default || '—'}</td>
-                            <td className="py-3 px-4 text-[#A1A1A1] leading-relaxed">{p.description}</td>
+                          <tr key={i} className="hover:bg-surface-hover transition-colors">
+                            <td className="py-3 px-4 font-mono text-text-primary font-medium">{p.name}</td>
+                            <td className="py-3 px-4 font-mono text-text-secondary">{p.type}</td>
+                            <td className="py-3 px-4 font-mono text-text-muted">{p.default || '—'}</td>
+                            <td className="py-3 px-4 text-text-secondary leading-relaxed">{p.description}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -2363,7 +2350,7 @@ const completion = await client.completions.create({
                   </div>
                 </div>
               ) : (
-                <p className="text-xs text-[#6B6B6B]">Standard React HTML element attributes supported.</p>
+                <p className="text-xs text-text-muted">Standard React HTML element attributes supported.</p>
               )}
             </section>
 
@@ -2371,22 +2358,22 @@ const completion = await client.completions.create({
             {/* SECTION: RELATED COMPONENTS                                               */}
             {/* ========================================================================= */}
             {relatedComponents.length > 0 && (
-              <section id="related-section" className="space-y-4 pt-4 border-t border-[#1F1F1F]">
-                <h2 className="text-lg font-semibold text-[#FAFAFA] tracking-tight">Related Components</h2>
+              <section id="related-section" className="space-y-4 pt-4 border-t border-border">
+                <h2 className="text-lg font-semibold text-text-primary tracking-tight">Related Components</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {relatedComponents.map((rel) => (
                     <button
                       key={rel.id}
                       onClick={() => onSelectComponent(rel.id)}
-                      className="p-4 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] hover:border-[#4A4A4A] hover:bg-[#141414] transition-all text-left group cursor-pointer"
+                      className="p-4 rounded-xl border border-border bg-surface hover:border-border-hover hover:bg-surface-hover transition-all text-left group cursor-pointer"
                     >
-                      <span className="text-[10px] font-mono text-[#6B6B6B] uppercase tracking-wider block mb-1">
+                      <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider block mb-1">
                         {rel.category}
                       </span>
-                      <h4 className="text-xs font-semibold text-white group-hover:text-zinc-200 truncate mb-1">
+                      <h4 className="text-xs font-semibold text-text-primary truncate mb-1">
                         {rel.name}
                       </h4>
-                      <p className="text-[11px] text-[#A1A1A1] line-clamp-2 leading-relaxed">
+                      <p className="text-[11px] text-text-secondary line-clamp-2 leading-relaxed">
                         {rel.tagline || rel.description}
                       </p>
                     </button>
@@ -2409,58 +2396,38 @@ const completion = await client.completions.create({
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 350, damping: 25 }}
             className={cn(
-              "fixed inset-0 z-[100] flex flex-col overflow-y-auto transition-colors duration-200",
-              previewTheme === 'dark' ? 'bg-[#050505] text-[#FAFAFA]' : 'bg-[#FAFAFA] text-[#050505]'
+              'fixed inset-0 z-[100] flex flex-col overflow-y-auto transition-colors duration-200',
+              theme === 'dark' ? 'bg-[#050505] text-text-primary' : 'bg-[#FAFAFA] text-[#0A0A0A]'
             )}
           >
-            {/* Header */}
+            {/* Header — follows global theme */}
             <div
               className={cn(
-                "sticky top-0 inset-x-0 z-[110] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0 transition-colors duration-200",
-                previewTheme === 'dark'
+                'sticky top-0 inset-x-0 z-[110] backdrop-blur-md px-4 sm:px-8 py-2.5 flex items-center justify-between gap-3 shrink-0 transition-colors duration-200',
+                theme === 'dark'
                   ? 'bg-[#0E0E0E]/90 border-b border-[#1F1F1F]'
                   : 'bg-white/90 border-b border-[#E4E4E7]'
               )}
             >
               <span
                 className={cn(
-                  "font-mono text-xs font-medium",
-                  previewTheme === 'dark' ? 'text-white' : 'text-zinc-900'
+                  'font-mono text-xs font-medium',
+                  theme === 'dark' ? 'text-text-primary' : 'text-[#0A0A0A]'
                 )}
               >
                 {component.name}
               </span>
 
               <div className="flex items-center gap-2">
-                {/* Toggle Preview Theme in Fullscreen */}
-                <button
-                  type="button"
-                  onClick={() => setPreviewTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
-                  className={cn(
-                    "p-1.5 rounded-lg border transition-colors shrink-0 cursor-pointer",
-                    previewTheme === 'dark'
-                      ? "bg-[#141414] hover:bg-[#1A1A1A] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white"
-                      : "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900"
-                  )}
-                  title={previewTheme === 'dark' ? 'Switch to light background' : 'Switch to dark background'}
-                  aria-label="Toggle preview theme"
-                >
-                  {previewTheme === 'dark' ? (
-                    <Sun className="w-4 h-4" />
-                  ) : (
-                    <Moon className="w-4 h-4" />
-                  )}
-                </button>
-
                 {/* Close Fullscreen */}
                 <button
                   type="button"
                   onClick={() => setIsFullscreenPreview(false)}
                   className={cn(
-                    "p-1.5 rounded-lg border transition-colors shrink-0 cursor-pointer",
-                    previewTheme === 'dark'
-                      ? "bg-[#141414] hover:bg-[#1A1A1A] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white"
-                      : "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900"
+                    'p-1.5 rounded-lg border transition-colors shrink-0 cursor-pointer',
+                    theme === 'dark'
+                      ? 'bg-[#141414] hover:bg-[#1A1A1A] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-text-primary'
+                      : 'bg-zinc-100 hover:bg-zinc-200 border-zinc-200 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900'
                   )}
                   title="Close fullscreen"
                   aria-label="Close fullscreen"
@@ -2470,8 +2437,9 @@ const completion = await client.completions.create({
               </div>
             </div>
 
-            {/* Canvas Body */}
-            <div className="flex-1 flex items-center justify-center p-6 sm:p-12 overflow-y-auto">
+            {/* Canvas Body — backdrop follows the page theme. Components that are
+                not yet light/dark aware keep their original styling. */}
+            <div className="flex-1 flex items-center justify-center p-6 sm:p-12 overflow-y-auto overflow-x-hidden">
               <div className="w-full max-w-4xl mx-auto flex items-center justify-center">
                 {renderInteractiveDemo()}
               </div>

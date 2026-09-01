@@ -31,11 +31,11 @@ const COMPONENT_MAP = new Map<string, EasyComponentMeta>(
   EASY_COMPONENTS.map((c) => [c.id, c])
 );
 
-// Consistent EasyUI dark page loading indicator
+// Consistent EasyUI page loading indicator
 function PageLoader() {
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-xs text-zinc-500 font-mono">
-      <div className="w-6 h-6 border-2 border-zinc-700 border-t-white rounded-full animate-spin" />
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-xs text-text-muted font-mono">
+      <div className="w-6 h-6 border-2 border-border border-t-text-primary rounded-full animate-spin" />
       <span>Loading...</span>
     </div>
   );
@@ -279,7 +279,7 @@ export function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#FAFAFA] font-sans selection:bg-[#3B82F6]/25 selection:text-white">
+    <div className="min-h-screen bg-background text-text-primary font-sans selection:bg-accent/25 selection:text-text-primary">
       {/* Vercel Analytics & Speed Insights (active on production deployment) */}
       {typeof window !== 'undefined' &&
         !window.location.hostname.includes('localhost') &&
@@ -311,15 +311,15 @@ export function App() {
           />
         ) : activeView === 'component-not-found' ? (
           <main className="min-h-[70vh] flex items-center justify-center p-6 text-center">
-            <div className="max-w-md w-full p-8 rounded-2xl bg-[#0E0E0E] border border-[#1F1F1F] space-y-5">
-              <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
+            <div className="max-w-md w-full p-8 rounded-2xl bg-surface border border-border space-y-5">
+              <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 flex items-center justify-center mx-auto">
                 <AlertCircle className="w-6 h-6" />
               </div>
               <div className="space-y-2">
-                <h1 className="text-xl font-bold text-white tracking-tight">Component Not Found</h1>
-                <p className="text-xs text-[#A1A1A1] leading-relaxed">
+                <h1 className="text-xl font-bold text-text-primary tracking-tight">Component Not Found</h1>
+                <p className="text-xs text-text-secondary leading-relaxed">
                   No component exists matching{' '}
-                  <code className="px-1.5 py-0.5 rounded bg-[#141414] text-rose-400 font-mono">
+                  <code className="px-1.5 py-0.5 rounded bg-surface-hover text-rose-500 font-mono">
                     /components/{invalidComponentSlug || 'unknown'}
                   </code>
                   . It may have been moved or renamed.
@@ -329,7 +329,7 @@ export function App() {
                 <button
                   type="button"
                   onClick={handleNavigateComponents}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-black text-xs font-medium hover:bg-zinc-200 transition-colors cursor-pointer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-background text-xs font-medium hover:opacity-90 transition-opacity cursor-pointer"
                 >
                   <Grid className="w-3.5 h-3.5" />
                   <span>Browse Components</span>
@@ -337,7 +337,7 @@ export function App() {
                 <button
                   type="button"
                   onClick={handleNavigateHome}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#141414] hover:bg-[#0B0B0B] border border-[#222222] text-xs text-white transition-colors cursor-pointer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-hover hover:bg-surface-raised border border-border text-xs text-text-primary transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Go Home</span>

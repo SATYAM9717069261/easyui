@@ -71,15 +71,19 @@
   }
 }
 
-/* Subtle dot mesh background for showroom cards */
+/* Subtle dot mesh background for showroom cards.
+   The dot color tracks the page's --border-subtle so the grid is visible in
+   both light and dark themes (light: faint gray; dark: faint white). */
 .bg-grid-pattern {
   background-size: 24px 24px;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  opacity: 0.6;
 }
 
 .bg-dot-subtle {
   background-size: 16px 16px;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  opacity: 0.5;
 }
 
 /* Focus rings with accessible quiet accent */
@@ -88,13 +92,13 @@
 }
 
 .focus-ring:focus-visible {
-  outline: 1px solid rgba(255, 255, 255, 0.25);
+  outline: 1px solid var(--accent-ring);
   outline-offset: 1px;
 }
 
-/* Glass effect restrained for dark neutral theme */
+/* Glass effect restrained for both themes */
 .glass-surface {
-  background: rgba(32, 32, 32, 0.85);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);

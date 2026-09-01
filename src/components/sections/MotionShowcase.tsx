@@ -11,21 +11,22 @@ export const MotionShowcase: React.FC = () => {
   const [isDismissed, setIsDismissed] = useState(false);
 
   return (
-    <section id="motion-showcase" className="py-20 bg-[#050505] border-t border-[#1F1F1F]">
+    <section id="motion-showcase" className="py-20 bg-background border-t border-border">
       <Container size="xl">
         <div className="max-w-2xl mb-12">
-          <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-widest">
+          <span className="text-[11px] font-mono text-text-muted uppercase tracking-widest">
             Physics
           </span>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-[#FAFAFA] tracking-tight mt-1">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-text-primary tracking-tight mt-1">
             Motion that feels natural.
           </h2>
-          <p className="text-sm text-[#A1A1A1] mt-1.5">
+          <p className="text-sm text-text-secondary mt-1.5">
             Physical weights, spring dynamics, and continuous transformations designed to communicate state effortlessly.
           </p>
         </div>
 
-        {/* 6 Micro-motion demonstrations grid */}
+        {/* 6 Micro-motion demonstrations grid — components that are not yet
+            light/dark aware keep their original styling. */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* 1. HOVER PHYSICS */}
           <div className="p-6 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] flex flex-col justify-between h-60 shadow-xs">
