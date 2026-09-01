@@ -1157,7 +1157,7 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
       className={cn(
-        'group relative block rounded-[20px] border-[1.5px] border-[#1c1c1c] bg-[#080808] p-2 hover:border-[#2a2a2a] hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer',
+        'group relative block rounded-[20px] border-[1.5px] border-[#1c1c1c] bg-[#111111] p-2 hover:border-[#2a2a2a] hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer',
         className
       )}
     >
