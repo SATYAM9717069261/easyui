@@ -1157,23 +1157,23 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
       className={cn(
-        'group relative block rounded-[20px] border-[1.5px] border-[#1c1c1c] bg-[#080808] p-2 hover:border-[#2a2a2a] hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all duration-200 cursor-pointer',
+        'group relative block rounded-[20px] border-[1.5px] border-border bg-surface p-2 hover:border-border-hover hover:shadow-elevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary/80 transition-all duration-200 cursor-pointer',
         className
       )}
     >
-      {/* Inset Live Preview Box — large, deep, "carved" surface */}
-      <div className="relative rounded-2xl bg-[#0c0c0c] border border-[#161616] overflow-hidden min-h-[260px] sm:min-h-[300px] flex flex-col justify-center">
+      {/* Inset Live Preview Box — backdrop follows the global theme. */}
+      <div className="relative rounded-2xl bg-surface-raised border border-border dark:bg-[#0c0c0c] dark:border-[#161616] overflow-hidden min-h-[260px] sm:min-h-[300px] flex flex-col justify-center">
         {/* Subtle Copy CLI Button (Reveals on card hover) — minimal, ghost-like */}
         <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150">
           <button
             type="button"
             onClick={handleCopyCLI}
-            className="p-1.5 rounded-md bg-black/60 backdrop-blur border border-white/10 text-[#525252] hover:text-white hover:border-white/30 transition-colors focus-ring"
+            className="p-1.5 rounded-md bg-surface/80 backdrop-blur border border-border text-text-muted hover:text-text-primary hover:border-border-hover dark:bg-black/60 dark:border-white/10 dark:text-[#525252] dark:hover:text-white dark:hover:border-white/30 transition-colors focus-ring"
             title="Copy CLI command"
             aria-label={`Copy CLI command for ${component.name}`}
           >
             {copied ? (
-              <Check className="w-3 h-3 text-white" />
+              <Check className="w-3 h-3 text-text-primary dark:text-white" />
             ) : (
               <Copy className="w-3 h-3" />
             )}
@@ -1186,13 +1186,13 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
       {/* Component Footer — large title, prominent persistent arrow */}
       <div className="pt-5 pb-2 px-2 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
-          <h3 className="text-base sm:text-lg font-semibold text-[#E5E5E5] group-hover:text-white transition-colors truncate">
+          <h3 className="text-base sm:text-lg font-semibold text-text-primary transition-colors truncate">
             {component.name}
           </h3>
           {showNew && <NewBadge size="xs" />}
         </div>
         <ArrowUpRight
-          className="w-5 h-5 text-[#9A9A9A] group-hover:text-white group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200 shrink-0"
+          className="w-5 h-5 text-text-muted group-hover:text-text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200 shrink-0"
           strokeWidth={2}
         />
       </div>

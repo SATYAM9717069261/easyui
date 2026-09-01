@@ -30,7 +30,7 @@ export const DocCodeBlock: React.FC<DocCodeBlockProps> = ({
 
   return (
     <div
-      className={`rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] overflow-hidden my-4 transition-colors ${className}`}
+      className={`rounded-lg border border-[#1F1F1F] bg-[#0B0B0B] dark text-text-primary overflow-hidden my-4 transition-colors ${className}`}
     >
       {/* Header bar — quiet, matches DevExperience card style */}
       <div className="flex items-center justify-between px-3 py-2 border-b border-[#1F1F1F]">

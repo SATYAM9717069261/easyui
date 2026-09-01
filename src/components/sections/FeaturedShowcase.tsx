@@ -24,31 +24,32 @@ export const FeaturedShowcase: React.FC<FeaturedShowcaseProps> = ({
   ];
 
   return (
-    <section className="py-20 bg-[#050505]">
+    <section className="py-20 bg-background">
       <Container size="xl">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-widest">
+            <span className="text-[11px] font-mono text-text-muted uppercase tracking-widest">
               Showroom
             </span>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#FAFAFA] tracking-tight mt-1">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-text-primary tracking-tight mt-1">
               Start with something beautiful.
             </h2>
-            <p className="text-sm text-[#A1A1A1] mt-1.5 max-w-lg">
+            <p className="text-sm text-text-secondary mt-1.5 max-w-lg">
               Explore a curated collection of tactile components designed for effortless drop-in integration.
             </p>
           </div>
           <button
             onClick={onNavigateAllComponents || (() => onSelectComponent('spotlight-card'))}
-            className="text-xs font-mono text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors flex items-center gap-1.5 self-start md:self-auto py-1 cursor-pointer focus-ring rounded"
+            className="text-xs font-mono text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1.5 self-start md:self-auto py-1 cursor-pointer focus-ring rounded"
           >
             <span>All {EASY_COMPONENTS.length} components</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* Editorial Layout Grid */}
+        {/* Editorial Layout Grid — components that are not yet light/dark aware
+            keep their original styling. */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
           {/* Item 1: Large Featured Spotlight Card (8 cols) */}
           <div className="md:col-span-8">

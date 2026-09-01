@@ -3,6 +3,8 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-
 import { Search, Menu, X } from 'lucide-react';
 import { GithubIcon } from '../icons/GithubIcon';
 import { GITHUB_URL } from '../../lib/constants';
+import { ThemeToggle } from './ThemeToggle';
+import { useTheme } from '../../lib/theme/useTheme';
 
 export interface NavbarProps {
   onOpenSearch: () => void;
@@ -22,6 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const { theme } = useTheme();
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     if (latest > 15 && !isScrolled) {
@@ -39,18 +42,25 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  // Shared pill motion config — used by all three pills so they morph in sync.
+  // The pill colors come from CSS variables that are themed (light / dark).
+  // Reading them here keeps the framer animation in sync with the active
+  // theme. Subscribing to `theme` from the shared ThemeContext guarantees
+  // the framer `animate` target is rebuilt whenever the user toggles the
+  // theme from anywhere in the app.
+  const cssVar = (name: string) => {
+    if (typeof window === 'undefined') return '';
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  };
+
   const pillMotion = {
     initial: false,
     animate: {
       y: isScrolled ? 14 : 0,
       height: isScrolled ? 44 : 56,
       borderRadius: 9999,
-      backgroundColor: isScrolled ? 'rgba(14, 14, 14, 0.85)' : 'rgba(14, 14, 14, 0)',
-      borderColor: isScrolled ? 'rgba(31, 31, 31, 1)' : 'rgba(31, 31, 31, 0)',
-      boxShadow: isScrolled
-        ? '0 12px 28px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04)'
-        : '0 0 0 0 rgba(0, 0, 0, 0)',
+      backgroundColor: isScrolled ? cssVar('--pill-bg-scrolled') : cssVar('--pill-bg-idle'),
+      borderColor: isScrolled ? cssVar('--pill-border-scrolled') : cssVar('--pill-border-idle'),
+      boxShadow: isScrolled ? cssVar('--pill-shadow-scrolled') : cssVar('--pill-shadow-idle'),
     },
     transition: {
       type: 'spring' as const,
@@ -59,6 +69,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       mass: 0.8,
     },
   };
+  // Reference `theme` so React re-evaluates the object above on every toggle.
+  void theme;
 
   return (
     <header className="sticky top-0 z-40 w-full pointer-events-none">
@@ -80,9 +92,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               alt="EasyUI Logo"
               width="22"
               height="22"
-              className="w-[22px] h-[22px] object-contain group-hover:scale-105 transition-transform duration-200"
+              className="w-[22px] h-[22px] object-contain group-hover:scale-105 transition-transform duration-200 invert dark:invert-0"
             />
-            <span className="text-sm font-medium text-[#FAFAFA] font-mono group-hover:text-white transition-colors">
+            <span className="text-sm font-medium text-text-primary font-mono group-hover:text-accent transition-colors">
               easyui
             </span>
           </a>
@@ -99,8 +111,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
             className={`px-3 py-1.5 text-[13px] font-medium rounded-full transition-colors cursor-pointer ${
               activeView === 'showcase'
-                ? 'bg-[#141414] text-[#FAFAFA]'
-                : 'text-[#A1A1A1] hover:text-[#FAFAFA]'
+                ? 'bg-surface-hover text-text-primary'
+                : 'text-text-secondary hover:text-text-primary'
             }`}
           >
             Home
@@ -110,8 +122,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={(e) => handleLinkClick(e, onNavigateComponents)}
             className={`px-3 py-1.5 text-[13px] font-medium rounded-full transition-colors cursor-pointer ${
               activeView === 'components' || activeView === 'component-detail'
-                ? 'bg-[#141414] text-[#FAFAFA]'
-                : 'text-[#A1A1A1] hover:text-[#FAFAFA]'
+                ? 'bg-surface-hover text-text-primary'
+                : 'text-text-secondary hover:text-text-primary'
             }`}
           >
             Components
@@ -121,24 +133,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={(e) => handleLinkClick(e, onNavigateDocs)}
             className={`px-3 py-1.5 text-[13px] font-medium rounded-full transition-colors cursor-pointer ${
               activeView === 'docs'
-                ? 'bg-[#141414] text-[#FAFAFA]'
-                : 'text-[#A1A1A1] hover:text-[#FAFAFA]'
+                ? 'bg-surface-hover text-text-primary'
+                : 'text-text-secondary hover:text-text-primary'
             }`}
           >
             Docs
           </a>
         </motion.nav>
 
-        {/* Pill 3 — Search + GitHub on desktop, Menu trigger on mobile */}
+        {/* Pill 3 — Search + GitHub + Theme toggle on desktop, Menu trigger on mobile */}
         <motion.div
           {...pillMotion}
           className="hidden md:flex items-center gap-0.5 border backdrop-blur-xl px-1.5 py-1 pointer-events-auto"
         >
-          {/* Desktop: search + GitHub icons */}
+          {/* Desktop: search + GitHub + theme toggle icons */}
           <button
             type="button"
             onClick={onOpenSearch}
-            className="p-1.5 rounded-full text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414] transition-colors focus-ring cursor-pointer"
+            className="p-1.5 rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-colors focus-ring cursor-pointer"
             aria-label="Search components (Cmd+K)"
           >
             <Search className="w-3.5 h-3.5" />
@@ -147,11 +159,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded-full text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414] transition-colors focus-ring"
+            className="p-1.5 rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-colors focus-ring"
             aria-label="GitHub"
           >
             <GithubIcon className="w-3.5 h-3.5" />
           </a>
+          <ThemeToggle />
         </motion.div>
 
         {/* Mobile-only: perfectly circular menu trigger pill */}
@@ -167,11 +180,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             width: isScrolled ? 44 : 48,
             height: isScrolled ? 44 : 48,
             borderRadius: 9999,
-            backgroundColor: isScrolled ? 'rgba(14, 14, 14, 0.85)' : 'rgba(14, 14, 14, 0)',
-            borderColor: isScrolled ? 'rgba(31, 31, 31, 1)' : 'rgba(31, 31, 31, 0)',
-            boxShadow: isScrolled
-              ? '0 12px 28px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04)'
-              : '0 0 0 0 rgba(0, 0, 0, 0)',
+            backgroundColor: isScrolled ? cssVar('--pill-bg-scrolled') : cssVar('--pill-bg-idle'),
+            borderColor: isScrolled ? cssVar('--pill-border-scrolled') : cssVar('--pill-border-idle'),
+            boxShadow: isScrolled ? cssVar('--pill-shadow-scrolled') : cssVar('--pill-shadow-idle'),
           }}
           transition={{
             type: 'spring' as const,
@@ -179,7 +190,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             damping: 28,
             mass: 0.8,
           }}
-          className="md:hidden flex items-center justify-center border backdrop-blur-xl pointer-events-auto focus-ring text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]/40 transition-colors"
+          className="md:hidden flex items-center justify-center border backdrop-blur-xl pointer-events-auto focus-ring text-text-secondary hover:text-text-primary hover:bg-surface-hover/40 transition-colors"
         >
           <motion.div
             initial={false}
@@ -200,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 16, scale: 1 }}
             exit={{ opacity: 0, y: 0, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-            className="md:hidden w-[calc(100%-24px)] max-w-[860px] mx-auto rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E]/95 backdrop-blur-2xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden pointer-events-auto p-2"
+            className="md:hidden w-[calc(100%-24px)] max-w-[860px] mx-auto rounded-2xl border border-border bg-surface/95 backdrop-blur-2xl shadow-elevated overflow-hidden pointer-events-auto p-2"
           >
             <nav className="space-y-1" aria-label="Mobile Navigation">
               <a
@@ -208,8 +219,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'showcase'
-                    ? 'bg-[#141414] text-[#FAFAFA] font-medium'
-                    : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
+                    ? 'bg-surface-hover text-text-primary font-medium'
+                    : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'
                 }`}
               >
                 Home
@@ -219,8 +230,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={(e) => handleLinkClick(e, onNavigateComponents)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'components'
-                    ? 'bg-[#141414] text-[#FAFAFA] font-medium'
-                    : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
+                    ? 'bg-surface-hover text-text-primary font-medium'
+                    : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'
                 }`}
               >
                 Components
@@ -230,8 +241,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={(e) => handleLinkClick(e, onNavigateDocs)}
                 className={`block w-full text-left px-3 py-2 text-xs rounded-lg transition-colors cursor-pointer ${
                   activeView === 'docs'
-                    ? 'bg-[#141414] text-[#FAFAFA] font-medium'
-                    : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
+                    ? 'bg-surface-hover text-text-primary font-medium'
+                    : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'
                 }`}
               >
                 Docs
@@ -240,10 +251,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-left px-3 py-2 text-xs text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414] rounded-lg transition-colors"
+                className="block w-full text-left px-3 py-2 text-xs text-text-secondary hover:text-text-primary hover:bg-surface-hover rounded-lg transition-colors"
               >
                 GitHub
               </a>
+              {/* Mobile theme toggle — full width, easy to tap */}
+              <div className="pt-1 border-t border-border-subtle mt-1">
+                <ThemeToggle
+                  className="w-full justify-start px-3 py-2 text-xs"
+                  label="Toggle theme"
+                />
+              </div>
             </nav>
           </motion.div>
         )}
@@ -258,7 +276,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -8, height: 0 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden absolute top-full left-0 right-0 border-b border-[#1F1F1F] bg-[#050505]/95 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden pointer-events-auto"
+            className="md:hidden absolute top-full left-0 right-0 border-b border-border bg-background/95 backdrop-blur-xl shadow-elevated overflow-hidden pointer-events-auto"
           >
             <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
               <nav className="py-3 space-y-1" aria-label="Mobile Navigation">
@@ -267,8 +285,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={(e) => handleLinkClick(e, onNavigateHome || onNavigateComponents)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'showcase'
-                      ? 'bg-[#141414] text-[#FAFAFA] font-medium'
-                      : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
+                      ? 'bg-surface-hover text-text-primary font-medium'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'
                   }`}
                 >
                   Home
@@ -278,8 +296,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={(e) => handleLinkClick(e, onNavigateComponents)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'components'
-                      ? 'bg-[#141414] text-[#FAFAFA] font-medium'
-                      : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
+                      ? 'bg-surface-hover text-text-primary font-medium'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'
                   }`}
                 >
                   Components
@@ -289,8 +307,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={(e) => handleLinkClick(e, onNavigateDocs)}
                   className={`block w-full text-left px-3 py-2.5 text-xs rounded-lg transition-colors cursor-pointer ${
                     activeView === 'docs'
-                      ? 'bg-[#141414] text-[#FAFAFA] font-medium'
-                      : 'text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414]'
+                      ? 'bg-surface-hover text-text-primary font-medium'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-surface-hover'
                   }`}
                 >
                   Docs
@@ -299,10 +317,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full text-left px-3 py-2.5 text-xs text-[#A1A1A1] hover:text-[#FAFAFA] hover:bg-[#141414] rounded-lg transition-colors"
+                  className="block w-full text-left px-3 py-2.5 text-xs text-text-secondary hover:text-text-primary hover:bg-surface-hover rounded-lg transition-colors"
                 >
                   GitHub
                 </a>
+                <div className="pt-1 border-t border-border-subtle mt-1">
+                  <ThemeToggle
+                    className="w-full justify-start px-3 py-2.5 text-xs"
+                    label="Toggle theme"
+                  />
+                </div>
               </nav>
             </div>
           </motion.div>

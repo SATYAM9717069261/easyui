@@ -47,8 +47,8 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
         className={cn(
           'w-7 h-7 flex items-center justify-center rounded-lg transition-colors focus-ring',
           isFirstPage
-            ? 'opacity-20 cursor-not-allowed text-[#555555]'
-            : 'text-[#888888] hover:text-white hover:bg-[#121212] cursor-pointer'
+            ? 'opacity-20 cursor-not-allowed text-text-subtle'
+            : 'text-text-muted hover:text-text-primary hover:bg-surface-hover cursor-pointer'
         )}
       >
         <ChevronLeft className="w-4 h-4" />
@@ -69,8 +69,8 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
               className={cn(
                 'w-7 h-7 flex items-center justify-center text-xs font-sans transition-colors focus-ring rounded',
                 isActive
-                  ? 'text-white font-semibold'
-                  : 'text-[#666666] hover:text-white cursor-pointer'
+                  ? 'text-text-primary font-semibold'
+                  : 'text-text-muted hover:text-text-primary cursor-pointer'
               )}
             >
               {page}
@@ -88,8 +88,8 @@ export const ComponentPagination: React.FC<ComponentPaginationProps> = ({
         className={cn(
           'w-7 h-7 flex items-center justify-center rounded-lg transition-colors focus-ring',
           isLastPage
-            ? 'opacity-20 cursor-not-allowed text-[#555555]'
-            : 'text-[#888888] hover:text-white hover:bg-[#121212] cursor-pointer'
+            ? 'opacity-20 cursor-not-allowed text-text-subtle'
+            : 'text-text-muted hover:text-text-primary hover:bg-surface-hover cursor-pointer'
         )}
       >
         <ChevronRight className="w-4 h-4" />

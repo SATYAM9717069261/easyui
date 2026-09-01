@@ -9,7 +9,7 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigateDocs }) => {
   return (
-    <footer className="bg-[#050505] pt-16 sm:pt-20 pb-10 sm:pb-12 text-[#6B6B6B]">
+    <footer className="bg-background pt-16 sm:pt-20 pb-10 sm:pb-12 text-text-muted border-t border-border-subtle">
       <Container size="xl">
         {/* Top row: wordmark on the left, simple link row on the right */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 sm:gap-6">
@@ -19,9 +19,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
               alt="EasyUI Logo"
               width="24"
               height="24"
-              className="w-6 h-6 object-contain"
+              className="w-6 h-6 object-contain invert dark:invert-0"
             />
-            <span className="text-base font-medium text-[#FAFAFA] font-mono">easyui</span>
+            <span className="text-base font-medium text-text-primary font-mono">easyui</span>
           </div>
 
           <nav
@@ -30,13 +30,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
           >
             <button
               onClick={onNavigateComponents}
-              className="text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring rounded cursor-pointer"
+              className="text-text-secondary hover:text-text-primary transition-colors focus-ring rounded cursor-pointer"
             >
               Components
             </button>
             <button
               onClick={onNavigateDocs}
-              className="text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring rounded cursor-pointer"
+              className="text-text-secondary hover:text-text-primary transition-colors focus-ring rounded cursor-pointer"
             >
               Docs
             </button>
@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
               href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors focus-ring rounded"
+              className="text-text-secondary hover:text-text-primary transition-colors focus-ring rounded"
             >
               GitHub
             </a>
@@ -59,13 +59,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateComponents, onNavigate
               href={LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#A1A1A1] hover:text-white transition-colors"
+              className="text-text-secondary hover:text-text-primary transition-colors"
             >
               Suraj Maurya
             </a>
             .
           </div>
-          <span className="font-mono text-[11px] text-[#525252] tracking-wide">
+          <span className="font-mono text-[11px] text-text-subtle tracking-wide">
             React · TypeScript · Motion
           </span>
         </div>

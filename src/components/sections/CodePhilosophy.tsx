@@ -28,24 +28,24 @@ export const CodePhilosophy: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-[#050505] border-t border-[#1F1F1F]">
+    <section className="py-20 bg-background border-t border-border">
       <Container size="xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left: Narrative Philosophy */}
           <div className="lg:col-span-5 space-y-6">
             <div>
-              <span className="text-[11px] font-mono text-[#6B6B6B] uppercase tracking-widest">
+              <span className="text-[11px] font-mono text-text-muted uppercase tracking-widest">
                 Philosophy
               </span>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-[#FAFAFA] tracking-tight leading-tight mt-1">
+              <h2 className="text-3xl sm:text-4xl font-semibold text-text-primary tracking-tight leading-tight mt-1">
                 Your code.
-                <span className="block text-[#A1A1A1] font-normal">
+                <span className="block text-text-secondary font-normal">
                   Your components.
                 </span>
               </h2>
             </div>
 
-            <div className="space-y-3 text-sm text-[#A1A1A1] leading-relaxed">
+            <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
               <p>
                 EasyUI gives you the source. No locked packages, runtime bloat, or brittle wrappers.
               </p>
@@ -55,17 +55,17 @@ export const CodePhilosophy: React.FC = () => {
             </div>
 
             {/* Quick interactive controls panel */}
-            <div className="p-4 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] space-y-3">
-              <div className="flex items-center gap-2 text-xs font-medium text-[#FAFAFA]">
-                <Sliders className="w-3.5 h-3.5 text-[#525252]" />
+            <div className="p-4 rounded-xl border border-border bg-surface space-y-3">
+              <div className="flex items-center gap-2 text-xs font-medium text-text-primary">
+                <Sliders className="w-3.5 h-3.5 text-text-subtle" />
                 <span>Adjust Parameters</span>
               </div>
 
               {/* Strength Slider */}
               <div className="space-y-1">
-                <div className="flex justify-between text-xs text-[#A1A1A1]">
+                <div className="flex justify-between text-xs text-text-secondary">
                   <span>Magnetic Strength</span>
-                  <span className="font-mono text-white">{strength}x</span>
+                  <span className="font-mono text-text-primary">{strength}x</span>
                 </div>
                 <input
                   type="range"
@@ -74,18 +74,18 @@ export const CodePhilosophy: React.FC = () => {
                   step="0.05"
                   value={strength}
                   onChange={(e) => setStrength(parseFloat(e.target.value))}
-                  className="w-full accent-white bg-[#141414] h-1.5 rounded-lg cursor-pointer"
+                  className="w-full accent-current bg-surface-hover h-1.5 rounded-lg cursor-pointer"
                 />
               </div>
 
               {/* Label Text Input */}
               <div className="space-y-1">
-                <span className="text-xs text-[#A1A1A1]">Button Text</span>
+                <span className="text-xs text-text-secondary">Button Text</span>
                 <input
                   type="text"
                   value={label}
                   onChange={(e) => setLabel(e.target.value)}
-                  className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-[#141414] border border-[#1F1F1F] text-[#FAFAFA] focus-ring"
+                  className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-surface-raised border border-border text-text-primary focus-ring"
                 />
               </div>
 
@@ -97,8 +97,8 @@ export const CodePhilosophy: React.FC = () => {
                     onClick={() => setVariant(v)}
                     className={`px-2.5 py-1 text-xs rounded-md capitalize transition-colors ${
                       variant === v
-                        ? 'bg-[#141414] text-[#FAFAFA] border border-[#1F1F1F]'
-                        : 'text-[#6B6B6B] hover:text-[#FAFAFA]'
+                        ? 'bg-surface-hover text-text-primary border border-border'
+                        : 'text-text-muted hover:text-text-primary'
                     }`}
                   >
                     {v}
@@ -108,11 +108,12 @@ export const CodePhilosophy: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Code Editor & Live Preview Pair */}
+          {/* Right: Code Editor & Live Preview Pair — both panels follow the
+              page theme; the live preview and code block read as the product. */}
           <div className="lg:col-span-7 space-y-4">
             {/* Live Rendered Target */}
-            <div className="rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] p-8 flex flex-col items-center justify-center min-h-[200px] relative bg-dot-subtle">
-              <div className="absolute top-3 left-4 text-[10px] font-mono text-[#6B6B6B]">
+            <div className="rounded-xl border border-border bg-surface-raised text-text-primary p-8 flex flex-col items-center justify-center min-h-[200px] relative bg-dot-subtle">
+              <div className="absolute top-3 left-4 text-[10px] font-mono text-text-muted">
                 PREVIEW
               </div>
               <MagneticButton
@@ -122,28 +123,28 @@ export const CodePhilosophy: React.FC = () => {
                 size="lg"
               >
                 <span>{label || 'Interactive Button'}</span>
-                <Sparkles className="w-4 h-4 text-[#525252]" />
+                <Sparkles className="w-4 h-4 text-text-subtle" />
               </MagneticButton>
-              <div className="absolute bottom-3 text-[11px] text-[#6B6B6B]">
+              <div className="absolute bottom-3 text-[11px] text-text-muted">
                 {strength}x spring dynamics
               </div>
             </div>
 
             {/* Restrained Code Block */}
-            <div className="rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2 bg-[#0B0B0B] border-b border-[#1F1F1F] text-xs text-[#6B6B6B]">
+            <div className="rounded-xl border border-border bg-surface-raised text-text-primary overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2 bg-surface-raised border-b border-border text-xs text-text-muted">
                 <div className="flex items-center gap-2">
-                  <Terminal className="w-3.5 h-3.5 text-[#525252]" />
-                  <span className="font-mono text-[11px] text-[#A1A1A1]">App.tsx</span>
+                  <Terminal className="w-3.5 h-3.5 text-text-subtle" />
+                  <span className="font-mono text-[11px] text-text-secondary">App.tsx</span>
                 </div>
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-1 text-[11px] text-[#A1A1A1] hover:text-[#FAFAFA] transition-colors"
+                  className="flex items-center gap-1 text-[11px] text-text-secondary hover:text-text-primary transition-colors"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3 h-3 text-white" />
-                      <span className="text-white">Copied</span>
+                      <Check className="w-3 h-3 text-text-primary" />
+                      <span className="text-text-primary">Copied</span>
                     </>
                   ) : (
                     <>
@@ -153,7 +154,7 @@ export const CodePhilosophy: React.FC = () => {
                   )}
                 </button>
               </div>
-              <pre className="p-4 text-xs font-mono text-[#A1A1A1] overflow-x-auto leading-relaxed selection:bg-white/20">
+              <pre className="p-4 text-xs font-mono text-text-secondary overflow-x-auto leading-relaxed">
                 <code>{generatedCode}</code>
               </pre>
             </div>
