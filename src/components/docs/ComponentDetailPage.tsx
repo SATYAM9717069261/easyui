@@ -407,7 +407,7 @@ const LoaderShowcase: React.FC = () => {
                 onClick={() => setVariant(v)}
                 className={cn(
                   'px-2.5 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer',
-                  variant === v ? 'bg-[#FAFAFA] text-[#050505] font-semibold shadow-xs' : 'text-[#525252] hover:text-white'
+                  variant === v ? 'bg-[#FAFAFA] text-[#050505] font-semibold shadow-xs' : 'text-[#8A8A8A] hover:text-white'
                 )}
               >
                 {v}
@@ -424,7 +424,7 @@ const LoaderShowcase: React.FC = () => {
                 onClick={() => setSize(s)}
                 className={cn(
                   'px-2 py-0.5 rounded border transition-colors cursor-pointer',
-                  size === s ? 'bg-[#FAFAFA] text-[#050505] border-[#FAFAFA]' : 'border-[#1F1F1F] bg-[#141414] text-[#525252] hover:text-white'
+                  size === s ? 'bg-[#FAFAFA] text-[#050505] border-[#FAFAFA]' : 'border-[#1F1F1F] bg-[#141414] text-[#8A8A8A] hover:text-white'
                 )}
               >
                 {s}px
@@ -1798,7 +1798,7 @@ const completion = await client.completions.create({
           <button
             type="button"
             onClick={() => setMobileSidebarOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#141414] border border-[#1F1F1F] text-xs font-medium text-white hover:bg-[#171717] transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#141414] border border-[#1F1F1F] text-xs font-medium text-white hover:bg-[#1A1A1A] transition-colors"
           >
             <Menu className="w-4 h-4 text-zinc-400" />
             <span>Components Menu</span>
@@ -1838,7 +1838,7 @@ const completion = await client.completions.create({
                   damping: 32,
                   mass: 0.8,
                 }}
-                className="relative w-80 max-w-[85vw] bg-[#1c1c1c] border-r border-[#2d2d2d] h-full p-5 overflow-y-auto z-10 flex flex-col gap-4 shadow-2xl"
+                className="relative w-80 max-w-[85vw] bg-[#1A1A1A] border-r border-[#2d2d2d] h-full p-5 overflow-y-auto z-10 flex flex-col gap-4 shadow-2xl"
               >
                 <div className="flex items-center justify-between border-b border-[#2d2d2d] pb-3">
                   <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Components Catalog</span>
@@ -1910,7 +1910,7 @@ const completion = await client.completions.create({
                 value={sidebarFilter}
                 onChange={(e) => setSidebarFilter(e.target.value)}
                 placeholder="Search..."
-                className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#1c1c1c] border border-[#2d2d2d] text-[16px] text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+                className="w-full pl-8 pr-7 py-1.5 rounded-lg bg-[#1A1A1A] border border-[#2d2d2d] text-[16px] text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
               />
               {sidebarFilter && (
                 <button
@@ -2029,30 +2029,11 @@ const completion = await client.completions.create({
                 <span className="text-white font-medium">{component.name}</span>
               </nav>
 
-              {/* Title and Action Buttons */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
-                <div className="space-y-1">
-                  <h1 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
-                    {component.name}
-                  </h1>
-                </div>
-
-                {/* Right Top Header Actions */}
-                <div className="flex items-center gap-2 shrink-0">
-                  <button
-                    type="button"
-                    onClick={handleCopyCli}
-                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0E0E0E] hover:bg-[#141414] border border-[#1F1F1F] hover:border-[#4A4A4A] text-xs font-medium text-[#FAFAFA] hover:text-white transition-all shadow-sm cursor-pointer"
-                    title="Copy CLI command"
-                  >
-                    {isCopiedCli ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    ) : (
-                      <Terminal className="w-3.5 h-3.5 text-[#525252]" />
-                    )}
-                    <span>{isCopiedCli ? 'Copied CLI' : 'Copy CLI'}</span>
-                  </button>
-                </div>
+              {/* Title */}
+              <div className="pt-1">
+                <h1 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
+                  {component.name}
+                </h1>
               </div>
 
               {/* Description Paragraph */}
@@ -2288,7 +2269,7 @@ const completion = await client.completions.create({
                     <button
                       type="button"
                       onClick={() => handleCopy(component.cliCommand, 'cli')}
-                      className="p-1.5 rounded-md text-[#525252] hover:text-white bg-[#141414] hover:bg-[#171717] border border-[#1F1F1F] transition-colors cursor-pointer shrink-0"
+                      className="p-1.5 rounded-md text-[#525252] hover:text-white bg-[#141414] hover:bg-[#1A1A1A] border border-[#1F1F1F] transition-colors cursor-pointer shrink-0"
                     >
                       {copiedCode === 'cli' ? (
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -2387,48 +2368,6 @@ const completion = await client.completions.create({
             </section>
 
             {/* ========================================================================= */}
-            {/* SECTION: FEATURES & ACCESSIBILITY                                         */}
-            {/* ========================================================================= */}
-            <section id="features-section" className="space-y-4 pt-4 border-t border-[#1F1F1F]">
-              <h2 className="text-lg font-semibold text-[#FAFAFA] tracking-tight">Features & Accessibility</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Features Card */}
-                {component.features && component.features.length > 0 && (
-                  <div className="p-4 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] space-y-3">
-                    <div className="text-xs font-semibold text-[#FAFAFA]">
-                      Key Capabilities
-                    </div>
-                    <ul className="space-y-2 text-xs text-[#A1A1A1]">
-                      {component.features.map((feat, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#6B6B6B] mt-1.5 shrink-0" />
-                          <span className="text-[#FAFAFA]">{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Accessibility Card */}
-                {component.accessibility && component.accessibility.length > 0 && (
-                  <div className="p-4 rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] space-y-3">
-                    <div className="text-xs font-semibold text-[#FAFAFA]">
-                      Accessibility (WAI-ARIA)
-                    </div>
-                    <ul className="space-y-2 text-xs text-[#A1A1A1]">
-                      {component.accessibility.map((acc, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#6B6B6B] mt-1.5 shrink-0" />
-                          <span className="text-[#FAFAFA]">{acc}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </section>
-
-            {/* ========================================================================= */}
             {/* SECTION: RELATED COMPONENTS                                               */}
             {/* ========================================================================= */}
             {relatedComponents.length > 0 && (
@@ -2500,7 +2439,7 @@ const completion = await client.completions.create({
                   className={cn(
                     "p-1.5 rounded-lg border transition-colors shrink-0 cursor-pointer",
                     previewTheme === 'dark'
-                      ? "bg-[#141414] hover:bg-[#171717] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white"
+                      ? "bg-[#141414] hover:bg-[#1A1A1A] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white"
                       : "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900"
                   )}
                   title={previewTheme === 'dark' ? 'Switch to light background' : 'Switch to dark background'}
@@ -2520,7 +2459,7 @@ const completion = await client.completions.create({
                   className={cn(
                     "p-1.5 rounded-lg border transition-colors shrink-0 cursor-pointer",
                     previewTheme === 'dark'
-                      ? "bg-[#141414] hover:bg-[#171717] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white"
+                      ? "bg-[#141414] hover:bg-[#1A1A1A] border-[#1F1F1F] hover:border-[#4A4A4A] text-[#A1A1A1] hover:text-white"
                       : "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 hover:border-zinc-300 text-zinc-600 hover:text-zinc-900"
                   )}
                   title="Close fullscreen"
