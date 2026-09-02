@@ -30,6 +30,8 @@ import { CircularOrbit } from '../ui/CircularOrbit';
 import { ProfileCard } from '../ui/ProfileCard';
 import { BookCallButton } from '../ui/BookCallButton';
 import { GooeyMenu } from '../ui/GooeyMenu';
+import { MorphingShapeLoader } from '../ui/MorphingShapeLoader';
+import { LiquidToggle } from '../ui/LiquidToggle';
 import { NewBadge } from './NewBadge';
 import { isComponentNew } from '../../lib/components';
 import { copyToClipboard, cn } from '../../lib/utils';
@@ -1120,6 +1122,30 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
                 <GooeyMenu open={hovered} defaultValue="Home" />
               </div>
             </div>
+          </div>
+        );
+
+      case 'morphing-shape-loader':
+        return (
+          <div className="h-52 w-full flex items-center justify-center p-4 pointer-events-none overflow-hidden">
+            <MorphingShapeLoader
+              key={hovered ? 'hovered' : 'idle'}
+              size={130}
+              shapes={['circle', 'square', 'triangle', 'hexagon', 'star', 'pentagon']}
+              duration={0.9}
+              strokeWidth={0.06}
+            />
+          </div>
+        );
+      case 'liquid-toggle':
+        return (
+          <div className="h-52 flex items-center justify-center p-4">
+            <LiquidToggle
+              key={hovered ? 'hovered' : 'idle'}
+              defaultValue={hovered}
+              width={80}
+              height={40}
+            />
           </div>
         );
 

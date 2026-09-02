@@ -102,6 +102,8 @@ import { CircularOrbit } from '../ui/CircularOrbit';
 import { ProfileCard } from '../ui/ProfileCard';
 import { BookCallButton } from '../ui/BookCallButton';
 import { GooeyMenu } from '../ui/GooeyMenu';
+import { MorphingShapeLoader } from '../ui/MorphingShapeLoader';
+import { LiquidToggle } from '../ui/LiquidToggle';
 
 export type MainTab = 'preview' | 'usage' | 'code' | 'props' | 'accessibility';
 export type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
@@ -1777,6 +1779,24 @@ const completion = await client.completions.create({
         return (
           <div className="py-10 flex flex-col items-center justify-center">
             <GooeyMenu key={demoKey} />
+          </div>
+        );
+      case 'morphing-shape-loader':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center">
+            <MorphingShapeLoader
+              key={demoKey}
+              size={160}
+              shapes={['circle', 'square', 'triangle', 'hexagon', 'star', 'pentagon']}
+              duration={1.4}
+              strokeWidth={0.06}
+            />
+          </div>
+        );
+      case 'liquid-toggle':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center">
+            <LiquidToggle key={demoKey} width={88} height={44} />
           </div>
         );
       default:

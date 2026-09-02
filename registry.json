@@ -796,6 +796,32 @@
       ]
     },
     {
+      "name": "liquid-toggle",
+      "type": "registry:ui",
+      "title": "Liquid Toggle",
+      "description": "A toggle with a liquid/blob-like transition. The internal shape deforms organically as it travels from off to on — stretching along the travel axis and settling into a natural blob shape rather than simply translating.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/LiquidToggle.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/liquid-toggle.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/theme/useTheme.tsx",
+          "type": "registry:lib",
+          "target": "lib/theme/useTheme.tsx"
+        }
+      ]
+    },
+    {
       "name": "loader",
       "type": "registry:ui",
       "title": "Loader",
@@ -974,6 +1000,32 @@
           "path": "src/lib/motion-tokens.ts",
           "type": "registry:lib",
           "target": "lib/motion-tokens.ts"
+        }
+      ]
+    },
+    {
+      "name": "morphing-shape-loader",
+      "type": "registry:ui",
+      "title": "Morphing Shape Loader",
+      "description": "A loading indicator that continuously morphs between configurable SVG shapes via real path interpolation. The transition is a genuine geometric morph — never a fade out / in.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/MorphingShapeLoader.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/morphing-shape-loader.tsx"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "src/lib/theme/useTheme.tsx",
+          "type": "registry:lib",
+          "target": "lib/theme/useTheme.tsx"
         }
       ]
     },

@@ -2544,6 +2544,116 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "liquid-toggle",
+    "name": "Liquid Toggle",
+    "tagline": "Morphing liquid blob toggle",
+    "description": "A toggle with a liquid/blob-like transition. The internal shape deforms organically as it travels from off to on — stretching along the travel axis and settling into a natural blob shape rather than simply translating.",
+    "category": "Buttons",
+    "badges": [
+      "SVG Morph",
+      "Spring",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/liquid-toggle",
+    "features": [
+      "Internal blob shape continuously morphs between states",
+      "Transient stretch pulse along the travel axis when toggling",
+      "Spring-smoothed progress with mass/damping tuning",
+      "Controlled and uncontrolled usage via value/defaultValue/onChange",
+      "Respects prefers-reduced-motion (uses static state fallback)"
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled value"
+      },
+      {
+        "name": "defaultValue",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial value for uncontrolled mode"
+      },
+      {
+        "name": "onChange",
+        "type": "(value: boolean) => void",
+        "default": "undefined",
+        "description": "Toggle change callback"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disabled state"
+      },
+      {
+        "name": "offLabel",
+        "type": "string",
+        "default": "'Off'",
+        "description": "Screen reader label when off"
+      },
+      {
+        "name": "onLabel",
+        "type": "string",
+        "default": "'On'",
+        "description": "Screen reader label when on"
+      },
+      {
+        "name": "accentColor",
+        "type": "string",
+        "default": "'#FAFAFA'",
+        "description": "Blob color when on"
+      },
+      {
+        "name": "showLabels",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show OFF/ON text inside the track"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "default": "56",
+        "description": "Track width in px"
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "default": "32",
+        "description": "Track height in px"
+      }
+    ],
+    "accessibility": [
+      "role=\"switch\" with aria-checked",
+      "Visually hidden label reflects current state",
+      "Keyboard interaction: Space/Enter toggles; Arrow keys set state",
+      "Respects prefers-reduced-motion media query"
+    ],
+    "createdAt": "2026-09-02",
+    "usageCode": "import { LiquidToggle } from \"@/components/ui/liquid-toggle\";\n\nexport function Demo() {\n  const [on, setOn] = React.useState(false);\n  return (\n    <div className=\"flex items-center gap-2\">\n      <LiquidToggle value={on} onChange={setOn} />\n      <span className=\"text-sm\">{on ? 'Enabled' : 'Disabled'}</span>\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/LiquidToggle.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/liquid-toggle.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/theme/useTheme.tsx",
+        "type": "registry:lib",
+        "target": "lib/theme/useTheme.tsx"
+      }
+    ]
+  },
+  {
     "id": "loader",
     "name": "Loader",
     "tagline": "Calm, continuous feedback states with zero visual stress",
@@ -3104,6 +3214,97 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/motion-tokens.ts",
         "type": "registry:lib",
         "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "morphing-shape-loader",
+    "name": "Morphing Shape Loader",
+    "tagline": "Continuously morphing SVG shape loader",
+    "description": "A loading indicator that continuously morphs between configurable SVG shapes via real path interpolation. The transition is a genuine geometric morph — never a fade out / in.",
+    "category": "Feedback",
+    "badges": [
+      "SVG Morph",
+      "Configurable",
+      "Loop"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/morphing-shape-loader",
+    "features": [
+      "Continuous morph between matched-control-point shapes",
+      "Configurable shape list, duration, hold time, and loop behavior",
+      "Stroke and filled variants with optional gradient",
+      "Subtle dashed backdrop ring for visual context",
+      "Respects prefers-reduced-motion (renders a single static shape)"
+    ],
+    "props": [
+      {
+        "name": "shapes",
+        "type": "ShapeKind[]",
+        "default": "['circle','square','triangle','circle']",
+        "description": "Ordered list of shapes to cycle through"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "1.6",
+        "description": "Morph duration per shape change in seconds"
+      },
+      {
+        "name": "holdDuration",
+        "type": "number",
+        "default": "0.4",
+        "description": "Hold duration at each shape in seconds"
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": "true",
+        "description": "Loop the shape sequence"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "default": "96",
+        "description": "Loader size in pixels (square)"
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "'#FAFAFA'",
+        "description": "Stroke or fill color"
+      },
+      {
+        "name": "filled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Filled variant instead of stroke"
+      }
+    ],
+    "accessibility": [
+      "role=\"status\" with aria-busy on the loader",
+      "Visually hidden text label for screen readers",
+      "Respects prefers-reduced-motion media query"
+    ],
+    "createdAt": "2026-09-02",
+    "usageCode": "import { MorphingShapeLoader } from \"@/components/ui/morphing-shape-loader\";\n\nexport function Demo() {\n  return (\n    <MorphingShapeLoader\n      shapes={['circle', 'square', 'triangle', 'hexagon', 'star']}\n      duration={1.4}\n      holdDuration={0.3}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/MorphingShapeLoader.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/morphing-shape-loader.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/theme/useTheme.tsx",
+        "type": "registry:lib",
+        "target": "lib/theme/useTheme.tsx"
       }
     ]
   },
