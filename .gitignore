@@ -25,3 +25,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.claude/
+.agents/
+
+# Build and cache
+.vite/
+*.tsbuildinfo
+coverage/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+

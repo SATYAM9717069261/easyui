@@ -14,13 +14,14 @@ export const DocMotionSystem: React.FC<DocMotionSystemProps> = ({ onNavigateSect
   const [testTrigger, setTestTrigger] = useState(0);
 
   const tokenDetails: Record<keyof typeof motionTransitions, { desc: string; values: string }> = {
-    springSnappy: { desc: 'Tactile clicks, button active states, micro-toggles', values: 'stiffness: 400, damping: 25, mass: 0.5' },
-    springResponsive: { desc: 'Magnetic return pull, notification toasts stack', values: 'stiffness: 350, damping: 22, mass: 0.6' },
-    springMorph: { desc: 'Morphing dialogs, layoutId expanding backgrounds', values: 'stiffness: 320, damping: 28, mass: 0.9' },
-    springSmooth: { desc: 'Spatial 3D layer perspective, search expanding pill, floating dock', values: 'stiffness: 300, damping: 30, mass: 0.8' },
-    springGentle: { desc: 'Fluid tab switching, accordion unfolding, card bounds', values: 'stiffness: 280, damping: 30, mass: 0.8' },
-    easeSoft: { desc: 'Subtle backdrop blurs, opacity fades, color shifts', values: 'duration: 0.22s, ease: [0.16, 1, 0.3, 1]' },
-    easeFast: { desc: 'Instant icon switch, quick tooltip reveal', values: 'duration: 0.15s, ease: [0.2, 0, 0, 1]' },
+    springSnappy: { desc: 'Tactile clicks, button active states, micro-toggles', values: 'stiffness: 380, damping: 30, mass: 0.5' },
+    springResponsive: { desc: 'Magnetic return pull, notification toasts stack', values: 'stiffness: 320, damping: 24, mass: 0.7' },
+    springMorph: { desc: 'Morphing dialogs, layoutId expanding backgrounds', values: 'stiffness: 220, damping: 32, mass: 1.0' },
+    springSmooth: { desc: 'Spatial 3D layer perspective, search expanding pill, floating dock', values: 'stiffness: 200, damping: 28, mass: 0.85' },
+    springGentle: { desc: 'Fluid tab switching, accordion unfolding, card bounds', values: 'stiffness: 170, damping: 26, mass: 0.9' },
+    springSoft: { desc: 'Default smoothing for pointer-follow motion values', values: 'stiffness: 150, damping: 22, mass: 0.9' },
+    easeSoft: { desc: 'Subtle backdrop blurs, opacity fades, color shifts', values: 'duration: 0.32s, ease: [0.22, 1, 0.36, 1]' },
+    easeFast: { desc: 'Instant icon switch, quick tooltip reveal', values: 'duration: 0.20s, ease: [0.2, 0, 0, 1]' },
   };
 
   return (

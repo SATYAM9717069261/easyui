@@ -1157,6 +1157,98 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "directional-tooltip",
+    "name": "DirectionalTooltip",
+    "tagline": "Appears from its origin direction",
+    "description": "A tooltip that appears from the direction it originates — it starts a small distance outside the trigger in its preferred direction and springs inward, so it feels like it materializes from the trigger.",
+    "category": "Overlays",
+    "badges": [
+      "Directional",
+      "Spring In",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/directional-tooltip",
+    "features": [
+      "Entry motion originates from the chosen side (top/right/bottom/left)",
+      "Snappy spring (springSnappy) settles the tooltip into place",
+      "Alignment per side: start / center / end",
+      "Configurable delay, offset, and optional arrow indicator",
+      "Light/dark theme aware via CSS variables"
+    ],
+    "props": [
+      {
+        "name": "content",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Tooltip body content"
+      },
+      {
+        "name": "side",
+        "type": "'top' | 'right' | 'bottom' | 'left'",
+        "default": "'top'",
+        "description": "Preferred side for the tooltip"
+      },
+      {
+        "name": "align",
+        "type": "'start' | 'center' | 'end'",
+        "default": "'center'",
+        "description": "Alignment along the chosen side"
+      },
+      {
+        "name": "delayDuration",
+        "type": "number",
+        "default": "150",
+        "description": "Delay before showing, in ms"
+      },
+      {
+        "name": "showArrow",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show the arrow indicator"
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "default": "8",
+        "description": "Spacing from the trigger in px"
+      },
+      {
+        "name": "forceOpen",
+        "type": "boolean",
+        "default": "false",
+        "description": "Force the tooltip open (for previews)"
+      }
+    ],
+    "accessibility": [
+      "role=\"tooltip\" with aria-describedby on the trigger when open",
+      "Hover and focus both show the tooltip; blur / mouseleave hide it",
+      "Configurable delay so accidental hovers do not flood the UI"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { DirectionalTooltip } from \"@/components/ui/directional-tooltip\";\nimport { PressButton } from \"@/components/ui/press-button\";\n\nexport function Demo() {\n  return (\n    <div className=\"flex flex-wrap gap-4\">\n      <DirectionalTooltip content=\"Save your changes\" side=\"top\">\n        <PressButton>Save</PressButton>\n      </DirectionalTooltip>\n      <DirectionalTooltip content=\"Open command palette ⌘K\" side=\"bottom\" align=\"end\">\n        <PressButton variant=\"secondary\">Search</PressButton>\n      </DirectionalTooltip>\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/DirectionalTooltip.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/directional-tooltip.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "dot-field",
     "name": "Dot Field",
     "tagline": "Lightweight static Canvas particle matrix background",
@@ -1299,6 +1391,92 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/components/ui/DragToConfirm.tsx",
         "type": "registry:ui",
         "target": "components/ui/drag-to-confirm.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "draw-checkbox",
+    "name": "DrawCheckbox",
+    "tagline": "Checkmark draws itself, then settles",
+    "description": "A checkbox whose checkmark draws itself (path length animation) and settles with a tiny overshoot. The box scales from 0.9 -> 1.04 -> 1.0 for a tactile snap feel.",
+    "category": "Forms",
+    "badges": [
+      "Path Draw",
+      "Overshoot",
+      "Indeterminate",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/draw-checkbox",
+    "features": [
+      "Checkmark animates via stroke-dashoffset (path length 0 -> 1) with a snappy draw curve",
+      "Box scales 0.9 -> 1.04 -> 1.0 for a tiny physical overshoot, then settles",
+      "Indeterminate state draws a bar from left to right via scaleX origin",
+      "Accent background swaps to var(--accent) when checked — theme aware",
+      "Full controlled / uncontrolled state support, plus ref forwarding"
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Label text displayed next to the box"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Helper text below the label"
+      },
+      {
+        "name": "indeterminate",
+        "type": "boolean",
+        "default": "false",
+        "description": "When true, renders a horizontal bar instead of a checkmark"
+      },
+      {
+        "name": "checked",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled checked state"
+      },
+      {
+        "name": "defaultChecked",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial checked state (uncontrolled)"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Prevents interaction"
+      }
+    ],
+    "accessibility": [
+      "Hidden native <input type=\"checkbox\"> preserves semantics and screen-reader support",
+      "Visible box is a label proxy — clicking it forwards to the native input",
+      "Disabled state communicated both visually and via aria-disabled"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { DrawCheckbox } from \"@/components/ui/draw-checkbox\";\n\nexport function Demo() {\n  return (\n    <div className=\"space-y-3\">\n      <DrawCheckbox label=\"Email me product updates\" description=\"We send about one email per month.\" defaultChecked />\n      <DrawCheckbox label=\"Indeterminate option\" indeterminate />\n      <DrawCheckbox label=\"Accept terms\" />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/DrawCheckbox.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/draw-checkbox.tsx"
       },
       {
         "path": "src/lib/utils.ts",
@@ -2544,6 +2722,116 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "liquid-toggle",
+    "name": "Liquid Toggle",
+    "tagline": "Morphing liquid blob toggle",
+    "description": "A toggle with a liquid/blob-like transition. The internal shape deforms organically as it travels from off to on — stretching along the travel axis and settling into a natural blob shape rather than simply translating.",
+    "category": "Buttons",
+    "badges": [
+      "SVG Morph",
+      "Spring",
+      "Accessible"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/liquid-toggle",
+    "features": [
+      "Internal blob shape continuously morphs between states",
+      "Transient stretch pulse along the travel axis when toggling",
+      "Spring-smoothed progress with mass/damping tuning",
+      "Controlled and uncontrolled usage via value/defaultValue/onChange",
+      "Respects prefers-reduced-motion (uses static state fallback)"
+    ],
+    "props": [
+      {
+        "name": "value",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled value"
+      },
+      {
+        "name": "defaultValue",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial value for uncontrolled mode"
+      },
+      {
+        "name": "onChange",
+        "type": "(value: boolean) => void",
+        "default": "undefined",
+        "description": "Toggle change callback"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disabled state"
+      },
+      {
+        "name": "offLabel",
+        "type": "string",
+        "default": "'Off'",
+        "description": "Screen reader label when off"
+      },
+      {
+        "name": "onLabel",
+        "type": "string",
+        "default": "'On'",
+        "description": "Screen reader label when on"
+      },
+      {
+        "name": "accentColor",
+        "type": "string",
+        "default": "'#FAFAFA'",
+        "description": "Blob color when on"
+      },
+      {
+        "name": "showLabels",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show OFF/ON text inside the track"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "default": "56",
+        "description": "Track width in px"
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "default": "32",
+        "description": "Track height in px"
+      }
+    ],
+    "accessibility": [
+      "role=\"switch\" with aria-checked",
+      "Visually hidden label reflects current state",
+      "Keyboard interaction: Space/Enter toggles; Arrow keys set state",
+      "Respects prefers-reduced-motion media query"
+    ],
+    "createdAt": "2026-09-02",
+    "usageCode": "import { LiquidToggle } from \"@/components/ui/liquid-toggle\";\n\nexport function Demo() {\n  const [on, setOn] = React.useState(false);\n  return (\n    <div className=\"flex items-center gap-2\">\n      <LiquidToggle value={on} onChange={setOn} />\n      <span className=\"text-sm\">{on ? 'Enabled' : 'Disabled'}</span>\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/LiquidToggle.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/liquid-toggle.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/theme/useTheme.tsx",
+        "type": "registry:lib",
+        "target": "lib/theme/useTheme.tsx"
+      }
+    ]
+  },
+  {
     "id": "loader",
     "name": "Loader",
     "tagline": "Calm, continuous feedback states with zero visual stress",
@@ -2620,6 +2908,93 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/utils.ts",
         "type": "registry:lib",
         "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
+    "id": "lock-input",
+    "name": "LockInput",
+    "tagline": "Focus state that \"locks\" into place",
+    "description": "A text input whose focus state subtly \"locks\" into place — a focus ring scales in from the center and the border tweens to active, giving the impression that the input snaps closed on itself.",
+    "category": "Forms",
+    "badges": [
+      "Focus Lock",
+      "Spring Ring",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/lock-input",
+    "features": [
+      "Focus ring scales in from 0.94 to 1.0 with a snappy spring, producing a physical \"lock\" feel",
+      "Inset border ring fades in alongside the outer focus halo for a layered lock effect",
+      "Icon and label slots adjust contrast on focus to draw the eye inward",
+      "Error state replaces accent with restrained rose and animates message in",
+      "Light/dark theme aware via CSS variables — same code, both themes"
+    ],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Visible label rendered above the input"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Helper text below the input"
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "default": "undefined",
+        "description": "Error message; presence triggers danger styling"
+      },
+      {
+        "name": "leftIcon",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Icon element placed before the input value"
+      },
+      {
+        "name": "rightIcon",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Icon element placed after the input value"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Prevents interaction and applies 30% disabled opacity"
+      }
+    ],
+    "accessibility": [
+      "Proper <label htmlFor> association for assistive technology",
+      "aria-invalid toggles on error; aria-describedby links helper text",
+      "Restrained focus ring is keyboard-only via :focus-visible-friendly overlay",
+      "Disabled state communicated both visually and via pointer-events"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { LockInput } from \"@/components/ui/lock-input\";\nimport { Mail } from \"lucide-react\";\n\nexport function Demo() {\n  return (\n    <div className=\"space-y-4 max-w-sm\">\n      <LockInput\n        label=\"Email\"\n        type=\"email\"\n        placeholder=\"you@studio.dev\"\n        leftIcon={<Mail className=\"w-3.5 h-3.5\" />}\n        description=\"We'll send a confirmation link here.\"\n      />\n      <LockInput\n        label=\"Workspace\"\n        placeholder=\"acme\"\n        error=\"That workspace is already taken.\"\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/LockInput.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/lock-input.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
       }
     ]
   },
@@ -3108,6 +3483,97 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "morphing-shape-loader",
+    "name": "Morphing Shape Loader",
+    "tagline": "Continuously morphing SVG shape loader",
+    "description": "A loading indicator that continuously morphs between configurable SVG shapes via real path interpolation. The transition is a genuine geometric morph — never a fade out / in.",
+    "category": "Feedback",
+    "badges": [
+      "SVG Morph",
+      "Configurable",
+      "Loop"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/morphing-shape-loader",
+    "features": [
+      "Continuous morph between matched-control-point shapes",
+      "Configurable shape list, duration, hold time, and loop behavior",
+      "Stroke and filled variants with optional gradient",
+      "Subtle dashed backdrop ring for visual context",
+      "Respects prefers-reduced-motion (renders a single static shape)"
+    ],
+    "props": [
+      {
+        "name": "shapes",
+        "type": "ShapeKind[]",
+        "default": "['circle','square','triangle','circle']",
+        "description": "Ordered list of shapes to cycle through"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "1.6",
+        "description": "Morph duration per shape change in seconds"
+      },
+      {
+        "name": "holdDuration",
+        "type": "number",
+        "default": "0.4",
+        "description": "Hold duration at each shape in seconds"
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "default": "true",
+        "description": "Loop the shape sequence"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "default": "96",
+        "description": "Loader size in pixels (square)"
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "'#FAFAFA'",
+        "description": "Stroke or fill color"
+      },
+      {
+        "name": "filled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Filled variant instead of stroke"
+      }
+    ],
+    "accessibility": [
+      "role=\"status\" with aria-busy on the loader",
+      "Visually hidden text label for screen readers",
+      "Respects prefers-reduced-motion media query"
+    ],
+    "createdAt": "2026-09-02",
+    "usageCode": "import { MorphingShapeLoader } from \"@/components/ui/morphing-shape-loader\";\n\nexport function Demo() {\n  return (\n    <MorphingShapeLoader\n      shapes={['circle', 'square', 'triangle', 'hexagon', 'star']}\n      duration={1.4}\n      holdDuration={0.3}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/MorphingShapeLoader.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/morphing-shape-loader.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/theme/useTheme.tsx",
+        "type": "registry:lib",
+        "target": "lib/theme/useTheme.tsx"
+      }
+    ]
+  },
+  {
     "id": "neon-edge-button",
     "name": "Neon Edge Button",
     "tagline": "Precise travelling edge light button",
@@ -3451,6 +3917,99 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/lib/utils.ts",
         "type": "registry:lib",
         "target": "lib/utils.ts"
+      }
+    ]
+  },
+  {
+    "id": "origin-dropdown",
+    "name": "OriginDropdown",
+    "tagline": "Origin-aware expansion",
+    "description": "A dropdown with origin-aware expansion — the menu materializes from the chosen side with a slight scale and an inward translation, so its perceived origin is the trigger edge closest to the menu.",
+    "category": "Overlays",
+    "badges": [
+      "Origin-Aware",
+      "Spring In",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/origin-dropdown",
+    "features": [
+      "Menu expansion originates from one of four sides (top/right/bottom/left)",
+      "Snappy spring (springSnappy) with origin-based transform-origin per side",
+      "Optional items array with icon, description, and destructive variants",
+      "Chevron rotates 180° on open; Escape and outside-click close",
+      "Light/dark theme aware via CSS variables"
+    ],
+    "props": [
+      {
+        "name": "trigger",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Custom trigger content"
+      },
+      {
+        "name": "items",
+        "type": "OriginDropdownItem[]",
+        "default": "undefined",
+        "description": "Menu items (alternative to children)"
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Custom menu content"
+      },
+      {
+        "name": "side",
+        "type": "'top' | 'right' | 'bottom' | 'left'",
+        "default": "'bottom'",
+        "description": "Side the menu opens from"
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled open state"
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial open state"
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "default": "undefined",
+        "description": "Open state change callback"
+      }
+    ],
+    "accessibility": [
+      "aria-haspopup / aria-expanded / role=\"menu\" / role=\"menuitem\" wired correctly",
+      "Escape and outside-click dismiss the menu",
+      "Disabled items skip the onSelect handler and have proper ARIA"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { OriginDropdown } from \"@/components/ui/origin-dropdown\";\nimport { Settings, LogOut, User } from \"lucide-react\";\n\nexport function Demo() {\n  return (\n    <div className=\"flex flex-wrap gap-3\">\n      <OriginDropdown\n        trigger=\"Account\"\n        side=\"bottom\"\n        items={[\n          { id: \"profile\", label: \"Profile\", description: \"Account settings\", icon: <User className=\"w-3.5 h-3.5\" /> },\n          { id: \"settings\", label: \"Preferences\", description: \"Theme, motion, layout\", icon: <Settings className=\"w-3.5 h-3.5\" /> },\n          { id: \"signout\", label: \"Sign out\", destructive: true, icon: <LogOut className=\"w-3.5 h-3.5\" /> },\n        ]}\n      />\n      <OriginDropdown\n        trigger=\"Origin top\"\n        side=\"top\"\n        items={[\n          { id: \"a\", label: \"Option A\" },\n          { id: \"b\", label: \"Option B\" },\n        ]}\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/OriginDropdown.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/origin-dropdown.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
       }
     ]
   },
@@ -4031,6 +4590,88 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "press-button",
+    "name": "PressButton",
+    "tagline": "Compresses slightly on press, then settles",
+    "description": "A button that compresses slightly on press and settles with a tiny natural overshoot for a tactile, physical feel.",
+    "category": "Buttons",
+    "badges": [
+      "Spring Press",
+      "Squash Physics",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/press-button",
+    "features": [
+      "Layered scaleX + scaleY squash for an organic compression on press",
+      "Tunable pressStrength (0-1) to control how much the button compresses",
+      "Snappy spring with a tiny overshoot so the button \"settles\" instead of snapping",
+      "4 visual variants: Primary, Secondary, Outline, Ghost — light/dark theme aware",
+      "4 size dimensions: Small (sm), Medium (md), Large (lg), and square Icon",
+      "Full keyboard accessibility with focus-ring and disabled state"
+    ],
+    "props": [
+      {
+        "name": "variant",
+        "type": "'primary' | 'secondary' | 'outline' | 'ghost'",
+        "default": "'primary'",
+        "description": "Visual presentation style"
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg' | 'icon'",
+        "default": "'md'",
+        "description": "Dimensions and typography scale"
+      },
+      {
+        "name": "pressStrength",
+        "type": "number",
+        "default": "0.04",
+        "description": "Compression amount on press (0-1, clamped 0.01-0.06)"
+      },
+      {
+        "name": "fullWidth",
+        "type": "boolean",
+        "default": "false",
+        "description": "Stretches button to 100% width of parent container"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Prevents interaction and applies 30% disabled opacity"
+      }
+    ],
+    "accessibility": [
+      "Native <button> semantics with explicit type=\"button\" default",
+      "Standard focus-ring outline with restrained accent on keyboard :focus-visible",
+      "Disabled state is communicated both visually and via pointer-events",
+      "Respects prefers-reduced-motion via the system spring config"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { PressButton } from \"@/components/ui/press-button\";\n\nexport function Demo() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-3\">\n      <PressButton variant=\"primary\">Save changes</PressButton>\n      <PressButton variant=\"secondary\" pressStrength={0.05}>Cancel</PressButton>\n      <PressButton variant=\"outline\">Learn more</PressButton>\n      <PressButton variant=\"ghost\">Skip</PressButton>\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/PressButton.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/press-button.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "profile-card",
     "name": "Profile Card",
     "tagline": "Dark social profile card with painted blue cover art",
@@ -4525,6 +5166,112 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "settle-modal",
+    "name": "SettleModal",
+    "tagline": "Content scales and settles, never fades",
+    "description": "A modal whose content has a tiny scale/settle instead of a generic fade. The panel scales 0.94 -> 1.02 -> 1.0 with a small y travel, then the inner content layers its own gentle settle on top.",
+    "category": "Overlays",
+    "badges": [
+      "Scale Settle",
+      "Layered Motion",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/settle-modal",
+    "features": [
+      "Panel animates scale 0.94 -> 1.02 -> 1.0 with ease-soft curve for a tactile \"settle\"",
+      "Inner content has its own layered scale-up (0.98 -> 1.0) for a nested feel",
+      "Escape key dismisses; backdrop click closes by default (toggle via closeOnBackdrop)",
+      "Scroll lock while open; restores previous overflow on close",
+      "Three size presets (sm / md / lg) with optional title, description, and footer slots"
+    ],
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Whether the modal is open"
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Called when the modal should close"
+      },
+      {
+        "name": "title",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Optional title rendered at the top"
+      },
+      {
+        "name": "description",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Optional secondary description below the title"
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Main content area"
+      },
+      {
+        "name": "footer",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Footer area, typically action buttons"
+      },
+      {
+        "name": "hideCloseButton",
+        "type": "boolean",
+        "default": "false",
+        "description": "Hide the close (X) button"
+      },
+      {
+        "name": "closeOnBackdrop",
+        "type": "boolean",
+        "default": "true",
+        "description": "Click on backdrop closes the modal"
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "default": "'md'",
+        "description": "Maximum width preset"
+      }
+    ],
+    "accessibility": [
+      "role=\"dialog\" with aria-modal=\"true\" and aria-labelledby wired to the title",
+      "Body scroll lock while open; restored on close",
+      "Escape key dismisses; focus-ring on the close button",
+      "Reduced-motion users get the same content but the entry curve is shorter"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { useState } from \"react\";\nimport { SettleModal } from \"@/components/ui/settle-modal\";\nimport { PressButton } from \"@/components/ui/press-button\";\n\nexport function Demo() {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <PressButton onClick={() => setOpen(true)}>Open modal</PressButton>\n      <SettleModal\n        open={open}\n        onClose={() => setOpen(false)}\n        title=\"Confirm archive\"\n        description=\"Archived projects can be restored within 30 days.\"\n        footer={\n          <>\n            <PressButton variant=\"ghost\" onClick={() => setOpen(false)}>Cancel</PressButton>\n            <PressButton variant=\"primary\" onClick={() => setOpen(false)}>Archive</PressButton>\n          </>\n        }\n      >\n        <p className=\"text-sm text-[#A1A1A1] leading-relaxed\">\n          This project and its 14 components will be moved to the archive.\n        </p>\n      </SettleModal>\n    </>\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/SettleModal.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/settle-modal.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "sign-up",
     "name": "Sign Up",
     "tagline": "Multi-step capable user registration with strength telemetry",
@@ -4625,6 +5372,93 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/components/ui/SignUp.tsx",
         "type": "registry:ui",
         "target": "components/ui/sign-up.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "slide-pagination",
+    "name": "SlidePagination",
+    "tagline": "Active indicator slides between pages",
+    "description": "A pagination control where the active indicator slides between pages rather than instantly switching. The active background uses shared layoutId so the indicator visibly travels from one item to the next.",
+    "category": "Navigation",
+    "badges": [
+      "Shared Layout",
+      "Indicator Travel",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/slide-pagination",
+    "features": [
+      "Active background uses framer-motion shared layoutId for visible travel between pages",
+      "Snappy spring (springSnappy) drives the indicator for a precise, physical feel",
+      "Configurable siblingCount for windowed page ranges with ellipsis",
+      "Optional previous / next controls; disabled at boundaries",
+      "Light/dark theme aware — works in both palettes"
+    ],
+    "props": [
+      {
+        "name": "pageCount",
+        "type": "number",
+        "default": "undefined",
+        "description": "Total number of pages"
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "default": "undefined",
+        "description": "Controlled current page"
+      },
+      {
+        "name": "defaultPage",
+        "type": "number",
+        "default": "1",
+        "description": "Initial current page (uncontrolled)"
+      },
+      {
+        "name": "siblingCount",
+        "type": "number",
+        "default": "1",
+        "description": "Visible pages around the current one"
+      },
+      {
+        "name": "onChange",
+        "type": "(page: number) => void",
+        "default": "undefined",
+        "description": "Page change callback"
+      },
+      {
+        "name": "showControls",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show previous / next buttons"
+      }
+    ],
+    "accessibility": [
+      "aria-current=\"page\" on the active item; aria-label per page button",
+      "Disabled state on prev/next at boundaries",
+      "Focus-ring visible on keyboard navigation"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { SlidePagination } from \"@/components/ui/slide-pagination\";\n\nexport function Demo() {\n  return (\n    <div className=\"flex items-center justify-center\">\n      <SlidePagination pageCount={12} defaultPage={5} siblingCount={1} />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/SlidePagination.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/slide-pagination.tsx"
       },
       {
         "path": "src/lib/utils.ts",
@@ -5014,6 +5848,107 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
     ]
   },
   {
+    "id": "spring-select",
+    "name": "SpringSelect",
+    "tagline": "Menu follows the trigger with a tiny spring",
+    "description": "A select dropdown whose menu follows the trigger with a tiny spring. The chevron rotates a hair past 180° before settling, and the panel slides down with a subtle overshoot.",
+    "category": "Forms",
+    "badges": [
+      "Origin Spring",
+      "Keyboard",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/spring-select",
+    "features": [
+      "Dropdown panel springs from the trigger with a subtle scale: 0.98 -> 1 overshoot",
+      "Chevron rotates to 192° (slightly past 180°) and settles back via snappy spring",
+      "Keyboard navigation: ArrowUp/Down to move, Enter to select, Escape to close",
+      "Hover and active item highlight via tracked activeIndex state",
+      "Selected item checkmark that follows selection through the spring motion",
+      "Light/dark theme aware via CSS variables — works in both palettes"
+    ],
+    "props": [
+      {
+        "name": "options",
+        "type": "SpringSelectOption[]",
+        "default": "[]",
+        "description": "Array of options with value, label, optional description, and disabled"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "default": "undefined",
+        "description": "Controlled value"
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "default": "undefined",
+        "description": "Initial value (uncontrolled)"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "'Select…'",
+        "description": "Placeholder text when no value is selected"
+      },
+      {
+        "name": "onChange",
+        "type": "(value: string) => void",
+        "default": "undefined",
+        "description": "Called when a new value is selected"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Visible label rendered above the trigger"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Prevents interaction"
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "default": "undefined",
+        "description": "Error message; presence triggers danger styling"
+      }
+    ],
+    "accessibility": [
+      "aria-haspopup / aria-expanded / aria-selected / aria-disabled on appropriate elements",
+      "Full keyboard navigation with proper focus restoration to trigger on close",
+      "Escape key dismisses the panel without changing the value",
+      "Disabled state is conveyed to assistive tech"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { SpringSelect } from \"@/components/ui/spring-select\";\n\nexport function Demo() {\n  return (\n    <div className=\"max-w-sm\">\n      <SpringSelect\n        label=\"Workspace\"\n        placeholder=\"Choose a workspace\"\n        defaultValue=\"design\"\n        options={[\n          { value: \"design\", label: \"Design Team\", description: \"12 members\" },\n          { value: \"eng\", label: \"Engineering\", description: \"34 members\" },\n          { value: \"ops\", label: \"Operations\", description: \"8 members\" },\n          { value: \"labs\", label: \"R&D Labs\", description: \"5 members\", disabled: true },\n        ]}\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/SpringSelect.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/spring-select.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
     "id": "stack-unfold-panel",
     "name": "Stack Unfold Panel",
     "tagline": "Progressive disclosure card stack with spring height animation",
@@ -5079,6 +6014,92 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/components/ui/StackUnfoldPanel.tsx",
         "type": "registry:ui",
         "target": "components/ui/stack-unfold-panel.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "stretch-switch",
+    "name": "StretchSwitch",
+    "tagline": "Thumb stretches on press, then snaps",
+    "description": "A toggle switch whose thumb stretches slightly while dragging or pressing, then snaps naturally to its destination via a snappy spring.",
+    "category": "Forms",
+    "badges": [
+      "Stretch Physics",
+      "Spring Snap",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/stretch-switch",
+    "features": [
+      "Thumb scaleX -> 1.18 / scaleY -> 0.86 while pointer is held for a tactile stretch",
+      "Snappy spring (springSnappy) drives the snap to the new x position on release",
+      "Press state is captured via pointerdown / pointerup, so it works for keyboard activations too",
+      "Controlled / uncontrolled state, with onChange callback",
+      "Light/dark theme aware via CSS variables — works in both palettes"
+    ],
+    "props": [
+      {
+        "name": "checked",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled checked state"
+      },
+      {
+        "name": "defaultChecked",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial checked state (uncontrolled)"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Prevents interaction"
+      },
+      {
+        "name": "onChange",
+        "type": "(checked: boolean) => void",
+        "default": "undefined",
+        "description": "Called when the switch toggles"
+      },
+      {
+        "name": "label",
+        "type": "React.ReactNode",
+        "default": "undefined",
+        "description": "Label text on the left"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Helper text below the label"
+      }
+    ],
+    "accessibility": [
+      "role=\"switch\" with aria-checked for assistive technology",
+      "Pointer-based stretch effect does not interfere with keyboard activation",
+      "Disabled state communicated both visually and to AT"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { StretchSwitch } from \"@/components/ui/stretch-switch\";\n\nexport function Demo() {\n  return (\n    <div className=\"space-y-3 max-w-sm\">\n      <StretchSwitch\n        label=\"Reduce motion\"\n        description=\"Disables parallax and large translations across the app.\"\n        defaultChecked\n      />\n      <StretchSwitch\n        label=\"Show pre-release features\"\n        description=\"Toggle to preview experiments in the dashboard.\"\n      />\n    </div>\n  );\n}",
+    "dependencies": [
+      "framer-motion"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/StretchSwitch.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/stretch-switch.tsx"
       },
       {
         "path": "src/lib/utils.ts",
@@ -5444,6 +6465,174 @@ export const EASY_COMPONENTS: EasyComponentMeta[] = [
         "path": "src/components/ui/UndoToast.tsx",
         "type": "registry:ui",
         "target": "components/ui/undo-toast.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "unfold-accordion",
+    "name": "UnfoldAccordion",
+    "tagline": "Content unfolds with chevron and spacing",
+    "description": "An accordion whose content unfolds with the chevron and spacing moving together. The chevron rotates 180° while the content height expands and the inner content slides up to close the gap, producing a single, fluid motion.",
+    "category": "Feedback",
+    "badges": [
+      "Coordinated Motion",
+      "Spring Height",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/unfold-accordion",
+    "features": [
+      "Chevron rotation, content height, and inner content slide are tuned to overlap",
+      "Inner content uses a slightly faster ease so it \"leads\" the chevron by a hair",
+      "Spring-based height expansion (springGentle) for a calm, continuous feel",
+      "Single-open by default; allowMultiple for multi-open mode",
+      "Light/dark theme aware — works in both palettes"
+    ],
+    "props": [
+      {
+        "name": "items",
+        "type": "UnfoldAccordionItem[]",
+        "default": "[]",
+        "description": "Array of accordion items"
+      },
+      {
+        "name": "allowMultiple",
+        "type": "boolean",
+        "default": "false",
+        "description": "Allow multiple items open at once"
+      },
+      {
+        "name": "defaultOpen",
+        "type": "string[]",
+        "default": "[]",
+        "description": "Ids of items open by default"
+      }
+    ],
+    "accessibility": [
+      "aria-expanded reflects open state on the trigger button",
+      "Native <button> semantics for keyboard activation",
+      "Focus-ring visible on keyboard navigation"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { UnfoldAccordion } from \"@/components/ui/unfold-accordion\";\n\nexport function Demo() {\n  return (\n    <UnfoldAccordion\n      defaultOpen={[\"design\"]}\n      items={[\n        {\n          id: \"design\",\n          title: \"Design tokens\",\n          subtitle: \"Foundations\",\n          content: \"A small set of variables for color, type, and spacing. Each token is named for its role, not its value, so themes can be swapped without rewriting components.\",\n        },\n        {\n          id: \"motion\",\n          title: \"Motion language\",\n          subtitle: \"Spring physics\",\n          content: \"Every transition is a spring with explicit mass, stiffness, and damping. Linear easing is reserved for color and opacity only.\",\n        },\n        {\n          id: \"shipping\",\n          title: \"Shipping workflow\",\n          subtitle: \"From sync to deploy\",\n          content: \"Run component:sync to regenerate the registry, then push. The CI workflow re-validates and re-syncs on every PR.\",\n        },\n      ]}\n    />\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/UnfoldAccordion.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/unfold-accordion.tsx"
+      },
+      {
+        "path": "src/lib/utils.ts",
+        "type": "registry:lib",
+        "target": "lib/utils.ts"
+      },
+      {
+        "path": "src/lib/motion-tokens.ts",
+        "type": "registry:lib",
+        "target": "lib/motion-tokens.ts"
+      }
+    ]
+  },
+  {
+    "id": "velocity-toast",
+    "name": "VelocityToast",
+    "tagline": "Enters with velocity, settles naturally",
+    "description": "A toast that enters with velocity and settles, with a progress indicator that responds naturally — pauses on hover, resumes with no jump, and eases slightly in the final 10% so dismissal feels intentional.",
+    "category": "Feedback",
+    "badges": [
+      "Velocity Entry",
+      "Natural Progress",
+      "Accessible",
+      "Light & Dark"
+    ],
+    "cliCommand": "npx shadcn@latest add Surajmaurya1/easyui/velocity-toast",
+    "features": [
+      "Entry animation starts further out (y: 22px) for higher perceived velocity, then springs to rest",
+      "Progress indicator uses a slight ease-in (pow 1.05) so the final 10% feels decisive",
+      "Hover pauses progress without visual jump; resume picks up from the remaining time",
+      "6 position presets, 5 variant tones, optional custom icon",
+      "Light/dark theme aware — works in both palettes"
+    ],
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Whether the toast is visible"
+      },
+      {
+        "name": "onDismiss",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Called when toast is dismissed (auto or manual)"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "undefined",
+        "description": "Toast title"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Secondary description"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "4000",
+        "description": "Auto-dismiss duration in ms"
+      },
+      {
+        "name": "variant",
+        "type": "'default' | 'success' | 'warning' | 'error' | 'info'",
+        "default": "'default'",
+        "description": "Visual tone"
+      },
+      {
+        "name": "position",
+        "type": "VelocityToastPosition",
+        "default": "'bottom-center'",
+        "description": "Screen placement"
+      },
+      {
+        "name": "showProgress",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show countdown progress bar"
+      }
+    ],
+    "accessibility": [
+      "role=\"status\" with aria-live=\"polite\" for screen readers",
+      "Hover pause is non-disruptive — no focus traps or input blocking",
+      "Visual close button is keyboard-reachable with focus-ring"
+    ],
+    "createdAt": "2026-09-03",
+    "usageCode": "import { useState } from \"react\";\nimport { VelocityToast } from \"@/components/ui/velocity-toast\";\nimport { PressButton } from \"@/components/ui/press-button\";\n\nexport function Demo() {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <PressButton onClick={() => setOpen(true)}>Show toast</PressButton>\n      <VelocityToast\n        open={open}\n        onDismiss={() => setOpen(false)}\n        title=\"File uploaded\"\n        description=\"easyui-2026-09.zip is ready.\"\n        variant=\"success\"\n        position=\"bottom-right\"\n      />\n    </>\n  );\n}",
+    "dependencies": [
+      "framer-motion",
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/VelocityToast.tsx",
+        "type": "registry:ui",
+        "target": "components/ui/velocity-toast.tsx"
       },
       {
         "path": "src/lib/utils.ts",
