@@ -104,6 +104,17 @@ import { BookCallButton } from '../ui/BookCallButton';
 import { GooeyMenu } from '../ui/GooeyMenu';
 import { MorphingShapeLoader } from '../ui/MorphingShapeLoader';
 import { LiquidToggle } from '../ui/LiquidToggle';
+import { PressButton } from '../ui/PressButton';
+import { LockInput } from '../ui/LockInput';
+import { SpringSelect } from '../ui/SpringSelect';
+import { DrawCheckbox } from '../ui/DrawCheckbox';
+import { StretchSwitch } from '../ui/StretchSwitch';
+import { SettleModal } from '../ui/SettleModal';
+import { VelocityToast } from '../ui/VelocityToast';
+import { DirectionalTooltip } from '../ui/DirectionalTooltip';
+import { OriginDropdown } from '../ui/OriginDropdown';
+import { UnfoldAccordion } from '../ui/UnfoldAccordion';
+import { SlidePagination } from '../ui/SlidePagination';
 
 export type MainTab = 'preview' | 'usage' | 'code' | 'props' | 'accessibility';
 export type PkgManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
@@ -538,6 +549,84 @@ const TorqueDialShowcase: React.FC = () => {
         />
         <span className="text-xs text-[#6B6B6B]">Click and drag or use mouse wheel to rotate dial with physical momentum</span>
       </div>
+    </div>
+  );
+};
+
+const ToastDemo: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="px-4 py-2 rounded-lg bg-[var(--text-primary)] text-[var(--bg)] text-xs font-medium cursor-pointer"
+      >
+        Show toast
+      </button>
+      <VelocityToast
+        open={open}
+        onDismiss={() => setOpen(false)}
+        title="File uploaded"
+        description="ready to share"
+        duration={3500}
+        position="bottom-center"
+        variant="success"
+      />
+    </div>
+  );
+};
+
+const SettleModalDemo: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="px-4 py-2 rounded-lg bg-[var(--text-primary)] text-[var(--bg)] text-xs font-medium cursor-pointer"
+      >
+        Open modal
+      </button>
+      <SettleModal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Confirm archive"
+        description="This will archive the project and notify collaborators."
+        size="sm"
+        footer={
+          <>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="px-3 py-1.5 rounded-lg text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-raised)] transition-colors cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="px-3 py-1.5 rounded-lg bg-[var(--text-primary)] text-[var(--bg)] text-xs font-medium cursor-pointer"
+            >
+              Archive
+            </button>
+          </>
+        }
+      />
+    </>
+  );
+};
+
+const SlidePaginationDemo: React.FC = () => {
+  const [page, setPage] = useState(3);
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <SlidePagination
+        pageCount={12}
+        page={page}
+        onChange={setPage}
+        siblingCount={1}
+      />
     </div>
   );
 };
@@ -1797,6 +1886,130 @@ const completion = await client.completions.create({
         return (
           <div className="py-12 flex flex-col items-center justify-center">
             <LiquidToggle key={demoKey} width={88} height={44} />
+          </div>
+        );
+      case 'press-button':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center gap-3">
+            <PressButton variant="primary" size="md" onClick={() => {}}>
+              Save changes
+            </PressButton>
+            <PressButton variant="outline" size="md" onClick={() => {}}>
+              Cancel
+            </PressButton>
+          </div>
+        );
+      case 'lock-input':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center w-full max-w-sm mx-auto">
+            <LockInput label="Email" placeholder="you@studio.dev" defaultValue="you@studio.dev" />
+          </div>
+        );
+      case 'spring-select':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center w-full max-w-sm mx-auto">
+            <SpringSelect
+              label="Workspace"
+              options={[
+                { value: 'design', label: 'Design Team' },
+                { value: 'engineering', label: 'Engineering' },
+                { value: 'marketing', label: 'Marketing' },
+              ]}
+              defaultValue="design"
+            />
+          </div>
+        );
+      case 'draw-checkbox':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center gap-4">
+            <div className="flex items-center gap-3">
+              <DrawCheckbox defaultChecked label="Product updates" />
+              <DrawCheckbox label="Newsletter" />
+              <DrawCheckbox indeterminate label="Beta features" />
+            </div>
+          </div>
+        );
+      case 'stretch-switch':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center gap-4">
+            <StretchSwitch defaultChecked label="Reduce motion" description="Disable spring animations" />
+            <StretchSwitch label="Dark mode" description="Toggle dark theme" />
+          </div>
+        );
+      case 'settle-modal':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center">
+            <SettleModalDemo />
+          </div>
+        );
+      case 'velocity-toast':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center">
+            <ToastDemo />
+          </div>
+        );
+      case 'directional-tooltip':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center gap-6">
+            <DirectionalTooltip side="top" content="Save your changes">
+              <button className="px-3.5 py-1.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[11px] text-[var(--text-primary)]">Save</button>
+            </DirectionalTooltip>
+            <div className="flex gap-6">
+              <DirectionalTooltip side="left" content="Profile">
+                <button className="px-3.5 py-1.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[11px] text-[var(--text-primary)]">←</button>
+              </DirectionalTooltip>
+              <DirectionalTooltip side="right" content="Settings">
+                <button className="px-3.5 py-1.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[11px] text-[var(--text-primary)]">→</button>
+              </DirectionalTooltip>
+            </div>
+          </div>
+        );
+      case 'origin-dropdown':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center gap-4">
+            <OriginDropdown
+              side="bottom"
+              items={[
+                { id: 'p', label: 'Profile', description: 'Manage account' },
+                { id: 's', label: 'Settings', description: 'App preferences' },
+                { id: 'o', label: 'Sign out', destructive: true },
+              ]}
+            />
+            <OriginDropdown
+              side="top"
+              placeholder="Origin top"
+              items={[{ id: 'a', label: 'Above trigger' }]}
+            />
+          </div>
+        );
+      case 'unfold-accordion':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center w-full max-w-md mx-auto">
+            <UnfoldAccordion
+              items={[
+                {
+                  id: '1',
+                  title: 'What is spring physics?',
+                  content: 'Spring tokens drive motion across the system so the chevron, height, and content move together.',
+                },
+                {
+                  id: '2',
+                  title: 'How does it feel different?',
+                  content: 'Each interaction has a specific motion character, not a generic transition.',
+                },
+                {
+                  id: '3',
+                  title: 'Is it accessible?',
+                  content: 'Yes — full keyboard support, ARIA roles, and focus management are built in.',
+                },
+              ]}
+            />
+          </div>
+        );
+      case 'slide-pagination':
+        return (
+          <div className="py-12 flex flex-col items-center justify-center">
+            <SlidePaginationDemo />
           </div>
         );
       default:
