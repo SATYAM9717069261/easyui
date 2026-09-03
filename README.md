@@ -129,10 +129,9 @@ Created with care by **Suraj Maurya**.
 
 - **LinkedIn**: [linkedin.com/in/suraj-maurya-33a91325a](https://www.linkedin.com/in/suraj-maurya-33a91325a/)
 - **Email**: [surajmaurya.pvt@gmail.com](mailto:surajmaurya.pvt@gmail.com)
-- **GitHub**: [@Surajmaurya1](https://github.com/Surajmaurya1)
 
 ---
 
-## 📄 License
+##  License
 
 Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
