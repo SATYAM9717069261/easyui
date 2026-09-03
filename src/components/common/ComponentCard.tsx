@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { EasyComponentMeta } from '../../types/component';
-import { Copy, Check, Sparkles, Code2, Terminal, Bell, Search, X, ArrowUpRight } from 'lucide-react';
+import { Copy, Check, Sparkles, Code2, Terminal, Bell, Search, X, ArrowUpRight, ChevronDown } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 import { SpotlightCard } from '../ui/SpotlightCard';
 import { ExpandableSearch } from '../ui/ExpandableSearch';
@@ -30,6 +30,8 @@ import { CircularOrbit } from '../ui/CircularOrbit';
 import { ProfileCard } from '../ui/ProfileCard';
 import { BookCallButton } from '../ui/BookCallButton';
 import { GooeyMenu } from '../ui/GooeyMenu';
+import { MorphingShapeLoader } from '../ui/MorphingShapeLoader';
+import { LiquidToggle } from '../ui/LiquidToggle';
 import { NewBadge } from './NewBadge';
 import { isComponentNew } from '../../lib/components';
 import { copyToClipboard, cn } from '../../lib/utils';
@@ -1120,6 +1122,340 @@ export const ComponentCard: React.FC<ComponentCardProps> = ({
                 <GooeyMenu open={hovered} defaultValue="Home" />
               </div>
             </div>
+          </div>
+        );
+
+      case 'morphing-shape-loader':
+        return (
+          <div className="h-52 w-full flex items-center justify-center p-4 pointer-events-none overflow-hidden">
+            <MorphingShapeLoader
+              key={hovered ? 'hovered' : 'idle'}
+              size={130}
+              shapes={['circle', 'square', 'triangle', 'hexagon', 'star', 'pentagon']}
+              duration={0.9}
+              strokeWidth={0.06}
+            />
+          </div>
+        );
+      case 'liquid-toggle':
+        return (
+          <div className="h-52 flex items-center justify-center p-4">
+            <LiquidToggle
+              key={hovered ? 'hovered' : 'idle'}
+              defaultValue={hovered}
+              width={80}
+              height={40}
+            />
+          </div>
+        );
+
+      // -------------------------------------------------------------------------
+      // Micro-interaction components (light & dark theme aware)
+      // -------------------------------------------------------------------------
+      case 'press-button':
+        return (
+          <div className="h-52 flex items-center justify-center p-4">
+            <div className="flex items-center gap-2.5 pointer-events-none">
+              <motion.span
+                animate={{ scale: hovered ? 0.96 : 1, y: hovered ? 1 : 0 }}
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                className="px-3.5 py-2 rounded-lg bg-[var(--text-primary)] text-[var(--bg)] text-xs font-medium shadow"
+              >
+                Save changes
+              </motion.span>
+              <motion.span
+                animate={{ scale: hovered ? 0.97 : 1 }}
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                className="px-3.5 py-2 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--text-primary)] text-xs font-medium"
+              >
+                Cancel
+              </motion.span>
+            </div>
+          </div>
+        );
+      case 'lock-input':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <div className="w-full max-w-[220px] space-y-1.5">
+              <div className="text-xs font-medium text-[var(--text-primary)] tracking-tight">Email</div>
+              <div className="relative">
+                <input
+                  readOnly
+                  value="you@studio.dev"
+                  className="w-full h-9 px-3 text-sm text-[var(--text-primary)] bg-[var(--surface)] rounded-lg outline-none border border-[var(--border)]"
+                  style={{
+                    borderColor: hovered ? 'var(--border-hover)' : 'var(--border)',
+                    boxShadow: hovered
+                      ? '0 0 0 2px var(--accent-ring), inset 0 0 0 1px var(--border-hover)'
+                      : 'none',
+                    transition: 'box-shadow 0.2s ease, border-color 0.2s ease',
+                  }}
+                />
+              </div>
+              <div className="text-[10px] text-[var(--text-muted)]">Focus state locks into place</div>
+            </div>
+          </div>
+        );
+      case 'spring-select':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <div className="w-full max-w-[220px]">
+              <div className="text-[10px] font-medium text-[var(--text-primary)] tracking-tight mb-1.5">Workspace</div>
+              <div
+                className="relative h-8 px-3 rounded-lg border flex items-center justify-between text-[11px] text-[var(--text-primary)]"
+                style={{
+                  backgroundColor: 'var(--surface)',
+                  borderColor: hovered ? 'var(--border-hover)' : 'var(--border)',
+                  transition: 'border-color 0.2s ease',
+                }}
+              >
+                <span className="text-[var(--text-primary)]">Design Team</span>
+                <motion.span
+                  animate={{ rotate: hovered ? 192 : 0 }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  className="text-[var(--text-secondary)]"
+                >
+                  <ChevronDown className="w-3 h-3" />
+                </motion.span>
+              </div>
+            </div>
+          </div>
+        );
+      case 'draw-checkbox':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <div className="w-full max-w-[220px] space-y-3">
+              <div className="flex items-center gap-2.5">
+                <motion.div
+                  animate={{
+                    scale: hovered ? [0.9, 1.04, 1] : 1,
+                    backgroundColor: hovered ? 'var(--text-primary)' : 'var(--surface)',
+                    borderColor: hovered ? 'var(--text-primary)' : 'var(--border)',
+                  }}
+                  transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-4 h-4 rounded-[4px] border flex items-center justify-center"
+                >
+                  {hovered && (
+                    <motion.svg
+                      viewBox="0 0 16 16"
+                      width="10"
+                      height="10"
+                      fill="none"
+                      stroke="var(--bg)"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      initial={{ pathLength: 0, scale: 0.6 }}
+                      animate={{ pathLength: 1, scale: [0.6, 1.18, 1] }}
+                      transition={{
+                        pathLength: { duration: 0.28, ease: [0.65, 0, 0.35, 1] },
+                        scale: { duration: 0.36, ease: [0.16, 1, 0.3, 1] },
+                      }}
+                    >
+                      <motion.path
+                        d="M3.5 8.5 L6.5 11.5 L12.5 5"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.28, ease: [0.65, 0, 0.35, 1] }}
+                      />
+                    </motion.svg>
+                  )}
+                </motion.div>
+                <span className="text-[11px] font-medium text-[var(--text-primary)]">Product updates</span>
+              </div>
+              <div className="text-[10px] text-[var(--text-muted)] pl-7">Checkmark draws and overshoots</div>
+            </div>
+          </div>
+        );
+      case 'stretch-switch':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <div className="w-full max-w-[220px] flex items-center justify-between">
+              <span className="text-[11px] font-medium text-[var(--text-primary)]">Reduce motion</span>
+              <div
+                className="relative inline-flex h-5 w-9 rounded-full border"
+                style={{
+                  backgroundColor: hovered ? 'var(--text-primary)' : 'var(--surface)',
+                  borderColor: hovered ? 'var(--text-primary)' : 'var(--border)',
+                  padding: '0 2px',
+                  transition: 'background-color 0.2s, border-color 0.2s',
+                }}
+              >
+                <motion.span
+                  animate={{
+                    x: hovered ? 18 : 0,
+                    scaleX: hovered ? 1.18 : 1,
+                    scaleY: hovered ? 0.86 : 1,
+                  }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  style={{ width: 14, height: 14, originY: 0.5 }}
+                  className="my-auto rounded-full shadow-xs"
+                >
+                  <span
+                    className="block w-full h-full rounded-full"
+                    style={{ backgroundColor: hovered ? 'var(--bg)' : 'var(--text-secondary)' }}
+                  />
+                </motion.span>
+              </div>
+            </div>
+          </div>
+        );
+      case 'settle-modal':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <motion.div
+              animate={{ scale: hovered ? [0.94, 1.02, 1] : 1, y: hovered ? 0 : 0 }}
+              transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-[230px] rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-[var(--shadow-elevated)]"
+            >
+              <div className="text-[11px] font-semibold text-[var(--text-primary)]">Confirm archive</div>
+              <div className="text-[10px] text-[var(--text-secondary)] mt-1">Content scales and settles</div>
+              <div className="mt-2.5 flex justify-end gap-1.5">
+                <span className="px-2 py-1 text-[10px] rounded-md text-[var(--text-secondary)]">Cancel</span>
+                <span className="px-2 py-1 text-[10px] rounded-md bg-[var(--text-primary)] text-[var(--bg)] font-medium">Archive</span>
+              </div>
+            </motion.div>
+          </div>
+        );
+      case 'velocity-toast':
+        return (
+          <div className="h-52 flex items-end justify-center p-3 pointer-events-none overflow-hidden">
+            <motion.div
+              animate={{ y: hovered ? [22, 0] : 0, opacity: hovered ? 1 : 0.85, scale: hovered ? 1 : 0.96 }}
+              transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              className="w-full max-w-[230px] rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2.5 shadow-[var(--shadow-elevated)]"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-6 h-6 rounded-md bg-[var(--surface-raised)] border border-[var(--border)] flex items-center justify-center text-emerald-400 text-[12px]">✓</span>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-semibold text-[var(--text-primary)] truncate">File uploaded</div>
+                  <div className="text-[9px] text-[var(--text-secondary)] truncate">ready to share</div>
+                </div>
+              </div>
+              <div className="mt-1.5 h-[2px] w-full bg-[var(--border)] rounded-full overflow-hidden">
+                <motion.div
+                  animate={{ width: hovered ? '8%' : '78%' }}
+                  transition={{ duration: 1.2 }}
+                  className="h-full bg-[var(--text-primary)]"
+                />
+              </div>
+            </motion.div>
+          </div>
+        );
+      case 'directional-tooltip':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <div className="relative">
+              <span className="px-3 py-1.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[11px] text-[var(--text-primary)]">
+                Save
+              </span>
+              <motion.div
+                animate={{
+                  opacity: hovered ? 1 : 0,
+                  scale: hovered ? 1 : 0.94,
+                  y: hovered ? -8 : 0,
+                }}
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2 py-1 rounded-md border border-[var(--border)] bg-[var(--surface)] text-[10px] text-[var(--text-primary)] whitespace-nowrap shadow-md"
+              >
+                Save your changes
+                <span
+                  className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 border-4 border-l-transparent border-r-transparent border-b-transparent"
+                  style={{ borderTopColor: 'var(--border)' }}
+                />
+              </motion.div>
+            </div>
+          </div>
+        );
+      case 'origin-dropdown':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <div className="relative">
+              <span className="inline-flex items-center gap-2 px-3 h-8 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[11px] text-[var(--text-primary)]">
+                Account
+                <motion.span
+                  animate={{ rotate: hovered ? 180 : 0 }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  className="text-[var(--text-secondary)]"
+                >
+                  <ChevronDown className="w-3 h-3" />
+                </motion.span>
+              </span>
+              <motion.div
+                animate={{
+                  opacity: hovered ? 1 : 0,
+                  scale: hovered ? 1 : 0.96,
+                  y: hovered ? 0 : -8,
+                }}
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                className="absolute top-full left-0 mt-2 w-44 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-elevated)] origin-top-left"
+              >
+                <div className="px-3 py-1.5 text-[11px] text-[var(--text-primary)] hover:bg-[var(--surface-raised)] rounded-md mx-1">Profile</div>
+                <div className="px-3 py-1.5 text-[11px] text-[var(--text-primary)] hover:bg-[var(--surface-raised)] rounded-md mx-1">Preferences</div>
+                <div className="px-3 py-1.5 text-[11px] text-rose-400 rounded-md mx-1">Sign out</div>
+              </motion.div>
+            </div>
+          </div>
+        );
+      case 'unfold-accordion':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <div className="w-full max-w-[240px] rounded-xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden">
+              <div className="flex items-center justify-between p-2.5 text-[11px] font-medium text-[var(--text-primary)]">
+                <span>Spring physics</span>
+                <motion.span
+                  animate={{ rotate: hovered ? 180 : 0 }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  className="text-[var(--text-secondary)]"
+                >
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </motion.span>
+              </div>
+              <AnimatePresence initial={false}>
+                {hovered && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ type: 'spring', stiffness: 280, damping: 30 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-2.5 pb-2.5 pt-0 text-[10px] text-[var(--text-secondary)] leading-relaxed">
+                      Spring tokens coordinate chevron, height, and content.
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        );
+      case 'slide-pagination':
+        return (
+          <div className="h-52 flex items-center justify-center p-3 pointer-events-none">
+            <nav className="inline-flex items-center gap-1" aria-label="Pagination">
+              {(() => {
+                const active = hovered ? 4 : 2;
+                return [1, 2, 3, 4, 5, 6, 7].map((p) => {
+                  const isActive = p === active;
+                  return (
+                    <button
+                      key={p}
+                      className="relative w-7 h-7 inline-flex items-center justify-center rounded-md text-[11px] font-medium"
+                      style={{ color: isActive ? 'var(--bg)' : 'var(--text-secondary)' }}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="slide-pagination-card-pill"
+                          className="absolute inset-0 rounded-md bg-[var(--text-primary)] border border-[var(--text-primary)] shadow-xs"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-10">{p}</span>
+                    </button>
+                  );
+                });
+              })()}
+            </nav>
           </div>
         );
 

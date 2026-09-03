@@ -226,4 +226,56 @@ export type { BookCallButtonProps } from './BookCallButton';
 export { GooeyMenu } from './GooeyMenu';
 export type { GooeyMenuProps } from './GooeyMenu';
 
+// -----------------------------------------------------------------------------
+// Micro-interaction components (light & dark theme aware, design-system strict)
+// -----------------------------------------------------------------------------
+
+export { PressButton } from './PressButton';
+export type { PressButtonProps, PressButtonVariant, PressButtonSize } from './PressButton';
+
+export { LockInput } from './LockInput';
+export type { LockInputProps } from './LockInput';
+
+export { SpringSelect } from './SpringSelect';
+export type { SpringSelectProps, SpringSelectOption } from './SpringSelect';
+
+export { DrawCheckbox } from './DrawCheckbox';
+export type { DrawCheckboxProps } from './DrawCheckbox';
+
+export { StretchSwitch } from './StretchSwitch';
+export type { StretchSwitchProps } from './StretchSwitch';
+
+export { SettleModal } from './SettleModal';
+export type { SettleModalProps } from './SettleModal';
+
+export { VelocityToast } from './VelocityToast';
+export type {
+  VelocityToastProps,
+  VelocityToastVariant,
+  VelocityToastPosition,
+} from './VelocityToast';
+
+export { DirectionalTooltip } from './DirectionalTooltip';
+export type {
+  DirectionalTooltipProps,
+  TooltipSide,
+  TooltipAlign,
+} from './DirectionalTooltip';
+
+export { OriginDropdown } from './OriginDropdown';
+export type {
+  OriginDropdownProps,
+  OriginDropdownItem,
+  DropdownSide,
+} from './OriginDropdown';
+
+export { UnfoldAccordion } from './UnfoldAccordion';
+export type {
+  UnfoldAccordionProps,
+  UnfoldAccordionItem,
+} from './UnfoldAccordion';
+
+export { SlidePagination } from './SlidePagination';
+export type { SlidePaginationProps } from './SlidePagination';
+
 
